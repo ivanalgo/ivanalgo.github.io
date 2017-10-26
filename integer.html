@@ -1,0 +1,298 @@
+<html>
+<head>
+<title> Integer Calculator </title>
+<script type="text/javascript">
+/*
+ * All javascript functions are defined here.
+ */
+ 
+ function Integer()
+ {
+	this.sign = 0;
+	this.digits = new Array(64);
+	
+	for (var i = 0; i < 64; ++i) {
+		this.digits[i] = 0;
+	}
+	
+	this.time = function (factor) {
+		for (var i = 0; i < 64; ++i) {
+			this.digits[i] *= factor;
+		}
+		for (var i = 0; i < 63; ++i) {
+			this.digits[i + 1] += Math.floor(this.digits[i] / 10);
+			this.digits[i] %= 10;
+		}
+	}
+ 
+	this.add = function(num) {
+		this.digits[0] += num;
+		for (var i = 0; i < 63; ++i) {
+			this.digits[i + 1] += Math.floor(this.digits[i] / 10);
+			this.digits[i] %= 10;
+		}
+	}
+ 
+	this.toString = function() {
+		var str = "";
+		var i;
+		//skip the leading 0 bits
+		for (i = 63; i >= 1; i--) {
+			if (this.digits[i] != '0')
+				break;
+		}
+		
+		for (; i >= 0; i--) {
+			str += this.digits[i];
+		}
+	
+		return str;
+	}
+}
+
+
+ function Bin2Uint(binaryString)
+ {
+	var uint = new Integer();
+	for (var i = 0; i < 64; i++) {
+		uint.time(2);
+		uint.add(binaryString.charAt(i) == '1'? 1:0);
+	}
+	
+	return uint.toString();
+ }
+ 
+ function Bin2Hex(binaryString)
+ {
+	var hexString = "";
+	var hexTab = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+
+	// reverse the string, make LSB bit as the first bit
+	binaryString = binaryString.split("").reverse().join("")
+	for (var pos = 0; pos < binaryString.length; pos += 4) {
+		var val = 0;
+		for (var i = 0; i < Math.min(4, binaryString.length - pos); ++i) {
+			val = (val * 2) + ((binaryString.charAt(pos + i) == '1') ? 1 : 0);
+		}
+		hexString += hexTab[val];
+	}
+	hexString = hexString.split("").reverse().join("");
+	return hexString;
+ }
+ 
+  
+ function IntegerBinary(binaryString)
+ {
+	//alert("enter IntegerBinary ")
+	this.binaryString = binaryString
+	this.hexString =  Bin2Hex(binaryString)
+	this.uintString = Bin2Uint(binaryString)
+	//alert(this.hexString)
+ }
+
+  
+
+ function binaryChange()
+ {
+	//alert("chnage")
+	var binaryString = ""
+	
+	for (var i = 63; i >= 0; i--) {
+		var chkbox = document.getElementById("binary" + i)
+		if (chkbox.checked) {
+			binaryString += "1"
+		} else {
+			binaryString += "0"
+		}
+	}
+	//alert("finish")
+	//alert(binaryString)
+	var obj =  new IntegerBinary(binaryString)
+	
+	document.getElementById("binaryText64").value = obj.binaryString
+	document.getElementById("hexText64").value = obj.hexString
+	document.getElementById("uintText64").value = obj.uintString
+
+	
+	return true
+ }
+ 
+</script>
+</head>
+<body>
+<h1> Integer Calculator </h1>
+<table>
+  <tr>
+	<td> </td>
+	<td><input type = "checkbox" id = "binary63"  onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary62" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary61" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary60" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary59" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary58" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary57" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary56" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary55" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary54" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary53" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary52" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary51" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary50" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary49" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary48" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary47" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary46" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary45" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary44" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary43" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary42" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary41" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary40" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary39" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary38" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary37" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary36" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary35" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary34" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary33" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary32" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary31" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary30" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary29" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary28" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary27" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary26" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary25" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary24" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary23" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary22" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary21" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary20" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary19" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary18" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary17" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary16" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary15" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary14" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary13" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary12" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary11" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary10" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary9" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary8" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary7" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary6" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary5" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary4" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary3" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary2" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary1" onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary0" onchange = "binaryChange()" /> </td>	
+  </tr>
+  <tr>
+    <td>Bits:</td>
+	<td>63</td>
+	<td>62</td>
+	<td>61</td>
+	<td>60</td>
+	<td>59</td>
+	<td>58</td>
+	<td>57</td>
+	<td>56</td>
+	<td>55</td>
+	<td>54</td>
+	<td>53</td>
+	<td>52</td>
+	<td>51</td>
+	<td>50</td>
+	<td>49</td>
+	<td>48</td>
+	<td>47</td>
+	<td>46</td>
+	<td>45</td>
+	<td>44</td>
+	<td>43</td>
+	<td>42</td>
+	<td>41</td>
+	<td>40</td>
+	<td>39</td>
+	<td>38</td>
+	<td>37</td>
+	<td>36</td>
+	<td>35</td>
+	<td>34</td>
+	<td>33</td>
+	<td>32</td>
+	<td>31</td>
+	<td>30</td>
+	<td>29</td>
+	<td>28</td>
+	<td>27</td>
+	<td>26</td>
+	<td>25</td>
+	<td>24</td>
+	<td>23</td>
+	<td>22</td>
+	<td>21</td>
+	<td>20</td>
+	<td>19</td>
+	<td>18</td>
+	<td>17</td>
+	<td>16</td>
+	<td>15</td>
+	<td>14</td>
+	<td>13</td>
+	<td>12</td>
+	<td>11</td>
+	<td>10</td>
+	<td>9</td>
+	<td>8</td>
+	<td>7</td>
+	<td>6</td>
+	<td>5</td>
+	<td>4</td>
+	<td>3</td>
+	<td>2</td>
+	<td>1</td>
+	<td>0</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td> </td>
+    <td> 64 bit </td>
+	<td> 32 bit </td>
+	<td> 16 bit </td>
+	<td> 8  bit </td>
+  </tr>
+  <tr>
+    <td> binary: </td>
+	<td> <input type = "text" id = "binaryText64" size = 64 /> </td>
+	<td> <input type = "text" id = "binaryText32" size = 32 /> </td>
+	<td> <input type = "text" id = "binaryText16" size = 16 /> </td>
+	<td> <input type = "text" id = "binaryText8" size = 8 /> </td>
+  </tr>
+  <tr>
+    <td> hex: </td>
+	<td> <input type = "text" id = "hexText64" size = 64 /> </td>
+	<td> <input type = "text" id = "hexText32" size = 32 /> </td>
+	<td> <input type = "text" id = "hexText16" size = 16 /> </td>
+	<td> <input type = "text" id = "hexText8"  size = 8 /> </td>
+  </tr>
+  <tr>
+    <td> unsigned int: </td>
+	<td> <input type = "text" id = "uintText64" size = 64 /> </td>
+	<td> <input type = "text" id = "uintText32" size = 32 /> </td>
+	<td> <input type = "text" id = "uintText16" size = 16 /> </td>
+	<td> <input type = "text" id = "uintText8" size = 8 /> </td>
+  </tr>
+    <tr>
+    <td> signed int: </td>
+	<td> <input type = "text" id = "int64" size = 64 /> </td>
+	<td> <input type = "text" id = "int32" size = 32 /> </td>
+	<td> <input type = "text" id = "int16" size = 16 /> </td>
+	<td> <input type = "text" id = "int8" size = 8 /> </td>
+  </tr>
+</table>
+</body>
+</html>

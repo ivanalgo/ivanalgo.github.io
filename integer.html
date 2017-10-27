@@ -6,8 +6,10 @@
  * All javascript functions are defined here.
  */
  
- function Integer()
- {
+var hexTab = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+ 
+function Integer()
+{
 	this.sign = 0;
 	this.digits = new Array(64);
 	
@@ -32,6 +34,33 @@
 			this.digits[i] %= 10;
 		}
 	}
+	
+	this.div = function(num) {
+		var d = new Integer();
+		var r = 0;
+		
+		for (var i = 63; i >= 0; i--) {
+			r = r * 10 + this.digits[i];
+			d.time(10);
+			d.add(Math.floor(r / num));
+			
+			r = r % num;
+
+		}
+
+		return d;
+	}
+	
+	this.mod = function(num) {
+		var r = 0;
+		
+		for (var i = 63; i >= 0; i--) {
+			r = r * 10 + this.digits[i];
+			r = r % num;
+		}
+		
+		return r;
+	}
  
 	this.toString = function() {
 		var str = "";
@@ -48,7 +77,104 @@
 	
 		return str;
 	}
+	
+	this.clone = function() {
+		var copy = new Integer();
+		
+		copy.sign = this.sign
+		copy.digits = new Array(64)
+		for (var i = 0; i < 64; i++) {
+			copy.digits[i] = this.digits[i];
+		}
+		
+		return copy;
+	}
+	
+	this.valueOf = function(str, base) {
+		// base this default paramter
+		base = base || 10;
+		for (var i = 0; i < str.length; i++) {
+			var ch = parseInt(str.charAt(i));
+			if (isNaN(ch)) {
+				alert("false")
+			}
+		
+			if (ch < 0 || ch > base) {
+				alert("false")
+			}
+			this.time(base);
+			this.add(ch);
+		}
+	}
+	
+	this.lessThan =  function (value) {
+		for (var i = 63; i >= 0; i--) {
+			if (this.digits[i] > value.digits[i])
+				return false;
+				
+			if (this.digits[i] < value.digits[i])
+				return true;
+		}
+		
+		// these two number are equal to each other, so return false
+		return false;
+	}
+	
+	this.lessEqual = function(value) {
+		for (var i = 63; i >= 0; i--) {
+			if (this.digits[i] < value.digits[i])
+				return true;
+			
+			if (this.digits[i] > value.digits[i])
+				return false;
+		}
+		
+		// these two integer are equals to eachother, so less or equal is TRUE
+		return true;
+	}
+	
+	this.greatThan =  function (value) {
+		for (var i = 63; i >= 0; i--) {
+			if (this.digits[i] < value.digits[i])
+				return false;
+				
+			if (this.digits[i] > value.digits[i])
+				return true;
+		}	
+		return false;
+	}
+	
+	this.toBinString = function (len) {
+		var binStr = "";
+		var d, r;		
+		var i = 0;
+		
+		d = this.clone();
+		while (i++ < len) {
+			r = d.mod(2);
+			binStr += r;
+			d = d.div(2);
+		}
+		
+		return binStr.split("").reverse().join("");
+	}
+	
+	this.toHexString = function (len) {
+		var hexStr = "";
+		var d, r;
+		var i = 0;
+		
+		d = this.clone();
+		while (i++ < len) {
+			r = d.mod(16);
+			d = d.div(16);
+			hexStr += hexTab[r];
+		}
+		
+		return hexStr.split("").reverse().join("");
+	}
 }
+
  function Bin2Uint(binaryString)
  {
 	var uint = new Integer();
@@ -113,6 +239,28 @@
 	return true
  }
  
+ function uintChange(size)
+ {
+	var uintText = document.getElementById("uintText"+size).value;
+	var number = new Integer();
+	var zero = new Integer();
+	var max_int64 = new Integer();
+	
+	number.valueOf(uintText);
+	//alert(number.toString());
+
+	zero.valueOf("0");
+	max_int64.valueOf("18446744073709551615");
+
+	if (number.lessThan(zero) || number.greatThan(max_int64)) {
+		alert("out of range");
+		return false;
+	}
+	
+	document.getElementById("binaryText64").value = number.toBinString(64);
+	document.getElementById("hexText64").value = number.toHexString(16);
+ }
+ 
 </script>
 </head>
 <body>
@@ -120,7 +268,7 @@
 <table>
   <tr>
 	<td> </td>
-	<td><input type = "checkbox" id = "binary63"  onchange = "binaryChange()" /> </td>
+	<td><input type = "checkbox" id = "binary63" onchange = "binaryChange()" /> </td>
 	<td><input type = "checkbox" id = "binary62" onchange = "binaryChange()" /> </td>
 	<td><input type = "checkbox" id = "binary61" onchange = "binaryChange()" /> </td>
 	<td><input type = "checkbox" id = "binary60" onchange = "binaryChange()" /> </td>
@@ -277,7 +425,7 @@
   </tr>
   <tr>
     <td> unsigned int: </td>
-	<td> <input type = "text" id = "uintText64" size = 64 /> </td>
+	<td> <input type = "text" id = "uintText64" size = 64 onchange = "uintChange(64)" /> </td>
 	<td> <input type = "text" id = "uintText32" size = 32 /> </td>
 	<td> <input type = "text" id = "uintText16" size = 16 /> </td>
 	<td> <input type = "text" id = "uintText8" size = 8 /> </td>

@@ -49,8 +49,6 @@
 		return str;
 	}
 }
-
-
  function Bin2Uint(binaryString)
  {
 	var uint = new Integer();
@@ -66,13 +64,14 @@
  {
 	var hexString = "";
 	var hexTab = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-
 	// reverse the string, make LSB bit as the first bit
 	binaryString = binaryString.split("").reverse().join("")
 	for (var pos = 0; pos < binaryString.length; pos += 4) {
 		var val = 0;
+		var base = 1;
 		for (var i = 0; i < Math.min(4, binaryString.length - pos); ++i) {
-			val = (val * 2) + ((binaryString.charAt(pos + i) == '1') ? 1 : 0);
+			val += base * ((binaryString.charAt(pos + i) == '1') ? 1 : 0);
+			base *= 2;
 		}
 		hexString += hexTab[val];
 	}
@@ -89,9 +88,7 @@
 	this.uintString = Bin2Uint(binaryString)
 	//alert(this.hexString)
  }
-
   
-
  function binaryChange()
  {
 	//alert("chnage")
@@ -112,7 +109,6 @@
 	document.getElementById("binaryText64").value = obj.binaryString
 	document.getElementById("hexText64").value = obj.hexString
 	document.getElementById("uintText64").value = obj.uintString
-
 	
 	return true
  }

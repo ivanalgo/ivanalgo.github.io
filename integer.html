@@ -67,7 +67,7 @@ function Integer()
 		var i;
 		//skip the leading 0 bits
 		for (i = 63; i >= 1; i--) {
-			if (this.digits[i] != '0')
+			if (this.digits[i] != 0)
 				break;
 		}
 		
@@ -93,17 +93,26 @@ function Integer()
 	this.valueOf = function(str, base) {
 		// base this default paramter
 		base = base || 10;
+		if (str.indexOf("0x") == 0) {
+            base = 16;
+            str = str.substr(2);
+        }
+
+        // zero out this integer first
+		for (var i = 0; i < 64; i++) {
+		    this.digits[i] = 0;
+		}
+
 		for (var i = 0; i < str.length; i++) {
-			var ch = parseInt(str.charAt(i));
-			if (isNaN(ch)) {
-				alert("false")
+			var ch = str.charAt(i);
+			var val = "0123456789abcdefhijklmnopqrstuvwxyz".indexOf(ch.toLowerCase());
+
+			if (val == -1 || val >= base) {
+			    throw new Error(str + " is not a illegal number for base " + base);
 			}
-		
-			if (ch < 0 || ch > base) {
-				alert("false")
-			}
+
 			this.time(base);
-			this.add(ch);
+			this.add(val);
 		}
 	}
 	
@@ -175,91 +184,118 @@ function Integer()
 	}
 }
 
- function Bin2Uint(binaryString)
+ function getBinChkBxoString()
  {
-	var uint = new Integer();
-	for (var i = 0; i < 64; i++) {
-		uint.time(2);
-		uint.add(binaryString.charAt(i) == '1'? 1:0);
-	}
-	
-	return uint.toString();
+     var binStr = ""
+
+     for (var i = 63; i >= 0; i--) {
+         var chkbox = document.getElementById("binary" + i)
+         if (chkbox.checked) {
+             binStr += "1"
+         } else {
+             binStr += "0"
+         }
+     }
+
+     return binStr;
  }
- 
- function Bin2Hex(binaryString)
- {
-	var hexString = "";
-	var hexTab = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-	// reverse the string, make LSB bit as the first bit
-	binaryString = binaryString.split("").reverse().join("")
-	for (var pos = 0; pos < binaryString.length; pos += 4) {
-		var val = 0;
-		var base = 1;
-		for (var i = 0; i < Math.min(4, binaryString.length - pos); ++i) {
-			val += base * ((binaryString.charAt(pos + i) == '1') ? 1 : 0);
-			base *= 2;
-		}
-		hexString += hexTab[val];
-	}
-	hexString = hexString.split("").reverse().join("");
-	return hexString;
- }
- 
-  
- function IntegerBinary(binaryString)
- {
-	//alert("enter IntegerBinary ")
-	this.binaryString = binaryString
-	this.hexString =  Bin2Hex(binaryString)
-	this.uintString = Bin2Uint(binaryString)
-	//alert(this.hexString)
- }
-  
  function binaryChange()
  {
-	//alert("chnage")
-	var binaryString = ""
-	
-	for (var i = 63; i >= 0; i--) {
-		var chkbox = document.getElementById("binary" + i)
-		if (chkbox.checked) {
-			binaryString += "1"
-		} else {
-			binaryString += "0"
-		}
-	}
-	//alert("finish")
-	//alert(binaryString)
-	var obj =  new IntegerBinary(binaryString)
-	
-	document.getElementById("binaryText64").value = obj.binaryString
-	document.getElementById("hexText64").value = obj.hexString
-	document.getElementById("uintText64").value = obj.uintString
-	
+	updateAll(getBinChkBxoString(), 64);
 	return true
  }
- 
- function uintChange(size)
+ function reportInputError(inputObj)
  {
-	var uintText = document.getElementById("uintText"+size).value;
-	var number = new Integer();
+     inputObj.style="background-color:#FFFF00";
+ }
+
+ function clearInputError(inputObj)
+ {
+     inputObj.style="background-color:#FFFFFF";
+ }
+ function binTextChange(obj, size)
+ {
+     var num = new Integer();
+
+     try {
+         num.valueOf(obj.value, 2);
+	 } catch (err) {
+         reportInputError(obj);
+         return false;
+	 }
+
+     updateAll(num.toBinString(size), size);
+ }
+ 
+ function decTextChange(obj, size)
+ {
+	var num = new Integer();
 	var zero = new Integer();
 	var max_int64 = new Integer();
-	
-	number.valueOf(uintText);
-	//alert(number.toString());
 
-	zero.valueOf("0");
-	max_int64.valueOf("18446744073709551615");
+	try {
+        num.valueOf(obj.value);
 
-	if (number.lessThan(zero) || number.greatThan(max_int64)) {
-		alert("out of range");
-		return false;
+        zero.valueOf("0");
+        max_int64.valueOf("18446744073709551615");
+
+        if (num.lessThan(zero) || num.greatThan(max_int64)) {
+            throw new Error("input out of Range");
+        }
+    } catch (err) {
+        reportInputError(obj);
+        return false;
 	}
 	
-	document.getElementById("binaryText64").value = number.toBinString(64);
-	document.getElementById("hexText64").value = number.toHexString(16);
+	updateAll(num.toBinString(size), size);
  }
+ 
+function hexTextChange(obj, size)
+{
+	var num = new Integer();
+	try {
+        num.valueOf("0x" + obj.value);
+	} catch (err) {
+	    reportInputError(obj);
+	    return false;
+	}
+
+	updateAll(num.toBinString(size), size);
+}
+
+function updateAll(updatedStr, len)
+{
+    var allStr = getBinChkBxoString();
+    allStr = allStr.substr(0, 64 - len) + updatedStr;
+
+	for (var i = 0; i < 64; i++) {
+		if (allStr.charAt(i) == '1')
+		    document.getElementById("binary" + (63 - i)).checked = true;
+		else
+            document.getElementById("binary" + (63 - i)).checked =false;
+	}
+
+	var sizes = [64, 32, 16, 8];
+	for (var i = 0; i < sizes.length; i++) {
+        var size = sizes[i];
+        var num = new Integer();
+        var obj;
+
+	    num.valueOf(allStr.substr(-size), 2);
+
+        obj = document.getElementById("binText" + size);
+        obj.value = num.toBinString(size);
+        clearInputError(obj);
+
+        obj = document.getElementById("hexText" + size);
+        obj.value = num.toHexString(size/4);
+        clearInputError(obj);
+
+		obj = document.getElementById("decText" + size);
+		obj.value = num.toString();
+        clearInputError(obj);
+	}
+}
  
 </script>
 </head>
@@ -411,24 +447,24 @@ function Integer()
   </tr>
   <tr>
     <td> binary: </td>
-	<td> <input type = "text" id = "binaryText64" size = 64 /> </td>
-	<td> <input type = "text" id = "binaryText32" size = 32 /> </td>
-	<td> <input type = "text" id = "binaryText16" size = 16 /> </td>
-	<td> <input type = "text" id = "binaryText8" size = 8 /> </td>
+	<td> <input type = "text" id = "binText64" size = 64 maxlength = 64 onchange = "binTextChange(this, 64)"/> </td>
+	<td> <input type = "text" id = "binText32" size = 32 maxlength = 32 onchange = "binTextChange(this, 32)" /> </td>
+	<td> <input type = "text" id = "binText16" size = 16 maxlength = 16 onchange = "binTextChange(this, 16)" /> </td>
+	<td> <input type = "text" id = "binText8"  size = 8  maxlength =  8 onchange = "binTextChange(this, 8)" /> </td>
   </tr>
   <tr>
     <td> hex: </td>
-	<td> <input type = "text" id = "hexText64" size = 64 /> </td>
-	<td> <input type = "text" id = "hexText32" size = 32 /> </td>
-	<td> <input type = "text" id = "hexText16" size = 16 /> </td>
-	<td> <input type = "text" id = "hexText8"  size = 8 /> </td>
+	<td> <input type = "text" id = "hexText64" size = 64 maxlength = 16 onchange = "hexTextChange(this, 64)" /> </td>
+	<td> <input type = "text" id = "hexText32" size = 32 maxlength =  8 onchange = "hexTextChange(this, 32)" /> </td>
+	<td> <input type = "text" id = "hexText16" size = 16 maxlength =  4 onchange = "hexTextChange(this, 16)" /> </td>
+	<td> <input type = "text" id = "hexText8"  size = 8  maxlength =  2 onchange = "hexTextChange(this, 8)" /> </td>
   </tr>
   <tr>
     <td> unsigned int: </td>
-	<td> <input type = "text" id = "uintText64" size = 64 onchange = "uintChange(64)" /> </td>
-	<td> <input type = "text" id = "uintText32" size = 32 /> </td>
-	<td> <input type = "text" id = "uintText16" size = 16 /> </td>
-	<td> <input type = "text" id = "uintText8" size = 8 /> </td>
+	<td> <input type = "text" id = "decText64" size = 64 onchange = "decTextChange(this, 64)" /> </td>
+	<td> <input type = "text" id = "decText32" size = 32 onchange = "decTextChange(this, 32)" /> </td>
+	<td> <input type = "text" id = "decText16" size = 16 onchange = "decTextChange(this, 16)" /> </td>
+	<td> <input type = "text" id = "decText8"  size = 8  onchange = "decTextChange(this, 8)" /> </td>
   </tr>
     <tr>
     <td> signed int: </td>

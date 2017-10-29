@@ -10,7 +10,7 @@ var hexTab = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', '
  
 function Integer()
 {
-	this.sign = 0;
+	this.sign = 1;
 	this.digits = new Array(64);
 	
 	for (var i = 0; i < 64; ++i) {
@@ -70,14 +70,15 @@ function Integer()
 			if (this.digits[i] != 0)
 				break;
 		}
-		
+
+		str += this.sign == -1? "-" : "";
 		for (; i >= 0; i--) {
 			str += this.digits[i];
 		}
 	
 		return str;
 	}
-	
+
 	this.clone = function() {
 		var copy = new Integer();
 		
@@ -89,10 +90,21 @@ function Integer()
 		
 		return copy;
 	}
+
+	this.negative = function() {
+	    var neg = this.clone();
+	    neg.sign *= -1;
+	    return neg;
+	}
 	
-	this.valueOf = function(str, base) {
-		// base this default paramter
+	this.valueOf = function(str, base, sign) {
+		/* default parameter:
+		 *   base -- 10, decimal number
+		 *   sign -- 0, unsigned number
+		 */
 		base = base || 10;
+		sign = sign || 0;
+
 		if (str.indexOf("0x") == 0) {
             base = 16;
             str = str.substr(2);
@@ -102,6 +114,43 @@ function Integer()
 		for (var i = 0; i < 64; i++) {
 		    this.digits[i] = 0;
 		}
+		this.sign = 1;
+
+		// decimal num can has '-' or '+' prefix
+		if (base == 10 && (str.charAt(0) == '-' || str.charAt(0) == '+')) {
+		    this.sign = str.charAt(0) == '-'? -1: 1;
+		    str = str.substr(1);
+        }
+
+        // if this number is of base 2 or 16, and this a signed number
+		if ((base == 2 && sign == 1 && str.charAt(0) == '1') &&
+			(base == 16 && sign == 1 && "89abcdef".indexOf(str.charAt(0).toLowerCase())) != -1) {
+		    //this is a negative number, its abs value is equal to the value
+			// which reverse all bit in binary and plus 1.
+			var positive = new Integer();
+			positive.valueOf(str, base, 0);
+			var binStr = positive.toBinString();
+			var reverseStr = "";
+			// reverse all bits
+			for (var i = 0; i < binStr.length; i++) {
+			    if (binStr.charAt(i) == '0') {
+			        reverseStr += '1';
+                } else {
+			        reverseStr += '0';
+                }
+            }
+
+            positive.valueOf(reverseStr, base, 0);
+			positive.add(1);
+			positive = positive.negative();
+
+			for (var i = 0; i < 64; ++i) {
+			    this.digits[i] = positive.digits[i];
+            }
+            this.sign = positive.sign;
+
+			return;
+        }
 
 		for (var i = 0; i < str.length; i++) {
 			var ch = str.charAt(i);
@@ -141,6 +190,18 @@ function Integer()
 		// these two integer are equals to eachother, so less or equal is TRUE
 		return true;
 	}
+
+	this.equal = function (value) {
+	    if (this.sign != value.sign)
+	        return false;
+
+	    for (var i = 63; i >= 0; i--) {
+	        if (this.digits[i] != value.digits[i])
+				return false;
+        }
+
+        return true;
+    }
 	
 	this.greatThan =  function (value) {
 		for (var i = 63; i >= 0; i--) {
@@ -154,12 +215,39 @@ function Integer()
 	}
 	
 	this.toBinString = function (len) {
+	    len = len || -1;
+
 		var binStr = "";
 		var d, r;		
 		var i = 0;
+
+		// if we are negtive number, its binary form is
+		// 1) its positive number's binary form
+		// 2) reverse all bits
+		// 3) and plus 1
+		if (this.sign == -1) {
+			var positive = this.negative();
+			var binStr = positive.toBinString(len);
+			var reverseStr = "";
+			for (var i = 0; i < binStr.length; i++) {
+			    if (binStr.charAt(i) == '0') {
+			        reverseStr += '1';
+				} else {
+			        reverseStr += '0';
+				}
+			}
+
+			positive.valueOf(reverseStr, 2);
+			positive.add(1);
+			return positive.toBinString(len);
+		}
+
+		var zero = new Integer();
+
+		zero.valueOf("0");
 		
 		d = this.clone();
-		while (i++ < len) {
+		while ((len == -1 && !d.equal(zero)) || (i++ < len)) {
 			r = d.mod(2);
 			binStr += r;
 			d = d.div(2);
@@ -263,6 +351,13 @@ function hexTextChange(obj, size)
 	updateAll(num.toBinString(size), size);
 }
 
+function intTextChange(obj, size)
+{
+    var num = new Integer();
+    num.valueOf(obj.value, 10);
+    updateAll(num.toBinString(size), size);
+}
+
 function updateAll(updatedStr, len)
 {
     var allStr = getBinChkBxoString();
@@ -293,6 +388,11 @@ function updateAll(updatedStr, len)
 
 		obj = document.getElementById("decText" + size);
 		obj.value = num.toString();
+        clearInputError(obj);
+
+        num.valueOf(allStr.substr(-size), 2, 1);
+        obj = document.getElementById("intText" + size);
+        obj.value = num.toString();
         clearInputError(obj);
 	}
 }
@@ -492,10 +592,10 @@ function updateAll(updatedStr, len)
   </tr>
     <tr>
     <td> signed int: </td>
-	<td> <input type = "text" id = "int64" size = 64 /> </td>
-	<td> <input type = "text" id = "int32" size = 32 /> </td>
-	<td> <input type = "text" id = "int16" size = 16 /> </td>
-	<td> <input type = "text" id = "int8" size = 8 /> </td>
+	<td> <input type = "text" id = "intText64" size = 64 onchange = "intTextChange(this, 64)" /> </td>
+	<td> <input type = "text" id = "intText32" size = 32 onchange = "intTextChange(this, 32)" /> </td>
+	<td> <input type = "text" id = "intText16" size = 16 onchange = "intTextChange(this, 16)" /> </td>
+	<td> <input type = "text" id = "intText8"  size = 8  onchange = "intTextChange(this, 8)"  /> </td>
   </tr>
 </table>
 </body>

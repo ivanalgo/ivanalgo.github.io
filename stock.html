@@ -141,6 +141,19 @@
       return allDates.reduce((a, b) => a.filter(c => b.includes(c)));
     }
 
+    function fillDataForSymbol(dates, stockData) {
+      const dataMap = Object.fromEntries(stockData.map(p => [p.date, p.close]));
+      return dates.map(date => dataMap[date] ?? null); // 补 null
+    }
+
+    function collectAllDates(dataMap) {
+      const dateSet = new Set();
+      Object.values(dataMap).forEach(stockData => {
+        stockData.forEach(entry => dateSet.add(entry.date));
+      });
+      return Array.from(dateSet).sort(); // 升序排列日期
+    }
+
     function updateChart(dates, series) {
       if (myChart) myChart.destroy();
 
@@ -199,23 +212,22 @@
         }
       }
 
-      const commonDates = findCommonDates(allData);
-      if (commonDates.length === 0) {
-        alert("没有找到所有股票共同的交易日。");
+      const allDates = collectAllDates(allData); // 所有日期
+      if (allDates.length === 0) {
+        alert("没有找到任何数据。");
         updateBtn.disabled = false;
         updateBtn.textContent = "Update Chart";
         return;
       }
 
       const series = symbols.map(symbol => {
-        const symbolData = allData[symbol].filter(p => commonDates.includes(p.date));
         return {
           name: symbol,
-          data: symbolData.map(p => p.close)
+          data: fillDataForSymbol(allDates, allData[symbol] || [])
         };
       });
 
-      updateChart(commonDates.reverse(), series);
+      updateChart(allDates, series);
       updateBtn.disabled = false;
       updateBtn.textContent = "Update Chart";
     }

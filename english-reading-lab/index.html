@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>English Reading Lab</title>
+    <meta
+      name="description"
+      content="A static reading workspace for B1-C2 English articles, vocabulary, grammar, and writing craft."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="./">English Reading Lab</a>
+      <div class="header-meta">
+        <span>B1-C2</span>
+        <span>Reading, expression, and writing craft</span>
+      </div>
+    </header>
+
+    <main id="readerShell" class="reader-shell">
+      <button id="showLibraryButton" class="show-library-button" type="button" aria-controls="libraryPanel" hidden>
+        Expand
+      </button>
+
+      <aside id="libraryPanel" class="library-panel" aria-label="Article library">
+        <div class="panel-heading panel-heading--with-action">
+          <div>
+            <p class="eyebrow">Library</p>
+            <h1>Topics</h1>
+          </div>
+          <button id="hideLibraryButton" class="panel-icon-button" type="button" aria-controls="libraryPanel" aria-label="Hide library">
+            Hide
+          </button>
+        </div>
+
+        <label class="search-control">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="climate, argument, metaphor..." autocomplete="off" />
+        </label>
+
+        <nav id="libraryTree" class="library-tree" aria-label="Topic, level, and article list"></nav>
+      </aside>
+
+      <section class="article-panel" aria-live="polite">
+        <div class="article-kicker">
+          <span id="articleTopic">Loading</span>
+          <span id="articleLevel">CEFR</span>
+        </div>
+
+        <article class="article-card">
+          <header class="article-head">
+            <p id="articleSourceType" class="source-type">Learning adaptation</p>
+            <h2 id="articleTitle">Loading article...</h2>
+            <p id="articleDek" class="article-dek"></p>
+            <a id="articleSource" class="source-link" href="#" target="_blank" rel="noreferrer"></a>
+            <p id="adaptationNote" class="adaptation-note"></p>
+          </header>
+
+          <div id="articleBody" class="article-body"></div>
+        </article>
+      </section>
+
+      <aside class="study-panel" aria-label="Study notes">
+        <section class="note-section">
+          <div class="note-heading">
+            <p class="eyebrow">In reading order</p>
+            <h2>Study Notes</h2>
+          </div>
+          <div id="orderedNoteList" class="note-list"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

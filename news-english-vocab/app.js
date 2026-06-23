@@ -34,6 +34,8 @@ const levelOrder = new Map([
   ["C2", 3],
 ]);
 
+const minRelatedExpressions = 4;
+
 function getTopics(words) {
   return [...new Set(words.map((word) => word.topic))];
 }
@@ -78,6 +80,60 @@ function groupVocabulary(words) {
   });
 
   return [...groups.values()];
+}
+
+function toRelatedExpression(word) {
+  return {
+    term: word.term,
+    phonetic: word.phonetic,
+    level: word.level,
+    partOfSpeech: word.partOfSpeech,
+    meaning: word.meaning,
+    examples: word.examples,
+    isSuggestion: true,
+  };
+}
+
+function enrichRelatedExpressions(groups) {
+  const groupsByTopicLevel = new Map();
+  const groupsByTopic = new Map();
+
+  groups.forEach((group, index) => {
+    const topicLevelKey = `${group.topic}|${group.level}`;
+    const topicLevelRows = groupsByTopicLevel.get(topicLevelKey) ?? [];
+    topicLevelRows.push({ group, index });
+    groupsByTopicLevel.set(topicLevelKey, topicLevelRows);
+
+    const topicRows = groupsByTopic.get(group.topic) ?? [];
+    topicRows.push({ group, index });
+    groupsByTopic.set(group.topic, topicRows);
+  });
+
+  return groups.map((group, index) => {
+    if (group.related.length >= minRelatedExpressions) {
+      return group;
+    }
+
+    const existingTerms = new Set([group.term, ...group.related.map((related) => related.term)]);
+    const key = `${group.topic}|${group.level}`;
+    const sameLevelCandidates = (groupsByTopicLevel.get(key) ?? [])
+      .filter((candidate) => !existingTerms.has(candidate.group.term))
+      .sort((a, b) => Math.abs(a.index - index) - Math.abs(b.index - index) || a.group.term.localeCompare(b.group.term));
+    const sameTopicCandidates = (groupsByTopic.get(group.topic) ?? [])
+      .filter((candidate) => !existingTerms.has(candidate.group.term))
+      .sort((a, b) => Math.abs(a.index - index) - Math.abs(b.index - index) || a.group.term.localeCompare(b.group.term));
+
+    const needed = minRelatedExpressions - group.related.length;
+    const candidates = [...sameLevelCandidates, ...sameTopicCandidates].filter((candidate, candidateIndex, rows) => (
+      rows.findIndex((row) => row.group.term === candidate.group.term) === candidateIndex
+    ));
+    const suggestions = candidates.slice(0, needed).map((candidate) => toRelatedExpression(candidate.group));
+
+    return {
+      ...group,
+      related: [...group.related, ...suggestions],
+    };
+  });
 }
 
 function createOption(value, label) {
@@ -246,7 +302,10 @@ function renderCards() {
 
 function renderSummary() {
   const pageCount = getPageCount();
-  const visibleTermCount = state.filtered.reduce((count, word) => count + 1 + (word.related?.length ?? 0), 0);
+  const visibleTermCount = state.filtered.reduce(
+    (count, word) => count + 1 + (word.related?.filter((related) => !related.isSuggestion).length ?? 0),
+    0,
+  );
   elements.resultCount.textContent = `${state.filtered.length} 组，覆盖 ${visibleTermCount} / ${state.rawCount} 个词条`;
   elements.pageInfo.textContent = pageCount
     ? `第 ${state.page} / ${pageCount} 页，每页 ${pageSize} 组`
@@ -325,7 +384,7 @@ async function loadVocabulary() {
     const vocabulary = await response.json();
     state.rawCount = vocabulary.length;
     state.topicOrder = new Map(getTopics(vocabulary).map((topic, index) => [topic, index]));
-    state.words = groupVocabulary(sortWords(vocabulary));
+    state.words = enrichRelatedExpressions(groupVocabulary(sortWords(vocabulary)));
     state.filtered = state.words;
     buildFilters();
     bindEvents();

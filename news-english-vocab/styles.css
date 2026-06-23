@@ -176,6 +176,7 @@ select:focus {
 }
 
 .word-card {
+  position: relative;
   display: flex;
   min-height: 100%;
   flex-direction: column;
@@ -196,6 +197,7 @@ select:focus {
   border-color: rgba(45, 111, 115, 0.35);
   box-shadow: 0 20px 48px rgba(55, 66, 58, 0.13);
   transform: translateY(-3px);
+  z-index: 8;
 }
 
 .word-card:focus {
@@ -232,49 +234,69 @@ select:focus {
   background: #a7674a;
 }
 
-.related-expressions {
-  max-height: 0;
-  margin: 0;
-  overflow: hidden;
-  color: var(--teal);
-  font-size: 0.82rem;
+.expression-popover {
+  position: absolute;
+  top: 58px;
+  right: 14px;
+  left: 14px;
+  z-index: 20;
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid rgba(45, 111, 115, 0.22);
+  border-radius: 18px;
+  padding: 12px;
+  color: var(--ink);
+  background: rgba(255, 250, 240, 0.92);
+  box-shadow: 0 24px 60px rgba(32, 48, 44, 0.2);
   opacity: 0;
+  pointer-events: none;
+  transform: translateY(-5px);
   transition:
-    max-height 160ms ease,
-    margin 160ms ease,
-    opacity 160ms ease;
+    opacity 150ms ease,
+    transform 150ms ease,
+    visibility 150ms ease;
+  user-select: text;
+  visibility: hidden;
+  backdrop-filter: blur(16px);
 }
 
-.related-expressions strong {
-  display: block;
-  margin-bottom: 5px;
+.word-card:hover .expression-popover,
+.word-card:focus-within .expression-popover,
+.word-card:focus .expression-popover {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  visibility: visible;
 }
 
-.related-expressions ul {
+.expression-section + .expression-section {
+  margin-top: 10px;
+}
+
+.expression-section h3 {
+  margin: 0 0 6px;
+  color: var(--teal);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.expression-section ul {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  max-height: 112px;
   margin: 0;
   padding: 0;
-  overflow: auto;
   list-style: none;
 }
 
-.related-expressions li {
+.expression-section li {
   border: 1px solid rgba(45, 111, 115, 0.2);
-  border-radius: 999px;
-  padding: 3px 7px;
+  border-radius: 11px;
+  padding: 4px 8px;
   color: #305b5d;
   background: rgba(219, 230, 212, 0.48);
-}
-
-.word-card:hover .related-expressions,
-.word-card:focus-within .related-expressions,
-.word-card:focus .related-expressions {
-  max-height: 150px;
-  margin: 8px 0 0;
-  opacity: 1;
+  font-size: 0.82rem;
 }
 
 .meta {

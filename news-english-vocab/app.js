@@ -34,8 +34,6 @@ const levelOrder = new Map([
   ["C2", 3],
 ]);
 
-const minRelatedExpressions = 4;
-
 function getTopics(words) {
   return [...new Set(words.map((word) => word.topic))];
 }
@@ -82,60 +80,6 @@ function groupVocabulary(words) {
   return [...groups.values()];
 }
 
-function toRelatedExpression(word) {
-  return {
-    term: word.term,
-    phonetic: word.phonetic,
-    level: word.level,
-    partOfSpeech: word.partOfSpeech,
-    meaning: word.meaning,
-    examples: word.examples,
-    isSuggestion: true,
-  };
-}
-
-function enrichRelatedExpressions(groups) {
-  const groupsByTopicLevel = new Map();
-  const groupsByTopic = new Map();
-
-  groups.forEach((group, index) => {
-    const topicLevelKey = `${group.topic}|${group.level}`;
-    const topicLevelRows = groupsByTopicLevel.get(topicLevelKey) ?? [];
-    topicLevelRows.push({ group, index });
-    groupsByTopicLevel.set(topicLevelKey, topicLevelRows);
-
-    const topicRows = groupsByTopic.get(group.topic) ?? [];
-    topicRows.push({ group, index });
-    groupsByTopic.set(group.topic, topicRows);
-  });
-
-  return groups.map((group, index) => {
-    if (group.related.length >= minRelatedExpressions) {
-      return group;
-    }
-
-    const existingTerms = new Set([group.term, ...group.related.map((related) => related.term)]);
-    const key = `${group.topic}|${group.level}`;
-    const sameLevelCandidates = (groupsByTopicLevel.get(key) ?? [])
-      .filter((candidate) => !existingTerms.has(candidate.group.term))
-      .sort((a, b) => Math.abs(a.index - index) - Math.abs(b.index - index) || a.group.term.localeCompare(b.group.term));
-    const sameTopicCandidates = (groupsByTopic.get(group.topic) ?? [])
-      .filter((candidate) => !existingTerms.has(candidate.group.term))
-      .sort((a, b) => Math.abs(a.index - index) - Math.abs(b.index - index) || a.group.term.localeCompare(b.group.term));
-
-    const needed = minRelatedExpressions - group.related.length;
-    const candidates = [...sameLevelCandidates, ...sameTopicCandidates].filter((candidate, candidateIndex, rows) => (
-      rows.findIndex((row) => row.group.term === candidate.group.term) === candidateIndex
-    ));
-    const suggestions = candidates.slice(0, needed).map((candidate) => toRelatedExpression(candidate.group));
-
-    return {
-      ...group,
-      related: [...group.related, ...suggestions],
-    };
-  });
-}
-
 function createOption(value, label) {
   const option = document.createElement("option");
   option.value = value;
@@ -163,6 +107,8 @@ function wordMatchesQuery(word, query) {
         related.level,
         related.partOfSpeech,
         related.meaning,
+        ...(related.relatedExpressions ?? []),
+        ...(related.collocations ?? []),
         ...related.examples,
       ])
     : [];
@@ -175,6 +121,8 @@ function wordMatchesQuery(word, query) {
     word.meaning,
     word.topic,
     ...word.examples,
+    ...(word.relatedExpressions ?? []),
+    ...(word.collocations ?? []),
     ...relatedText,
   ]
     .join(" ")
@@ -219,6 +167,25 @@ function speak(term) {
 function getMeaningText(word) {
   const prefix = `${word.term}：`;
   return word.meaning.startsWith(prefix) ? word.meaning.slice(prefix.length) : word.meaning;
+}
+
+function createExpressionSection(title, items) {
+  const section = document.createElement("section");
+  section.className = "expression-section";
+
+  const heading = document.createElement("h3");
+  heading.textContent = title;
+  section.append(heading);
+
+  const list = document.createElement("ul");
+  items.forEach((value) => {
+    const item = document.createElement("li");
+    item.textContent = value;
+    list.append(item);
+  });
+  section.append(list);
+
+  return section;
 }
 
 function renderCards() {
@@ -277,24 +244,16 @@ function renderCards() {
       examples.append(item);
     });
 
-    article.append(top);
+    const popover = document.createElement("div");
+    popover.className = "expression-popover";
+    popover.append(createExpressionSection("相关表达", word.relatedExpressions ?? []));
+    popover.append(createExpressionSection("搭配 / idiom", word.collocations ?? []));
     if (word.related?.length) {
-      const relatedBox = document.createElement("div");
-      relatedBox.className = "related-expressions";
-
-      const relatedTitle = document.createElement("strong");
-      relatedTitle.textContent = `相关表达 ${word.related.length}`;
-      relatedBox.append(relatedTitle);
-
-      const relatedList = document.createElement("ul");
-      word.related.forEach((related) => {
-        const item = document.createElement("li");
-        item.textContent = related.term;
-        relatedList.append(item);
-      });
-      relatedBox.append(relatedList);
-      article.append(relatedBox);
+      popover.append(createExpressionSection("同组词组", word.related.map((related) => related.term)));
     }
+
+    article.append(top);
+    article.append(popover);
     article.append(meta, meaning, examples);
     elements.vocabGrid.append(article);
   });
@@ -303,7 +262,7 @@ function renderCards() {
 function renderSummary() {
   const pageCount = getPageCount();
   const visibleTermCount = state.filtered.reduce(
-    (count, word) => count + 1 + (word.related?.filter((related) => !related.isSuggestion).length ?? 0),
+    (count, word) => count + 1 + (word.related?.length ?? 0),
     0,
   );
   elements.resultCount.textContent = `${state.filtered.length} 组，覆盖 ${visibleTermCount} / ${state.rawCount} 个词条`;
@@ -384,7 +343,7 @@ async function loadVocabulary() {
     const vocabulary = await response.json();
     state.rawCount = vocabulary.length;
     state.topicOrder = new Map(getTopics(vocabulary).map((topic, index) => [topic, index]));
-    state.words = enrichRelatedExpressions(groupVocabulary(sortWords(vocabulary)));
+    state.words = groupVocabulary(sortWords(vocabulary));
     state.filtered = state.words;
     buildFilters();
     bindEvents();

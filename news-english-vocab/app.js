@@ -14,7 +14,6 @@ const elements = {
   searchInput: document.querySelector("#searchInput"),
   topicSelect: document.querySelector("#topicSelect"),
   levelSelect: document.querySelector("#levelSelect"),
-  topicChips: document.querySelector("#topicChips"),
   vocabGrid: document.querySelector("#vocabGrid"),
   resultCount: document.querySelector("#resultCount"),
   pageInfo: document.querySelector("#pageInfo"),
@@ -66,22 +65,6 @@ function buildFilters() {
 
   topics.forEach((topic) => {
     elements.topicSelect.append(createOption(topic, topic));
-  });
-
-  const allChip = document.createElement("button");
-  allChip.type = "button";
-  allChip.className = "chip is-active";
-  allChip.dataset.topic = "all";
-  allChip.textContent = "全部";
-  elements.topicChips.append(allChip);
-
-  topics.forEach((topic) => {
-    const chip = document.createElement("button");
-    chip.type = "button";
-    chip.className = "chip";
-    chip.dataset.topic = topic;
-    chip.textContent = topic;
-    elements.topicChips.append(chip);
   });
 }
 
@@ -138,6 +121,16 @@ function speak(term) {
   window.speechSynthesis.speak(utterance);
 }
 
+function getCompactTerm(term) {
+  const words = term.trim().split(/\s+/);
+  return words.length > 1 ? words[words.length - 1] : term;
+}
+
+function getMeaningText(word) {
+  const prefix = `${word.term}：`;
+  return word.meaning.startsWith(prefix) ? word.meaning.slice(prefix.length) : word.meaning;
+}
+
 function renderCards() {
   elements.vocabGrid.replaceChildren();
 
@@ -155,12 +148,15 @@ function renderCards() {
   pageItems.forEach((word) => {
     const article = document.createElement("article");
     article.className = "word-card";
+    article.tabIndex = 0;
+    article.setAttribute("aria-label", word.term);
 
     const top = document.createElement("div");
     top.className = "word-card__top";
 
     const heading = document.createElement("h2");
-    heading.textContent = word.term;
+    const compactTerm = getCompactTerm(word.term);
+    heading.textContent = compactTerm;
 
     const button = document.createElement("button");
     button.type = "button";
@@ -171,9 +167,13 @@ function renderCards() {
 
     top.append(heading, button);
 
+    const expression = document.createElement("p");
+    expression.className = "expression-hint";
+    expression.textContent = `完整表达：${word.term}`;
+
     const meta = document.createElement("div");
     meta.className = "meta";
-    [word.phonetic, word.level, word.partOfSpeech, word.topic].filter(Boolean).forEach((item) => {
+    [word.phonetic, word.level, word.partOfSpeech].filter(Boolean).forEach((item) => {
       const pill = document.createElement("span");
       pill.className = "pill";
       pill.textContent = item;
@@ -182,7 +182,7 @@ function renderCards() {
 
     const meaning = document.createElement("p");
     meaning.className = "meaning";
-    meaning.textContent = word.meaning;
+    meaning.textContent = getMeaningText(word);
 
     const examples = document.createElement("ul");
     examples.className = "examples";
@@ -192,7 +192,11 @@ function renderCards() {
       examples.append(item);
     });
 
-    article.append(top, meta, meaning, examples);
+    article.append(top);
+    if (compactTerm !== word.term) {
+      article.append(expression);
+    }
+    article.append(meta, meaning, examples);
     elements.vocabGrid.append(article);
   });
 }
@@ -230,18 +234,11 @@ function renderPagination() {
   }
 }
 
-function renderChips() {
-  elements.topicChips.querySelectorAll(".chip").forEach((chip) => {
-    chip.classList.toggle("is-active", chip.dataset.topic === state.topic);
-  });
-}
-
 function render() {
   applyFilters();
   renderCards();
   renderSummary();
   renderPagination();
-  renderChips();
 }
 
 function bindEvents() {
@@ -259,18 +256,6 @@ function bindEvents() {
 
   elements.levelSelect.addEventListener("change", (event) => {
     state.level = event.target.value;
-    state.page = 1;
-    render();
-  });
-
-  elements.topicChips.addEventListener("click", (event) => {
-    const chip = event.target.closest(".chip");
-    if (!chip) {
-      return;
-    }
-
-    state.topic = chip.dataset.topic;
-    elements.topicSelect.value = state.topic;
     state.page = 1;
     render();
   });

@@ -149,7 +149,7 @@ function renderCards() {
 
     const meta = document.createElement("div");
     meta.className = "meta";
-    [word.phonetic, word.level, word.partOfSpeech, word.topic].forEach((item) => {
+    [word.phonetic, word.level, word.partOfSpeech, word.topic].filter(Boolean).forEach((item) => {
       const pill = document.createElement("span");
       pill.className = "pill";
       pill.textContent = item;

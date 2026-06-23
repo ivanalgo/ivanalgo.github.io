@@ -207,7 +207,6 @@ select:focus {
 }
 
 .term-trigger {
-  position: relative;
   min-width: 0;
   max-width: calc(100% - 54px);
   cursor: default;
@@ -249,8 +248,8 @@ select:focus {
 
 .expression-popover {
   position: absolute;
-  top: 0;
-  left: 100%;
+  top: 18px;
+  left: calc(100% + 12px);
   z-index: 20;
   width: min(360px, 70vw);
   max-height: 320px;
@@ -273,6 +272,8 @@ select:focus {
   backdrop-filter: blur(16px);
 }
 
+.word-card:hover .expression-popover,
+.word-card:focus-within .expression-popover,
 .term-trigger:hover .expression-popover,
 .term-trigger:focus-within .expression-popover,
 .term-trigger:focus .expression-popover {

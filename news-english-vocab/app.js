@@ -4,6 +4,7 @@ const state = {
   words: [],
   filtered: [],
   topicOrder: new Map(),
+  rawCount: 0,
   page: 1,
   topic: "all",
   level: "all",
@@ -53,6 +54,32 @@ function sortWords(words) {
   });
 }
 
+function getGroupKey(word) {
+  const parts = word.term.trim().split(/\s+/);
+  if (parts.length <= 1) {
+    return `${word.topic}|${word.level}|${word.id}`;
+  }
+
+  return `${word.topic}|${word.level}|${parts[0].toLowerCase()}`;
+}
+
+function groupVocabulary(words) {
+  const groups = new Map();
+
+  words.forEach((word) => {
+    const key = getGroupKey(word);
+    const group = groups.get(key);
+    if (group) {
+      group.related.push(word);
+      return;
+    }
+
+    groups.set(key, { ...word, related: [] });
+  });
+
+  return [...groups.values()];
+}
+
 function createOption(value, label) {
   const option = document.createElement("option");
   option.value = value;
@@ -73,6 +100,17 @@ function wordMatchesQuery(word, query) {
     return true;
   }
 
+  const relatedText = word.related
+    ? word.related.flatMap((related) => [
+        related.term,
+        related.phonetic,
+        related.level,
+        related.partOfSpeech,
+        related.meaning,
+        ...related.examples,
+      ])
+    : [];
+
   const haystack = [
     word.term,
     word.phonetic,
@@ -81,6 +119,7 @@ function wordMatchesQuery(word, query) {
     word.meaning,
     word.topic,
     ...word.examples,
+    ...relatedText,
   ]
     .join(" ")
     .toLowerCase();
@@ -121,11 +160,6 @@ function speak(term) {
   window.speechSynthesis.speak(utterance);
 }
 
-function getCompactTerm(term) {
-  const words = term.trim().split(/\s+/);
-  return words.length > 1 ? words[words.length - 1] : term;
-}
-
 function getMeaningText(word) {
   const prefix = `${word.term}：`;
   return word.meaning.startsWith(prefix) ? word.meaning.slice(prefix.length) : word.meaning;
@@ -155,8 +189,7 @@ function renderCards() {
     top.className = "word-card__top";
 
     const heading = document.createElement("h2");
-    const compactTerm = getCompactTerm(word.term);
-    heading.textContent = compactTerm;
+    heading.textContent = word.term;
 
     const button = document.createElement("button");
     button.type = "button";
@@ -166,10 +199,6 @@ function renderCards() {
     button.addEventListener("click", () => speak(word.term));
 
     top.append(heading, button);
-
-    const expression = document.createElement("p");
-    expression.className = "expression-hint";
-    expression.textContent = `完整表达：${word.term}`;
 
     const meta = document.createElement("div");
     meta.className = "meta";
@@ -193,8 +222,22 @@ function renderCards() {
     });
 
     article.append(top);
-    if (compactTerm !== word.term) {
-      article.append(expression);
+    if (word.related?.length) {
+      const relatedBox = document.createElement("div");
+      relatedBox.className = "related-expressions";
+
+      const relatedTitle = document.createElement("strong");
+      relatedTitle.textContent = `相关表达 ${word.related.length}`;
+      relatedBox.append(relatedTitle);
+
+      const relatedList = document.createElement("ul");
+      word.related.forEach((related) => {
+        const item = document.createElement("li");
+        item.textContent = related.term;
+        relatedList.append(item);
+      });
+      relatedBox.append(relatedList);
+      article.append(relatedBox);
     }
     article.append(meta, meaning, examples);
     elements.vocabGrid.append(article);
@@ -203,9 +246,10 @@ function renderCards() {
 
 function renderSummary() {
   const pageCount = getPageCount();
-  elements.resultCount.textContent = `${state.filtered.length} 个词条`;
+  const visibleTermCount = state.filtered.reduce((count, word) => count + 1 + (word.related?.length ?? 0), 0);
+  elements.resultCount.textContent = `${state.filtered.length} 组，覆盖 ${visibleTermCount} / ${state.rawCount} 个词条`;
   elements.pageInfo.textContent = pageCount
-    ? `第 ${state.page} / ${pageCount} 页，每页 ${pageSize} 个词条`
+    ? `第 ${state.page} / ${pageCount} 页，每页 ${pageSize} 组`
     : "当前没有可显示的词条";
 }
 
@@ -278,9 +322,10 @@ async function loadVocabulary() {
       throw new Error(`Failed to load vocab.json: ${response.status}`);
     }
 
-    state.words = await response.json();
-    state.topicOrder = new Map(getTopics(state.words).map((topic, index) => [topic, index]));
-    state.words = sortWords(state.words);
+    const vocabulary = await response.json();
+    state.rawCount = vocabulary.length;
+    state.topicOrder = new Map(getTopics(vocabulary).map((topic, index) => [topic, index]));
+    state.words = groupVocabulary(sortWords(vocabulary));
     state.filtered = state.words;
     buildFilters();
     bindEvents();

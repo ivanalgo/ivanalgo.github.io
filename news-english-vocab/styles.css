@@ -232,13 +232,12 @@ select:focus {
   background: #a7674a;
 }
 
-.expression-hint {
+.related-expressions {
   max-height: 0;
   margin: 0;
   overflow: hidden;
   color: var(--teal);
   font-size: 0.82rem;
-  font-weight: 700;
   opacity: 0;
   transition:
     max-height 160ms ease,
@@ -246,11 +245,35 @@ select:focus {
     opacity 160ms ease;
 }
 
-.word-card:hover .expression-hint,
-.word-card:focus-within .expression-hint,
-.word-card:focus .expression-hint {
-  max-height: 42px;
-  margin: 7px 0 0;
+.related-expressions strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.related-expressions ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 112px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.related-expressions li {
+  border: 1px solid rgba(45, 111, 115, 0.2);
+  border-radius: 999px;
+  padding: 3px 7px;
+  color: #305b5d;
+  background: rgba(219, 230, 212, 0.48);
+}
+
+.word-card:hover .related-expressions,
+.word-card:focus-within .related-expressions,
+.word-card:focus .related-expressions {
+  max-height: 150px;
+  margin: 8px 0 0;
   opacity: 1;
 }
 

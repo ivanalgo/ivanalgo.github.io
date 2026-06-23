@@ -1,0 +1,730 @@
+[
+  {
+    "id": "politics-coalition",
+    "topic": "Politics & Diplomacy",
+    "term": "coalition",
+    "phonetic": "/ˌkoʊəˈlɪʃən/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "联合政府；联盟。新闻中常指多个政党、国家或组织为了共同目标而合作。",
+    "examples": [
+      "The prime minister tried to build a coalition after no party won a clear majority.",
+      "A coalition of countries called for a stronger response to the crisis."
+    ]
+  },
+  {
+    "id": "politics-sanction",
+    "topic": "Politics & Diplomacy",
+    "term": "sanction",
+    "phonetic": "/ˈsæŋkʃən/",
+    "level": "B2",
+    "partOfSpeech": "noun / verb",
+    "meaning": "制裁；批准。新闻语境中多指政府对国家、公司或个人采取惩罚性措施。",
+    "examples": [
+      "The government imposed new sanctions on several officials.",
+      "The UN refused to sanction the use of force without further talks."
+    ]
+  },
+  {
+    "id": "politics-turnout",
+    "topic": "Politics & Diplomacy",
+    "term": "turnout",
+    "phonetic": "/ˈtɜːrnaʊt/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "投票率；出席人数。常用于选举报道。",
+    "examples": [
+      "Voter turnout was higher than expected among young people.",
+      "Low turnout raised questions about public trust in the election."
+    ]
+  },
+  {
+    "id": "politics-incumbent",
+    "topic": "Politics & Diplomacy",
+    "term": "incumbent",
+    "phonetic": "/ɪnˈkʌmbənt/",
+    "level": "C1",
+    "partOfSpeech": "noun / adjective",
+    "meaning": "现任者；现任的。常指正在任职并寻求连任的官员。",
+    "examples": [
+      "The incumbent president faces a difficult campaign as prices continue to rise.",
+      "Incumbent lawmakers often have an advantage in local elections."
+    ]
+  },
+  {
+    "id": "politics-referendum",
+    "topic": "Politics & Diplomacy",
+    "term": "referendum",
+    "phonetic": "/ˌrefəˈrendəm/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "全民公投；公民投票。",
+    "examples": [
+      "The government promised a referendum on constitutional reform.",
+      "Markets reacted cautiously after the referendum result was announced."
+    ]
+  },
+  {
+    "id": "politics-bipartisan",
+    "topic": "Politics & Diplomacy",
+    "term": "bipartisan",
+    "phonetic": "/ˌbaɪˈpɑːrtɪzən/",
+    "level": "C1",
+    "partOfSpeech": "adjective",
+    "meaning": "两党共同支持的；跨党派的。美国新闻中非常常见。",
+    "examples": [
+      "The bill gained bipartisan support after months of negotiation.",
+      "Analysts said a bipartisan deal would reduce uncertainty for businesses."
+    ]
+  },
+  {
+    "id": "politics-diplomatic",
+    "topic": "Politics & Diplomacy",
+    "term": "diplomatic",
+    "phonetic": "/ˌdɪpləˈmætɪk/",
+    "level": "B2",
+    "partOfSpeech": "adjective",
+    "meaning": "外交的；有策略的。",
+    "examples": [
+      "The dispute triggered a diplomatic row between the two countries.",
+      "Officials are seeking a diplomatic solution before tensions rise further."
+    ]
+  },
+  {
+    "id": "politics-policy-shift",
+    "topic": "Politics & Diplomacy",
+    "term": "policy shift",
+    "phonetic": "/ˈpɑːləsi ʃɪft/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "政策转向；政策变化。",
+    "examples": [
+      "The policy shift surprised investors and opposition parties alike.",
+      "A major policy shift is expected after the new cabinet takes office."
+    ]
+  },
+  {
+    "id": "economy-inflation",
+    "topic": "Economy",
+    "term": "inflation",
+    "phonetic": "/ɪnˈfleɪʃən/",
+    "level": "B1",
+    "partOfSpeech": "noun",
+    "meaning": "通货膨胀；物价普遍上涨。",
+    "examples": [
+      "Inflation has slowed, but food prices remain high for many families.",
+      "The central bank raised rates to bring inflation closer to its target."
+    ]
+  },
+  {
+    "id": "economy-recession",
+    "topic": "Economy",
+    "term": "recession",
+    "phonetic": "/rɪˈseʃən/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "经济衰退；经济活动持续下滑。",
+    "examples": [
+      "Economists warned that weak demand could push the country into recession.",
+      "The labour market stayed strong despite fears of a recession."
+    ]
+  },
+  {
+    "id": "economy-wage-growth",
+    "topic": "Economy",
+    "term": "wage growth",
+    "phonetic": "/weɪdʒ ɡroʊθ/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "工资增长。常用于就业和通胀分析。",
+    "examples": [
+      "Stronger wage growth helped households cope with higher living costs.",
+      "Central bankers are watching wage growth for signs of persistent inflation."
+    ]
+  },
+  {
+    "id": "economy-supply-chain",
+    "topic": "Economy",
+    "term": "supply chain",
+    "phonetic": "/səˈplaɪ tʃeɪn/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "供应链；从原材料到最终产品交付的生产和物流网络。",
+    "examples": [
+      "The company moved part of its supply chain closer to its main market.",
+      "Supply chain problems delayed the launch of several new products."
+    ]
+  },
+  {
+    "id": "economy-consumer-confidence",
+    "topic": "Economy",
+    "term": "consumer confidence",
+    "phonetic": "/kənˈsuːmər ˈkɑːnfɪdəns/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "消费者信心；衡量消费者对经济和自身收入前景的看法。",
+    "examples": [
+      "Retail sales improved as consumer confidence recovered.",
+      "Falling house prices hurt consumer confidence in several regions."
+    ]
+  },
+  {
+    "id": "economy-austerity",
+    "topic": "Economy",
+    "term": "austerity",
+    "phonetic": "/ɔːˈsterəti/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "紧缩政策；政府削减开支或提高税收以控制债务。",
+    "examples": [
+      "The austerity programme reduced the deficit but angered public-sector workers.",
+      "Critics argue that austerity can slow growth during a fragile recovery."
+    ]
+  },
+  {
+    "id": "economy-stimulus-package",
+    "topic": "Economy",
+    "term": "stimulus package",
+    "phonetic": "/ˈstɪmjələs ˈpækɪdʒ/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "经济刺激方案；政府用于提振经济的一组财政或金融措施。",
+    "examples": [
+      "The stimulus package included tax cuts and infrastructure spending.",
+      "Small businesses said the stimulus package arrived too late."
+    ]
+  },
+  {
+    "id": "economy-productivity",
+    "topic": "Economy",
+    "term": "productivity",
+    "phonetic": "/ˌproʊdʌkˈtɪvəti/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "生产率；单位投入产出的效率。",
+    "examples": [
+      "Higher productivity could allow wages to rise without adding inflationary pressure.",
+      "The report links weak productivity to low investment in training and technology."
+    ]
+  },
+  {
+    "id": "finance-interest-rate",
+    "topic": "Finance & Markets",
+    "term": "interest rate",
+    "phonetic": "/ˈɪntrəst reɪt/",
+    "level": "B1",
+    "partOfSpeech": "phrase",
+    "meaning": "利率；借钱的成本或存款的收益率。",
+    "examples": [
+      "Higher interest rates made mortgages more expensive.",
+      "Investors expect the central bank to cut interest rates later this year."
+    ]
+  },
+  {
+    "id": "finance-bond-yield",
+    "topic": "Finance & Markets",
+    "term": "bond yield",
+    "phonetic": "/bɑːnd jiːld/",
+    "level": "C1",
+    "partOfSpeech": "phrase",
+    "meaning": "债券收益率；投资者持有债券获得的回报率。",
+    "examples": [
+      "Bond yields rose after the inflation data came in hotter than expected.",
+      "Lower bond yields made equities look more attractive to some investors."
+    ]
+  },
+  {
+    "id": "finance-equity",
+    "topic": "Finance & Markets",
+    "term": "equity",
+    "phonetic": "/ˈekwəti/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "股权；股票；资产净值。金融新闻中常指股票资产。",
+    "examples": [
+      "Global equity markets fell as investors moved into safer assets.",
+      "The start-up raised equity financing from several venture funds."
+    ]
+  },
+  {
+    "id": "finance-liquidity",
+    "topic": "Finance & Markets",
+    "term": "liquidity",
+    "phonetic": "/lɪˈkwɪdəti/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "流动性；资产快速买卖或企业获得现金的能力。",
+    "examples": [
+      "The bank increased liquidity support to calm the market.",
+      "Thin liquidity can make prices move sharply during periods of stress."
+    ]
+  },
+  {
+    "id": "finance-volatility",
+    "topic": "Finance & Markets",
+    "term": "volatility",
+    "phonetic": "/ˌvɑːləˈtɪləti/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "波动性；价格或市场情绪快速变化的程度。",
+    "examples": [
+      "Currency volatility increased after the surprise policy announcement.",
+      "Long-term investors often try to ignore short-term market volatility."
+    ]
+  },
+  {
+    "id": "finance-forecast",
+    "topic": "Finance & Markets",
+    "term": "forecast",
+    "phonetic": "/ˈfɔːrkæst/",
+    "level": "B1",
+    "partOfSpeech": "noun / verb",
+    "meaning": "预测；预报。可用于经济、天气、销售和利润。",
+    "examples": [
+      "The company cut its profit forecast because demand weakened.",
+      "Analysts forecast slower growth in the second half of the year."
+    ]
+  },
+  {
+    "id": "finance-debt-ceiling",
+    "topic": "Finance & Markets",
+    "term": "debt ceiling",
+    "phonetic": "/det ˈsiːlɪŋ/",
+    "level": "C1",
+    "partOfSpeech": "phrase",
+    "meaning": "债务上限；政府可借债总额的法定限制。",
+    "examples": [
+      "The debt ceiling debate unsettled financial markets.",
+      "Failure to raise the debt ceiling could delay some government payments."
+    ]
+  },
+  {
+    "id": "finance-merger",
+    "topic": "Finance & Markets",
+    "term": "merger",
+    "phonetic": "/ˈmɜːrdʒər/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "合并；企业之间整合为一个实体。",
+    "examples": [
+      "Regulators are reviewing the proposed merger between the two banks.",
+      "The merger could reduce costs but may also lead to job cuts."
+    ]
+  },
+  {
+    "id": "law-lawsuit",
+    "topic": "Law & Justice",
+    "term": "lawsuit",
+    "phonetic": "/ˈlɔːsuːt/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "诉讼；民事案件。",
+    "examples": [
+      "The company faces a lawsuit over claims that it misled customers.",
+      "A group of residents filed a lawsuit to stop the project."
+    ]
+  },
+  {
+    "id": "law-ruling",
+    "topic": "Law & Justice",
+    "term": "ruling",
+    "phonetic": "/ˈruːlɪŋ/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "裁决；判决；法院或官方机构作出的决定。",
+    "examples": [
+      "The court's ruling could reshape online privacy rules.",
+      "The company said it would comply with the ruling."
+    ]
+  },
+  {
+    "id": "law-allegation",
+    "topic": "Law & Justice",
+    "term": "allegation",
+    "phonetic": "/ˌæləˈɡeɪʃən/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "指控；说法。通常表示尚未被证明的指控。",
+    "examples": [
+      "The minister denied allegations of misuse of public funds.",
+      "Police are investigating allegations made by former employees."
+    ]
+  },
+  {
+    "id": "law-compliance",
+    "topic": "Law & Justice",
+    "term": "compliance",
+    "phonetic": "/kəmˈplaɪəns/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "合规；遵守法律、规则或标准。",
+    "examples": [
+      "The bank strengthened its compliance team after the investigation.",
+      "New data rules will increase compliance costs for small firms."
+    ]
+  },
+  {
+    "id": "law-regulation",
+    "topic": "Law & Justice",
+    "term": "regulation",
+    "phonetic": "/ˌreɡjəˈleɪʃən/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "监管；法规；规章制度。",
+    "examples": [
+      "Stricter regulation is expected for digital payment platforms.",
+      "Industry groups warned that the regulation could slow innovation."
+    ]
+  },
+  {
+    "id": "law-appeal",
+    "topic": "Law & Justice",
+    "term": "appeal",
+    "phonetic": "/əˈpiːl/",
+    "level": "B2",
+    "partOfSpeech": "noun / verb",
+    "meaning": "上诉；呼吁；吸引力。法律新闻中常指请求更高法院复审。",
+    "examples": [
+      "The defendant plans to appeal against the sentence.",
+      "The appeal will be heard by the supreme court next month."
+    ]
+  },
+  {
+    "id": "law-legal-precedent",
+    "topic": "Law & Justice",
+    "term": "legal precedent",
+    "phonetic": "/ˈliːɡəl ˈpresɪdənt/",
+    "level": "C1",
+    "partOfSpeech": "phrase",
+    "meaning": "法律先例；可影响后续案件的既有判例。",
+    "examples": [
+      "The ruling may set a legal precedent for future climate cases.",
+      "Lawyers said there was little legal precedent for such a claim."
+    ]
+  },
+  {
+    "id": "law-settlement",
+    "topic": "Law & Justice",
+    "term": "settlement",
+    "phonetic": "/ˈsetəlmənt/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "和解；结算；定居点。法律新闻中多指双方达成和解协议。",
+    "examples": [
+      "The firm agreed to a settlement without admitting wrongdoing.",
+      "Victims said the settlement did not go far enough."
+    ]
+  },
+  {
+    "id": "environment-emissions",
+    "topic": "Environment & Climate",
+    "term": "emissions",
+    "phonetic": "/ɪˈmɪʃənz/",
+    "level": "B2",
+    "partOfSpeech": "plural noun",
+    "meaning": "排放物；排放量。常指温室气体排放。",
+    "examples": [
+      "The plan aims to cut carbon emissions by 40 percent by 2035.",
+      "Transport remains one of the largest sources of emissions."
+    ]
+  },
+  {
+    "id": "environment-renewable-energy",
+    "topic": "Environment & Climate",
+    "term": "renewable energy",
+    "phonetic": "/rɪˈnuːəbəl ˈenərdʒi/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "可再生能源；如太阳能、风能、水电等。",
+    "examples": [
+      "Investment in renewable energy reached a new record last year.",
+      "The island hopes to replace diesel generators with renewable energy."
+    ]
+  },
+  {
+    "id": "environment-drought",
+    "topic": "Environment & Climate",
+    "term": "drought",
+    "phonetic": "/draʊt/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "干旱；长期缺少降雨。",
+    "examples": [
+      "A severe drought reduced crop yields across the region.",
+      "Water restrictions were introduced as the drought continued."
+    ]
+  },
+  {
+    "id": "environment-flood-risk",
+    "topic": "Environment & Climate",
+    "term": "flood risk",
+    "phonetic": "/flʌd rɪsk/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "洪水风险；受到洪灾影响的可能性。",
+    "examples": [
+      "New housing projects must now consider long-term flood risk.",
+      "Insurers raised premiums in areas with high flood risk."
+    ]
+  },
+  {
+    "id": "environment-carbon-footprint",
+    "topic": "Environment & Climate",
+    "term": "carbon footprint",
+    "phonetic": "/ˈkɑːrbən ˈfʊtprɪnt/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "碳足迹；个人、公司或产品产生的温室气体排放总量。",
+    "examples": [
+      "The airline offered passengers a way to offset their carbon footprint.",
+      "Companies are under pressure to measure the carbon footprint of their supply chains."
+    ]
+  },
+  {
+    "id": "environment-climate-target",
+    "topic": "Environment & Climate",
+    "term": "climate target",
+    "phonetic": "/ˈklaɪmət ˈtɑːrɡɪt/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "气候目标；政府或企业设定的减排或气候行动目标。",
+    "examples": [
+      "The country is not on track to meet its climate target.",
+      "Investors want clearer plans for how the firm will reach its climate targets."
+    ]
+  },
+  {
+    "id": "environment-conservation",
+    "topic": "Environment & Climate",
+    "term": "conservation",
+    "phonetic": "/ˌkɑːnsərˈveɪʃən/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "保护；保存。常用于自然资源、动物和生态系统保护。",
+    "examples": [
+      "The park is central to the country's conservation strategy.",
+      "Conservation groups welcomed the ban on commercial logging."
+    ]
+  },
+  {
+    "id": "environment-sustainable",
+    "topic": "Environment & Climate",
+    "term": "sustainable",
+    "phonetic": "/səˈsteɪnəbəl/",
+    "level": "B2",
+    "partOfSpeech": "adjective",
+    "meaning": "可持续的；能够长期维持而不过度消耗资源的。",
+    "examples": [
+      "The city is investing in sustainable transport and cleaner heating.",
+      "Experts questioned whether the business model was environmentally sustainable."
+    ]
+  },
+  {
+    "id": "ecology-biodiversity",
+    "topic": "Ecology",
+    "term": "biodiversity",
+    "phonetic": "/ˌbaɪoʊdaɪˈvɜːrsəti/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "生物多样性；某一区域内生命形式的丰富程度。",
+    "examples": [
+      "Scientists warned that biodiversity is declining faster than expected.",
+      "Protecting wetlands can improve biodiversity and reduce flood damage."
+    ]
+  },
+  {
+    "id": "ecology-habitat",
+    "topic": "Ecology",
+    "term": "habitat",
+    "phonetic": "/ˈhæbɪtæt/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "栖息地；动植物自然生活的环境。",
+    "examples": [
+      "Road construction has destroyed part of the animal's habitat.",
+      "The project will restore habitat for birds and small mammals."
+    ]
+  },
+  {
+    "id": "ecology-ecosystem",
+    "topic": "Ecology",
+    "term": "ecosystem",
+    "phonetic": "/ˈiːkoʊsɪstəm/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "生态系统；生物及其环境相互作用的整体。",
+    "examples": [
+      "The river ecosystem has been damaged by industrial pollution.",
+      "Healthy ecosystems provide clean water, food and protection from storms."
+    ]
+  },
+  {
+    "id": "ecology-species",
+    "topic": "Ecology",
+    "term": "species",
+    "phonetic": "/ˈspiːʃiːz/",
+    "level": "B1",
+    "partOfSpeech": "noun",
+    "meaning": "物种；具有共同特征并可繁殖后代的一类生物。",
+    "examples": [
+      "Several native species have returned since fishing limits were introduced.",
+      "The report lists hundreds of species at risk of extinction."
+    ]
+  },
+  {
+    "id": "ecology-pollinator",
+    "topic": "Ecology",
+    "term": "pollinator",
+    "phonetic": "/ˈpɑːləneɪtər/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "传粉者；帮助植物授粉的昆虫、鸟类或其他动物。",
+    "examples": [
+      "Bees are an important pollinator for many fruit crops.",
+      "Pesticide use has been linked to a decline in pollinator populations."
+    ]
+  },
+  {
+    "id": "ecology-invasive-species",
+    "topic": "Ecology",
+    "term": "invasive species",
+    "phonetic": "/ɪnˈveɪsɪv ˈspiːʃiːz/",
+    "level": "C1",
+    "partOfSpeech": "phrase",
+    "meaning": "入侵物种；进入新环境并破坏当地生态的外来物种。",
+    "examples": [
+      "The lake's fish population has been reduced by an invasive species.",
+      "Authorities are trying to stop invasive species from spreading through trade routes."
+    ]
+  },
+  {
+    "id": "ecology-restoration",
+    "topic": "Ecology",
+    "term": "restoration",
+    "phonetic": "/ˌrestəˈreɪʃən/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "恢复；修复。生态语境中常指恢复受损自然环境。",
+    "examples": [
+      "Forest restoration could create jobs and absorb more carbon.",
+      "The restoration of coastal wetlands helped protect nearby villages."
+    ]
+  },
+  {
+    "id": "ecology-food-chain",
+    "topic": "Ecology",
+    "term": "food chain",
+    "phonetic": "/fuːd tʃeɪn/",
+    "level": "B1",
+    "partOfSpeech": "phrase",
+    "meaning": "食物链；生物之间通过捕食和被捕食形成的能量传递关系。",
+    "examples": [
+      "Pollution can move through the food chain and affect larger animals.",
+      "A decline in insects may disrupt the food chain in farmland areas."
+    ]
+  },
+  {
+    "id": "tech-artificial-intelligence",
+    "topic": "Technology & Society",
+    "term": "artificial intelligence",
+    "phonetic": "/ˌɑːrtɪˈfɪʃəl ɪnˈtelɪdʒəns/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "人工智能；让机器执行通常需要人类智能的任务的技术。",
+    "examples": [
+      "Artificial intelligence is changing how newsrooms analyse large documents.",
+      "Regulators are debating how to manage the risks of artificial intelligence."
+    ]
+  },
+  {
+    "id": "tech-data-breach",
+    "topic": "Technology & Society",
+    "term": "data breach",
+    "phonetic": "/ˈdeɪtə briːtʃ/",
+    "level": "B2",
+    "partOfSpeech": "phrase",
+    "meaning": "数据泄露；未经授权访问或公开敏感数据的事件。",
+    "examples": [
+      "The data breach exposed the personal details of millions of users.",
+      "Companies must report a serious data breach within a short period."
+    ]
+  },
+  {
+    "id": "tech-cybersecurity",
+    "topic": "Technology & Society",
+    "term": "cybersecurity",
+    "phonetic": "/ˌsaɪbərsɪˈkjʊrəti/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "网络安全；保护系统、网络和数据免受攻击的实践。",
+    "examples": [
+      "Cybersecurity spending rose after a series of attacks on hospitals.",
+      "The government created a new agency to coordinate cybersecurity policy."
+    ]
+  },
+  {
+    "id": "tech-semiconductor",
+    "topic": "Technology & Society",
+    "term": "semiconductor",
+    "phonetic": "/ˌsemikənˈdʌktər/",
+    "level": "C1",
+    "partOfSpeech": "noun",
+    "meaning": "半导体；芯片产业新闻中的核心词。",
+    "examples": [
+      "Semiconductor shortages disrupted car production around the world.",
+      "Several countries are offering subsidies to attract semiconductor factories."
+    ]
+  },
+  {
+    "id": "tech-automation",
+    "topic": "Technology & Society",
+    "term": "automation",
+    "phonetic": "/ˌɔːtəˈmeɪʃən/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "自动化；用机器或软件替代人工完成流程。",
+    "examples": [
+      "Automation has increased output but changed the skills workers need.",
+      "Warehouses are adopting automation to handle online orders faster."
+    ]
+  },
+  {
+    "id": "tech-platform",
+    "topic": "Technology & Society",
+    "term": "platform",
+    "phonetic": "/ˈplætfɔːrm/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "平台；提供服务、交易或内容分发的技术系统。",
+    "examples": [
+      "The platform said it would remove misleading political advertisements.",
+      "Small sellers depend heavily on large e-commerce platforms."
+    ]
+  },
+  {
+    "id": "tech-algorithm",
+    "topic": "Technology & Society",
+    "term": "algorithm",
+    "phonetic": "/ˈælɡərɪðəm/",
+    "level": "B2",
+    "partOfSpeech": "noun",
+    "meaning": "算法；计算机按步骤解决问题或作出推荐的规则。",
+    "examples": [
+      "The algorithm ranks posts based on predicted user interest.",
+      "Critics say the hiring algorithm may reproduce existing bias."
+    ]
+  },
+  {
+    "id": "tech-digital-divide",
+    "topic": "Technology & Society",
+    "term": "digital divide",
+    "phonetic": "/ˈdɪdʒɪtəl dɪˈvaɪd/",
+    "level": "C1",
+    "partOfSpeech": "phrase",
+    "meaning": "数字鸿沟；不同人群在互联网、设备和数字技能上的差距。",
+    "examples": [
+      "Remote learning exposed the digital divide between rich and poor households.",
+      "Expanding broadband access is one way to narrow the digital divide."
+    ]
+  }
+]

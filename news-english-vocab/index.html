@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>News English Vocabulary Lab</title>
+    <meta
+      name="description"
+      content="按政治、经济、金融、法律、环境、生态、技术等新闻场景学习 B1/B2 及以上英语词汇和词组。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="页面导航">
+        <a class="brand" href="./">News English Vocabulary Lab</a>
+        <a class="github-link" href="https://github.com/ivanalgo/ivanalgo.github.io">GitHub Pages</a>
+      </nav>
+
+      <section class="hero-grid">
+        <div>
+          <p class="eyebrow">Economist / BBC / CNN style vocabulary</p>
+          <h1>用新闻语境学习高频英语词汇与词组</h1>
+          <p class="hero-copy">
+            面向 B1/B2 及以上学习者，覆盖政治、经济、金融、法律、环境、生态和技术场景。
+            每个词条包含拼写、音标、可点击发音、中文释义和两个新闻风格例句。
+          </p>
+        </div>
+        <aside class="hero-card" aria-label="学习建议">
+          <span class="hero-card__label">Study rhythm</span>
+          <strong>每天 12 个词条</strong>
+          <p>先听发音，再读例句，最后尝试用当天新闻写一句自己的例句。</p>
+        </aside>
+      </section>
+    </header>
+
+    <main class="page-shell">
+      <section class="toolbar" aria-label="词汇筛选">
+        <label class="search-box">
+          <span>搜索词汇、释义或例句</span>
+          <input id="searchInput" type="search" placeholder="例如: sanction, emissions, appeal" autocomplete="off" />
+        </label>
+
+        <label class="select-box">
+          <span>话题</span>
+          <select id="topicSelect">
+            <option value="all">全部话题</option>
+          </select>
+        </label>
+
+        <label class="select-box">
+          <span>难度</span>
+          <select id="levelSelect">
+            <option value="all">全部难度</option>
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+            <option value="C1">C1</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="summary-row" aria-live="polite">
+        <div>
+          <span id="resultCount">正在加载词库...</span>
+          <p id="pageInfo">请稍候</p>
+        </div>
+        <div id="topicChips" class="topic-chips" aria-label="话题快捷筛选"></div>
+      </section>
+
+      <section id="vocabGrid" class="vocab-grid" aria-label="词汇列表"></section>
+
+      <nav class="pagination" aria-label="分页导航">
+        <button id="prevPage" type="button">上一页</button>
+        <div id="pageNumbers" class="page-numbers"></div>
+        <button id="nextPage" type="button">下一页</button>
+      </nav>
+    </main>
+
+    <footer class="footer">
+      <p>建议使用 Chrome、Edge 或 Safari 获取更稳定的浏览器发音支持。</p>
+      <p>词库位于 <code>vocab.json</code>，可直接扩展或替换。</p>
+    </footer>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

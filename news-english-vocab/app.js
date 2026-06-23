@@ -205,14 +205,28 @@ function renderCards() {
   pageItems.forEach((word) => {
     const article = document.createElement("article");
     article.className = "word-card";
-    article.tabIndex = 0;
     article.setAttribute("aria-label", word.term);
 
     const top = document.createElement("div");
     top.className = "word-card__top";
 
+    const termTrigger = document.createElement("div");
+    termTrigger.className = "term-trigger";
+    termTrigger.tabIndex = 0;
+    termTrigger.setAttribute("aria-label", `查看 ${word.term} 的相关表达和搭配`);
+
     const heading = document.createElement("h2");
     heading.textContent = word.term;
+
+    const popover = document.createElement("div");
+    popover.className = "expression-popover";
+    popover.append(createExpressionSection("相关表达", word.relatedExpressions ?? []));
+    popover.append(createExpressionSection("搭配 / idiom", word.collocations ?? []));
+    if (word.related?.length) {
+      popover.append(createExpressionSection("同组词组", word.related.map((related) => related.term)));
+    }
+
+    termTrigger.append(heading, popover);
 
     const button = document.createElement("button");
     button.type = "button";
@@ -221,7 +235,7 @@ function renderCards() {
     button.textContent = "音";
     button.addEventListener("click", () => speak(word.term));
 
-    top.append(heading, button);
+    top.append(termTrigger, button);
 
     const meta = document.createElement("div");
     meta.className = "meta";
@@ -244,16 +258,7 @@ function renderCards() {
       examples.append(item);
     });
 
-    const popover = document.createElement("div");
-    popover.className = "expression-popover";
-    popover.append(createExpressionSection("相关表达", word.relatedExpressions ?? []));
-    popover.append(createExpressionSection("搭配 / idiom", word.collocations ?? []));
-    if (word.related?.length) {
-      popover.append(createExpressionSection("同组词组", word.related.map((related) => related.term)));
-    }
-
     article.append(top);
-    article.append(popover);
     article.append(meta, meaning, examples);
     elements.vocabGrid.append(article);
   });

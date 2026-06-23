@@ -192,16 +192,11 @@ select:focus {
 }
 
 .word-card:hover,
-.word-card:focus-within,
-.word-card:focus {
+.word-card:focus-within {
   border-color: rgba(45, 111, 115, 0.35);
   box-shadow: 0 20px 48px rgba(55, 66, 58, 0.13);
   transform: translateY(-3px);
   z-index: 8;
-}
-
-.word-card:focus {
-  outline: none;
 }
 
 .word-card__top {
@@ -209,6 +204,24 @@ select:focus {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+}
+
+.term-trigger {
+  position: relative;
+  min-width: 0;
+  max-width: calc(100% - 54px);
+  cursor: default;
+}
+
+.term-trigger:focus {
+  outline: none;
+}
+
+.term-trigger:focus h2 {
+  text-decoration: underline;
+  text-decoration-color: rgba(45, 111, 115, 0.45);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
 .word-card h2 {
@@ -236,10 +249,10 @@ select:focus {
 
 .expression-popover {
   position: absolute;
-  top: 58px;
-  right: 14px;
-  left: 14px;
+  top: 0;
+  left: 100%;
   z-index: 20;
+  width: min(360px, 70vw);
   max-height: 320px;
   overflow: auto;
   border: 1px solid rgba(45, 111, 115, 0.22);
@@ -250,7 +263,7 @@ select:focus {
   box-shadow: 0 24px 60px rgba(32, 48, 44, 0.2);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-5px);
+  transform: translateX(-6px);
   transition:
     opacity 150ms ease,
     transform 150ms ease,
@@ -260,12 +273,12 @@ select:focus {
   backdrop-filter: blur(16px);
 }
 
-.word-card:hover .expression-popover,
-.word-card:focus-within .expression-popover,
-.word-card:focus .expression-popover {
+.term-trigger:hover .expression-popover,
+.term-trigger:focus-within .expression-popover,
+.term-trigger:focus .expression-popover {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateX(0);
   visibility: visible;
 }
 

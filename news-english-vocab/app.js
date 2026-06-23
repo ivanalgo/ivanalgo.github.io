@@ -3,6 +3,7 @@ const pageSize = 12;
 const state = {
   words: [],
   filtered: [],
+  topicOrder: new Map(),
   page: 1,
   topic: "all",
   level: "all",
@@ -26,8 +27,31 @@ function normalize(value) {
   return value.toLowerCase().trim();
 }
 
+const levelOrder = new Map([
+  ["B1", 0],
+  ["B2", 1],
+  ["C1", 2],
+  ["C2", 3],
+]);
+
 function getTopics(words) {
-  return [...new Set(words.map((word) => word.topic))].sort((a, b) => a.localeCompare(b));
+  return [...new Set(words.map((word) => word.topic))];
+}
+
+function sortWords(words) {
+  return [...words].sort((a, b) => {
+    const topicCompare = (state.topicOrder.get(a.topic) ?? 999) - (state.topicOrder.get(b.topic) ?? 999);
+    if (topicCompare !== 0) {
+      return topicCompare;
+    }
+
+    const levelCompare = (levelOrder.get(a.level) ?? 999) - (levelOrder.get(b.level) ?? 999);
+    if (levelCompare !== 0) {
+      return levelCompare;
+    }
+
+    return a.term.localeCompare(b.term);
+  });
 }
 
 function createOption(value, label) {
@@ -84,11 +108,11 @@ function wordMatchesQuery(word, query) {
 function applyFilters() {
   const query = normalize(state.query);
 
-  state.filtered = state.words.filter((word) => {
+  state.filtered = sortWords(state.words.filter((word) => {
     const topicMatch = state.topic === "all" || word.topic === state.topic;
     const levelMatch = state.level === "all" || word.level === state.level;
     return topicMatch && levelMatch && wordMatchesQuery(word, query);
-  });
+  }));
 
   const pageCount = getPageCount();
   if (state.page > pageCount) {
@@ -270,6 +294,8 @@ async function loadVocabulary() {
     }
 
     state.words = await response.json();
+    state.topicOrder = new Map(getTopics(state.words).map((topic, index) => [topic, index]));
+    state.words = sortWords(state.words);
     state.filtered = state.words;
     buildFilters();
     bindEvents();

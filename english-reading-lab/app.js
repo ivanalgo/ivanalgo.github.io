@@ -1,8 +1,9 @@
 const levelOrder = new Map([
-  ["B1", 0],
-  ["B2", 1],
-  ["C1", 2],
-  ["C2", 3],
+  ["A1", 0],
+  ["A2", 1],
+  ["B1", 2],
+  ["B2", 3],
+  ["C1", 4],
 ]);
 
 const annotationTypePriority = new Map([
@@ -19,6 +20,7 @@ const state = {
   activeAnnotationId: "",
   isLibraryHidden: false,
   collapsedTopics: new Set(),
+  collapsedLevels: new Set(),
 };
 
 const elements = {
@@ -30,9 +32,11 @@ const elements = {
   libraryTree: document.querySelector("#libraryTree"),
   articleTopic: document.querySelector("#articleTopic"),
   articleLevel: document.querySelector("#articleLevel"),
+  articleLength: document.querySelector("#articleLength"),
   articleSourceType: document.querySelector("#articleSourceType"),
   articleTitle: document.querySelector("#articleTitle"),
   articleDek: document.querySelector("#articleDek"),
+  articleLevelFocus: document.querySelector("#articleLevelFocus"),
   articleSource: document.querySelector("#articleSource"),
   adaptationNote: document.querySelector("#adaptationNote"),
   articleBody: document.querySelector("#articleBody"),
@@ -114,15 +118,15 @@ function getArticleCountByLevels(levels) {
   return [...levels.values()].reduce((total, articles) => total + articles.length, 0);
 }
 
-function getActiveArticleTopic() {
-  return state.articles.find((article) => article.id === state.activeId)?.topic ?? "";
-}
-
 function createTextElement(tagName, className, text) {
   const element = document.createElement(tagName);
   element.className = className;
   element.textContent = text;
   return element;
+}
+
+function getArticleWordCount(article) {
+  return article.body.join(" ").trim().split(/\s+/).filter(Boolean).length;
 }
 
 function getStudyItems(article) {
@@ -351,8 +355,7 @@ function renderLibrary() {
     const topicSection = document.createElement("section");
     topicSection.className = "topic-group";
     const contentId = `topic-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-    const isActiveTopic = getActiveArticleTopic() === topic;
-    const isCollapsed = state.collapsedTopics.has(topic) && !isActiveTopic;
+    const isCollapsed = !query && state.collapsedTopics.has(topic);
 
     const topicButton = document.createElement("button");
     topicButton.type = "button";
@@ -378,27 +381,48 @@ function renderLibrary() {
     topicContent.className = "topic-content";
     topicContent.hidden = isCollapsed;
 
-    [...levels.entries()]
+    if (!isCollapsed) {
+      [...levels.entries()]
       .sort((a, b) => (levelOrder.get(a[0]) ?? 999) - (levelOrder.get(b[0]) ?? 999))
       .forEach(([level, articles]) => {
+        const levelKey = `${topic}::${level}`;
+        const isLevelCollapsed = !query && state.collapsedLevels.has(levelKey);
         const levelSection = document.createElement("section");
         levelSection.className = "level-group";
-        levelSection.append(createTextElement("h3", "level-title", level));
 
-        articles.forEach((article) => {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = `article-button${article.id === state.activeId ? " is-active" : ""}`;
-          button.textContent = article.title;
-          button.addEventListener("click", () => {
-            state.activeId = article.id;
-            render();
-          });
-          levelSection.append(button);
+        const levelButton = document.createElement("button");
+        levelButton.type = "button";
+        levelButton.className = `level-toggle${isLevelCollapsed ? " is-collapsed" : ""}`;
+        levelButton.setAttribute("aria-expanded", String(!isLevelCollapsed));
+        levelButton.append(createTextElement("span", "level-title", level));
+        levelButton.append(createTextElement("span", "level-count", `${articles.length}`));
+        levelButton.addEventListener("click", () => {
+          if (state.collapsedLevels.has(levelKey)) {
+            state.collapsedLevels.delete(levelKey);
+          } else {
+            state.collapsedLevels.add(levelKey);
+          }
+          renderLibrary();
         });
+        levelSection.append(levelButton);
+
+        if (!isLevelCollapsed) {
+          articles.forEach((article) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = `article-button${article.id === state.activeId ? " is-active" : ""}`;
+            button.textContent = article.title;
+            button.addEventListener("click", () => {
+              state.activeId = article.id;
+              render();
+            });
+            levelSection.append(button);
+          });
+        }
 
         topicContent.append(levelSection);
       });
+    }
 
     topicSection.append(topicContent);
     elements.libraryTree.append(topicSection);
@@ -428,10 +452,68 @@ function renderNotes(container, items) {
     const meta = document.createElement("div");
     meta.className = "note-meta";
     meta.append(createTextElement("span", `note-type note-type--${item.type}`, item.label));
+    if (item.cefr) {
+      meta.append(createTextElement("span", "note-level", `CEFR ${item.cefr}`));
+    }
 
     note.append(meta);
     note.append(createTextElement("h3", "note-term", item.term));
-    note.append(createTextElement("p", "note-text", item.note));
+    if (item.pronunciation || item.partOfSpeech) {
+      note.append(
+        createTextElement(
+          "p",
+          "note-pronunciation",
+          [item.pronunciation, item.partOfSpeech].filter(Boolean).join("  ·  ")
+        )
+      );
+    }
+    if (item.definition) {
+      const definition = createTextElement("p", "note-definition", item.definition);
+      definition.lang = "en";
+      note.append(definition);
+    }
+    if (item.note && item.type !== "vocabulary") {
+      const context = document.createElement("p");
+      context.className = "note-text";
+      context.append(createTextElement("strong", "note-label", "语境 "));
+      context.append(document.createTextNode(item.note));
+      note.append(context);
+    }
+    if (item.example) {
+      const example = document.createElement("p");
+      example.className = "note-example";
+      example.append(createTextElement("strong", "note-label", "Example "));
+      example.append(document.createTextNode(item.example));
+      note.append(example);
+    }
+    if (item.type === "vocabulary" && (item.chinese || item.note)) {
+      const chinese = document.createElement("p");
+      chinese.className = "note-chinese";
+      chinese.append(createTextElement("strong", "note-label", "中文 "));
+      chinese.append(document.createTextNode(item.chinese || item.note));
+      note.append(chinese);
+    }
+    if (item.type === "vocabulary" && item.usage) {
+      const usage = document.createElement("p");
+      usage.className = "note-usage";
+      usage.append(createTextElement("strong", "note-label", "用法 "));
+      usage.append(document.createTextNode(item.usage));
+      note.append(usage);
+    }
+    if (item.effect) {
+      const effect = document.createElement("p");
+      effect.className = "note-effect";
+      effect.append(createTextElement("strong", "note-label", "作用 "));
+      effect.append(document.createTextNode(item.effect));
+      note.append(effect);
+    }
+    if (item.tryIt) {
+      const tryIt = document.createElement("p");
+      tryIt.className = "note-try";
+      tryIt.append(createTextElement("strong", "note-label", "仿写 "));
+      tryIt.append(document.createTextNode(item.tryIt));
+      note.append(tryIt);
+    }
     container.append(note);
   });
 }
@@ -444,10 +526,16 @@ function renderArticle() {
 
   state.activeId = article.id;
   elements.articleTopic.textContent = article.topic;
-  elements.articleLevel.textContent = article.level;
+  elements.articleLevel.textContent = `CEFR ${article.level}`;
+  const wordCount = getArticleWordCount(article);
+  const readingMinutes = Math.max(1, Math.ceil(wordCount / 180));
+  elements.articleLength.textContent = `${wordCount} words · ${readingMinutes} min`;
   elements.articleSourceType.textContent = article.sourceType;
   elements.articleTitle.textContent = article.title;
   elements.articleDek.textContent = article.dek;
+  elements.articleLevelFocus.textContent = article.levelFocus
+    ? `${article.level} focus · ${article.levelFocus}`
+    : "";
   elements.articleSource.textContent = `Source reference: ${article.sourceName}`;
   elements.articleSource.href = article.sourceUrl;
   elements.adaptationNote.textContent = article.adaptationNote;
@@ -476,6 +564,14 @@ async function loadArticles() {
     const data = await response.json();
     state.articles = data.articles;
     state.activeId = data.articles[0]?.id ?? "";
+    const activeArticle = data.articles[0];
+    const topics = [...new Set(data.articles.map((article) => article.topic))];
+    state.collapsedTopics = new Set(topics.filter((topic) => topic !== activeArticle?.topic));
+    state.collapsedLevels = new Set(
+      data.articles
+        .map((article) => `${article.topic}::${article.level}`)
+        .filter((key) => key !== `${activeArticle?.topic}::${activeArticle?.level}`)
+    );
     render();
   } catch (error) {
     elements.libraryTree.replaceChildren(

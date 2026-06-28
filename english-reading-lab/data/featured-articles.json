@@ -1,0 +1,1243 @@
+{
+  "articles": [
+    {
+      "id": "stories-the-fox-and-the-crow",
+      "title": "The Fox and the Crow",
+      "topic": "Stories",
+      "level": "B1",
+      "levelFocus": "clear narrative sequence, motives, and a simple moral",
+      "dek": "A hungry fox discovers that praise can be a more useful tool than force.",
+      "sourceName": "Project Gutenberg: Three Hundred Aesop's Fables",
+      "sourceUrl": "https://www.gutenberg.org/ebooks/21",
+      "sourceType": "Graded classic",
+      "adaptationNote": "A complete B1 classroom retelling of the public-domain fable, written in modern English.",
+      "body": [
+        "One bright morning, a crow flew over a farm and saw a piece of cheese beside an open window. She dropped quickly, caught the cheese in her beak, and carried it to an old oak tree. There she found a safe perch on a branch high above the road.",
+        "A fox was walking below. He had searched for breakfast since sunrise, but the fields had offered him nothing. When he looked up and saw the cheese, his hunger sharpened. He knew that he could not climb the tree, so he decided to use words instead.",
+        "\"What a magnificent bird!\" he called. \"Your feathers shine like polished coal. Your wings are strong, and your eyes are bright. Surely a bird as beautiful as you must also have a wonderful voice.\" The crow had heard warnings about foxes, and for a moment she began to hesitate. Yet she enjoyed the fox's praise and wanted to prove that it was true.",
+        "The fox continued to flatter her. \"If you truly sing as well as you look, you should be queen of every bird in the forest.\" The crow could not resist. She lifted her head, opened her beak, and gave a loud caw. At once, the cheese fell to the ground.",
+        "The fox caught it before it touched the dust. \"Your voice is loud enough,\" he said, \"but wise birds do not believe every compliment.\" Then he disappeared down the road with his breakfast. The crow remained on the branch, hungry and embarrassed. Her pride had been louder than her caution."
+      ],
+      "vocabulary": [
+        {
+          "term": "perch",
+          "target": "perch",
+          "cefr": "B1",
+          "pronunciation": "/pɜːtʃ/",
+          "partOfSpeech": "noun",
+          "definition": "a place where a bird rests, usually above the ground",
+          "note": "文中指乌鸦停在树上的落脚处。",
+          "example": "The parrot returned to its perch."
+        },
+        {
+          "term": "sharpen",
+          "target": "sharpened",
+          "cefr": "B1",
+          "pronunciation": "/ˈʃɑːpən/",
+          "partOfSpeech": "verb",
+          "definition": "to make a feeling, sense, or ability stronger",
+          "note": "饥饿感变得更强烈，不是字面上的“磨尖”。",
+          "example": "The cold air sharpened her attention."
+        },
+        {
+          "term": "hesitate",
+          "target": "hesitate",
+          "cefr": "B1",
+          "pronunciation": "/ˈhezɪteɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to pause before doing something because you are uncertain",
+          "note": "乌鸦短暂犹豫，说明她其实意识到了风险。",
+          "example": "Do not hesitate to ask a question."
+        },
+        {
+          "term": "flatter",
+          "target": "flatter",
+          "cefr": "B1",
+          "pronunciation": "/ˈflætə/",
+          "partOfSpeech": "verb",
+          "definition": "to praise someone too much, often to gain an advantage",
+          "note": "狐狸通过奉承来达到自己的目的。",
+          "example": "He tried to flatter the judge."
+        },
+        {
+          "term": "compliment",
+          "target": "compliment",
+          "cefr": "B1",
+          "pronunciation": "/ˈkɒmplɪmənt/",
+          "partOfSpeech": "noun",
+          "definition": "a polite expression of praise",
+          "note": "故事提醒读者不要轻信每一句赞美。",
+          "example": "She accepted the compliment with a smile."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "could not resist",
+          "target": "could not resist",
+          "cefr": "B1",
+          "definition": "was unable to stop oneself from doing something",
+          "note": "表示诱惑太强，最终没有忍住。",
+          "example": "The cake smelled so good that I could not resist."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "First conditional",
+          "target": "If you truly sing as well as you look, you should be queen of every bird in the forest.",
+          "cefr": "B1",
+          "definition": "If + present form introduces a possible condition and its result.",
+          "note": "狐狸用条件句制造了一个看似合理的结论。",
+          "example": "If you leave now, you will catch the bus."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Metaphorical contrast",
+          "target": "Her pride had been louder than her caution.",
+          "cefr": "B1",
+          "definition": "Two qualities are compared as if they could make sounds.",
+          "note": "把 pride 和 caution 写成可以较量音量的声音。",
+          "effect": "结尾用一个鲜明画面总结了乌鸦犯错的原因。",
+          "tryIt": "His curiosity was stronger than his fear."
+        }
+      ]
+    },
+    {
+      "id": "stories-the-emperors-new-clothes",
+      "title": "The Emperor's New Clothes",
+      "topic": "Stories",
+      "level": "B2",
+      "levelFocus": "social pressure, irony, and inferred meaning",
+      "dek": "An emperor's love of fashion becomes a test of who is willing to tell the truth.",
+      "sourceName": "Project Gutenberg: Andersen's Fairy Tales",
+      "sourceUrl": "https://www.gutenberg.org/ebooks/1597",
+      "sourceType": "Graded classic",
+      "adaptationNote": "A complete B2 classroom retelling of Hans Christian Andersen's public-domain tale.",
+      "body": [
+        "There once lived an emperor who cared more about clothes than about laws, roads, or the lives of his people. He changed his coat several times a day and spent hours deciding which colors made him appear most powerful. Visitors did not say, \"The emperor is in council.\" They said, \"The emperor is in his dressing room.\"",
+        "Two dishonest weavers arrived in the capital and heard about his weakness. They claimed that they could make a magnificent cloth with a magical quality: it would be invisible to anyone who was foolish or unfit for an important job. The emperor immediately imagined a splendid suit. It would make him look remarkable, and it would also reveal which of his officials were not competent.",
+        "The weavers asked for fine silk and gold thread. Then they hid these materials and worked at empty looms. A few days later, the emperor sent his oldest minister to inspect the cloth. The minister stared at the bare wooden frame. He could see nothing, but he was afraid to admit it. If he told the truth, everyone might think he was a fool.",
+        "\"The pattern is extraordinary,\" the minister said. \"The colors are unlike anything I have seen.\" Other officials visited and gave the same report. Each person feared the judgment of the others, so each person went along with the lie. The more they praised the cloth, the more difficult honesty became.",
+        "At last, the weavers announced that the suit was ready. They pretended to dress the emperor, lifting invisible sleeves and fastening invisible buttons. The emperor saw only his own skin in the mirror, yet he also remained silent. He would rather appear ridiculous than appear incompetent.",
+        "The emperor entered a public procession. Crowds filled the streets, and everyone had heard about the magical cloth. People praised the empty sleeves and the long, invisible train. Then a child called out, \"But he is wearing nothing at all!\" A whisper moved through the crowd and grew into laughter.",
+        "The emperor understood that the child was right. Still, he raised his head and continued walking while his servants pretended to carry the train behind him. The finest clothes in the kingdom had been made of fear, and everyone had helped to sew them."
+      ],
+      "vocabulary": [
+        {
+          "term": "magnificent",
+          "target": "magnificent",
+          "cefr": "B2",
+          "pronunciation": "/mæɡˈnɪfɪsənt/",
+          "partOfSpeech": "adjective",
+          "definition": "extremely beautiful, impressive, or important",
+          "note": "骗子用夸张的形容词吸引皇帝。",
+          "example": "The hall has a magnificent painted ceiling."
+        },
+        {
+          "term": "competent",
+          "target": "competent",
+          "cefr": "B2",
+          "pronunciation": "/ˈkɒmpɪtənt/",
+          "partOfSpeech": "adjective",
+          "definition": "having enough skill or ability to do something well",
+          "note": "皇帝想借新衣判断官员是否称职。",
+          "example": "She is a highly competent engineer."
+        },
+        {
+          "term": "inspect",
+          "target": "inspect",
+          "cefr": "B2",
+          "pronunciation": "/ɪnˈspekt/",
+          "partOfSpeech": "verb",
+          "definition": "to examine something carefully",
+          "note": "大臣被派去仔细查看所谓的布料。",
+          "example": "The mechanic inspected the brakes."
+        },
+        {
+          "term": "admit",
+          "target": "admit",
+          "cefr": "B2",
+          "pronunciation": "/ədˈmɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to agree that something is true, especially unwillingly",
+          "note": "大臣不敢承认自己什么也看不见。",
+          "example": "He admitted that the plan had failed."
+        },
+        {
+          "term": "procession",
+          "target": "procession",
+          "cefr": "B2",
+          "pronunciation": "/prəˈseʃən/",
+          "partOfSpeech": "noun",
+          "definition": "an organized group moving forward in a formal public event",
+          "note": "皇帝在正式的公共游行中展示“新衣”。",
+          "example": "A wedding procession crossed the square."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "go along with",
+          "target": "went along with",
+          "cefr": "B2",
+          "definition": "to accept or support an idea, sometimes without truly agreeing",
+          "note": "官员们因害怕而附和谎言。",
+          "example": "I did not like the plan, but I went along with it."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "The more..., the more...",
+          "target": "The more they praised the cloth, the more difficult honesty became.",
+          "cefr": "B2",
+          "definition": "A paired comparative shows that two changes develop together.",
+          "note": "赞美越多，说出真相就越困难。",
+          "example": "The more you practise, the more confident you become."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Extended metaphor",
+          "target": "The finest clothes in the kingdom had been made of fear, and everyone had helped to sew them.",
+          "cefr": "B2",
+          "definition": "An abstract idea is described through a sustained physical image.",
+          "note": "“衣服”最终成为集体恐惧与沉默的隐喻。",
+          "effect": "把故事中的物品和寓意合并在同一个结尾中。",
+          "tryIt": "Their agreement was a wall built from silence."
+        }
+      ]
+    },
+    {
+      "id": "stories-the-open-window",
+      "title": "The Open Window",
+      "topic": "Stories",
+      "level": "C1",
+      "levelFocus": "tone, unreliable narration, and a twist ending",
+      "dek": "A nervous visitor meets a young storyteller whose calm invention transforms an ordinary room.",
+      "sourceName": "Project Gutenberg: Beasts and Super-Beasts by Saki",
+      "sourceUrl": "https://www.gutenberg.org/ebooks/269",
+      "sourceType": "Graded classic",
+      "adaptationNote": "A C1 retelling of Saki's public-domain short story, preserving the complete plot and its dry humor.",
+      "body": [
+        "Framton Nuttel had come to the countryside because his doctor had prescribed complete rest. Unfortunately, rest did not come naturally to him. Even a polite visit to a stranger could fill him with anxiety. His sister, who had once lived in the area, had given him several letters of introduction. Without them, she warned, he might spend every day alone and become even more nervous.",
+        "On his first afternoon, Framton called on Mrs Sappleton. While he waited for her, he was received by her fifteen-year-old niece, Vera. She asked whether he knew many people nearby. Framton admitted that he knew almost no one and had only his sister's letters to guide him. This information seemed to put him at ease, but it gave Vera everything she needed.",
+        "The room looked across a wide lawn, and a tall French window stood open despite the cool autumn air. Vera noticed Framton looking at it. With perfect composure, she explained that her aunt kept the window open because she expected her husband and two brothers to return through it. Three years earlier, Vera said, the men had crossed the lawn to go hunting and had disappeared into a dangerous marsh. Their bodies were never found. Mrs Sappleton still believed that they would come home one evening with their dog beside them.",
+        "Vera's account was so plausible that the open window changed from an architectural detail into a wound in the room. Framton did not know where to look. When Mrs Sappleton entered and cheerfully mentioned the hunters, he assumed grief had disturbed her mind. She apologized for the open window and said that the men would soon be back for tea.",
+        "Framton attempted to discuss his health, but Mrs Sappleton's eyes repeatedly moved toward the lawn. Then her face brightened. \"Here they are at last,\" she said. Framton turned to Vera, expecting to see concern. Instead, the girl stared through the window with apparent horror.",
+        "Three figures were walking across the fading grass. One carried a white coat over his arm, and a tired brown dog followed them. A voice called from outside. For Framton, the scene confirmed every detail of Vera's story. He seized his hat and left abruptly, nearly colliding with a cyclist at the gate.",
+        "The hunters entered the room and asked why the visitor had fled. Mrs Sappleton complained that he had spoken of nothing but illness and had vanished without saying goodbye. Vera offered an explanation immediately. Framton, she said, was terrified of dogs because a pack of wild animals had once chased him into a graveyard beside the Ganges.",
+        "No one questioned her. The story matched the frightened departure closely enough to satisfy the room. Creating dramatic explanations at short notice was Vera's specialty. Her mischief depended not on an impossible lie, but on a precise improvisation: she observed what people feared, then gave that fear a convincing shape."
+      ],
+      "vocabulary": [
+        {
+          "term": "composure",
+          "target": "composure",
+          "cefr": "C1",
+          "pronunciation": "/kəmˈpəʊʒə/",
+          "partOfSpeech": "noun",
+          "definition": "a calm and controlled state, especially in a difficult situation",
+          "note": "Vera 讲述悲剧时异常镇定，使谎言更可信。",
+          "example": "She maintained her composure during the interview."
+        },
+        {
+          "term": "plausible",
+          "target": "plausible",
+          "cefr": "C1",
+          "pronunciation": "/ˈplɔːzəbəl/",
+          "partOfSpeech": "adjective",
+          "definition": "seeming reasonable or likely to be true",
+          "note": "故事并非真实，但细节让它显得可信。",
+          "example": "The witness gave a plausible explanation."
+        },
+        {
+          "term": "abruptly",
+          "target": "abruptly",
+          "cefr": "C1",
+          "pronunciation": "/əˈbrʌptli/",
+          "partOfSpeech": "adverb",
+          "definition": "suddenly and unexpectedly",
+          "note": "Framton 在恐惧中突然离开。",
+          "example": "The conversation ended abruptly."
+        },
+        {
+          "term": "mischief",
+          "target": "mischief",
+          "cefr": "C1",
+          "pronunciation": "/ˈmɪstʃɪf/",
+          "partOfSpeech": "noun",
+          "definition": "playful behavior that causes trouble or annoyance",
+          "note": "这里概括 Vera 机敏但捉弄人的行为。",
+          "example": "There was a look of mischief in his eyes."
+        },
+        {
+          "term": "improvisation",
+          "target": "improvisation",
+          "cefr": "C1",
+          "pronunciation": "/ˌɪmprəvaɪˈzeɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "the act of creating or performing something without preparation",
+          "note": "Vera 根据眼前情况即兴编出第二个故事。",
+          "example": "The performance included moments of improvisation."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "put someone at ease",
+          "target": "put him at ease",
+          "cefr": "C1",
+          "definition": "to make someone feel calmer and more comfortable",
+          "note": "表面上谈话让 Framton 放松，实际上 Vera 正在收集信息。",
+          "example": "Her friendly manner put the guests at ease."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Participle clause",
+          "target": "expecting to see concern",
+          "cefr": "C1",
+          "definition": "An -ing clause adds a simultaneous expectation without a full second sentence.",
+          "note": "压缩句子，同时让读者紧跟 Framton 的心理预期。",
+          "example": "Expecting a delay, we brought a book."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Symbolic transformation",
+          "target": "the open window changed from an architectural detail into a wound in the room",
+          "cefr": "C1",
+          "definition": "An ordinary object acquires emotional meaning through the story around it.",
+          "note": "窗户从普通布景变成创伤与等待的象征。",
+          "effect": "读者与 Framton 同时接受了 Vera 对场景的重新解释。",
+          "tryIt": "After the argument, the empty chair became an accusation."
+        }
+      ]
+    },
+    {
+      "id": "science-how-bees-give-directions",
+      "title": "How Bees Give Directions",
+      "topic": "Science",
+      "level": "B1",
+      "levelFocus": "process explanation and spatial language",
+      "dek": "Inside a dark hive, a moving bee can tell thousands of workers where to find flowers.",
+      "sourceName": "Nobel Prize: Karl von Frisch and the dance language of bees",
+      "sourceUrl": "https://www.nobelprize.org/prizes/medicine/1973/frisch/facts/",
+      "sourceType": "Original science explainer",
+      "adaptationNote": "Written for English Reading Lab from established research on honey-bee communication.",
+      "body": [
+        "A honey bee leaves its colony and flies across fields in search of food. When it finds flowers rich in nectar, it drinks a little and returns to the hive. The bee does not keep the discovery secret. Instead, it performs a dance that helps other workers find the same place.",
+        "The most important movement is called the waggle run. The bee moves forward while shaking its body, then turns and repeats the action. The direction of the run gives information about direction outside. Because the hive is dark, the bee uses gravity as a guide. An upward run may mean that the flowers are toward the sun; a run at an angle points to a different route.",
+        "The dance also communicates distance. The longer the waggle run lasts, the farther the food is from the hive. Other bees touch the dancer and follow her movements. They also notice the smell of the flowers on her body. Together, movement and scent pass on a surprisingly detailed message.",
+        "The dance is not a set of human words. Weather, wind, and the movement of the sun can change the journey, so the bees must adjust. Yet the system allows a single worker to guide many others toward a valuable source of food.",
+        "The hive is dark, but the dance is a map. It shows that communication does not always require a voice. Sometimes a body moving through space can carry direction, distance, and news."
+      ],
+      "vocabulary": [
+        {
+          "term": "colony",
+          "target": "colony",
+          "cefr": "B1",
+          "pronunciation": "/ˈkɒləni/",
+          "partOfSpeech": "noun",
+          "definition": "a group of insects of the same type living together",
+          "note": "这里指共同生活的整个蜂群。",
+          "example": "A colony of ants lived under the stone."
+        },
+        {
+          "term": "nectar",
+          "target": "nectar",
+          "cefr": "B1",
+          "pronunciation": "/ˈnektə/",
+          "partOfSpeech": "noun",
+          "definition": "a sweet liquid produced by flowers",
+          "note": "蜜蜂从花朵中采集的含糖液体。",
+          "example": "Butterflies feed on flower nectar."
+        },
+        {
+          "term": "perform",
+          "target": "performs",
+          "cefr": "B1",
+          "pronunciation": "/pəˈfɔːm/",
+          "partOfSpeech": "verb",
+          "definition": "to carry out an action or present something for others",
+          "note": "蜜蜂“做出”一套有信息意义的舞蹈动作。",
+          "example": "The students performed a short play."
+        },
+        {
+          "term": "distance",
+          "target": "distance",
+          "cefr": "B1",
+          "pronunciation": "/ˈdɪstəns/",
+          "partOfSpeech": "noun",
+          "definition": "the amount of space between two places",
+          "note": "摇摆动作的时长可以传达食物离蜂巢多远。",
+          "example": "What is the distance between the two towns?"
+        },
+        {
+          "term": "adjust",
+          "target": "adjust",
+          "cefr": "B1",
+          "pronunciation": "/əˈdʒʌst/",
+          "partOfSpeech": "verb",
+          "definition": "to change something slightly so that it works better",
+          "note": "天气和太阳位置变化后，蜜蜂需要修正信息。",
+          "example": "You can adjust the seat before driving."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "pass on",
+          "target": "pass on",
+          "cefr": "B1",
+          "definition": "to communicate or give something to another person or group",
+          "note": "动作与气味共同把信息传递给其他蜜蜂。",
+          "example": "Please pass on the message to your team."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Comparative relationship",
+          "target": "The longer the waggle run lasts, the farther the food is from the hive.",
+          "cefr": "B1",
+          "definition": "The longer..., the farther... links two changing measurements.",
+          "note": "动作持续越久，食物距离越远。",
+          "example": "The faster you walk, the sooner you arrive."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Metaphor",
+          "target": "The hive is dark, but the dance is a map.",
+          "cefr": "B1",
+          "definition": "The dance is described as a map because both provide directions.",
+          "note": "用读者熟悉的“地图”解释抽象的动物交流系统。",
+          "effect": "结尾把复杂科学过程压缩成一个容易记住的画面。",
+          "tryIt": "A timetable is a map of the day."
+        }
+      ]
+    },
+    {
+      "id": "science-why-sleep-strengthens-memory",
+      "title": "Why Sleep Strengthens Memory",
+      "topic": "Science",
+      "level": "B2",
+      "levelFocus": "cause and effect, research claims, and precise qualification",
+      "dek": "Learning does not end when a book closes; the sleeping brain continues the work.",
+      "sourceName": "NIH: About Sleep",
+      "sourceUrl": "https://www.nichd.nih.gov/health/topics/sleep/conditioninfo/Pages/default.aspx",
+      "sourceType": "Original science explainer",
+      "adaptationNote": "Written for English Reading Lab from NIH educational material on sleep, learning, and memory.",
+      "body": [
+        "Students often treat sleep as time taken away from learning. Before an exam, they may stay awake for hours to read one more chapter. This strategy feels productive because the desk is covered with visible work. However, memory depends not only on taking in information but also on what the brain does afterward.",
+        "When we learn, new information is first stored in a fragile form. During sleep, the brain repeatedly reorganizes recent experiences and helps consolidate them into more stable memories. Researchers sometimes compare this process to saving and sorting files, although the brain is far more complex than a computer.",
+        "Sleep moves through several stages in a repeating cycle. Different stages appear to support different aspects of memory. Some help us remember facts and events; others may strengthen physical skills, emotional learning, or the ability to recognize patterns. Scientists are still investigating the exact roles of each stage, so simple claims that one stage \"stores\" one type of memory should be treated with care.",
+        "A lack of sleep can cause two problems at once. First, a tired brain has difficulty paying attention, which means that information may not be learned clearly in the first place. Second, sleep deprivation can interfere with the later process that makes a memory easier to retrieve. Staying awake may create more study time while making that time less effective.",
+        "A better approach is to set the stage for sleep before learning begins. Spreading practice across several days gives the brain repeated opportunities to process material overnight. Reviewing important ideas shortly before bed may also be useful, but it cannot replace steady study or sufficient rest.",
+        "Sleep is not an empty pause in education; it is the brain's night shift. It does not perform miracles, and it cannot understand a chapter that a student never read. Yet without it, much of the day's mental work remains unfinished."
+      ],
+      "vocabulary": [
+        {
+          "term": "fragile",
+          "target": "fragile",
+          "cefr": "B2",
+          "pronunciation": "/ˈfrædʒaɪl/",
+          "partOfSpeech": "adjective",
+          "definition": "easily damaged, broken, or lost",
+          "note": "新形成的记忆还不稳定，容易丢失。",
+          "example": "Trust can be fragile after an argument."
+        },
+        {
+          "term": "consolidate",
+          "target": "consolidate",
+          "cefr": "B2",
+          "pronunciation": "/kənˈsɒlɪdeɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to make something stronger, more definite, or more stable",
+          "note": "睡眠帮助把新信息巩固成更稳定的记忆。",
+          "example": "The course helped her consolidate her knowledge."
+        },
+        {
+          "term": "cycle",
+          "target": "cycle",
+          "cefr": "B2",
+          "pronunciation": "/ˈsaɪkəl/",
+          "partOfSpeech": "noun",
+          "definition": "a series of events that repeats in the same order",
+          "note": "睡眠阶段会以周期形式重复出现。",
+          "example": "Water moves through a natural cycle."
+        },
+        {
+          "term": "deprivation",
+          "target": "deprivation",
+          "cefr": "B2",
+          "pronunciation": "/ˌdeprɪˈveɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "a situation in which someone lacks something necessary",
+          "note": "sleep deprivation 表示睡眠不足或睡眠被剥夺。",
+          "example": "Long-term sleep deprivation affects concentration."
+        },
+        {
+          "term": "retrieve",
+          "target": "retrieve",
+          "cefr": "B2",
+          "pronunciation": "/rɪˈtriːv/",
+          "partOfSpeech": "verb",
+          "definition": "to find and bring back stored information",
+          "note": "这里表示从记忆中提取信息。",
+          "example": "I could not retrieve his name from memory."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "set the stage for",
+          "target": "set the stage for",
+          "cefr": "B2",
+          "definition": "to create the conditions that make a later event possible",
+          "note": "提前创造有利于高质量睡眠的条件。",
+          "example": "Clear rules set the stage for fair discussion."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Not only... but also...",
+          "target": "not only on taking in information but also on what the brain does afterward",
+          "cefr": "B2",
+          "definition": "A paired structure gives balanced emphasis to two related factors.",
+          "note": "记忆既依赖信息输入，也依赖大脑后续处理。",
+          "example": "Success depends not only on talent but also on practice."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Extended metaphor",
+          "target": "Sleep is not an empty pause in education; it is the brain's night shift.",
+          "cefr": "B2",
+          "definition": "Sleep is compared to workers continuing a job after normal hours.",
+          "note": "“夜班”让读者直观理解睡眠中的大脑仍在工作。",
+          "effect": "先否定常见误解，再给出更有力量的新解释。",
+          "tryIt": "Revision is not repetition; it is the workshop of memory."
+        }
+      ]
+    },
+    {
+      "id": "science-how-cities-store-heat",
+      "title": "How Cities Store Heat",
+      "topic": "Science",
+      "level": "C1",
+      "levelFocus": "systems thinking, qualification, and policy trade-offs",
+      "dek": "Concrete, geometry, traffic, and unequal tree cover can turn one city into many climates.",
+      "sourceName": "US EPA: What Are Heat Islands?",
+      "sourceUrl": "https://www.epa.gov/heatislands/what-are-heat-islands",
+      "sourceType": "Original science explainer",
+      "adaptationNote": "Written for English Reading Lab from US EPA material on urban heat islands and mitigation.",
+      "body": [
+        "On a summer evening, a city can remain hot long after the countryside around it has cooled. This difference is known as the urban heat-island effect, but the name can be misleading. A city is not a single island with one temperature. It is a patchwork of warmer streets, cooler parks, shaded courtyards, exposed roofs, and neighborhoods that release heat at different rates.",
+        "Materials are part of the explanation. Dark roofs and paved roads often absorb a large share of the sun's energy during the day. They then radiate that stored energy after sunset. Soil and vegetation behave differently. Plants provide shade and release water through their leaves, a process that cools the surrounding air. When development replaces trees and moist ground with hard surfaces, it removes both forms of cooling.",
+        "The shape of a city also matters. Tall buildings can create narrow urban canyons that reduce airflow and trap heat between walls. At street level, engines, industrial equipment, and air-conditioning systems add waste heat. Air conditioners cool indoor rooms at the expense of releasing heat outside, so a private solution may intensify a shared problem.",
+        "These factors interact rather than operating separately. A wide road with little shade may absorb heat, receive waste heat from traffic, and prevent rainwater from entering the soil. A nearby park may remain noticeably cooler. Even within the same district, the temperature can change over the distance of a few blocks.",
+        "The pattern is also social. Tree cover and access to cool public spaces are not always distributed equally. Historical planning decisions can leave lower-income neighborhoods with more pavement and fewer mature trees. As a result, an environmental disparity becomes a health disparity: people who have fewer resources to avoid extreme heat may face greater exposure to it.",
+        "Cities can mitigate heat through trees, reflective roofs, green roofs, shaded walkways, and surfaces that allow water to enter the ground. Yet each intervention has limits. Trees need time, soil, and maintenance. Reflective materials must suit the local climate. Green roofs require buildings that can support them. Effective planning therefore depends on local measurement rather than a universal recipe.",
+        "A city keeps a thermal diary. Every roof, road, tree, and wall records part of the day's sunlight, then reveals that history after dark. Changing the nighttime temperature begins with deciding what the city will write during the day."
+      ],
+      "vocabulary": [
+        {
+          "term": "patchwork",
+          "target": "patchwork",
+          "cefr": "C1",
+          "pronunciation": "/ˈpætʃwɜːk/",
+          "partOfSpeech": "noun",
+          "definition": "a mixture of different parts or areas joined together",
+          "note": "强调城市内部由多个不同温度区域组成。",
+          "example": "The region is a patchwork of farms and forests."
+        },
+        {
+          "term": "radiate",
+          "target": "radiate",
+          "cefr": "C1",
+          "pronunciation": "/ˈreɪdieɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to send out heat, light, or energy",
+          "note": "建筑材料在日落后向外释放储存的热量。",
+          "example": "The stones continued to radiate heat."
+        },
+        {
+          "term": "intensify",
+          "target": "intensify",
+          "cefr": "C1",
+          "pronunciation": "/ɪnˈtensɪfaɪ/",
+          "partOfSpeech": "verb",
+          "definition": "to become or make something stronger or more severe",
+          "note": "私人降温方式可能加剧公共空间的热量问题。",
+          "example": "Dry weather may intensify the fire risk."
+        },
+        {
+          "term": "disparity",
+          "target": "disparity",
+          "cefr": "C1",
+          "pronunciation": "/dɪˈspærəti/",
+          "partOfSpeech": "noun",
+          "definition": "a noticeable and often unfair difference",
+          "note": "环境差异进一步转化为健康不平等。",
+          "example": "The report revealed a disparity in access to care."
+        },
+        {
+          "term": "mitigate",
+          "target": "mitigate",
+          "cefr": "C1",
+          "pronunciation": "/ˈmɪtɪɡeɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to reduce the harmful effect of something",
+          "note": "城市可通过多种规划措施缓解热岛效应。",
+          "example": "Better drainage can mitigate flood damage."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "at the expense of",
+          "target": "at the expense of",
+          "cefr": "C1",
+          "definition": "in a way that benefits one thing while harming another",
+          "note": "室内降温可能以增加室外热量为代价。",
+          "example": "Speed should not come at the expense of accuracy."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Rather than + -ing",
+          "target": "rather than operating separately",
+          "cefr": "C1",
+          "definition": "Rather than contrasts the real relationship with an alternative explanation.",
+          "note": "强调多个因素相互作用，而不是彼此独立。",
+          "example": "The systems overlap rather than operating separately."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Sustained metaphor",
+          "target": "A city keeps a thermal diary.",
+          "cefr": "C1",
+          "definition": "The city is imagined as recording sunlight and revealing it later.",
+          "note": "把难以看见的储热过程写成“记录白天”的日记。",
+          "effect": "为结尾提供统一意象，并把科学解释转化为规划选择。",
+          "tryIt": "The shoreline keeps a diary of every storm."
+        }
+      ]
+    },
+    {
+      "id": "art-reading-a-painting-slowly",
+      "title": "Reading a Painting Slowly",
+      "topic": "Art & Design",
+      "level": "B1",
+      "levelFocus": "description, location language, and evidence-based interpretation",
+      "dek": "A painting begins to speak when we delay judgment and notice what is actually there.",
+      "sourceName": "National Gallery of Art: Slow Looking activities",
+      "sourceUrl": "https://www.nga.gov/educational-resources/home-inverted-do-ho-suh",
+      "sourceType": "Original art explainer",
+      "adaptationNote": "Written for English Reading Lab from museum slow-looking practices.",
+      "body": [
+        "Many people spend only a few seconds in front of a painting. They read the title, decide whether they like the work, and move on. Slow looking asks us to reverse this order. Before you decide what a painting means, spend time describing what you can actually see.",
+        "Begin with the whole image. Is the scene crowded or empty? Are the colors bright, soft, warm, or cold? Then move from the foreground to the background. Notice where figures stand, where lines lead, and which area first draws your attention to itself.",
+        "Next, choose one detail and observe it closely. A hand may be closed rather than open. A chair may face away from the other furniture. A small patch of red may create a strong contrast with a dark wall. Details like these are not automatically symbols, but they give you evidence for an interpretation.",
+        "Now ask questions. What might have happened just before this moment? What could happen next? How does the light affect the mood? More than one answer may be reasonable. The goal is not to guess a secret message but to connect each idea to something visible.",
+        "Your eyes travel through a painting before your mind builds a story. Slow looking makes that journey easier to notice. It turns \"I like it\" or \"I do not understand it\" into a richer conversation between observation and thought."
+      ],
+      "vocabulary": [
+        {
+          "term": "reverse",
+          "target": "reverse",
+          "cefr": "B1",
+          "pronunciation": "/rɪˈvɜːs/",
+          "partOfSpeech": "verb",
+          "definition": "to change something into the opposite order or direction",
+          "note": "先观察、后判断，与常见顺序相反。",
+          "example": "Try to reverse the order of the steps."
+        },
+        {
+          "term": "foreground",
+          "target": "foreground",
+          "cefr": "B1",
+          "pronunciation": "/ˈfɔːɡraʊnd/",
+          "partOfSpeech": "noun",
+          "definition": "the part of a picture that appears closest to the viewer",
+          "note": "画面中最靠近观看者的前景区域。",
+          "example": "Two children stand in the foreground."
+        },
+        {
+          "term": "observe",
+          "target": "observe",
+          "cefr": "B1",
+          "pronunciation": "/əbˈzɜːv/",
+          "partOfSpeech": "verb",
+          "definition": "to watch or examine something carefully",
+          "note": "要求观看者仔细观察具体细节。",
+          "example": "Observe how the shadow changes."
+        },
+        {
+          "term": "contrast",
+          "target": "contrast",
+          "cefr": "B1",
+          "pronunciation": "/ˈkɒntrɑːst/",
+          "partOfSpeech": "noun",
+          "definition": "a clear difference between two things",
+          "note": "红色与暗色墙面形成明显对比。",
+          "example": "The white flowers contrast with the dark leaves."
+        },
+        {
+          "term": "interpretation",
+          "target": "interpretation",
+          "cefr": "B1",
+          "pronunciation": "/ɪnˌtɜːprɪˈteɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "an explanation of the meaning of something",
+          "note": "艺术理解需要由可见证据支持。",
+          "example": "Her interpretation of the poem was convincing."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "draw attention to",
+          "target": "draws your attention to",
+          "cefr": "B1",
+          "definition": "to make someone notice or focus on something",
+          "note": "描述画面中最先吸引视线的区域。",
+          "example": "The bright frame draws attention to the photograph."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Before + present, imperative",
+          "target": "Before you decide what a painting means, spend time describing what you can actually see.",
+          "cefr": "B1",
+          "definition": "A time clause sets the order before an instruction.",
+          "note": "先限定观察步骤，再给出行动建议。",
+          "example": "Before you answer, read the question twice."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Personification",
+          "target": "Your eyes travel through a painting before your mind builds a story.",
+          "cefr": "B1",
+          "definition": "Eyes and mind are described as independent travelers and builders.",
+          "note": "把观看和理解写成两个连续动作。",
+          "effect": "让抽象的视觉过程变得具体、动态。",
+          "tryIt": "The melody enters the room before memory gives it a name."
+        }
+      ]
+    },
+    {
+      "id": "art-how-impressionists-painted-light",
+      "title": "How Impressionists Painted Light",
+      "topic": "Art & Design",
+      "level": "B2",
+      "levelFocus": "historical explanation, technique, and contrast",
+      "dek": "For the Impressionists, light was not decoration; it was the subject that changed everything else.",
+      "sourceName": "National Gallery of Art: Impressionism",
+      "sourceUrl": "https://www.nga.gov/artworks/impressionism",
+      "sourceType": "Original art explainer",
+      "adaptationNote": "Written for English Reading Lab from National Gallery of Art educational material.",
+      "body": [
+        "In the late nineteenth century, a group of painters in and around Paris began to challenge conventional ideas about a finished painting. Academic art often valued smooth surfaces, carefully planned scenes, and subjects taken from history or mythology. The artists later called Impressionists turned instead toward modern streets, gardens, stations, rivers, and ordinary leisure.",
+        "Their central problem was light. Light is never still: it changes with the hour, the weather, and the movement of the viewer. To capture a fleeting effect, painters such as Claude Monet often worked outdoors and painted quickly. Portable paint tubes and lighter equipment made this practice easier than it had been for earlier generations.",
+        "Up close, an Impressionist surface may appear broken. A blue brushstroke sits beside a yellow one; a shadow may contain violet, green, or red rather than simple black. From farther away, the viewer's eye combines these marks into air, water, skin, or fabric. The visible brushstroke records both the scene and the artist's act of seeing it.",
+        "This method did not mean that the painters lacked control. A rapid appearance could be built through careful choices about color, balance, and repetition. Nor did every Impressionist use the same technique. Their work shared an interest in modern experience and shifting visual conditions rather than a single formula.",
+        "The new paintings initially disturbed many critics because they seemed unfinished. Yet that unfinished quality was part of their argument. A polished surface could suggest that the world was fixed. Broken color allowed the image to remain active, as though the weather might change before our eyes.",
+        "Light was no longer a lamp shining on the subject; it had become the restless subject itself. By painting what could vanish in a moment, the Impressionists made uncertainty visible."
+      ],
+      "vocabulary": [
+        {
+          "term": "conventional",
+          "target": "conventional",
+          "cefr": "B2",
+          "pronunciation": "/kənˈvenʃənəl/",
+          "partOfSpeech": "adjective",
+          "definition": "following accepted customs or usual methods",
+          "note": "印象派挑战当时学院认可的传统绘画标准。",
+          "example": "The design avoids conventional office furniture."
+        },
+        {
+          "term": "fleeting",
+          "target": "fleeting",
+          "cefr": "B2",
+          "pronunciation": "/ˈfliːtɪŋ/",
+          "partOfSpeech": "adjective",
+          "definition": "lasting for only a very short time",
+          "note": "光线效果短暂且不断变化。",
+          "example": "She caught a fleeting glimpse of the bird."
+        },
+        {
+          "term": "brushstroke",
+          "target": "brushstroke",
+          "cefr": "B2",
+          "pronunciation": "/ˈbrʌʃstrəʊk/",
+          "partOfSpeech": "noun",
+          "definition": "a mark made by moving a paintbrush across a surface",
+          "note": "可见的笔触既表现物体，也记录画家的观看动作。",
+          "example": "Each brushstroke remains visible."
+        },
+        {
+          "term": "shifting",
+          "target": "shifting",
+          "cefr": "B2",
+          "pronunciation": "/ˈʃɪftɪŋ/",
+          "partOfSpeech": "adjective",
+          "definition": "changing repeatedly from one state or position to another",
+          "note": "印象派关注不断变化的视觉条件。",
+          "example": "The story is told from shifting viewpoints."
+        },
+        {
+          "term": "disturb",
+          "target": "disturbed",
+          "cefr": "B2",
+          "pronunciation": "/dɪˈstɜːb/",
+          "partOfSpeech": "verb",
+          "definition": "to make someone feel worried, surprised, or uncomfortable",
+          "note": "新的绘画方式让部分评论家感到不安。",
+          "example": "The images disturbed some viewers."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "turn toward",
+          "target": "turned instead toward",
+          "cefr": "B2",
+          "definition": "to begin to focus attention or effort on something",
+          "note": "画家转而描绘现代生活与日常场景。",
+          "example": "The discussion turned toward practical solutions."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "As though + modal",
+          "target": "as though the weather might change before our eyes",
+          "cefr": "B2",
+          "definition": "As though introduces an imagined comparison or appearance.",
+          "note": "画面仿佛仍在变化，并未完全固定。",
+          "example": "The clouds moved as though a storm might begin."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Reframed metaphor",
+          "target": "Light was no longer a lamp shining on the subject; it had become the restless subject itself.",
+          "cefr": "B2",
+          "definition": "The sentence rejects one metaphor for light and replaces it with another.",
+          "note": "光不再只是照亮事物的工具，而成为画作真正的主角。",
+          "effect": "通过 no longer... itself 强调艺术观念的转变。",
+          "tryIt": "Sound was no longer a background; it became the story itself."
+        }
+      ]
+    },
+    {
+      "id": "art-how-buildings-guide-us",
+      "title": "How Buildings Guide Us",
+      "topic": "Art & Design",
+      "level": "C1",
+      "levelFocus": "spatial reasoning, abstract argument, and stylistic control",
+      "dek": "A doorway, stair, or low ceiling can shape behavior before anyone gives an instruction.",
+      "sourceName": "English Reading Lab editorial essay",
+      "sourceUrl": "./",
+      "sourceType": "Original learning essay",
+      "adaptationNote": "An original C1 essay written for this reading collection.",
+      "body": [
+        "Architecture is often discussed as a collection of objects: a striking tower, a stone facade, a famous dome. Yet buildings are also sequences of experience. We approach them, cross a threshold, choose a direction, slow down, look upward, or search for an exit. Long before we form an opinion about style, space has begun to guide the body.",
+        "Consider the difference between a narrow entrance and a broad one. A narrow opening may make arrival feel private or controlled; a broad opening can make the same movement feel public and ceremonial. Neither effect is automatic, because culture and context matter. Nevertheless, dimensions establish possibilities. They invite certain actions while making others less likely.",
+        "Architects can choreograph movement through contrast. A compressed corridor followed by a high room makes the second space feel taller than it would in isolation. A stair that turns slowly may delay a view, while a direct stair announces the destination immediately. Only after passing through darkness do we fully register the brightness of a courtyard.",
+        "Orientation is another form of guidance. In a clear building, people can understand where they are in relation to an entrance, a central hall, or the outside world. Repeated materials, visible landmarks, and natural light can support this mental map. When these clues disappear, visitors must rely on signs. A sign can name a route, but it cannot always repair a confusing space.",
+        "Guidance can also become control. Airports, shops, museums, and government buildings direct different bodies toward different goals. A shop may deliberately lengthen the route to the exit so that customers encounter more products. A courtroom may use height and distance to express authority. Such choices are functional, but they are never entirely neutral.",
+        "Good design therefore requires more than efficient circulation. It asks who is being guided, who may feel excluded, and which forms of movement have been treated as normal. A grand stair loses its welcoming character if the accessible entrance is hidden around the back. Spatial drama should not depend on inconvenience for someone else.",
+        "A corridor can whisper, a stair can insist, and a doorway can hesitate. These are figures of speech, but they describe a real exchange between design and behavior. Buildings do not determine every action. They make suggestions continuously, and most of us follow before noticing that we have been addressed."
+      ],
+      "vocabulary": [
+        {
+          "term": "threshold",
+          "target": "threshold",
+          "cefr": "C1",
+          "pronunciation": "/ˈθreʃhəʊld/",
+          "partOfSpeech": "noun",
+          "definition": "the point or entrance at which a new space or experience begins",
+          "note": "既指门槛，也指从外部进入建筑的过渡界面。",
+          "example": "She paused at the threshold of the hall."
+        },
+        {
+          "term": "choreograph",
+          "target": "choreograph",
+          "cefr": "C1",
+          "pronunciation": "/ˈkɒriəɡrɑːf/",
+          "partOfSpeech": "verb",
+          "definition": "to plan a sequence of movements carefully",
+          "note": "原指编舞，这里表示建筑师组织人的移动路线。",
+          "example": "The exhibition choreographs the visitor's journey."
+        },
+        {
+          "term": "compressed",
+          "target": "compressed",
+          "cefr": "C1",
+          "pronunciation": "/kəmˈprest/",
+          "partOfSpeech": "adjective",
+          "definition": "pressed into a smaller, tighter, or lower space",
+          "note": "狭窄低矮的走廊制造空间上的压缩感。",
+          "example": "The entrance feels dark and compressed."
+        },
+        {
+          "term": "orientation",
+          "target": "Orientation",
+          "cefr": "C1",
+          "pronunciation": "/ˌɔːriənˈteɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "the ability to understand one's position and direction",
+          "note": "指人在建筑中判断自己位置和方向的能力。",
+          "example": "Windows provide light and support orientation."
+        },
+        {
+          "term": "deliberately",
+          "target": "deliberately",
+          "cefr": "C1",
+          "pronunciation": "/dɪˈlɪbərətli/",
+          "partOfSpeech": "adverb",
+          "definition": "intentionally and with careful thought",
+          "note": "商店有意延长顾客到出口的路线。",
+          "example": "The final room was deliberately left empty."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "in relation to",
+          "target": "in relation to",
+          "cefr": "C1",
+          "definition": "when compared with or positioned relative to something else",
+          "note": "方向感来自理解自己与入口、中心或室外的关系。",
+          "example": "Consider the window in relation to the door."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Inversion after only",
+          "target": "Only after passing through darkness do we fully register the brightness of a courtyard.",
+          "cefr": "C1",
+          "definition": "Only + adverbial at the front triggers auxiliary-subject inversion.",
+          "note": "倒装强调必须先经历黑暗，才会充分感知明亮。",
+          "example": "Only later did I understand the decision."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Personification and parallelism",
+          "target": "A corridor can whisper, a stair can insist, and a doorway can hesitate.",
+          "cefr": "C1",
+          "definition": "Three spaces receive human actions in a balanced sentence pattern.",
+          "note": "平行结构把空间引导人的不同强度表现出来。",
+          "effect": "抽象论点在结尾变成三个有节奏、可感知的动作。",
+          "tryIt": "A window can invite, a wall can refuse, and a path can persuade."
+        }
+      ]
+    },
+    {
+      "id": "ideas-why-keep-a-learning-journal",
+      "title": "Why Keep a Learning Journal?",
+      "topic": "Ideas & Society",
+      "level": "B1",
+      "levelFocus": "reasoned advice, examples, and reflective language",
+      "dek": "A short record of mistakes and discoveries can make invisible progress easier to see.",
+      "sourceName": "English Reading Lab editorial essay",
+      "sourceUrl": "./",
+      "sourceType": "Original learning essay",
+      "adaptationNote": "An original B1 essay written for this reading collection.",
+      "body": [
+        "Learning often feels unclear from one day to the next. You may study for an hour and still feel that nothing has changed. A learning journal gives you evidence of progress by turning small thoughts into a visible record.",
+        "The journal does not need to be long. After a lesson, write down one new idea, one difficulty, and one question. Be specific. Instead of writing \"Vocabulary was hard,\" record the word you confused and the sentence in which you found it. This makes the problem easier to solve later.",
+        "A journal also creates time to reflect. You can explain why an answer was wrong, which strategy helped, or what you want to try next. This habit changes mistakes from signs of failure into information about your learning.",
+        "At the end of each week, look back on your notes. You may discover that a difficult grammar pattern has become familiar or that the same kind of error keeps returning. Both discoveries are useful. One shows progress; the other shows where to focus.",
+        "The best journal is not the most beautiful one. It is the one you can use as a regular routine. Five honest minutes are more valuable than an impressive page written once a month.",
+        "A learning journal is a mirror that remembers. On a difficult day, it shows not only where you are, but also how far you have already travelled."
+      ],
+      "vocabulary": [
+        {
+          "term": "evidence",
+          "target": "evidence",
+          "cefr": "B1",
+          "pronunciation": "/ˈevɪdəns/",
+          "partOfSpeech": "noun",
+          "definition": "facts or information that show something is true",
+          "note": "学习记录为进步提供可见证据。",
+          "example": "The results provide evidence of improvement."
+        },
+        {
+          "term": "specific",
+          "target": "specific",
+          "cefr": "B1",
+          "pronunciation": "/spəˈsɪfɪk/",
+          "partOfSpeech": "adjective",
+          "definition": "clear and exact rather than general",
+          "note": "记录具体单词和句子，比写“很难”更有帮助。",
+          "example": "Please give a specific example."
+        },
+        {
+          "term": "reflect",
+          "target": "reflect",
+          "cefr": "B1",
+          "pronunciation": "/rɪˈflekt/",
+          "partOfSpeech": "verb",
+          "definition": "to think carefully about an experience",
+          "note": "回顾学习过程并思考原因与策略。",
+          "example": "Take a moment to reflect on the lesson."
+        },
+        {
+          "term": "strategy",
+          "target": "strategy",
+          "cefr": "B1",
+          "pronunciation": "/ˈstrætədʒi/",
+          "partOfSpeech": "noun",
+          "definition": "a planned method for achieving something",
+          "note": "记录哪种学习方法真正有效。",
+          "example": "Reading aloud is one useful strategy."
+        },
+        {
+          "term": "routine",
+          "target": "routine",
+          "cefr": "B1",
+          "pronunciation": "/ruːˈtiːn/",
+          "partOfSpeech": "noun",
+          "definition": "a regular way of doing things",
+          "note": "学习日志应成为可持续的日常习惯。",
+          "example": "Exercise is part of her morning routine."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "look back on",
+          "target": "look back on",
+          "cefr": "B1",
+          "definition": "to think about or review something from the past",
+          "note": "每周回顾之前写下的学习记录。",
+          "example": "We looked back on the year's achievements."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Instead of + -ing",
+          "target": "Instead of writing \"Vocabulary was hard,\" record the word you confused",
+          "cefr": "B1",
+          "definition": "Instead of contrasts an unhelpful action with a better one.",
+          "note": "用具体行动替代模糊描述。",
+          "example": "Instead of guessing, check the evidence."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Metaphor",
+          "target": "A learning journal is a mirror that remembers.",
+          "cefr": "B1",
+          "definition": "The journal is compared to a mirror with a memory.",
+          "note": "镜子展示现在，记忆则保存过去，二者结合表现学习轨迹。",
+          "effect": "一句话概括日志“看见自己”和“保存进步”的双重作用。",
+          "tryIt": "A calendar is a map that remembers."
+        }
+      ]
+    },
+    {
+      "id": "ideas-why-productive-disagreement-matters",
+      "title": "Why Productive Disagreement Matters",
+      "topic": "Ideas & Society",
+      "level": "B2",
+      "levelFocus": "argument structure, concession, and respectful evaluation",
+      "dek": "Agreement feels comfortable, but carefully managed disagreement can improve both ideas and decisions.",
+      "sourceName": "English Reading Lab editorial essay",
+      "sourceUrl": "./",
+      "sourceType": "Original learning essay",
+      "adaptationNote": "An original B2 essay written for this reading collection.",
+      "body": [
+        "Groups often treat quick agreement as a sign that a meeting has gone well. Everyone leaves on time, no voice becomes tense, and the decision appears united. Yet agreement can hide uncertainty. People may remain silent because they do not want to seem difficult, especially when a leader has already expressed a preference.",
+        "Productive disagreement offers a different goal. It does not ask people to fight until one side wins. It asks them to challenge an idea strongly enough to discover its weaknesses. A colleague who questions a proposal may protect the group from an assumption that nobody else noticed.",
+        "For disagreement to be useful, participants must separate the person from the claim. \"Your estimate ignores delivery time\" can be examined and answered. \"You never understand planning\" attacks identity and makes careful discussion less likely. Precise language keeps attention on evidence.",
+        "Listening is equally important. If people spend the entire conversation preparing their reply, the debate becomes a series of speeches. A better listener tries to state the opposing view fairly before criticizing it. This practice reveals misunderstandings and prevents an easy but inaccurate version of the argument from taking its place.",
+        "Even when a group keeps its original decision, disagreement can improve the reasoning behind it. Members may add safeguards, define risks, or explain why one value matters more than another. In other cases, strong evidence should lead them to revise the plan. Changing one's mind is not intellectual weakness when the information has changed.",
+        "Good disagreement is a workshop, not a battlefield. In a battlefield, ideas are weapons and retreat is shameful. In a workshop, ideas are materials: they can be tested, reshaped, and sometimes replaced. The aim is not to protect every first opinion. It is to leave with something more reliable than the group brought in."
+      ],
+      "vocabulary": [
+        {
+          "term": "productive",
+          "target": "Productive",
+          "cefr": "B2",
+          "pronunciation": "/prəˈdʌktɪv/",
+          "partOfSpeech": "adjective",
+          "definition": "producing a useful or positive result",
+          "note": "这里指能改善想法和决策的分歧。",
+          "example": "We had a productive discussion."
+        },
+        {
+          "term": "challenge",
+          "target": "challenge",
+          "cefr": "B2",
+          "pronunciation": "/ˈtʃælɪndʒ/",
+          "partOfSpeech": "verb",
+          "definition": "to question whether an idea is correct or suitable",
+          "note": "质疑观点是为了检验其薄弱之处。",
+          "example": "The research challenges an old assumption."
+        },
+        {
+          "term": "assumption",
+          "target": "assumption",
+          "cefr": "B2",
+          "pronunciation": "/əˈsʌmpʃən/",
+          "partOfSpeech": "noun",
+          "definition": "something accepted as true without proof",
+          "note": "团队可能忽略了未经验证的前提。",
+          "example": "The plan is based on a false assumption."
+        },
+        {
+          "term": "safeguard",
+          "target": "safeguards",
+          "cefr": "B2",
+          "pronunciation": "/ˈseɪfɡɑːd/",
+          "partOfSpeech": "noun",
+          "definition": "a measure designed to prevent harm or failure",
+          "note": "讨论可帮助团队补充防范风险的措施。",
+          "example": "The system includes several safeguards."
+        },
+        {
+          "term": "revise",
+          "target": "revise",
+          "cefr": "B2",
+          "pronunciation": "/rɪˈvaɪz/",
+          "partOfSpeech": "verb",
+          "definition": "to change something after considering it again",
+          "note": "新证据出现时，应当修改原计划。",
+          "example": "We revised the schedule after the storm."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "separate A from B",
+          "target": "separate the person from the claim",
+          "cefr": "B2",
+          "definition": "to treat two connected things as distinct",
+          "note": "讨论观点本身，而不攻击提出观点的人。",
+          "example": "Try to separate the result from your feelings about it."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "Concession with even when",
+          "target": "Even when a group keeps its original decision, disagreement can improve the reasoning behind it.",
+          "cefr": "B2",
+          "definition": "Even when introduces a condition that does not prevent the main result.",
+          "note": "即使决定不变，讨论过程仍可能提升理由质量。",
+          "example": "Even when we disagree, we can remain respectful."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Contrasting metaphors",
+          "target": "Good disagreement is a workshop, not a battlefield.",
+          "cefr": "B2",
+          "definition": "Two places represent different models of disagreement.",
+          "note": "战场追求击败对手，工作坊追求共同改进材料。",
+          "effect": "用清晰对比重构读者对“争论”的理解。",
+          "tryIt": "A classroom should be a laboratory, not a courtroom."
+        }
+      ]
+    },
+    {
+      "id": "ideas-the-hidden-cost-of-convenience",
+      "title": "The Hidden Cost of Convenience",
+      "topic": "Ideas & Society",
+      "level": "C1",
+      "levelFocus": "nuanced argument, cumulative effects, and balanced qualification",
+      "dek": "When every small difficulty disappears, we may also lose skills, choices, and moments of attention.",
+      "sourceName": "English Reading Lab editorial essay",
+      "sourceUrl": "./",
+      "sourceType": "Original learning essay",
+      "adaptationNote": "An original C1 essay written for this reading collection.",
+      "body": [
+        "Convenience is among the quiet achievements of modern life. A tap supplies clean water, a search engine retrieves information in seconds, and a navigation app guides us through an unfamiliar city. These tools remove friction, save time, and expand access. Criticizing convenience in general would therefore be both easy and foolish.",
+        "The more useful question is what happens when convenience becomes the only value by which a system is judged. A service may make one action effortless while moving its cost elsewhere. Same-day delivery saves a customer's time but may create pressure for warehouse workers and drivers. A disposable product removes the task of cleaning but leaves material that someone else must manage.",
+        "Convenience can also alter ability. When software completes a task repeatedly, users may gradually outsource the knowledge required to perform it. Navigation offers a simple example. Turn-by-turn instructions help people reach a destination, yet constant dependence on them may weaken the habit of building a mental map. The tool extends our reach while potentially narrowing our autonomy.",
+        "This does not mean that difficulty is automatically valuable. Many forms of friction exclude people, waste energy, or turn ordinary needs into unnecessary tests. An accessible entrance, an automatic translation, or a simpler public form can restore choices rather than remove them. The important distinction is between convenience that supports human agency and convenience that replaces it without being noticed.",
+        "The effects are often cumulative. No single automatic choice appears important: the next video starts, the fastest route is selected, and a familiar product is reordered. Over time, however, default settings can shape attention and behavior. What appears to be a series of private choices may actually be a path designed by someone else.",
+        "A deliberate relationship with convenience begins by making costs visible. Who performs the hidden labor? Which skill is no longer practised? What data is exchanged? Can the automatic choice be changed? These questions do not require rejecting the tool. They restore the possibility of choosing it consciously.",
+        "Every shortcut casts a small shadow. Usually the trade is worthwhile, and sometimes it is transformative. But a society that measures only saved seconds may trade away capacities that take years to rebuild. The point is not to worship effort. It is to decide which difficulties are burdens and which are forms of participation."
+      ],
+      "vocabulary": [
+        {
+          "term": "friction",
+          "target": "friction",
+          "cefr": "C1",
+          "pronunciation": "/ˈfrɪkʃən/",
+          "partOfSpeech": "noun",
+          "definition": "difficulty or resistance that slows an action or process",
+          "note": "这里不是物理摩擦，而是完成任务时遇到的阻力。",
+          "example": "The new form removes unnecessary friction."
+        },
+        {
+          "term": "outsource",
+          "target": "outsource",
+          "cefr": "C1",
+          "pronunciation": "/ˈaʊtsɔːs/",
+          "partOfSpeech": "verb",
+          "definition": "to give a task or function to an outside system or organization",
+          "note": "把原本由自己掌握的知识交给软件完成。",
+          "example": "The company outsourced its technical support."
+        },
+        {
+          "term": "autonomy",
+          "target": "autonomy",
+          "cefr": "C1",
+          "pronunciation": "/ɔːˈtɒnəmi/",
+          "partOfSpeech": "noun",
+          "definition": "the ability to make independent choices and control one's actions",
+          "note": "过度依赖工具可能缩小人的自主能力。",
+          "example": "The role gives employees greater autonomy."
+        },
+        {
+          "term": "cumulative",
+          "target": "cumulative",
+          "cefr": "C1",
+          "pronunciation": "/ˈkjuːmjələtɪv/",
+          "partOfSpeech": "adjective",
+          "definition": "increasing gradually as more effects are added",
+          "note": "许多微小默认选择会长期累积成显著影响。",
+          "example": "The cumulative effect became clear after a year."
+        },
+        {
+          "term": "deliberate",
+          "target": "deliberate",
+          "cefr": "C1",
+          "pronunciation": "/dɪˈlɪbərət/",
+          "partOfSpeech": "adjective",
+          "definition": "carefully considered and intentional",
+          "note": "对便利工具保持有意识、经过思考的使用关系。",
+          "example": "It was a deliberate choice, not an accident."
+        }
+      ],
+      "phrases": [
+        {
+          "term": "trade away",
+          "target": "trade away",
+          "cefr": "C1",
+          "definition": "to give up something valuable in exchange for another benefit",
+          "note": "为了节省时间，可能无意中放弃长期能力。",
+          "example": "Do not trade away trust for a quick result."
+        }
+      ],
+      "grammar": [
+        {
+          "term": "What-clause as subject",
+          "target": "What appears to be a series of private choices may actually be a path designed by someone else.",
+          "cefr": "C1",
+          "definition": "A what-clause turns a complete idea into the subject of a sentence.",
+          "note": "先呈现表象，再通过 may actually 引出更复杂的解释。",
+          "example": "What seems like a delay may prevent a larger problem."
+        }
+      ],
+      "rhetoric": [
+        {
+          "term": "Metaphor and qualification",
+          "target": "Every shortcut casts a small shadow.",
+          "cefr": "C1",
+          "definition": "A benefit is imagined as an object that necessarily creates a darker side.",
+          "note": "shadow 表示便利背后不易察觉的成本。",
+          "effect": "用简洁意象提出警惕，下一句再用 usually 限定，避免绝对化。",
+          "tryIt": "Every open door changes the shape of the room."
+        }
+      ]
+    }
+  ]
+}

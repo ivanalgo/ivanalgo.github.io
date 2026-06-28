@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="逐步观察多层感知机的前向传播、损失计算、反向传播与参数更新" />
+    <title>MLP 训练过程</title>
+    <link rel="stylesheet" href="./styles.css?v=20260628-13" />
+  </head>
+  <body class="demo-page">
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../../">
+          <span class="brand-mark">I/O</span>
+          <span>Web Illustration</span>
+        </a>
+        <div class="demo-header-actions">
+          <div class="header-status">
+            <span class="status-dot"></span>
+            <span>浏览器内实时计算</span>
+          </div>
+          <a class="button button-secondary header-button" href="./">← 修改参数</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="demo-intro">
+          <div class="demo-title">
+            <div class="kicker">INTERACTIVE MLP</div>
+            <h1>训练过程</h1>
+          </div>
+          <div class="experiment-summary">
+            <div><span>数据</span><strong id="summaryDataset">—</strong></div>
+            <div><span>网络</span><strong id="summaryArchitecture">—</strong></div>
+            <div><span>学习率</span><strong id="summaryLearningRate">—</strong></div>
+            <div><span>优化器</span><strong id="summaryOptimizer">—</strong></div>
+            <div><span>Loss</span><strong id="summaryLossFunction">—</strong></div>
+            <div><span>样本数</span><strong id="summarySamples">—</strong></div>
+          </div>
+        </section>
+
+        <section class="workspace demo-workspace">
+          <div class="network-card">
+            <div class="card-header">
+              <div>
+                <span class="section-index">01</span>
+                <h2>网络内部</h2>
+              </div>
+              <div class="network-header-right">
+                <div class="training-meta" aria-label="当前训练配置">
+                  <span class="training-chip">
+                    <small>优化器</small>
+                    <strong id="networkOptimizerBadge">—</strong>
+                  </span>
+                  <span class="training-chip">
+                    <small>Loss</small>
+                    <strong id="networkLossBadge">—</strong>
+                  </span>
+                  <span class="training-chip">
+                    <small>当前样本</small>
+                    <strong id="networkSampleBadge">—</strong>
+                  </span>
+                </div>
+                <div class="legend" aria-label="颜色图例">
+                  <span><i class="legend-dot positive"></i>Forward →</span>
+                  <span><i class="legend-dot negative"></i>← Backward</span>
+                  <span><i class="legend-line pending-line"></i>尚未计算</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="networkViewport" class="network-viewport">
+              <svg id="networkSvg" role="img" aria-label="带有权重和偏置数值的多层感知机网络图"></svg>
+            </div>
+
+            <div class="value-reading-guide">
+              <span><code><span class="math-notation"><span class="math-base">w</span><span class="math-scripts"><sup>l</sup><sub>j,k</sub></span></span></code> 第 l 层 k → j</span>
+              <span><code><span class="math-notation"><span class="math-base">b</span><span class="math-scripts"><sup>l</sup><sub>j</sub></span></span></code> 第 l 层第 j 个偏置</span>
+              <span><code><span class="math-notation"><span class="math-base">x</span><span class="math-scripts"><sup>N</sup><sub>k</sub></span></span></code> 第 N 个样本第 k 个特征</span>
+              <span><code>a</code> 激活值</span>
+              <span><code>δ</code> 反向梯度</span>
+            </div>
+
+            <div class="step-console" aria-live="polite">
+              <div class="phase-rail" id="phaseRail"></div>
+              <div class="console-content">
+                <div class="step-badge" id="stepBadge">准备</div>
+                <div>
+                  <h3 id="stepTitle">点击“下一步”装载第一个训练样本</h3>
+                  <p id="stepDescription">网络图始终显示全部 w 与 b；每一步会高亮当前正在参与的计算。</p>
+                  <code id="stepFormula">x, y → forward → loss → backward → update</code>
+                </div>
+                <div class="metric-stack">
+                  <div><span>样本标签</span><strong id="sampleMetric">—</strong></div>
+                  <div><span>预测 ŷ</span><strong id="predictionMetric">—</strong></div>
+                  <div><span>Loss</span><strong id="lossMetric">—</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="transport">
+              <button id="resetButton" class="button button-ghost">↺ 重置训练</button>
+              <button id="nextButton" class="button button-primary">
+                下一步
+                <span>→</span>
+              </button>
+              <button id="playButton" class="button button-ghost">▶ 自动播放</button>
+              <label class="speed-control" for="speedSelect">
+                速度
+                <select id="speedSelect">
+                  <option value="step" selected>逐步讲解</option>
+                  <option value="1">1 个样本/秒</option>
+                  <option value="10">10 个样本/秒</option>
+                  <option value="100">100 个样本/秒</option>
+                  <option value="1000">1,000 个样本/秒</option>
+                  <option value="10000">10,000 个样本/秒</option>
+                  <option value="100000">100,000 个样本/秒</option>
+                  <option value="1000000">1,000,000 · 最大吞吐</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <aside class="side-column">
+            <div class="mini-card data-card">
+              <div class="mini-card-heading">
+                <div>
+                  <span class="section-index">DATA</span>
+                  <h3>当前训练数据</h3>
+                </div>
+                <span class="inspector-hint">白环 = 当前样本</span>
+              </div>
+              <canvas id="dataCanvas" width="560" height="400" aria-label="训练数据散点图"></canvas>
+              <div class="data-legend">
+                <span><i class="class-dot class-zero"></i>标签 0</span>
+                <span><i class="class-dot class-one"></i>标签 1</span>
+                <span><i class="current-ring"></i>当前样本</span>
+              </div>
+            </div>
+
+            <div class="mini-card inspector-card">
+              <div class="mini-card-heading">
+                <div>
+                  <span class="section-index">INSPECT</span>
+                  <h3>数值检查器</h3>
+                </div>
+                <span class="inspector-hint">点击 x / y / 神经元 / w / b</span>
+              </div>
+              <div id="inspectorContent" class="inspector-content">
+                <div class="empty-inspector">
+                  <span>⌁</span>
+                  <p>选择图中的元素<br />查看它的完整计算值</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="chart-card">
+          <div class="card-header chart-heading">
+            <div>
+              <span class="section-index">02</span>
+              <h2>Loss 与准确率轨迹</h2>
+              <div class="chart-training-config" aria-label="训练配置">
+                <span>优化器 <strong id="chartOptimizer">—</strong></span>
+                <span>Loss <strong id="chartLossFunction">—</strong></span>
+                <span>Batch Size <strong id="chartBatchSize">—</strong></span>
+              </div>
+            </div>
+            <div class="chart-stats">
+              <div class="chart-stat">
+                <span id="lossAverageLabel">最近一轮平均 Loss</span>
+                <strong id="averageLoss">—</strong>
+              </div>
+              <div class="chart-stat">
+                <span id="accuracyAverageLabel">最近一轮准确率</span>
+                <strong id="averageAccuracy" class="accuracy-value">—</strong>
+              </div>
+            </div>
+          </div>
+          <canvas id="lossCanvas" width="1400" height="360" aria-label="训练步数、损失值与准确率折线图"></canvas>
+          <div class="axis-label x-axis-label">Epoch（从 0 开始）→</div>
+        </section>
+
+        <section class="chart-card parameter-history-card">
+          <div class="card-header chart-heading">
+            <div>
+              <span class="section-index">03</span>
+              <h2>参数历史 · W / B</h2>
+            </div>
+            <div class="chart-stat">
+              <span id="parameterHistoryLabel">点击网络中的 w 或 b</span>
+              <strong id="parameterHistoryValue">—</strong>
+            </div>
+          </div>
+          <canvas id="parameterCanvas" width="1400" height="360" aria-label="所选权重或偏置的历史值折线图"></canvas>
+          <div class="axis-label x-axis-label">参数更新次数 →</div>
+        </section>
+      </main>
+
+      <footer>
+        <span>MLP Training Anatomy</span>
+        <span>Every weight · Every bias · Every step</span>
+      </footer>
+    </div>
+
+    <script src="./data.js?v=20260628-13"></script>
+    <script src="./mlp.js?v=20260628-13"></script>
+    <script src="./app.js?v=20260628-13"></script>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="配置并生成一个可逐步观察训练过程的多层感知机" />
+    <title>创建 MLP 实验</title>
+    <link rel="stylesheet" href="./styles.css?v=20260628-13" />
+  </head>
+  <body class="setup-page">
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../../">
+          <span class="brand-mark">I/O</span>
+          <span>Web Illustration</span>
+        </a>
+        <div class="header-status">
+          <span class="status-dot"></span>
+          <span>MLP TRAINING ANATOMY</span>
+        </div>
+      </header>
+
+      <main class="setup-main">
+        <section class="setup-intro">
+          <div>
+            <div class="kicker">STEP 01 · BUILD YOUR EXPERIMENT</div>
+            <h1>先搭好网络，<br /><span>再看它思考。</span></h1>
+          </div>
+          <p>选择数据、层数与训练参数。生成实验后，下一页只保留训练过程，让每一个数值变化都清楚可见。</p>
+        </section>
+
+        <section class="setup-layout">
+          <div class="control-panel setup-panel" aria-label="实验设置">
+            <div class="panel-heading">
+              <div>
+                <span class="section-index">01</span>
+                <h2>数据与训练参数</h2>
+              </div>
+              <span class="setup-note">所有计算都在浏览器内完成</span>
+            </div>
+
+            <div class="config-grid setup-config-grid">
+              <div class="config-group">
+                <label for="datasetSelect">数据形状</label>
+                <select id="datasetSelect">
+                  <option value="xor">XOR · 四象限</option>
+                  <option value="circle">Circle · 圆内圆外</option>
+                  <option value="diagonal">Diagonal · 对角分割</option>
+                </select>
+              </div>
+              <div class="config-group">
+                <label for="sampleCount">样本数量 <output id="sampleCountOutput">48</output></label>
+                <input id="sampleCount" type="range" min="16" max="10000" step="8" value="48" />
+              </div>
+              <div class="config-group">
+                <label for="learningRate">学习率 η <output id="learningRateOutput">0.030</output></label>
+                <input id="learningRate" type="range" min="0.001" max="0.5" step="0.001" value="0.03" />
+              </div>
+              <div class="config-group">
+                <label for="noiseLevel">数据噪声 <output id="noiseLevelOutput">0.10</output></label>
+                <input id="noiseLevel" type="range" min="0" max="0.35" step="0.01" value="0.10" />
+              </div>
+              <div class="config-group optimizer-group">
+                <label for="optimizerSelect">优化器</label>
+                <select id="optimizerSelect">
+                  <option value="adam" selected>Adam · 推荐，收敛快</option>
+                  <option value="momentum">Momentum · 平滑加速</option>
+                  <option value="sgd">SGD · 基础梯度下降</option>
+                </select>
+              </div>
+              <div class="config-group">
+                <label for="lossFunctionSelect">Loss 函数</label>
+                <select id="lossFunctionSelect">
+                  <option value="mse" selected>平方误差 · MSE</option>
+                  <option value="bce">二元交叉熵 · BCE</option>
+                </select>
+              </div>
+              <div class="config-group">
+                <label for="batchSizeSelect">Batch Size</label>
+                <select id="batchSizeSelect">
+                  <option value="1" selected>1 · 随机梯度</option>
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                  <option value="16">16</option>
+                  <option value="32">32</option>
+                  <option value="64">64</option>
+                  <option value="128">128</option>
+                  <option value="256">256</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="architecture-builder">
+              <div class="builder-heading">
+                <div>
+                  <span class="section-index">02</span>
+                  <h2>网络结构</h2>
+                </div>
+                <small>最多 32 个隐藏层 · 每层最多 32 个神经元</small>
+              </div>
+              <div class="architecture-row setup-architecture-row">
+                <div id="layerEditor" class="layer-editor"></div>
+                <button id="addLayerButton" class="icon-button" aria-label="增加隐藏层" title="增加隐藏层">＋</button>
+              </div>
+            </div>
+
+            <div class="generate-row">
+              <div>
+                <strong id="architectureSummary">2 → 4 → 3 → 1</strong>
+                <span>网络拓扑</span>
+              </div>
+              <button id="generateButton" class="button button-primary generate-button">
+                生成训练实验
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+
+          <aside class="setup-preview">
+            <div class="preview-copy">
+              <span class="section-index">LIVE PREVIEW</span>
+              <h2>即将训练的数据</h2>
+              <p>颜色代表真实标签。生成后，每一步都会选中其中一个样本，并在网络右侧明确显示它的标签值。</p>
+            </div>
+            <canvas id="setupDataCanvas" width="620" height="500" aria-label="待生成训练数据的预览"></canvas>
+            <button id="previewRegenerateButton" class="text-button">换一批随机数据 ↻</button>
+          </aside>
+        </section>
+      </main>
+
+      <footer>
+        <span>MLP Training Anatomy</span>
+        <span>Configure → Generate → Observe</span>
+      </footer>
+    </div>
+
+    <script src="./data.js?v=20260628-13"></script>
+    <script src="./setup.js?v=20260628-13"></script>
+  </body>
+</html>

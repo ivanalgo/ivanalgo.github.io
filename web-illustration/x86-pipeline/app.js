@@ -29,25 +29,87 @@ IMUL RAX, 2
 MOV [104], RAX
 MOV RCX, [104]`,
   };
+  const presetNames = {
+    dependency: "数据依赖与并行",
+    branch: "分支预测与冲刷",
+    memory: "Load / Store",
+  };
+  const predictorNames = {
+    "two-bit": "2-bit 饱和计数器",
+    static: "静态 Not-taken",
+  };
+  let savedConfig = {};
+  try {
+    savedConfig = JSON.parse(sessionStorage.getItem("x86PipelineExperiment")) || {};
+  } catch (_) {
+    savedConfig = {};
+  }
+  const experiment = {
+    preset: presets[savedConfig.preset] ? savedConfig.preset : "dependency",
+    width: [1, 2, 4].includes(Number(savedConfig.width)) ? Number(savedConfig.width) : 2,
+    predictor: savedConfig.predictor === "static" ? "static" : "two-bit",
+    program: savedConfig.program || presets.dependency,
+  };
   const stageDescriptions = {
     IF: "取指", ID: "译码 / 读寄存器", EX: "执行", MEM: "访存", WB: "写回",
     Fetch: "取指", Decode: "译码", Rename: "寄存器重命名", Dispatch: "分配 ROB / RS",
     Issue: "等待操作数", Execute: "功能单元执行", Memory: "Load / Store", Writeback: "广播结果", Retire: "顺序提交",
   };
   const colors = ["#10a37f", "#7c5ce7", "#3976d9", "#d97745", "#d45c68", "#1a8ca5", "#8b6a38", "#627a3b"];
+  const deviceColors = {
+    pc: "#0f8f72",
+    fetch: "#168bb5",
+    decode: "#4f79d8",
+    rat: "#7659c7",
+    freelist: "#9a62c9",
+    prf: "#6747b8",
+    rob: "#58677f",
+    scheduler: "#c87832",
+    alu0: "#2f6fce",
+    alu1: "#168c9f",
+    mul: "#d15368",
+    branch: "#9a61bd",
+    agu: "#d87a36",
+    loadq: "#d99033",
+    storeq: "#b8663f",
+    dcache: "#c66f3e",
+    cdb: "#7254cf",
+    retire: "#397466",
+    arf: "#68717f",
+  };
 
   const elements = {
-    mode: $("#modeSelect"), preset: $("#presetSelect"), width: $("#widthSelect"),
-    predictor: $("#predictorSelect"), editor: $("#programEditor"), load: $("#loadButton"),
-    step: $("#stepButton"), run: $("#runButton"), speed: $("#speedSelect"), error: $("#parseError"),
+    load: $("#loadButton"), back: $("#backButton"), step: $("#stepButton"), run: $("#runButton"),
+    speed: $("#speedSelect"), error: $("#parseError"), rightCycle: $("#rightCycle"),
+    flowTooltip: $("#flowTooltip"),
+    summaryPreset: $("#summaryPreset"), summaryWidth: $("#summaryWidth"),
+    summaryPredictor: $("#summaryPredictor"),
     metrics: $("#metrics"), pipeline: $("#pipeline"), pipelineTitle: $("#pipelineTitle"),
     pipelineDescription: $("#pipelineDescription"), timeline: $("#timeline"), events: $("#events"),
     scoreboard: $("#scoreboard"), rob: $("#rob"), predictorTable: $("#predictor"),
     hardware: $("#hardwareDiagram"), hardwareTitle: $("#hardwareTitle"),
     hardwareDescription: $("#hardwareDescription"),
+    hardwareViewport: $("#hardwareViewport"), uopInspector: $("#uopInspector"),
+    fitView: $("#fitViewButton"),
+    actualSize: $("#actualSizeButton"), zoomOut: $("#zoomOutButton"),
+    zoomIn: $("#zoomInButton"), zoomLabel: $("#zoomLabel"),
+    follow: $("#followButton"), activePath: $("#activePathButton"),
+    topologyView: $("#topologyViewButton"), detailView: $("#detailViewButton"),
   };
   let simulator = null;
   let timer = null;
+  let stateHistory = [];
+  let currentFlowDetails = {};
+  const viewState = {
+    mode: "fit",
+    scale: 1,
+    follow: false,
+    activeOnly: false,
+    selectedSeq: null,
+    selectedDevice: null,
+    selectedLink: null,
+    diagramMode: "topology",
+  };
 
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -65,16 +127,37 @@ MOV RCX, [104]`,
     elements.run.textContent = "▶ 自动运行";
   }
 
+  function cloneState(value) {
+    return structuredClone(value);
+  }
+
+  function captureState() {
+    return cloneState(simulator);
+  }
+
+  function restoreState(snapshot) {
+    const restored = cloneState(snapshot);
+    Object.keys(simulator).forEach((key) => { delete simulator[key]; });
+    Object.assign(simulator, restored);
+  }
+
   function load() {
     stop();
     try {
-      const program = window.X86Pipeline.parseProgram(elements.editor.value);
+      const program = window.X86Pipeline.parseProgram(experiment.program);
       simulator = new window.X86Pipeline.Simulator(program, {
-        mode: elements.mode.value,
-        issueWidth: elements.width.value,
-        predictor: elements.predictor.value,
+        mode: "ooo",
+        issueWidth: experiment.width,
+        predictor: experiment.predictor,
       });
+      viewState.selectedSeq = null;
+      viewState.selectedDevice = null;
+      viewState.selectedLink = null;
       elements.error.textContent = "";
+      stateHistory = [captureState()];
+      elements.summaryPreset.textContent = presetNames[experiment.preset];
+      elements.summaryWidth.textContent = `${experiment.width}-wide`;
+      elements.summaryPredictor.textContent = predictorNames[experiment.predictor];
       render();
     } catch (error) {
       elements.error.textContent = error.message;
@@ -84,8 +167,21 @@ MOV RCX, [104]`,
   function step() {
     if (!simulator || simulator.halted) return;
     simulator.step();
+    stateHistory.push(captureState());
     render();
     if (simulator.halted) stop();
+  }
+
+  function back() {
+    stop();
+    if (stateHistory.length <= 1) return;
+    stateHistory.pop();
+    restoreState(stateHistory[stateHistory.length - 1]);
+    if (viewState.selectedSeq !== null && !simulator.all.some((dyn) => dyn.seq === viewState.selectedSeq)) {
+      viewState.selectedSeq = null;
+      viewState.follow = false;
+    }
+    render();
   }
 
   function toggleRun() {
@@ -116,6 +212,9 @@ MOV RCX, [104]`,
     elements.metrics.innerHTML = values.map(([label, value]) =>
       `<div class="metric"><span>${label}</span><strong>${value}</strong></div>`
     ).join("");
+    elements.rightCycle.textContent = simulator.cycle;
+    elements.back.disabled = stateHistory.length <= 1;
+    elements.step.disabled = simulator.halted;
   }
 
   function dynamicEntry(dyn) {
@@ -126,7 +225,7 @@ MOV RCX, [104]`,
       return `${reg}=${displayValue(value)}${origin}`;
     }).join(" · ");
     const result = dyn.result === null ? "" : `<small>result=${escapeHtml(displayValue(dyn.result))}</small>`;
-    return `<div class="hw-entry"><b>#${dyn.seq} ${escapeHtml(dyn.instr.op)}</b>
+    return `<div class="hw-entry" data-seq="${dyn.seq}"><b>#${dyn.seq} ${escapeHtml(dyn.instr.op)}</b>
       <small>${escapeHtml(dyn.instr.text)}</small>
       ${dependencies ? `<em>${escapeHtml(dependencies)}</em>` : ""}
       ${dyn.instr.dstReg ? `<small>dst=${dyn.instr.dstReg}${simulator.mode === "ooo" ? ` → ${dyn.pdst || "待分配"} · ROB#${dyn.seq}` : ""}</small>` : ""}
@@ -161,7 +260,7 @@ MOV RCX, [104]`,
   }
 
   function topologyLevel(label, blocks, className = "") {
-    return `<div class="topology-level ${className}"><div class="topology-label">${label}</div><div class="topology-blocks">${blocks.join("")}</div></div>`;
+    return `<div class="topology-level ${className}" data-level="${escapeHtml(label)}"><div class="topology-label">${label}</div><div class="topology-blocks">${blocks.join("")}</div></div>`;
   }
 
   function verticalConnector(label, active, shape = "single") {
@@ -183,7 +282,7 @@ MOV RCX, [104]`,
     </div>`;
   }
 
-  function renderHardware() {
+  function renderDetailedHardware() {
     const stageEntries = (stage) => simulator.stageItems(stage).map(dynamicEntry);
     const registerSnapshot = window.X86Pipeline.REGISTERS
       .map((reg) => `${reg}=${simulator.regs[reg]}`).join(" · ");
@@ -195,7 +294,7 @@ MOV RCX, [104]`,
       elements.hardwareTitle.textContent = "经典核心 · Top-down 数据通路";
       elements.hardwareDescription.textContent = "指令从顶部取入，逐级向下；紫色框是跨 Cycle 保存状态的流水寄存器。";
       const exEntries = stageEntries("EX");
-      elements.hardware.innerHTML = movementStrip()
+      const classicTopology = movementStrip()
         + topologyLevel("NEXT PC", [hardwareBlock("PC + Branch Predictor", "下个取指地址", [textEntry(`PC = ${simulator.pc}`, predictorState || "无分支记录")])])
         + verticalConnector("predicted PC", movedTo("IF"))
         + topologyLevel("FETCH", [hardwareBlock("L1 I-Cache / IF", "instruction bytes", stageEntries("IF"), "memory")])
@@ -222,6 +321,7 @@ MOV RCX, [104]`,
         + topologyLevel("PIPELINE REGISTER", [hardwareBlock("MEM / WB", "dst + writeback value", stageEntries("WB"), "buffer wide")])
         + verticalConnector("commit value", movedTo("Retired"))
         + topologyLevel("ARCHITECTURAL STATE", [hardwareBlock("Architectural Register File", "程序可见状态", [textEntry("Committed values", registerSnapshot)], "commit wide")]);
+      elements.hardware.innerHTML = `<div class="topology-canvas">${classicTopology}</div>`;
       return;
     }
 
@@ -305,7 +405,379 @@ MOV RCX, [104]`,
       </div>
       <div class="arf-commit-link">← ROB Head Retire / Commit 写入</div>
     </aside>`;
-    elements.hardware.innerHTML = `<div class="ooo-topology-shell"><div class="ooo-main">${mainTopology}</div>${architecturalSide}</div>`;
+    elements.hardware.innerHTML = `<div class="topology-canvas"><div class="ooo-topology-shell"><div class="ooo-main">${mainTopology}</div>${architecturalSide}</div></div>`;
+  }
+
+  function deviceForDyn(dyn) {
+    if (!dyn) return "";
+    if (simulator.mode === "classic") {
+      return { IF: "icache", ID: "decode", EX: "alu", MEM: "dcache", WB: "arf" }[dyn.stage] || "pc";
+    }
+    if (dyn.stage === "Fetch") return "fetch";
+    if (dyn.stage === "Decode") return "decode";
+    if (dyn.stage === "Rename") return "rat";
+    if (["Dispatch", "Issue"].includes(dyn.stage)) return "scheduler";
+    if (dyn.stage === "Execute") {
+      if (dyn.instr.memory) return "agu";
+      if (dyn.instr.branch || dyn.instr.op === "CMP") return "branch";
+      if (["IMUL", "MUL"].includes(dyn.instr.op)) return "mul";
+      return dyn.seq % 2 ? "alu1" : "alu0";
+    }
+    if (dyn.stage === "Memory") return dyn.instr.op === "MOV" && /^\[/.test(dyn.instr.args[0] || "") ? "storeq" : "loadq";
+    if (dyn.stage === "Writeback") return "cdb";
+    if (dyn.stage === "Retire") return "rob";
+    return "retire";
+  }
+
+  function deviceTokens(device, explicit = null) {
+    const items = explicit || simulator.active.filter((dyn) => deviceForDyn(dyn) === device);
+    return items.slice(0, 5).map((dyn) =>
+      `<span class="device-token" data-seq="${dyn.seq}" style="--token:${colors[(dyn.seq - 1) % colors.length]}">#${dyn.seq}</span>`
+    ).join("");
+  }
+
+  function topologyDevice(id, title, subtitle, status, x, y, width = 180, height = 90, kind = "", explicit = null) {
+    const tokens = deviceTokens(id, explicit);
+    return `<button class="device-node ${kind} ${tokens ? "active" : ""}" data-device="${id}"
+      style="left:${x}px;top:${y}px;width:${width}px;height:${height}px;--device-color:${deviceColors[id] || "#10a37f"}">
+      <span class="device-title">${title}</span>
+      <small>${subtitle}</small>
+      <b>${status}</b>
+      <div class="device-tokens">${tokens}</div>
+    </button>`;
+  }
+
+  function previousState() {
+    return stateHistory.length > 1 ? stateHistory[stateHistory.length - 2] : null;
+  }
+
+  function stateDyn(state, seq) {
+    return state?.all?.find((dyn) => dyn.seq === seq);
+  }
+
+  function linkEffect(id, dyn) {
+    const before = previousState();
+    const prior = stateDyn(before, dyn.seq);
+    const result = dyn.result === null ? "—" : displayValue(dyn.result);
+    const unitNames = {
+      "sched-alu0": "Integer ALU 0",
+      "sched-alu1": "Integer ALU 1",
+      "sched-mul": "MUL Unit",
+      "sched-branch": "Branch Unit",
+      "sched-agu": "AGU",
+    };
+    if (id === "pc-fetch") return `Fetch Buffer 新增 #${dyn.seq}（PC ${dyn.instr.pc}）`;
+    if (id === "fetch-decode") return `Decode Queue 接收 #${dyn.seq}，准备拆分 ${dyn.instr.op} μop`;
+    if (id === "decode-rat") return `Rename 入口接收 #${dyn.seq}，等待分配物理寄存器`;
+    if (id === "rat-free") return `Free List 弹出 ${dyn.pdst}；空闲项 ${before?.freeList?.length ?? "—"} → ${simulator.freeList.length}`;
+    if (id === "free-prf") return `PRF[${dyn.pdst}] 新建为 ready=false，owner=#${dyn.seq}`;
+    if (id === "rat-scheduler") {
+      const sources = dyn.instr.srcRegs.map((reg) =>
+        dyn.sourceTags[reg] ? `${reg}:${dyn.sourceTags[reg]} waiting` : `${reg} ready`
+      ).join("，") || "无源寄存器";
+      return `Scheduler / RS 新增 #${dyn.seq}；${sources}`;
+    }
+    if (id === "rat-rob") return `ROB Tail 追加 #${dyn.seq}；占用 ${before?.rob?.length ?? "—"} → ${simulator.rob.length}`;
+    if (unitNames[id]) return `${unitNames[id]} 接收 #${dyn.seq}；remaining=${dyn.remaining}`;
+    if (id === "agu-loadq") return `Load Queue 接收 #${dyn.seq}；地址/数据结果=${result}`;
+    if (id === "agu-storeq") return `Store Queue 接收 #${dyn.seq}；地址/数据=${result}`;
+    if (id === "loadq-dcache") return `L1 D-Cache 完成 #${dyn.seq} Load；result=${result}`;
+    if (id === "storeq-dcache") return `L1 D-Cache 完成 #${dyn.seq} Store 排序；result=${result}`;
+    if (["alu0-cdb", "alu1-cdb", "mul-cdb", "branch-cdb", "dcache-cdb"].includes(id)) {
+      return `CDB 输入锁存 #${dyn.seq} 的 result=${result}`;
+    }
+    if (id === "cdb-prf") {
+      const oldReady = prior?.pdst && before?.prf?.[prior.pdst]?.ready;
+      return `PRF[${dyn.pdst}] 写入 ${result}；ready ${Boolean(oldReady)} → true`;
+    }
+    if (id === "cdb-scheduler") {
+      const woken = (before?.rs || []).filter((waiting) =>
+        Object.values(waiting.sourceTags || {}).includes(dyn.pdst)
+      ).map((waiting) => `#${waiting.seq}`);
+      return woken.length
+        ? `Scheduler 匹配 ${dyn.pdst}，唤醒 ${woken.join("、")}`
+        : `Scheduler 收到 ${dyn.pdst} 广播，本周期没有等待者`;
+    }
+    if (id === "cdb-rob") return `ROB#${dyn.seq} 写入完成位；ready ${Boolean(prior?.ready)} → true`;
+    if (id === "rob-retire") return `Retirement Control 移除 ROB Head #${dyn.seq}；retired ${before?.retired ?? "—"} → ${simulator.retired}`;
+    if (id === "retire-arf") {
+      const reg = dyn.instr.dstReg;
+      return `Architectural RF[${reg}]：${displayValue(before?.regs?.[reg])} → ${displayValue(simulator.regs[reg])}`;
+    }
+    if (id === "arf-rat") {
+      const regs = Object.entries(dyn.sourceOrigins).filter(([, origin]) => origin === "ARF").map(([reg]) => reg);
+      return `Rename 从 Architectural RF 读取 ${regs.join("、") || "已提交源值"}`;
+    }
+    return `#${dyn.seq}：${prior?.stage || "Program"} → ${dyn.stage}`;
+  }
+
+  function topologyWire(id, path, label, activity = false) {
+    const flow = typeof activity === "object"
+      ? activity
+      : { active: Boolean(activity), color: "#10a37f", detail: "" };
+    const color = flow.color || "#10a37f";
+    const style = `--flow-color:${color}`;
+    const marker = flow.active ? `arrow-${color.replace("#", "")}` : "arrow";
+    const seqs = Array.isArray(flow.seqs) ? flow.seqs.join(",") : "";
+    const detail = flow.active && Array.isArray(flow.items)
+      ? flow.items.map((dyn) => `#${dyn.seq} ${dyn.instr.text}\n${linkEffect(id, dyn)}`).join("\n\n")
+      : flow.detail || "";
+    if (flow.active) currentFlowDetails[id] = detail;
+    const title = flow.active && detail ? `<title>${escapeHtml(detail)}</title>` : "";
+    return `<path class="device-wire ${flow.active ? "active" : ""}" style="${style}" data-link="${id}" data-flow-seqs="${seqs}" d="${path}" marker-end="url(#${marker})">${title}</path>
+      <path class="wire-hit ${flow.active ? "active" : ""}" style="${style}" data-link="${id}" data-flow-seqs="${seqs}" d="${path}"></path>
+      <text class="wire-label ${flow.active ? "active" : ""}" style="${style}" x="${label.x}" y="${label.y}">${label.text}</text>`;
+  }
+
+  function topologyArrowDefs() {
+    const markers = [["arrow", "#b9bcb7"], ...new Map(
+      Object.values(deviceColors).map((color) => [`arrow-${color.replace("#", "")}`, color])
+    ).entries()];
+    return `<defs>${markers.map(([id, color]) =>
+      `<marker id="${id}" markerUnits="userSpaceOnUse" markerWidth="5" markerHeight="5" refX="4.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="${color}"/></marker>`
+    ).join("")}</defs>`;
+  }
+
+  function renderClassicTopology() {
+    const active = (to) => movedTo(to);
+    const nodes = [
+      topologyDevice("pc", "PC + BPU", "next address", `PC ${simulator.pc}`, 450, 25),
+      topologyDevice("icache", "L1 I-Cache / IF", "instruction bytes", `${simulator.stageItems("IF").length}/1`, 450, 145, 180, 95, "memory"),
+      topologyDevice("ifid", "IF / ID", "pipeline register", `${simulator.stageItems("ID").length}/1`, 450, 275, 180, 85, "storage", simulator.stageItems("ID")),
+      topologyDevice("decode", "Decoder + Register File", "decode / operand read", `${simulator.stageItems("ID").length} active`, 450, 395, 180, 100),
+      topologyDevice("idex", "ID / EX", "operands + control", `${simulator.stageItems("EX").length}/1`, 450, 535, 180, 85, "storage", simulator.stageItems("EX")),
+      topologyDevice("alu", "ALU / MUL / Branch", "execute", `${simulator.stageItems("EX").length} busy`, 450, 655, 180, 100, "compute"),
+      topologyDevice("dcache", "L1 D-Cache / MEM", "load / store", `${simulator.stageItems("MEM").length} active`, 450, 795, 180, 95, "memory", simulator.stageItems("MEM")),
+      topologyDevice("arf", "Architectural Register File", "committed state", "8 GPR + FLAGS", 800, 795, 230, 110, "commit", simulator.stageItems("WB")),
+    ].join("");
+    const wires = [
+      topologyWire("pc-fetch", "M540 115 V145", { x: 550, y: 135, text: "PC" }, active("IF")),
+      topologyWire("fetch-ifid", "M540 240 V275", { x: 550, y: 262, text: "instruction" }, active("ID")),
+      topologyWire("ifid-decode", "M540 360 V395", { x: 550, y: 382, text: "fields" }, active("EX")),
+      topologyWire("decode-idex", "M540 495 V535", { x: 550, y: 520, text: "operands" }, active("EX")),
+      topologyWire("idex-ex", "M540 620 V655", { x: 550, y: 642, text: "control" }, active("MEM")),
+      topologyWire("ex-mem", "M540 755 V795", { x: 550, y: 780, text: "result/address" }, active("WB")),
+      topologyWire("mem-wb", "M630 842 H800", { x: 690, y: 832, text: "writeback" }, active("WB")),
+    ].join("");
+    return `<div class="topology-canvas compact-topology"><div class="chip-topology" style="width:1120px;height:940px">
+      <svg class="device-wires" viewBox="0 0 1120 940">${topologyArrowDefs()}${wires}</svg>${nodes}
+    </div></div>`;
+  }
+
+  function renderOooTopology() {
+    const broadcasting = simulator.lastTransitions
+      .filter((move) => move.from === "Writeback" && move.to === "Retire")
+      .map((move) => simulator.all.find((dyn) => dyn.seq === move.seq)).filter(Boolean);
+    const transitionItems = (from, to, predicate = () => true) => simulator.lastTransitions
+      .filter((move) => move.from === from && move.to === to)
+      .map((move) => simulator.all.find((dyn) => dyn.seq === move.seq))
+      .filter((dyn) => dyn && predicate(dyn));
+    const flow = (from, to, color, predicate) => {
+      const items = transitionItems(from, to, predicate);
+      return {
+        active: items.length > 0,
+        color,
+        seqs: items.map((dyn) => dyn.seq),
+        items,
+        detail: items.map((dyn) => `#${dyn.seq} ${dyn.instr.text}: ${from} → ${to}`).join(" · "),
+      };
+    };
+    const isStoreDyn = (dyn) => dyn.instr.op === "MOV" && /^\[/.test(dyn.instr.args[0] || "");
+    const isLoadDyn = (dyn) => dyn.instr.memory && !isStoreDyn(dyn);
+    const unitIs = (device) => (dyn) => {
+      if (dyn.instr.memory) return device === "agu";
+      if (dyn.instr.branch || dyn.instr.op === "CMP") return device === "branch";
+      if (["IMUL", "MUL"].includes(dyn.instr.op)) return device === "mul";
+      return device === (dyn.seq % 2 ? "alu1" : "alu0");
+    };
+    const prfUsed = Object.values(simulator.prf).filter((entry) => entry.owner || entry.ready).length;
+    const nodes = [
+      topologyDevice("pc", "PC + BPU", "prediction", `PC ${simulator.pc}`, 45, 35),
+      topologyDevice("fetch", "Fetch Buffer", "instruction bytes", `${simulator.stageItems("Fetch").length}/${simulator.issueWidth}`, 275, 35),
+      topologyDevice("decode", "Decode Queue", "x86 → μops", `${simulator.stageItems("Decode").length}/${simulator.issueWidth}`, 505, 35),
+      topologyDevice("rat", "RAT", "RAX → Pn", `${Object.keys(simulator.rat).length} mappings`, 735, 35, 180, 95, "storage"),
+      topologyDevice("freelist", "Free List", "allocate Pdst", `${simulator.freeList.length}/128 free`, 965, 35, 180, 95, "storage"),
+      topologyDevice("prf", "Physical Register File", "value + ready", `${prfUsed}/128 used`, 1200, 35, 210, 95, "storage", broadcasting),
+      topologyDevice("rob", "Reorder Buffer", "one circular buffer", `${simulator.rob.length}/16 · Head ${simulator.rob[0] ? `#${simulator.rob[0].seq}` : "—"}`, 960, 190, 260, 110, "storage", simulator.rob),
+      topologyDevice("scheduler", "Scheduler / Reservation Station", "Issue Queue · wakeup/select", `${simulator.rs.length}/10 occupied`, 520, 210, 330, 120, "storage", simulator.rs.filter((dyn) => ["Dispatch", "Issue"].includes(dyn.stage))),
+      topologyDevice("alu0", "Integer ALU 0", "port 0", `${simulator.active.filter((dyn) => deviceForDyn(dyn) === "alu0").length} busy`, 90, 440, 180, 95, "compute"),
+      topologyDevice("alu1", "Integer ALU 1", "port 1", `${simulator.active.filter((dyn) => deviceForDyn(dyn) === "alu1").length} busy`, 310, 440, 180, 95, "compute"),
+      topologyDevice("mul", "MUL Unit", "3-cycle", `${simulator.active.filter((dyn) => deviceForDyn(dyn) === "mul").length} busy`, 530, 440, 180, 95, "compute"),
+      topologyDevice("branch", "Branch Unit", "verify prediction", `${simulator.active.filter((dyn) => deviceForDyn(dyn) === "branch").length} busy`, 750, 440, 180, 95, "compute"),
+      topologyDevice("agu", "AGU", "address generation", `${simulator.active.filter((dyn) => deviceForDyn(dyn) === "agu").length} busy`, 970, 440, 180, 95, "compute"),
+      topologyDevice("loadq", "Load Queue", "memory ordering", `${simulator.rob.filter((dyn) => dyn.instr.op === "MOV" && /^\[/.test(dyn.instr.args[1] || "")).length} entries`, 870, 620, 180, 95, "memory"),
+      topologyDevice("storeq", "Store Queue", "commit stores", `${simulator.rob.filter((dyn) => dyn.instr.op === "MOV" && /^\[/.test(dyn.instr.args[0] || "")).length} entries`, 1090, 620, 180, 95, "memory"),
+      topologyDevice("dcache", "L1 D-Cache", "load / store data", `${simulator.stageItems("Memory").length} active`, 980, 770, 180, 95, "memory", simulator.stageItems("Memory")),
+      topologyDevice("cdb", "CDB / Writeback Bus", "Pdst + result broadcast", `${broadcasting.length} broadcasting`, 410, 680, 300, 110, "broadcast", broadcasting),
+      topologyDevice("retire", "Retirement Control", "read ROB Head", `${simulator.rob[0] && simulator.rob[0].ready ? "Head ready" : "waiting"}`, 520, 875, 250, 105, "commit", simulator.rob[0] ? [simulator.rob[0]] : []),
+      topologyDevice("arf", "Architectural Register File", "program-visible state", "8 GPR + FLAGS", 1080, 875, 270, 105, "commit"),
+    ].join("");
+    const wires = [
+      topologyWire("pc-fetch", "M225 82 H275", { x: 235, y: 72, text: "predicted PC" }, flow("Program", "Fetch", deviceColors.pc)),
+      topologyWire("fetch-decode", "M455 82 H505", { x: 463, y: 72, text: "bytes" }, flow("Fetch", "Decode", deviceColors.fetch)),
+      topologyWire("decode-rat", "M685 82 H735", { x: 695, y: 72, text: "μops" }, flow("Decode", "Rename", deviceColors.decode)),
+      topologyWire("rat-free", "M915 82 H965", { x: 920, y: 72, text: "allocate" }, flow("Rename", "Dispatch", deviceColors.rat, (dyn) => Boolean(dyn.pdst))),
+      topologyWire("free-prf", "M1145 82 H1200", { x: 1150, y: 72, text: "Pdst" }, flow("Rename", "Dispatch", deviceColors.freelist, (dyn) => Boolean(dyn.pdst))),
+      topologyWire("rat-scheduler", "M825 130 V170 H685 V210", { x: 700, y: 165, text: "Psrc/Pdst" }, flow("Rename", "Dispatch", deviceColors.rat)),
+      topologyWire("rat-rob", "M850 130 V175 H1090 V190", { x: 950, y: 165, text: "ROB tail allocate" }, flow("Rename", "Dispatch", deviceColors.rat)),
+      topologyWire("sched-alu0", "M685 330 V380 H180 V440", { x: 190, y: 372, text: "issue" }, flow("Issue", "Execute", deviceColors.alu0, unitIs("alu0"))),
+      topologyWire("sched-alu1", "M685 330 V380 H400 V440", { x: 410, y: 372, text: "issue" }, flow("Issue", "Execute", deviceColors.alu1, unitIs("alu1"))),
+      topologyWire("sched-mul", "M685 330 V440", { x: 695, y: 385, text: "issue" }, flow("Issue", "Execute", deviceColors.mul, unitIs("mul"))),
+      topologyWire("sched-branch", "M685 330 V380 H840 V440", { x: 845, y: 372, text: "issue" }, flow("Issue", "Execute", deviceColors.branch, unitIs("branch"))),
+      topologyWire("sched-agu", "M685 330 V380 H1060 V440", { x: 1065, y: 372, text: "issue" }, flow("Issue", "Execute", deviceColors.agu, unitIs("agu"))),
+      topologyWire("agu-loadq", "M1060 535 V575 H960 V620", { x: 965, y: 572, text: "load addr" }, flow("Execute", "Memory", deviceColors.agu, isLoadDyn)),
+      topologyWire("agu-storeq", "M1060 535 V575 H1180 V620", { x: 1160, y: 572, text: "store addr/data" }, flow("Execute", "Memory", deviceColors.agu, isStoreDyn)),
+      topologyWire("loadq-dcache", "M960 715 V745 H1070 V770", { x: 965, y: 752, text: "load request" }, flow("Memory", "Writeback", deviceColors.loadq, isLoadDyn)),
+      topologyWire("storeq-dcache", "M1180 715 V745 H1070 V770", { x: 1110, y: 738, text: "store order" }, flow("Memory", "Writeback", deviceColors.storeq, isStoreDyn)),
+      topologyWire("alu0-cdb", "M180 535 V610 H560 V680", { x: 190, y: 602, text: "ALU0 result" }, flow("Execute", "Writeback", deviceColors.alu0, unitIs("alu0"))),
+      topologyWire("alu1-cdb", "M400 535 V610 H560 V680", { x: 405, y: 602, text: "ALU1 result" }, flow("Execute", "Writeback", deviceColors.alu1, unitIs("alu1"))),
+      topologyWire("mul-cdb", "M620 535 V680", { x: 628, y: 620, text: "MUL result" }, flow("Execute", "Writeback", deviceColors.mul, unitIs("mul"))),
+      topologyWire("branch-cdb", "M840 535 V610 H560 V680", { x: 742, y: 602, text: "branch result" }, flow("Execute", "Writeback", deviceColors.branch, unitIs("branch"))),
+      topologyWire("dcache-cdb", "M980 817 H750 V735 H710", { x: 790, y: 726, text: "load / store result" }, flow("Memory", "Writeback", deviceColors.dcache)),
+      topologyWire("cdb-prf", "M710 720 H1320 V130", { x: 1220, y: 710, text: "write Pdst" }, flow("Writeback", "Retire", deviceColors.cdb, (dyn) => Boolean(dyn.pdst))),
+      topologyWire("cdb-scheduler", "M410 735 H350 V270 H520", { x: 360, y: 260, text: "wakeup broadcast" }, flow("Writeback", "Retire", deviceColors.cdb, (dyn) => Boolean(dyn.pdst))),
+      topologyWire("cdb-rob", "M710 755 H900 V245 H960", { x: 810, y: 745, text: "set done" }, flow("Writeback", "Retire", deviceColors.cdb)),
+      topologyWire("rob-retire", "M1090 300 V845 H645 V875", { x: 655, y: 840, text: "Head only" }, flow("Retire", "Retired", deviceColors.rob)),
+      topologyWire("retire-arf", "M770 927 H1080", { x: 900, y: 917, text: "commit architectural value" }, flow("Retire", "Retired", deviceColors.retire, (dyn) => Boolean(dyn.instr.dstReg))),
+      topologyWire("arf-rat", "M1215 875 V835 H1390 V155 H825 V130", { x: 1225, y: 825, text: "committed source fallback" }, flow("Rename", "Dispatch", deviceColors.arf, (dyn) => Object.values(dyn.sourceOrigins).includes("ARF"))),
+    ].join("");
+    return `<div class="topology-canvas compact-topology"><div class="chip-topology" style="width:1450px;height:1030px">
+      <svg class="device-wires" viewBox="0 0 1450 1030">${topologyArrowDefs()}${wires}</svg>${nodes}
+    </div></div>`;
+  }
+
+  function renderTopologyHardware() {
+    elements.hardwareTitle.textContent = simulator.mode === "ooo"
+      ? "乱序核心 · 固定器件拓扑"
+      : "经典核心 · 固定器件拓扑";
+    elements.hardwareDescription.textContent = "悬停活动连线查看目标组件的修改；点击器件、连线或 μop，在右侧查看完整状态。";
+    elements.hardware.innerHTML = simulator.mode === "ooo" ? renderOooTopology() : renderClassicTopology();
+  }
+
+  function renderHardware() {
+    currentFlowDetails = {};
+    elements.flowTooltip.classList.remove("show");
+    if (viewState.diagramMode === "detail") renderDetailedHardware();
+    else renderTopologyHardware();
+  }
+
+  function selectedInstruction() {
+    if (viewState.selectedSeq !== null) {
+      const selected = simulator.all.find((dyn) => dyn.seq === viewState.selectedSeq);
+      if (selected) return selected;
+    }
+    const lastMove = simulator.lastTransitions[simulator.lastTransitions.length - 1];
+    return lastMove ? simulator.all.find((dyn) => dyn.seq === lastMove.seq) : simulator.active[0];
+  }
+
+  function renderUopInspector() {
+    if (viewState.selectedDevice) {
+      const id = viewState.selectedDevice;
+      const node = elements.hardware.querySelector(`[data-device="${id}"]`);
+      const matching = simulator.active.filter((dyn) => deviceForDyn(dyn) === id);
+      let entries = matching.map((dyn) => dynamicEntry(dyn));
+      if (id === "rat") entries = Object.entries(simulator.rat).map(([reg, physical]) => textEntry(reg, `→ ${physical}`));
+      if (id === "freelist") entries = simulator.freeList.slice(0, 24).map((physical) => textEntry(physical, "free"));
+      if (id === "prf") entries = Object.entries(simulator.prf).filter(([, entry]) => entry.owner || entry.ready).slice(0, 24).map(([physical, entry]) => textEntry(physical, `${entry.ready ? displayValue(entry.value) : "not ready"}${entry.owner ? ` · #${entry.owner}` : ""}`));
+      if (id === "rob") entries = simulator.rob.map((dyn, index) => textEntry(`${index === 0 ? "HEAD · " : ""}ROB#${dyn.seq}`, `${dyn.instr.dstReg || "—"}→${dyn.pdst || "—"} · ${dyn.ready ? "done" : dyn.stage}`));
+      if (id === "scheduler") entries = simulator.rs.map((dyn) => dynamicEntry(dyn));
+      if (id === "arf") entries = Object.entries(simulator.regs).map(([reg, value]) => textEntry(reg, displayValue(value)));
+      elements.uopInspector.innerHTML = `
+        <div class="inspector-seq">HARDWARE COMPONENT</div>
+        <h3>${node ? node.querySelector(".device-title").textContent : id}</h3>
+        <div class="inspector-stage">${node ? node.querySelector("b").textContent : ""}</div>
+        <div class="device-detail-list">${entries.join("") || '<div class="inspector-empty">本周期没有保存的 μop 或数据。</div>'}</div>`;
+      return;
+    }
+    if (viewState.selectedLink) {
+      const path = elements.hardware.querySelector(`[data-link="${viewState.selectedLink}"]`);
+      const seqs = new Set(String(path?.dataset.flowSeqs || "").split(",").filter(Boolean).map(Number));
+      const matchingMoves = simulator.lastTransitions.filter((move) => seqs.has(move.seq));
+      elements.uopInspector.innerHTML = `
+        <div class="inspector-seq">DATA PATH</div>
+        <h3>${viewState.selectedLink}</h3>
+        <div class="inspector-stage">${path && path.classList.contains("active") ? "本周期正在传输" : "本周期空闲"}</div>
+        <div class="device-detail-list">${matchingMoves.map((move) => textEntry(`#${move.seq} ${move.text}`, `${move.from} → ${move.to}`)).join("") || '<div class="inspector-empty">这条连线在本周期没有数据移动。</div>'}</div>`;
+      return;
+    }
+    const dyn = selectedInstruction();
+    if (!dyn) {
+      elements.uopInspector.innerHTML = '<div class="inspector-empty">点击图中的 μop，查看它的当前位置、物理寄存器和依赖。</div>';
+      return;
+    }
+    const sources = dyn.instr.srcRegs.map((reg) => {
+      const waiting = dyn.sourceTags[reg];
+      const value = dyn.sourceValues[reg];
+      return `<div><span>${reg}</span><strong>${waiting ? `${waiting} · waiting` : `${displayValue(value ?? simulator.regs[reg])} @${dyn.sourceOrigins[reg] || "ARF"}`}</strong></div>`;
+    }).join("");
+    const recentTimeline = Object.entries(dyn.timeline).slice(-7)
+      .map(([cycle, stage]) => `<span>C${cycle} ${stage}</span>`).join("");
+    elements.uopInspector.innerHTML = `
+      <div class="inspector-seq">μop #${dyn.seq} · PC ${dyn.instr.pc}</div>
+      <h3>${escapeHtml(dyn.instr.text)}</h3>
+      <div class="inspector-stage">${dyn.stage}</div>
+      <div class="inspector-fields">
+        ${sources || "<div><span>Sources</span><strong>无寄存器输入</strong></div>"}
+        <div><span>Pdst</span><strong>${dyn.pdst || "—"}</strong></div>
+        <div><span>ROB</span><strong>#${dyn.seq} · ${dyn.ready ? "done" : "not ready"}</strong></div>
+        <div><span>Result</span><strong>${dyn.result === null ? "—" : escapeHtml(displayValue(dyn.result))}</strong></div>
+      </div>
+      <div class="inspector-timeline">${recentTimeline}</div>`;
+  }
+
+  function markSelectedInstruction() {
+    document.querySelectorAll(".selected").forEach((node) => node.classList.remove("selected"));
+    if (viewState.selectedDevice) {
+      elements.hardware.querySelector(`[data-device="${viewState.selectedDevice}"]`)?.classList.add("selected");
+    }
+    if (viewState.selectedLink) {
+      elements.hardware.querySelector(`[data-link="${viewState.selectedLink}"]`)?.classList.add("selected");
+    }
+    if (viewState.selectedSeq === null) return;
+    document.querySelectorAll(`[data-seq="${viewState.selectedSeq}"]`).forEach((node) => node.classList.add("selected"));
+  }
+
+  function updateViewButtons() {
+    elements.topologyView.classList.toggle("active", viewState.diagramMode === "topology");
+    elements.detailView.classList.toggle("active", viewState.diagramMode === "detail");
+    elements.fitView.classList.toggle("active", viewState.mode === "fit");
+    elements.actualSize.classList.toggle("active", viewState.mode === "actual");
+    elements.follow.classList.toggle("active", viewState.follow);
+    elements.activePath.classList.toggle("active", viewState.activeOnly);
+    elements.zoomLabel.textContent = `${Math.round(viewState.scale * 100)}%`;
+  }
+
+  function centerOn(target) {
+    if (!target) return;
+    const viewportRect = elements.hardwareViewport.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    elements.hardwareViewport.scrollTo({
+      left: elements.hardwareViewport.scrollLeft + targetRect.left - viewportRect.left - viewportRect.width / 2 + targetRect.width / 2,
+      top: elements.hardwareViewport.scrollTop + targetRect.top - viewportRect.top - viewportRect.height / 2 + targetRect.height / 2,
+      behavior: "smooth",
+    });
+  }
+
+  function applyCanvasView() {
+    const canvas = elements.hardware.querySelector(".topology-canvas");
+    if (!canvas) return;
+    canvas.style.transform = "none";
+    const naturalWidth = canvas.scrollWidth;
+    const naturalHeight = canvas.scrollHeight;
+    if (viewState.mode === "fit") {
+      viewState.scale = Math.min(1, Math.max(0.28, (elements.hardwareViewport.clientWidth - 30) / naturalWidth));
+    } else if (viewState.mode === "actual") {
+      viewState.scale = 1;
+    }
+    canvas.style.transform = `scale(${viewState.scale})`;
+    canvas.style.transformOrigin = "top left";
+    elements.hardware.style.width = `${naturalWidth * viewState.scale}px`;
+    elements.hardware.style.height = `${naturalHeight * viewState.scale}px`;
+    elements.hardwareViewport.classList.toggle("active-only", viewState.activeOnly);
+    updateViewButtons();
+    if (viewState.follow && viewState.selectedSeq !== null) {
+      centerOn(elements.hardware.querySelector(`[data-seq="${viewState.selectedSeq}"]`));
+    }
   }
 
   function renderPipeline() {
@@ -320,7 +792,7 @@ MOV RCX, [104]`,
       return `<div class="stage">
         <div class="stage-head"><b>${stage}</b><small>${stageDescriptions[stage]}</small></div>
         <div class="stage-body">${items.length ? items.map((dyn) => `
-          <div class="inst-card ${dyn.stall ? "wait" : ""}" style="--c:${colors[(dyn.seq - 1) % colors.length]}">
+          <div class="inst-card ${dyn.stall ? "wait" : ""}" data-seq="${dyn.seq}" style="--c:${colors[(dyn.seq - 1) % colors.length]}">
             <b>#${dyn.seq} · PC ${dyn.instr.pc}</b>
             ${escapeHtml(dyn.instr.text)}
             ${dyn.stall ? `<small>${escapeHtml(dyn.stall)}</small>` : ""}
@@ -382,16 +854,121 @@ MOV RCX, [104]`,
     renderROB();
     renderPredictor();
     renderEvents();
+    renderUopInspector();
+    markSelectedInstruction();
+    requestAnimationFrame(applyCanvasView);
   }
 
-  elements.preset.addEventListener("change", () => {
-    elements.editor.value = presets[elements.preset.value];
-    load();
-  });
-  [elements.mode, elements.width, elements.predictor].forEach((element) => element.addEventListener("change", load));
   elements.load.addEventListener("click", load);
+  elements.back.addEventListener("click", back);
   elements.step.addEventListener("click", step);
   elements.run.addEventListener("click", toggleRun);
-  elements.editor.value = presets.dependency;
+  elements.fitView.addEventListener("click", () => {
+    viewState.mode = "fit";
+    viewState.follow = false;
+    applyCanvasView();
+  });
+  elements.actualSize.addEventListener("click", () => {
+    viewState.mode = "actual";
+    viewState.follow = false;
+    applyCanvasView();
+  });
+  elements.zoomOut.addEventListener("click", () => {
+    viewState.mode = "custom";
+    viewState.scale = Math.max(0.25, viewState.scale - 0.1);
+    applyCanvasView();
+  });
+  elements.zoomIn.addEventListener("click", () => {
+    viewState.mode = "custom";
+    viewState.scale = Math.min(1.5, viewState.scale + 0.1);
+    applyCanvasView();
+  });
+  elements.follow.addEventListener("click", () => {
+    viewState.follow = !viewState.follow;
+    if (viewState.follow) {
+      const dyn = selectedInstruction();
+      viewState.selectedSeq = dyn ? dyn.seq : null;
+      viewState.mode = "custom";
+      viewState.scale = Math.max(0.75, viewState.scale);
+    }
+    markSelectedInstruction();
+    renderUopInspector();
+    applyCanvasView();
+  });
+  elements.activePath.addEventListener("click", () => {
+    viewState.activeOnly = !viewState.activeOnly;
+    applyCanvasView();
+  });
+  const selectUop = (event) => {
+    const node = event.target.closest("[data-seq]");
+    if (!node) return false;
+    viewState.selectedSeq = Number(node.dataset.seq);
+    viewState.selectedDevice = null;
+    viewState.selectedLink = null;
+    viewState.follow = true;
+    viewState.mode = "custom";
+    viewState.scale = Math.max(0.75, viewState.scale);
+    markSelectedInstruction();
+    renderUopInspector();
+    applyCanvasView();
+    return true;
+  };
+  elements.hardware.addEventListener("click", (event) => {
+    if (selectUop(event)) return;
+    const device = event.target.closest("[data-device]");
+    if (device) {
+      viewState.selectedDevice = device.dataset.device;
+      viewState.selectedLink = null;
+      viewState.selectedSeq = null;
+      viewState.follow = false;
+      markSelectedInstruction();
+      renderUopInspector();
+      updateViewButtons();
+      return;
+    }
+    const link = event.target.closest("[data-link]");
+    if (link) {
+      viewState.selectedLink = link.dataset.link;
+      viewState.selectedDevice = null;
+      viewState.selectedSeq = null;
+      viewState.follow = false;
+      markSelectedInstruction();
+      renderUopInspector();
+      updateViewButtons();
+    }
+  });
+  elements.hardware.addEventListener("pointermove", (event) => {
+    const wire = event.target.closest?.(".wire-hit.active, .device-wire.active");
+    const detail = wire ? currentFlowDetails[wire.dataset.link] : "";
+    if (!detail) {
+      elements.flowTooltip.classList.remove("show");
+      return;
+    }
+    elements.flowTooltip.textContent = detail;
+    elements.flowTooltip.classList.add("show");
+    const padding = 14;
+    const left = Math.min(event.clientX + padding, window.innerWidth - elements.flowTooltip.offsetWidth - padding);
+    const top = Math.min(event.clientY + padding, window.innerHeight - elements.flowTooltip.offsetHeight - padding);
+    elements.flowTooltip.style.left = `${Math.max(padding, left)}px`;
+    elements.flowTooltip.style.top = `${Math.max(padding, top)}px`;
+  });
+  elements.hardware.addEventListener("pointerleave", () => {
+    elements.flowTooltip.classList.remove("show");
+  });
+  elements.pipeline.addEventListener("click", selectUop);
+  elements.topologyView.addEventListener("click", () => {
+    viewState.diagramMode = "topology";
+    viewState.mode = "fit";
+    viewState.selectedDevice = null;
+    viewState.selectedLink = null;
+    render();
+  });
+  elements.detailView.addEventListener("click", () => {
+    viewState.diagramMode = "detail";
+    viewState.mode = "fit";
+    viewState.selectedDevice = null;
+    viewState.selectedLink = null;
+    render();
+  });
   load();
 })();

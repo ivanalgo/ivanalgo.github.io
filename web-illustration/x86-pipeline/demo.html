@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="逐周期观察乱序 x86 CPU 流水线中的数据移动" />
+    <title>乱序核心演示 · x86 Pipeline Lab</title>
+    <link rel="stylesheet" href="./styles.css?v=20260629-10" />
+  </head>
+  <body class="demo-page">
+    <div class="shell demo-shell">
+      <header class="topbar">
+        <a href="./" class="brand"><b>μARCH</b><span>← 修改实验配置</span></a>
+        <span class="status"><i></i> CYCLE-ACCURATE TEACHING MODEL</span>
+      </header>
+
+      <main class="demo-main">
+        <section class="demo-intro">
+          <div>
+            <span class="eyebrow">OUT-OF-ORDER CORE</span>
+            <h1>乱序核心 · 固定器件拓扑</h1>
+          </div>
+          <div class="experiment-summary">
+            <span>程序 <strong id="summaryPreset">—</strong></span>
+            <span>发射 <strong id="summaryWidth">—</strong></span>
+            <span>预测器 <strong id="summaryPredictor">—</strong></span>
+          </div>
+        </section>
+
+        <section class="metrics" id="metrics"></section>
+
+        <section class="hardware-card">
+          <div class="section-heading">
+            <div><span>01</span><h2 id="hardwareTitle">乱序核心 · 固定器件拓扑</h2></div>
+            <p id="hardwareDescription">悬停活动连线查看目标组件的修改；点击器件、连线或 μop 查看完整状态。</p>
+          </div>
+
+          <div class="view-toolbar">
+            <button id="topologyViewButton" class="view-button active">拓扑视图</button>
+            <button id="detailViewButton" class="view-button">详细视图</button>
+            <i class="toolbar-separator"></i>
+            <button id="fitViewButton" class="view-button active">适应宽度</button>
+            <button id="actualSizeButton" class="view-button">100%</button>
+            <button id="zoomOutButton" class="view-button">−</button>
+            <span id="zoomLabel" class="zoom-label">100%</span>
+            <button id="zoomInButton" class="view-button">＋</button>
+            <button id="followButton" class="view-button">跟随 μop</button>
+            <button id="activePathButton" class="view-button">只看活跃路径</button>
+          </div>
+
+          <div class="hardware-workspace">
+            <div id="hardwareViewport" class="hardware-viewport">
+              <div id="hardwareDiagram" class="hardware-diagram"></div>
+            </div>
+            <aside class="view-side">
+              <div class="cycle-control-card">
+                <div class="cycle-control-head">
+                  <div><span>CURRENT CYCLE</span><strong id="rightCycle">0</strong></div>
+                  <a href="./">修改配置</a>
+                </div>
+                <div class="cycle-nav">
+                  <button id="backButton" class="button ghost" disabled>← 上一 Cycle</button>
+                  <button id="stepButton" class="button primary cycle-step">下一个 Cycle →</button>
+                </div>
+                <div class="cycle-secondary">
+                  <button id="runButton" class="button ghost">▶ 自动运行</button>
+                  <button id="loadButton" class="button ghost">↺ 复位</button>
+                </div>
+                <label class="side-speed">自动运行速度
+                  <select id="speedSelect">
+                    <option value="900">慢速</option>
+                    <option value="250" selected>正常</option>
+                    <option value="40">快速</option>
+                  </select>
+                </label>
+                <span id="parseError" class="error"></span>
+              </div>
+
+              <div class="uop-inspector">
+                <div class="side-title">μOP / HARDWARE INSPECTOR</div>
+                <div id="uopInspector"></div>
+              </div>
+            </aside>
+          </div>
+
+          <div class="hardware-legend">
+            <span><i class="wire flow-active-wire"></i>彩色虚线：本 Cycle 真实流动</span>
+            <span><i class="wire flow-idle-wire"></i>灰色细线：本 Cycle 没有流动</span>
+            <span>组件上边框与它产生的数据流使用同一颜色</span>
+            <span>点击连线可在右侧查看本次 A → B 的 μop</span>
+          </div>
+        </section>
+
+        <section class="pipeline-card">
+          <div class="section-heading">
+            <div><span>02</span><h2 id="pipelineTitle">乱序九级流水线</h2></div>
+            <p id="pipelineDescription"></p>
+          </div>
+          <div id="pipeline" class="pipeline"></div>
+          <div class="flow-legend">
+            <span><i class="dot active"></i>正在执行</span>
+            <span><i class="dot wait"></i>等待 / 停顿</span>
+            <span><i class="dot flush"></i>预测失败冲刷</span>
+          </div>
+        </section>
+
+        <section class="detail-grid">
+          <div class="panel timeline-panel">
+            <div class="section-heading compact"><div><span>03</span><h2>指令时序图</h2></div><small>横向为 Cycle</small></div>
+            <div id="timeline" class="timeline"></div>
+          </div>
+          <div class="panel event-panel">
+            <div class="section-heading compact"><div><span>EVENT</span><h2>本周期发生了什么</h2></div></div>
+            <div id="events" class="events"></div>
+          </div>
+        </section>
+
+        <section class="state-grid">
+          <div class="panel">
+            <div class="section-heading compact"><div><span>04</span><h2>Scoreboard / RAT</h2></div><small>寄存器状态归属</small></div>
+            <div id="scoreboard" class="table-wrap"></div>
+          </div>
+          <div class="panel">
+            <div class="section-heading compact"><div><span>05</span><h2>Reorder Buffer</h2></div><small>乱序完成 · 顺序提交</small></div>
+            <div id="rob" class="table-wrap"></div>
+          </div>
+          <div class="panel">
+            <div class="section-heading compact"><div><span>06</span><h2>Branch Predictor</h2></div><small>Fetch 时预测 · Execute 时验证</small></div>
+            <div id="predictor" class="table-wrap"></div>
+          </div>
+        </section>
+
+        <section class="concepts">
+          <article><b>PHYSICAL REGISTERS</b><h3>寄存器重命名</h3><p>RAT 把架构寄存器映射到物理寄存器，消除 WAR 与 WAW 假依赖。</p></article>
+          <article><b>SCHEDULER / RS</b><h3>等待与唤醒</h3><p>源操作数由 CDB 广播唤醒；全部 ready 后才可发射到对应执行单元。</p></article>
+          <article><b>ROB</b><h3>精确状态</h3><p>执行可以乱序完成，但只允许从 ROB 头部按程序顺序更新架构状态。</p></article>
+          <article><b>PREDICTION</b><h3>投机执行</h3><p>取指阶段猜测方向；执行阶段发现错误时冲刷年轻指令并恢复正确 PC。</p></article>
+        </section>
+      </main>
+      <footer>Educational x86-like model · 机制正确优先，不对应某一款商业 CPU</footer>
+    </div>
+    <div id="flowTooltip" class="flow-tooltip" role="tooltip"></div>
+    <script src="./simulator.js?v=20260629-10"></script>
+    <script src="./app.js?v=20260629-10"></script>
+  </body>
+</html>

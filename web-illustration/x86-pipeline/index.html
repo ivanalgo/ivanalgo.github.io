@@ -3,31 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="逐周期观察 x86 指令在经典与乱序 CPU 流水线中的执行" />
-    <title>x86 Pipeline Lab</title>
-    <link rel="stylesheet" href="./styles.css?v=20260628-4" />
+    <meta name="description" content="配置一个乱序 x86 CPU 流水线实验" />
+    <title>创建实验 · x86 Pipeline Lab</title>
+    <link rel="stylesheet" href="./styles.css?v=20260629-10" />
   </head>
-  <body>
+  <body class="setup-page">
     <div class="shell">
       <header class="topbar">
         <a href="../" class="brand"><b>μARCH</b><span>Web Illustration</span></a>
-        <span class="status"><i></i> CYCLE-ACCURATE TEACHING MODEL</span>
+        <span class="status"><i></i> OUT-OF-ORDER PIPELINE LAB</span>
       </header>
 
-      <main>
-        <section class="hero">
-          <div>
-            <span class="eyebrow">X86 PIPELINE ANATOMY</span>
-            <h1>看见一条指令，<br /><em>如何穿过处理器。</em></h1>
-          </div>
-          <p>从经典五级流水线开始，再切换到简化的乱序核心。逐周期观察依赖、停顿、寄存器重命名、ROB 顺序提交与分支预测失败。</p>
-        </section>
+      <main class="setup-main">
+        <div class="setup-heading">
+          <span class="eyebrow">CREATE AN EXPERIMENT</span>
+          <h1>配置乱序核心</h1>
+          <p>选择核心参数并输入一段简化 x86 汇编，生成后进入独立的逐周期演示页面。</p>
+        </div>
 
-        <section class="control-card">
+        <section class="control-card setup-card">
           <div class="control-grid">
             <label>微架构
-              <select id="modeSelect">
-                <option value="classic">经典五级 · In-order</option>
+              <select id="modeSelect" disabled>
                 <option value="ooo">乱序九级 · OOO</option>
               </select>
             </label>
@@ -52,6 +49,7 @@
               </select>
             </label>
           </div>
+
           <div class="editor-row">
             <div>
               <div class="mini-title">简化 x86 汇编</div>
@@ -65,86 +63,17 @@
               <small>寄存器：RAX–RDI、R8、R9<br />内存：[100] · 注释：;</small>
             </div>
           </div>
-          <div class="transport">
-            <button id="loadButton" class="button ghost">↺ 装载 / 复位</button>
-            <button id="stepButton" class="button primary">下一个 Cycle →</button>
-            <button id="runButton" class="button ghost">▶ 自动运行</button>
-            <label class="speed">速度
-              <select id="speedSelect">
-                <option value="900">慢速</option>
-                <option value="250" selected>正常</option>
-                <option value="40">快速</option>
-              </select>
-            </label>
+
+          <div class="setup-action">
             <span id="parseError" class="error"></span>
+            <button id="generateButton" class="button primary generate-button">生成流水线实验 →</button>
           </div>
-        </section>
-
-        <section class="metrics" id="metrics"></section>
-
-        <section class="hardware-card">
-          <div class="section-heading">
-            <div><span>01</span><h2 id="hardwareTitle">硬件数据通路</h2></div>
-            <p id="hardwareDescription">每个框代表硬件单元或状态缓冲区；内容随 Cycle 更新。</p>
-          </div>
-          <div id="hardwareDiagram" class="hardware-diagram"></div>
-          <div class="hardware-legend">
-            <span><i class="wire instruction-wire"></i>指令 / μop</span>
-            <span><i class="wire tag-wire"></i>ROB tag / 依赖</span>
-            <span><i class="wire data-wire"></i>操作数 / 结果</span>
-            <span>框内为本周期结束时保存的状态</span>
-          </div>
-        </section>
-
-        <section class="pipeline-card">
-          <div class="section-heading">
-            <div><span>02</span><h2 id="pipelineTitle">经典五级流水线</h2></div>
-            <p id="pipelineDescription"></p>
-          </div>
-          <div id="pipeline" class="pipeline"></div>
-          <div class="flow-legend">
-            <span><i class="dot active"></i>正在执行</span>
-            <span><i class="dot wait"></i>等待 / 停顿</span>
-            <span><i class="dot flush"></i>预测失败冲刷</span>
-          </div>
-        </section>
-
-        <section class="detail-grid">
-          <div class="panel timeline-panel">
-            <div class="section-heading compact"><div><span>03</span><h2>指令时序图</h2></div><small>横向为 Cycle</small></div>
-            <div id="timeline" class="timeline"></div>
-          </div>
-          <div class="panel event-panel">
-            <div class="section-heading compact"><div><span>EVENT</span><h2>本周期发生了什么</h2></div></div>
-            <div id="events" class="events"></div>
-          </div>
-        </section>
-
-        <section class="state-grid">
-          <div class="panel">
-            <div class="section-heading compact"><div><span>03</span><h2>Scoreboard / RAT</h2></div><small>寄存器状态归属</small></div>
-            <div id="scoreboard" class="table-wrap"></div>
-          </div>
-          <div class="panel">
-            <div class="section-heading compact"><div><span>04</span><h2>Reorder Buffer</h2></div><small>乱序完成 · 顺序提交</small></div>
-            <div id="rob" class="table-wrap"></div>
-          </div>
-          <div class="panel">
-            <div class="section-heading compact"><div><span>05</span><h2>Branch Predictor</h2></div><small>Fetch 时预测 · Execute 时验证</small></div>
-            <div id="predictor" class="table-wrap"></div>
-          </div>
-        </section>
-
-        <section class="concepts">
-          <article><b>In-order</b><h3>五级基线</h3><p>IF → ID → EX → MEM → WB。年轻指令不能越过被阻塞的老指令。</p></article>
-          <article><b>Scoreboard + Rename</b><h3>消除假依赖</h3><p>记分板跟踪真正的 RAW 依赖；RAT 用 ROB tag 重命名目标寄存器，消除 WAR/WAW。</p></article>
-          <article><b>ROB</b><h3>精确状态</h3><p>执行可以乱序完成，但只允许从 ROB 头部按程序顺序更新架构寄存器。</p></article>
-          <article><b>Prediction</b><h3>投机执行</h3><p>取指阶段猜测方向；执行阶段发现错误时，冲刷年轻指令并恢复正确 PC。</p></article>
         </section>
       </main>
+
       <footer>Educational x86-like model · 机制正确优先，不对应某一款商业 CPU</footer>
     </div>
-    <script src="./simulator.js?v=20260628-4"></script>
-    <script src="./app.js?v=20260628-4"></script>
+    <script src="./simulator.js?v=20260629-10"></script>
+    <script src="./setup.js?v=20260629-10"></script>
   </body>
 </html>

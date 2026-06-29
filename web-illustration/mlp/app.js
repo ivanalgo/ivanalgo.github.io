@@ -5,6 +5,7 @@
   const svgNS = "http://www.w3.org/2000/svg";
   const OPTIMIZER_NAMES = { adam: "Adam", momentum: "Momentum", sgd: "SGD" };
   const LOSS_NAMES = { mse: "MSE", bce: "BCE" };
+  const sigmoid = (x) => 1 / (1 + Math.exp(-Math.max(-20, Math.min(20, x))));
   const DATASET_NAMES = {
     xor: "XOR 四象限",
     circle: "圆内 / 圆外",
@@ -38,7 +39,7 @@
       .map((value) => Math.max(1, Math.min(32, Number(value))))
     : defaultConfig.hiddenLayers.slice();
   if (!LOSS_NAMES[config.lossFunction]) config.lossFunction = "mse";
-  config.batchSize = Math.max(1, Math.min(256, Math.floor(Number(config.batchSize) || 1)));
+  config.batchSize = [1, 2, 4].includes(Number(config.batchSize)) ? Number(config.batchSize) : 1;
 
   const state = {
     config,
@@ -48,6 +49,8 @@
     trainStep: 0,
     processedSamples: 0,
     batchProgress: 0,
+    lastBatchSize: 0,
+    lastBatchRows: [],
     lastUpdateApplied: false,
     stageIndex: -1,
     stages: [],
@@ -66,13 +69,14 @@
     fastRenderCounter: 0,
     parameterRecordStride: 1,
     selected: null,
+    viewMode: sessionStorage.getItem("mlpViewMode") || "anatomy",
+    history: [],
   };
 
   const elements = {
     reset: $("#resetButton"),
+    prev: $("#prevButton"),
     next: $("#nextButton"),
-    play: $("#playButton"),
-    speed: $("#speedSelect"),
     networkSvg: $("#networkSvg"),
     phaseRail: $("#phaseRail"),
     stepBadge: $("#stepBadge"),
@@ -101,6 +105,7 @@
     networkOptimizerBadge: $("#networkOptimizerBadge"),
     networkLossBadge: $("#networkLossBadge"),
     networkSampleBadge: $("#networkSampleBadge"),
+    networkBatchBadge: $("#networkBatchBadge"),
     calculationPanel: $("#calculationPanel"),
     calculationBadge: $("#calculationBadge"),
     calculationTitle: $("#calculationTitle"),
@@ -109,6 +114,12 @@
     chartOptimizer: $("#chartOptimizer"),
     chartLossFunction: $("#chartLossFunction"),
     chartBatchSize: $("#chartBatchSize"),
+    viewModeButtons: document.querySelectorAll("[data-view-mode]"),
+    matrixBatchSize: $("#matrixBatchSizeSelect"),
+    batchMatrixLayer: $("#batchMatrixLayerSelect"),
+    batchMatrixContent: $("#batchMatrixContent"),
+    matrixBatchSizeLabel: $("#matrixBatchSizeLabel"),
+    matrixCurrentSampleLabel: $("#matrixCurrentSampleLabel"),
   };
 
   function format(value, digits = 4) {
@@ -145,6 +156,559 @@
       </div>`;
   }
 
+  function getConfiguredBatchSize() {
+    return Math.max(1, Math.min(state.data.length || 1, Number(state.config.batchSize) || 1));
+  }
+
+  function getBatchRows({ count = getConfiguredBatchSize(), includeFuture = true } = {}) {
+    if (!state.data.length) return [];
+    const batchSize = getConfiguredBatchSize();
+    const processedInBatch = Math.min(state.batchProgress, batchSize - 1);
+    const startIndex = (state.sampleIndex - processedInBatch + state.data.length) % state.data.length;
+    const rowCount = Math.max(1, Math.min(count, batchSize, state.data.length));
+    return Array.from({ length: rowCount }, (_, offset) => {
+      const index = (startIndex + offset) % state.data.length;
+      const point = state.data[index];
+      return {
+        index,
+        active: index === state.sampleIndex,
+        future: !includeFuture && offset >= Math.max(1, state.batchProgress),
+        x: point.x,
+        y: point.y,
+      };
+    });
+  }
+
+  function renderBatchContext({ compact = false, includeFormula = true } = {}) {
+    const batchSize = getConfiguredBatchSize();
+    if (batchSize <= 1) return "";
+    const currentStage = state.stages[state.stageIndex] || null;
+    const displayBatchSize = currentStage && currentStage.type === "update"
+      ? Math.max(1, state.lastUpdateApplied ? state.lastBatchSize : state.batchProgress)
+      : batchSize;
+    const rows = currentStage && currentStage.type === "update" && state.lastBatchRows.length
+      ? state.lastBatchRows.slice(0, 4)
+      : getBatchRows({ count: Math.min(batchSize, 4) });
+    const sampleRows = rows.map((row) => `
+      <div class="batch-row${row.active ? " active" : ""}">
+        <span>#${row.index + 1}</span>
+        <code>[${format(row.x[0], 3)}, ${format(row.x[1], 3)}]</code>
+        <strong>y=${row.y}</strong>
+      </div>`).join("");
+    return `
+      <div class="batch-context${compact ? " compact" : ""}">
+        <div class="batch-context-heading">
+          <span>Mini-batch 视角</span>
+          <strong>m = ${displayBatchSize}${displayBatchSize > rows.length ? ` · 展示前 ${rows.length} 个` : ""}</strong>
+        </div>
+        <div class="batch-rows">${sampleRows}</div>
+        ${includeFormula ? `
+          <div class="batch-formulas">
+            <code>X_B ∈ ℝ<sup>2×m</sup>, A⁽ˡ⁾ ∈ ℝ<sup>nₗ×m</sup></code>
+            <code>Z⁽ˡ⁾ = W⁽ˡ⁾A⁽ˡ⁻¹⁾ + b⁽ˡ⁾1ᵀ</code>
+            <code>∂L/∂W⁽ˡ⁾ = (1/m)Δ⁽ˡ⁾(A⁽ˡ⁻¹⁾)ᵀ，∂L/∂b⁽ˡ⁾ = mean_cols(Δ⁽ˡ⁾)</code>
+          </div>` : ""}
+      </div>`;
+  }
+
+  function matrixColumnsFromRows(rows, selector) {
+    if (!rows.length) return [];
+    const width = selector(rows[0]).length;
+    return Array.from({ length: width }, (_, rowIndex) =>
+      rows.map((row) => selector(row)[rowIndex])
+    );
+  }
+
+  function computeBatchSnapshot() {
+    if (!state.network || !state.data.length) return null;
+    const batchSize = getConfiguredBatchSize();
+    const rows = getBatchRows({ count: Math.min(batchSize, 4) });
+    const last = state.network.sizes.length - 1;
+    const samples = rows.map((row) => {
+      const activations = state.network.sizes.map((size) => Array(size).fill(0));
+      const zValues = state.network.sizes.map((size) => Array(size).fill(0));
+      const deltas = state.network.sizes.map((size) => Array(size).fill(0));
+      activations[0] = row.x.slice();
+      zValues[0] = row.x.slice();
+
+      for (let layer = 1; layer <= last; layer += 1) {
+        for (let neuron = 0; neuron < state.network.sizes[layer]; neuron += 1) {
+          let z = state.network.biases[layer][neuron];
+          for (let source = 0; source < state.network.sizes[layer - 1]; source += 1) {
+            z += state.network.weights[layer][neuron][source] * activations[layer - 1][source];
+          }
+          zValues[layer][neuron] = z;
+          activations[layer][neuron] = sigmoid(z);
+        }
+      }
+
+      for (let neuron = 0; neuron < state.network.sizes[last]; neuron += 1) {
+        const activation = activations[last][neuron];
+        const targetValue = neuron === 0 ? row.y : 0;
+        deltas[last][neuron] = state.network.lossFunction === "bce"
+          ? activation - targetValue
+          : (activation - targetValue) * activation * (1 - activation);
+      }
+
+      for (let layer = last - 1; layer >= 1; layer -= 1) {
+        for (let neuron = 0; neuron < state.network.sizes[layer]; neuron += 1) {
+          let downstream = 0;
+          for (let next = 0; next < state.network.sizes[layer + 1]; next += 1) {
+            downstream += state.network.weights[layer + 1][next][neuron] * deltas[layer + 1][next];
+          }
+          const activation = activations[layer][neuron];
+          deltas[layer][neuron] = downstream * activation * (1 - activation);
+        }
+      }
+
+      return { ...row, activations, zValues, deltas };
+    });
+
+    return { rows, samples, batchSize: samples.length, last };
+  }
+
+  function batchGradientMatrix(snapshot, layer) {
+    const gradients = state.network.weights[layer].map((row) => row.map(() => 0));
+    const biasGradients = state.network.biases[layer].map(() => 0);
+    const m = Math.max(1, snapshot.batchSize);
+    snapshot.samples.forEach((sample) => {
+      for (let target = 0; target < state.network.sizes[layer]; target += 1) {
+        biasGradients[target] += sample.deltas[layer][target] / m;
+        for (let source = 0; source < state.network.sizes[layer - 1]; source += 1) {
+          gradients[target][source] +=
+            (sample.deltas[layer][target] * sample.activations[layer - 1][source]) / m;
+        }
+      }
+    });
+    return { gradients, biasGradients };
+  }
+
+  function renderMatrixCard(title, subtitle, content, className = "") {
+    return `
+      <div class="matrix-card ${className}">
+        <div class="matrix-card-title">
+          <span>${title}</span>
+          <small>${subtitle}</small>
+        </div>
+        <div class="matrix-card-body">${content}</div>
+      </div>`;
+  }
+
+  function cloneJson(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function createSnapshot() {
+    return cloneJson({
+      sampleIndex: state.sampleIndex,
+      trainStep: state.trainStep,
+      processedSamples: state.processedSamples,
+      batchProgress: state.batchProgress,
+      lastBatchSize: state.lastBatchSize,
+      lastBatchRows: state.lastBatchRows,
+      lastUpdateApplied: state.lastUpdateApplied,
+      stageIndex: state.stageIndex,
+      lossWindow: state.lossWindow,
+      lossWindowSum: state.lossWindowSum,
+      accuracyWindow: state.accuracyWindow,
+      accuracyWindowSum: state.accuracyWindowSum,
+      metricHistory: state.metricHistory,
+      currentAverageLoss: state.currentAverageLoss,
+      currentAverageAccuracy: state.currentAverageAccuracy,
+      parameterHistory: state.parameterHistory,
+      currentLoss: state.currentLoss,
+      selected: state.selected,
+      data: state.data,
+      network: {
+        optimizerStep: state.network.optimizerStep,
+        activations: state.network.activations,
+        zValues: state.network.zValues,
+        deltas: state.network.deltas,
+        weights: state.network.weights,
+        biases: state.network.biases,
+        weightGradients: state.network.weightGradients,
+        biasGradients: state.network.biasGradients,
+        weightGradientSums: state.network.weightGradientSums,
+        biasGradientSums: state.network.biasGradientSums,
+        weightUpdates: state.network.weightUpdates,
+        biasUpdates: state.network.biasUpdates,
+        weightFirstMoments: state.network.weightFirstMoments,
+        weightSecondMoments: state.network.weightSecondMoments,
+        biasFirstMoments: state.network.biasFirstMoments,
+        biasSecondMoments: state.network.biasSecondMoments,
+      },
+    });
+  }
+
+  function restoreSnapshot(snapshot) {
+    if (!snapshot || !state.network) return;
+    state.sampleIndex = snapshot.sampleIndex;
+    state.trainStep = snapshot.trainStep;
+    state.processedSamples = snapshot.processedSamples;
+    state.batchProgress = snapshot.batchProgress;
+    state.lastBatchSize = snapshot.lastBatchSize;
+    state.lastBatchRows = snapshot.lastBatchRows;
+    state.lastUpdateApplied = snapshot.lastUpdateApplied;
+    state.stageIndex = snapshot.stageIndex;
+    state.lossWindow = snapshot.lossWindow;
+    state.lossWindowSum = snapshot.lossWindowSum;
+    state.accuracyWindow = snapshot.accuracyWindow;
+    state.accuracyWindowSum = snapshot.accuracyWindowSum;
+    state.metricHistory = snapshot.metricHistory;
+    state.currentAverageLoss = snapshot.currentAverageLoss;
+    state.currentAverageAccuracy = snapshot.currentAverageAccuracy;
+    state.parameterHistory = snapshot.parameterHistory;
+    state.currentLoss = snapshot.currentLoss;
+    state.selected = snapshot.selected;
+    state.data = snapshot.data;
+    Object.assign(state.network, snapshot.network);
+  }
+
+  function updateHistoryControls() {
+    if (elements.prev) elements.prev.disabled = state.history.length <= 1;
+  }
+
+  function rememberSnapshot() {
+    state.history.push(createSnapshot());
+    if (state.history.length > 300) state.history.shift();
+    updateHistoryControls();
+  }
+
+  function populateBatchMatrixLayerSelect() {
+    if (!elements.batchMatrixLayer || !state.network) return;
+    const last = state.network.sizes.length - 1;
+    const previous = Number(elements.batchMatrixLayer.value) || last;
+    elements.batchMatrixLayer.innerHTML = Array.from({ length: last }, (_, index) => {
+      const layer = index + 1;
+      const label = layer === last ? `输出层 ${layer}` : `隐藏层 ${layer}`;
+      return `<option value="${layer}">${label} · ${state.network.sizes[layer]} 个神经元</option>`;
+    }).join("");
+    elements.batchMatrixLayer.value = String(Math.min(Math.max(1, previous), last));
+  }
+
+  function populateMatrixBatchSizeSelect() {
+    if (!elements.matrixBatchSize) return;
+    const allowed = [1, 2, 4];
+    const current = allowed.includes(getConfiguredBatchSize()) ? getConfiguredBatchSize() : 1;
+    elements.matrixBatchSize.value = String(current);
+  }
+
+  function persistCurrentConfig() {
+    try {
+      sessionStorage.setItem("mlpExperiment", JSON.stringify({
+        dataset: state.config.dataset,
+        sampleCount: state.config.sampleCount,
+        learningRate: state.config.learningRate,
+        optimizer: state.config.optimizer,
+        lossFunction: state.config.lossFunction,
+        batchSize: state.config.batchSize,
+        noise: state.config.noise,
+        hiddenLayers: state.config.hiddenLayers.slice(),
+        data: state.data,
+      }));
+    } catch (error) {
+      // Ignore storage failures; the in-memory config still drives this session.
+    }
+  }
+
+  function updateMatrixBatchSize(value) {
+    const next = [1, 2, 4].includes(Number(value)) ? Number(value) : 1;
+    if (state.config.batchSize === next) return;
+    stopPlaying();
+    state.config.batchSize = next;
+    persistCurrentConfig();
+    rebuild();
+    setViewMode("matrix");
+  }
+
+  function renderBatchMatrix() {
+    if (!elements.batchMatrixContent || !state.network) return;
+    const snapshot = computeBatchSnapshot();
+    if (!snapshot || !snapshot.samples.length) {
+      elements.batchMatrixContent.innerHTML = '<div class="empty-matrix">暂无 batch 数据</div>';
+      return;
+    }
+    const last = snapshot.last;
+    const currentStage = state.stages[state.stageIndex] || null;
+    const selectedLayer = currentStage && currentStage.layer > 0
+      ? Math.min(last, Math.max(1, currentStage.layer))
+      : last;
+    const layerReason = currentStage && currentStage.type
+      ? `${currentStage.badge} 阶段自动显示第 ${selectedLayer} 层`
+      : `准备阶段默认显示输出层 ${selectedLayer}`;
+    const xMatrix = matrixColumnsFromRows(snapshot.samples, (sample) => sample.x);
+    const yMatrix = [snapshot.samples.map((sample) => sample.y)];
+    const zMatrix = matrixColumnsFromRows(snapshot.samples, (sample) => sample.zValues[selectedLayer]);
+    const activationMatrix = matrixColumnsFromRows(snapshot.samples, (sample) => sample.activations[selectedLayer]);
+    const deltaMatrix = matrixColumnsFromRows(snapshot.samples, (sample) => sample.deltas[selectedLayer]);
+    const previousActivationMatrix = matrixColumnsFromRows(snapshot.samples, (sample) => sample.activations[selectedLayer - 1]);
+    const { gradients, biasGradients } = batchGradientMatrix(snapshot, selectedLayer);
+    const columnLabels = snapshot.samples
+      .map((sample, column) => `<span class="matrix-column-chip${sample.active ? " active" : ""}">col ${column + 1} = #${sample.index + 1}</span>`)
+      .join("");
+
+    if (elements.matrixBatchSizeLabel) {
+      elements.matrixBatchSizeLabel.textContent = `${snapshot.batchSize} / ${getConfiguredBatchSize()}`;
+    }
+    if (elements.matrixBatchSize) {
+      elements.matrixBatchSize.value = String(getConfiguredBatchSize());
+    }
+    if (elements.matrixCurrentSampleLabel) {
+      elements.matrixCurrentSampleLabel.textContent = `#${state.sampleIndex + 1}`;
+    }
+
+    const inputCard = renderMatrixCard("输入矩阵", "X_B 与标签", `
+      <div class="formula-flow compact-flow matrix-local-flow">
+        ${matrixView("X_B", xMatrix, { maxRows: 2, maxCols: 4, digits: 4 })}
+        <span class="formula-operator">，</span>
+        ${matrixView("Y_B", yMatrix, { maxRows: 1, maxCols: 4, digits: 0 })}
+      </div>`);
+    const forwardCard = renderMatrixCard(`Forward · 第 ${selectedLayer} 层`, "整层同时处理 m 列样本", `
+      <div class="formula-flow matrix-local-flow">
+        ${matrixView(htmlNotation("W", selectedLayer), state.network.weights[selectedLayer], { maxRows: 5, maxCols: 5, digits: 3 })}
+        <span class="formula-operator">×</span>
+        ${matrixView(htmlNotation("A", selectedLayer - 1), previousActivationMatrix, { maxRows: 5, maxCols: 4, digits: 3 })}
+        <span class="formula-operator">+</span>
+        ${matrixView(`${htmlNotation("b", selectedLayer)}1ᵀ`, state.network.biases[selectedLayer].map((bias) => Array(snapshot.batchSize).fill(bias)), { maxRows: 5, maxCols: 4, digits: 3 })}
+        <span class="formula-operator">=</span>
+        ${matrixView(htmlNotation("Z", selectedLayer), zMatrix, { maxRows: 5, maxCols: 4, digits: 3 })}
+        <span class="formula-operator activation-arrow">σ →</span>
+        ${matrixView(htmlNotation("A", selectedLayer), activationMatrix, { maxRows: 5, maxCols: 4, digits: 4 })}
+      </div>`);
+    const predictions = [snapshot.samples.map((sample) => sample.activations[last][0])];
+    const losses = [snapshot.samples.map((sample) => {
+      const prediction = Math.max(1e-7, Math.min(1 - 1e-7, sample.activations[last][0]));
+      return state.network.lossFunction === "bce"
+        ? -(sample.y * Math.log(prediction) + (1 - sample.y) * Math.log(1 - prediction))
+        : 0.5 * Math.pow(prediction - sample.y, 2);
+    })];
+    const averageLoss = losses[0].reduce((sum, value) => sum + value, 0) / losses[0].length;
+    const lossCard = renderMatrixCard(
+      "Loss · 当前 mini-batch",
+      state.network.lossFunction === "bce" ? "逐列计算 BCE，再取平均" : "逐列计算 ½(ŷ−y)²，再取平均",
+      `<div class="formula-flow compact-flow matrix-local-flow">
+        ${matrixView("Ŷ_B", predictions, { maxRows: 1, maxCols: 4, digits: 5 })}
+        <span class="formula-operator">vs</span>
+        ${matrixView("Y_B", yMatrix, { maxRows: 1, maxCols: 4, digits: 0 })}
+        <span class="formula-operator">→</span>
+        ${matrixView("L_B", losses, { maxRows: 1, maxCols: 4, digits: 6 })}
+        <span class="formula-operator">mean</span>
+        <div class="scalar-result"><span>Batch Loss</span><strong>${format(averageLoss, 7)}</strong></div>
+      </div>`
+    );
+    const sigmoidPrimeMatrix = activationMatrix.map((row) => row.map((value) => value * (1 - value)));
+    const outputErrorMatrix = selectedLayer === last
+      ? [activationMatrix[0].map((value, column) => value - yMatrix[0][column])]
+      : [];
+    const nextDeltaMatrix = selectedLayer < last
+      ? matrixColumnsFromRows(snapshot.samples, (sample) => sample.deltas[selectedLayer + 1])
+      : [];
+    const downstreamMatrix = selectedLayer < last
+      ? Array.from({ length: state.network.sizes[selectedLayer] }, (_, neuron) =>
+        snapshot.samples.map((sample) =>
+          state.network.weights[selectedLayer + 1].reduce(
+            (sum, row, next) => sum + row[neuron] * sample.deltas[selectedLayer + 1][next],
+            0
+          )
+        )
+      )
+      : [];
+    const signalFormula = selectedLayer === last
+      ? state.network.lossFunction === "bce"
+        ? `
+          <div class="formula-flow compact-flow matrix-local-flow">
+            ${matrixView(htmlNotation("A", selectedLayer), activationMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+            <span class="formula-operator">−</span>
+            ${matrixView("Y_B", yMatrix, { maxRows: 1, maxCols: 4, digits: 0 })}
+            <span class="formula-operator">=</span>
+            ${matrixView(htmlNotation("Δ", selectedLayer), deltaMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+          </div>`
+        : `
+          <div class="formula-flow compact-flow matrix-local-flow">
+            ${matrixView(`${htmlNotation("A", selectedLayer)} − Y_B`, outputErrorMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+            <span class="formula-operator">⊙</span>
+            ${matrixView(`σ′(${htmlNotation("Z", selectedLayer)})`, sigmoidPrimeMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+            <span class="formula-operator">=</span>
+            ${matrixView(htmlNotation("Δ", selectedLayer), deltaMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+          </div>`
+      : `
+        <div class="formula-flow matrix-local-flow">
+          ${matrixView(`${htmlNotation("W", selectedLayer + 1)}ᵀ`, transpose(state.network.weights[selectedLayer + 1]), { maxRows: 5, maxCols: 5, digits: 3 })}
+          <span class="formula-operator">×</span>
+          ${matrixView(htmlNotation("Δ", selectedLayer + 1), nextDeltaMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+          <span class="formula-operator">=</span>
+          ${matrixView("传回误差", downstreamMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+        </div>
+        <div class="formula-flow compact-flow matrix-local-flow matrix-sub-flow">
+          ${matrixView("传回误差", downstreamMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+          <span class="formula-operator">⊙</span>
+          ${matrixView(`σ′(${htmlNotation("Z", selectedLayer)})`, sigmoidPrimeMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+          <span class="formula-operator">=</span>
+          ${matrixView(htmlNotation("Δ", selectedLayer), deltaMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+        </div>`;
+    const signalCard = renderMatrixCard(
+      "反向误差信号 Δ",
+      selectedLayer === last ? "输出层先由预测与标签得到 Δ" : "隐藏层先从下一层传回误差，再乘激活导数",
+      signalFormula
+    );
+    const rawGradients = gradients.map((row) => row.map((value) => value * snapshot.batchSize));
+    const onesColumn = Array.from({ length: snapshot.batchSize }, () => [1]);
+    const rawBiasGradients = biasGradients.map((value) => value * snapshot.batchSize);
+    const previousActivationTransposed = transpose(previousActivationMatrix);
+    const gradientCard = renderMatrixCard("Batch 平均梯度", "先按样本列求梯度，再除以 m", `
+      <div class="formula-flow matrix-local-flow">
+        ${matrixView(htmlNotation("Δ", selectedLayer), deltaMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+        <span class="formula-operator">×</span>
+        ${matrixView(`${htmlNotation("A", selectedLayer - 1)}ᵀ`, previousActivationTransposed, { maxRows: 4, maxCols: 5, digits: 4 })}
+        <span class="formula-operator">=</span>
+        ${matrixView("ΣG_W", rawGradients, { maxRows: 5, maxCols: 5, digits: 5 })}
+        <span class="formula-operator">÷ m →</span>
+        ${matrixView(`∂L/∂${htmlNotation("W", selectedLayer)}`, gradients, { maxRows: 5, maxCols: 5, digits: 5 })}
+      </div>
+      <div class="formula-flow compact-flow matrix-local-flow matrix-sub-flow">
+        ${matrixView(htmlNotation("Δ", selectedLayer), deltaMatrix, { maxRows: 5, maxCols: 4, digits: 5 })}
+        <span class="formula-operator">×</span>
+        ${matrixView("1_m", onesColumn, { maxRows: 4, maxCols: 1, digits: 0 })}
+        <span class="formula-operator">=</span>
+        ${matrixView("ΣG_b", rawBiasGradients, { maxRows: 5, maxCols: 1, digits: 5 })}
+        <span class="formula-operator">÷ m →</span>
+        ${matrixView(`∂L/∂${htmlNotation("b", selectedLayer)}`, biasGradients, { maxRows: 5, maxCols: 1, digits: 5 })}
+      </div>`, "wide-matrix-card");
+    const updateAlreadyApplied = currentStage?.type === "update" && state.lastUpdateApplied;
+    const weightUpdateMatrix = state.network.weights[selectedLayer].map((row, target) => row.map((_, source) =>
+      updateAlreadyApplied
+        ? state.network.weightUpdates[selectedLayer][target][source]
+        : state.network._calculateUpdate(
+          gradients[target][source],
+          state.network.weightFirstMoments[selectedLayer][target][source],
+          state.network.weightSecondMoments[selectedLayer][target][source],
+          state.network.optimizerStep + 1
+        ).update
+    ));
+    const biasUpdateVector = state.network.biases[selectedLayer].map((_, neuron) =>
+      updateAlreadyApplied
+        ? state.network.biasUpdates[selectedLayer][neuron]
+        : state.network._calculateUpdate(
+          biasGradients[neuron],
+          state.network.biasFirstMoments[selectedLayer][neuron],
+          state.network.biasSecondMoments[selectedLayer][neuron],
+          state.network.optimizerStep + 1
+        ).update
+    );
+    const weightBeforeUpdate = state.network.weights[selectedLayer].map((row, target) => row.map((value, source) =>
+      updateAlreadyApplied ? value - weightUpdateMatrix[target][source] : value
+    ));
+    const weightAfterUpdate = state.network.weights[selectedLayer].map((row, target) => row.map((value, source) =>
+      updateAlreadyApplied ? value : value + weightUpdateMatrix[target][source]
+    ));
+    const biasBeforeUpdate = state.network.biases[selectedLayer].map((value, neuron) =>
+      updateAlreadyApplied ? value - biasUpdateVector[neuron] : value
+    );
+    const biasAfterUpdate = state.network.biases[selectedLayer].map((value, neuron) =>
+      updateAlreadyApplied ? value : value + biasUpdateVector[neuron]
+    );
+    const optimizerName = OPTIMIZER_NAMES[state.network.optimizer];
+    const optimizerHint = state.network.optimizer === "sgd"
+      ? "SGD：Δθ = −ηG，直接沿负梯度方向移动"
+      : state.network.optimizer === "momentum"
+        ? "Momentum：先把梯度累积进速度 v，再用 Δθ = −ηv 更新"
+        : "Adam：先更新一阶/二阶矩并做偏差修正，再生成 Δθ";
+    const negativeLearningRate = [[-state.network.learningRate]];
+    const updateDirectionName = state.network.optimizer === "sgd"
+      ? "G"
+      : state.network.optimizer === "momentum"
+        ? "v_t"
+        : "m̂/(√v̂+ε)";
+    const weightUpdateDirection = weightUpdateMatrix.map((row) => row.map((value) =>
+      value / (-state.network.learningRate)
+    ));
+    const biasUpdateDirection = biasUpdateVector.map((value) => value / (-state.network.learningRate));
+    const updateDerivationCard = renderMatrixCard(
+      `ΔW / Δb 如何由 η 得到`,
+      `${optimizerName} 的更新量一定包含学习率 η，先算更新方向，再乘 −η`,
+      `<div class="optimizer-mini-note">${optimizerHint}；当前 η = ${format(state.network.learningRate, 4)}</div>
+      <div class="formula-flow matrix-local-flow matrix-sub-flow">
+        ${matrixView(`${updateDirectionName}_W`, weightUpdateDirection, { maxRows: 5, maxCols: 5, digits: 5 })}
+        <span class="formula-operator">×</span>
+        ${matrixView("−η", negativeLearningRate, { maxRows: 1, maxCols: 1, digits: 4 })}
+        <span class="formula-operator">=</span>
+        ${matrixView(`Δ${htmlNotation("W", selectedLayer)}`, weightUpdateMatrix, { maxRows: 5, maxCols: 5, digits: 5 })}
+      </div>
+      <div class="formula-flow compact-flow matrix-local-flow matrix-sub-flow">
+        ${matrixView(`${updateDirectionName}_b`, biasUpdateDirection, { maxRows: 5, maxCols: 1, digits: 5 })}
+        <span class="formula-operator">×</span>
+        ${matrixView("−η", negativeLearningRate, { maxRows: 1, maxCols: 1, digits: 4 })}
+        <span class="formula-operator">=</span>
+        ${matrixView(`Δ${htmlNotation("b", selectedLayer)}`, biasUpdateVector, { maxRows: 5, maxCols: 1, digits: 5 })}
+      </div>`,
+      "wide-matrix-card"
+    );
+    const parameterUpdateCard = renderMatrixCard(
+      `参数修正 · 第 ${selectedLayer} 层`,
+      updateAlreadyApplied ? `${optimizerName} 已把本批平均梯度写回参数` : `${optimizerName} 根据当前平均梯度预览下一步参数变化`,
+      `<div class="optimizer-mini-note">${optimizerHint}</div>
+      <div class="formula-flow matrix-local-flow matrix-sub-flow">
+        ${matrixView(htmlNotation("W", selectedLayer), weightBeforeUpdate, { maxRows: 5, maxCols: 5, digits: 5 })}
+        <span class="formula-operator">+</span>
+        ${matrixView(`Δ${htmlNotation("W", selectedLayer)}`, weightUpdateMatrix, { maxRows: 5, maxCols: 5, digits: 5 })}
+        <span class="formula-operator">=</span>
+        ${matrixView(`${htmlNotation("W", selectedLayer)}_new`, weightAfterUpdate, { maxRows: 5, maxCols: 5, digits: 5 })}
+      </div>
+      <div class="formula-flow compact-flow matrix-local-flow matrix-sub-flow">
+        ${matrixView(htmlNotation("b", selectedLayer), biasBeforeUpdate, { maxRows: 5, maxCols: 1, digits: 5 })}
+        <span class="formula-operator">+</span>
+        ${matrixView(`Δ${htmlNotation("b", selectedLayer)}`, biasUpdateVector, { maxRows: 5, maxCols: 1, digits: 5 })}
+        <span class="formula-operator">=</span>
+        ${matrixView(`${htmlNotation("b", selectedLayer)}_new`, biasAfterUpdate, { maxRows: 5, maxCols: 1, digits: 5 })}
+      </div>`,
+      "wide-matrix-card"
+    );
+    let cards = [];
+    let stageFormula = "点击“下一步”后，这里只显示当前阶段已经发生的矩阵计算。";
+    if (currentStage?.type === "input") {
+      cards = [inputCard];
+      stageFormula = "INPUT 阶段：只装载 X_B 与 Y_B，还不计算后续层。";
+    } else if (currentStage?.type === "forward") {
+      cards = [inputCard, forwardCard];
+      stageFormula = `${layerReason}　·　Z⁽${selectedLayer}⁾ = W⁽${selectedLayer}⁾A⁽${selectedLayer - 1}⁾ + b⁽${selectedLayer}⁾1ᵀ　·　A⁽${selectedLayer}⁾ = σ(Z⁽${selectedLayer}⁾)`;
+    } else if (currentStage?.type === "loss") {
+      cards = [inputCard, lossCard];
+      stageFormula = `LOSS 阶段：使用输出层 A⁽${last}⁾ 作为 Ŷ_B，逐列计算 loss 后求平均。`;
+    } else if (currentStage?.type === "backward") {
+      cards = [signalCard, gradientCard, updateDerivationCard, parameterUpdateCard];
+      stageFormula = `${layerReason}　·　先得到 Δ 与平均梯度，再用 η 计算 ΔW / Δb，最后预览参数修正。`;
+    } else if (currentStage?.type === "update") {
+      cards = [gradientCard, updateDerivationCard, parameterUpdateCard];
+      stageFormula = `UPDATE 阶段：平均梯度先通过 η 变成 ΔW / Δb，再写回 ${htmlNotation("W", selectedLayer)} / ${htmlNotation("b", selectedLayer)}。`;
+    }
+
+    elements.batchMatrixContent.innerHTML = `
+      <div class="matrix-mode-summary">
+        <div>
+          <strong>列就是样本</strong>
+          <p>${columnLabels}</p>
+        </div>
+        <code>${stageFormula}</code>
+      </div>
+      <div class="matrix-card-grid">
+        ${cards.length ? cards.join("") : '<div class="empty-matrix">尚未开始矩阵计算：点击“下一步”进入 INPUT 阶段。</div>'}
+      </div>`;
+  }
+
+  function setViewMode(mode) {
+    const nextMode = ["anatomy", "matrix", "dashboard"].includes(mode) ? mode : "anatomy";
+    state.viewMode = nextMode;
+    sessionStorage.setItem("mlpViewMode", nextMode);
+    document.body.dataset.viewMode = nextMode;
+    elements.viewModeButtons.forEach((button) => {
+      button.classList.toggle("active", button.dataset.viewMode === nextMode);
+    });
+    if (nextMode === "matrix") renderBatchMatrix();
+    if (nextMode === "dashboard") {
+      drawLoss();
+    }
+  }
+
   function transpose(matrix) {
     if (!matrix.length) return [];
     return matrix[0].map((_, column) => matrix.map((row) => row[column]));
@@ -179,7 +743,8 @@
           ${matrixView(`${htmlNotation("a", 0)} = ${htmlNotation("x", state.sampleIndex + 1)}`, sample.x, { digits: 4 })}
           <span class="formula-operator">，</span>
           <div class="scalar-result"><span>真实标签</span><strong>${htmlNotation("y", state.sampleIndex + 1)} = ${sample.y}</strong></div>
-        </div>`;
+        </div>
+        ${renderBatchContext({ compact: true, includeFormula: true })}`;
       return;
     }
 
@@ -264,6 +829,12 @@
       elements.calculationTitle.textContent = `Backward · 第 ${layer} 层`;
       elements.calculationHint.textContent = "先传回误差信号 δ，再用外积得到本层 W 与 b 的梯度";
       content.innerHTML = `
+        <div class="formula-derivation">
+          <span>反向传播拆成三步看</span>
+          <code>① 输出层：δ⁽ᴸ⁾ = ∂L/∂z⁽ᴸ⁾。MSE 为 (a⁽ᴸ⁾−y)⊙a⁽ᴸ⁾⊙(1−a⁽ᴸ⁾)，BCE+Sigmoid 可化简为 a⁽ᴸ⁾−y。</code>
+          <code>② 隐藏层：δ⁽ˡ⁾ = (W⁽ˡ⁺¹⁾ᵀδ⁽ˡ⁺¹⁾)⊙a⁽ˡ⁾⊙(1−a⁽ˡ⁾)。</code>
+          <code>③ 参数梯度：∂L/∂W⁽ˡ⁾ = δ⁽ˡ⁾(a⁽ˡ⁻¹⁾)ᵀ，∂L/∂b⁽ˡ⁾ = δ⁽ˡ⁾。</code>
+        </div>
         <div class="backward-signal">
           <span>链式法则</span>
           <code>${symbolic}</code>
@@ -277,7 +848,8 @@
           ${matrixView(`∂L/∂${htmlNotation("W", layer)}`, gradients, { digits: 5 })}
           <span class="formula-operator">，</span>
           ${matrixView(`∂L/∂${htmlNotation("b", layer)} = ${htmlNotation("δ", layer)}`, state.network.biasGradients[layer], { digits: 5 })}
-        </div>`;
+        </div>
+        ${renderBatchContext({ compact: true, includeFormula: getConfiguredBatchSize() > 1 })}`;
       return;
     }
 
@@ -295,9 +867,11 @@
           <div class="optimizer-equation">
             <span>${optimizerName}</span>
             <code>g_batch = mean(g₁ … gₙ)</code>
+            <code>${getConfiguredBatchSize() > 1 ? `本批 m=${state.lastUpdateApplied ? state.lastBatchSize : state.batchProgress}，对每个样本的梯度先求平均再更新` : "m=1，单样本梯度就是 Batch 平均梯度"}</code>
             <strong>${state.lastUpdateApplied ? "θ_new = θ + Δθ" : "继续累积梯度，等待 Batch 完成"}</strong>
           </div>
-        </div>`;
+        </div>
+        ${renderBatchContext({ compact: true, includeFormula: true })}`;
     }
   }
 
@@ -504,6 +1078,9 @@
     elements.networkOptimizerBadge.textContent = `${optimizerName} · η=${format(state.network.learningRate, 3)}`;
     elements.networkLossBadge.textContent = LOSS_NAMES[state.network.lossFunction];
     elements.networkSampleBadge.textContent = `${state.sampleIndex + 1} / ${state.data.length}`;
+    if (elements.networkBatchBadge) {
+      elements.networkBatchBadge.textContent = `m=${getConfiguredBatchSize()}`;
+    }
     elements.chartOptimizer.textContent = optimizerName;
     elements.chartLossFunction.textContent = LOSS_NAMES[state.network.lossFunction];
     elements.chartBatchSize.textContent = String(state.config.batchSize);
@@ -530,6 +1107,8 @@
     state.trainStep = 0;
     state.processedSamples = 0;
     state.batchProgress = 0;
+    state.lastBatchSize = 0;
+    state.lastBatchRows = [];
     state.lastUpdateApplied = false;
     state.stageIndex = -1;
     state.lossWindow = [];
@@ -537,6 +1116,7 @@
     state.accuracyWindow = [];
     state.accuracyWindowSum = 0;
     state.metricHistory = [];
+    state.history = [];
     state.metricRecordStride = 1;
     state.currentAverageLoss = null;
     state.currentAverageAccuracy = null;
@@ -546,12 +1126,17 @@
     state.selected = null;
     updateExperimentSummary();
     buildStages();
+    populateBatchMatrixLayerSelect();
+    populateMatrixBatchSizeSelect();
     renderNetwork();
     drawData();
     drawLoss();
     drawParameterHistory();
+    renderBatchMatrix();
     updateConsole(null);
     renderInspector();
+    rememberSnapshot();
+    setViewMode(state.viewMode);
   }
 
   function getNodePositions() {
@@ -825,6 +1410,8 @@
     } else if (stage.type === "update") {
       state.network.accumulateGradients();
       state.batchProgress += 1;
+      state.lastBatchSize = state.batchProgress;
+      state.lastBatchRows = getBatchRows({ count: Math.min(state.batchProgress, 4) });
       const prediction = state.network.activations[state.network.sizes.length - 1][0];
       recordLoss(state.currentLoss, prediction, sample.y);
       state.processedSamples += 1;
@@ -832,7 +1419,9 @@
       state.lastUpdateApplied =
         state.batchProgress >= state.config.batchSize || endOfEpoch;
       if (state.lastUpdateApplied) {
-        state.network.applyAccumulatedGradients(state.batchProgress);
+        const appliedBatchSize = state.batchProgress;
+        state.network.applyAccumulatedGradients(appliedBatchSize);
+        state.lastBatchSize = appliedBatchSize;
         state.batchProgress = 0;
         state.trainStep += 1;
         if (state.trainStep % state.parameterRecordStride === 0) {
@@ -848,6 +1437,7 @@
     drawData();
     drawLoss();
     drawParameterHistory();
+    renderBatchMatrix();
     if (state.selected) renderInspector();
   }
 
@@ -867,6 +1457,16 @@
 
   function nextStage() {
     advanceStage();
+    rememberSnapshot();
+  }
+
+  function previousStage() {
+    if (state.history.length <= 1) return;
+    stopPlaying();
+    state.history.pop();
+    restoreSnapshot(cloneJson(state.history[state.history.length - 1]));
+    updateHistoryControls();
+    renderStage(state.stages[state.stageIndex] || null);
   }
 
   function completeOneTrainingSample({ fullRender = true, renderCharts = true } = {}) {
@@ -928,6 +1528,13 @@
     elements.predictionMetric.textContent = prediction === null ? "—" : format(prediction);
     elements.lossMetric.textContent = state.currentLoss === null ? "—" : format(state.currentLoss);
     elements.networkSampleBadge.textContent = `${state.sampleIndex + 1} / ${state.data.length}`;
+    if (elements.networkBatchBadge) {
+      const batchSize = getConfiguredBatchSize();
+      const progress = stage && stage.type === "update"
+        ? state.lastUpdateApplied ? state.lastBatchSize : state.batchProgress
+        : Math.min(state.batchProgress + 1, batchSize);
+      elements.networkBatchBadge.textContent = `m=${batchSize} · ${Math.max(1, progress)}/${batchSize}`;
+    }
     document.body.classList.toggle("backward-stage", Boolean(stage && (stage.type === "backward" || stage.type === "update")));
 
     [...elements.phaseRail.children].forEach((segment, index) => {
@@ -1286,6 +1893,7 @@
   }
 
   function renderInspector() {
+    if (!elements.inspector) return;
     drawParameterHistory();
     if (!state.selected || !state.network) {
       elements.inspector.innerHTML = '<div class="empty-inspector"><span>⌁</span><p>点击 x、y、神经元、w 或 b<br />查看这一步的完整计算</p></div>';
@@ -1576,19 +2184,14 @@
   }
 
   elements.reset.addEventListener("click", rebuild);
+  if (elements.prev) elements.prev.addEventListener("click", previousStage);
   elements.next.addEventListener("click", nextStage);
-  elements.play.addEventListener("click", togglePlaying);
-  elements.speed.addEventListener("change", () => {
-    if (state.playing) {
-      clearTimeout(state.timer);
-      recordParameterSnapshot();
-      state.fastRenderCounter = 0;
-      const profile = getPlaybackProfile();
-      state.parameterRecordStride = profile.parameterStride;
-      state.metricRecordStride = profile.metricStride;
-      state.timer = setTimeout(playLoop, profile.interval);
-    }
+  elements.viewModeButtons.forEach((button) => {
+    button.addEventListener("click", () => setViewMode(button.dataset.viewMode));
   });
+  if (elements.matrixBatchSize) {
+    elements.matrixBatchSize.addEventListener("change", () => updateMatrixBatchSize(elements.matrixBatchSize.value));
+  }
 
   rebuild();
 })();

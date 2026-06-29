@@ -39,6 +39,24 @@
           </div>
         </section>
 
+        <section class="view-mode-switch" aria-label="观察模式">
+          <button class="view-mode-button active" type="button" data-view-mode="anatomy">
+            <span>01</span>
+            <strong>单样本解剖</strong>
+            <small>逐步看 forward / backward</small>
+          </button>
+          <button class="view-mode-button" type="button" data-view-mode="matrix">
+            <span>02</span>
+            <strong>Mini-batch 矩阵模式</strong>
+            <small>一次看 m 个样本的矩阵计算</small>
+          </button>
+          <button class="view-mode-button" type="button" data-view-mode="dashboard">
+            <span>03</span>
+            <strong>训练看板模式</strong>
+            <small>专注 Loss / Accuracy / 参数轨迹</small>
+          </button>
+        </section>
+
         <section class="workspace demo-workspace">
           <div class="network-card">
             <div class="card-header">
@@ -60,6 +78,10 @@
                     <small>当前样本</small>
                     <strong id="networkSampleBadge">—</strong>
                   </span>
+                  <span class="training-chip">
+                    <small>Batch</small>
+                    <strong id="networkBatchBadge">—</strong>
+                  </span>
                 </div>
                 <div class="legend" aria-label="颜色图例">
                   <span><i class="legend-dot positive"></i>Forward →</span>
@@ -67,17 +89,6 @@
                   <span><i class="legend-line pending-line"></i>尚未计算</span>
                 </div>
               </div>
-            </div>
-
-            <div id="calculationPanel" class="calculation-panel" aria-live="polite">
-              <div class="calculation-heading">
-                <div>
-                  <span id="calculationBadge" class="calculation-badge">READY</span>
-                  <strong id="calculationTitle">本步计算公式</strong>
-                </div>
-                <small id="calculationHint">点击“下一步”，这里会代入当前样本和参数的真实数值</small>
-              </div>
-              <div id="calculationContent" class="calculation-content"></div>
             </div>
 
             <div id="networkViewport" class="network-viewport">
@@ -111,28 +122,26 @@
 
             <div class="transport">
               <button id="resetButton" class="button button-ghost">↺ 重置训练</button>
+              <button id="prevButton" class="button button-ghost" disabled>← 上一步</button>
               <button id="nextButton" class="button button-primary">
                 下一步
                 <span>→</span>
               </button>
-              <button id="playButton" class="button button-ghost">▶ 自动播放</button>
-              <label class="speed-control" for="speedSelect">
-                速度
-                <select id="speedSelect">
-                  <option value="step" selected>逐步讲解</option>
-                  <option value="1">1 个样本/秒</option>
-                  <option value="10">10 个样本/秒</option>
-                  <option value="100">100 个样本/秒</option>
-                  <option value="1000">1,000 个样本/秒</option>
-                  <option value="10000">10,000 个样本/秒</option>
-                  <option value="100000">100,000 个样本/秒</option>
-                  <option value="1000000">1,000,000 · 最大吞吐</option>
-                </select>
-              </label>
             </div>
           </div>
 
           <aside class="side-column">
+            <div id="calculationPanel" class="mini-card calculation-panel side-calculation-panel" aria-live="polite">
+              <div class="calculation-heading">
+                <div>
+                  <span id="calculationBadge" class="calculation-badge">READY</span>
+                  <strong id="calculationTitle">本步计算公式</strong>
+                </div>
+                <small id="calculationHint">点击“下一步”，这里会代入当前样本和参数的真实数值</small>
+              </div>
+              <div id="calculationContent" class="calculation-content"></div>
+            </div>
+
             <div class="mini-card data-card">
               <div class="mini-card-heading">
                 <div>
@@ -149,29 +158,40 @@
               </div>
             </div>
 
-            <div class="mini-card inspector-card">
-              <div class="mini-card-heading">
-                <div>
-                  <span class="section-index">INSPECT</span>
-                  <h3>数值检查器</h3>
-                </div>
-                <span class="inspector-hint">点击 x / y / 神经元 / w / b</span>
-              </div>
-              <div id="inspectorContent" class="inspector-content">
-                <div class="empty-inspector">
-                  <span>⌁</span>
-                  <p>选择图中的元素<br />查看它的完整计算值</p>
-                </div>
-              </div>
-            </div>
           </aside>
         </section>
 
-        <section class="chart-card">
+        <section id="batchMatrixSection" class="chart-card batch-matrix-card">
           <div class="card-header chart-heading">
             <div>
-              <span class="section-index">02</span>
-              <h2>Loss 与准确率轨迹</h2>
+              <span class="section-index">MINI-BATCH MATRIX</span>
+              <h2>Mini-batch 矩阵模式</h2>
+              <p class="chart-scene-note">这个模式把当前 mini-batch 当成矩阵一起计算：列代表样本，行代表特征、神经元或梯度分量；矩阵层会跟随当前 forward / backward 阶段自动切换。</p>
+              <div class="chart-training-config" aria-label="Mini-batch 矩阵配置">
+                <span>列数 m <strong id="matrixBatchSizeLabel">—</strong></span>
+                <span>当前样本 <strong id="matrixCurrentSampleLabel">—</strong></span>
+              </div>
+            </div>
+            <div class="matrix-controls">
+              <label class="matrix-layer-control" for="matrixBatchSizeSelect">
+                Mini-batch
+                <select id="matrixBatchSizeSelect">
+                  <option value="1">1 个样本</option>
+                  <option value="2">2 个样本</option>
+                  <option value="4">4 个样本</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div id="batchMatrixContent" class="batch-matrix-content" aria-live="polite"></div>
+        </section>
+
+        <section id="trainingDashboardSection" class="chart-card training-dashboard-card">
+          <div class="card-header chart-heading">
+            <div>
+              <span class="section-index">TRAINING DASHBOARD</span>
+              <h2>训练看板：Loss 与 Accuracy 变化</h2>
+              <p class="chart-scene-note">这个模式只看连续训练后的整体趋势：绿色曲线是最近一轮平均 Loss，紫色虚线是最近一轮 Accuracy。</p>
               <div class="chart-training-config" aria-label="训练配置">
                 <span>优化器 <strong id="chartOptimizer">—</strong></span>
                 <span>Loss <strong id="chartLossFunction">—</strong></span>

@@ -150,7 +150,11 @@
         elements.learningRate.value = "0.03";
       }
       if (saved.lossFunction) elements.lossFunction.value = saved.lossFunction;
-      if (saved.batchSize) elements.batchSize.value = String(saved.batchSize);
+      if ([1, 2, 4].includes(Number(saved.batchSize))) {
+        elements.batchSize.value = String(saved.batchSize);
+      } else {
+        elements.batchSize.value = "1";
+      }
       if (saved.noise !== undefined) elements.noise.value = String(saved.noise);
       if (Array.isArray(saved.hiddenLayers) && saved.hiddenLayers.length) {
         state.hiddenLayers = saved.hiddenLayers

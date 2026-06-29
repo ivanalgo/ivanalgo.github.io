@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Ivan 的交互实验、英语学习与技术图解索引" />
+    <meta name="description" content="Ivan 的交互实验、英语学习、技术图解与网页小游戏索引" />
     <title>Ivan's Web Labs</title>
     <style>
       :root {
@@ -14,6 +14,7 @@
         --green: #10a37f;
         --purple: #7659c7;
         --blue: #3976d9;
+        --orange: #e3702a;
       }
       * { box-sizing: border-box; }
       body {
@@ -51,7 +52,7 @@
       }
       .grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 14px;
       }
       .card {
@@ -111,7 +112,7 @@
     <main>
       <div class="eyebrow">IVAN'S WEB LABS</div>
       <h1>学习、实验，<br />把过程展开。</h1>
-      <p class="intro">这里汇集英语学习工具与可交互的计算机技术图解。选择一个入口，进入对应的独立实验页面。</p>
+      <p class="intro">这里汇集英语学习工具、可交互的计算机技术图解与网页小游戏。选择一个入口，进入对应的独立实验页面。</p>
 
       <nav class="grid" aria-label="站点目录">
         <a class="card" style="--accent:var(--green)" href="./english-reading-lab/">
@@ -132,9 +133,15 @@
           <p>逐步观察 MLP 训练以及 x86 乱序处理器内部的数据流动。</p>
           <span class="arrow">→</span>
         </a>
+        <a class="card" style="--accent:var(--orange)" href="./game/">
+          <small>WEB GAMES</small>
+          <h2>游戏中心</h2>
+          <p>进入小游戏合集，游玩俄罗斯方块以及之后加入的更多网页游戏。</p>
+          <span class="arrow">→</span>
+        </a>
       </nav>
 
-      <footer>ivanalgo.github.io · Three independent web labs</footer>
+      <footer>ivanalgo.github.io · Four independent web labs</footer>
     </main>
   </body>
 </html>

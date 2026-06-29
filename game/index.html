@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Ivan's Web Labs 网页游戏合集" />
+    <title>游戏中心 · Ivan's Web Labs</title>
+    <style>
+      :root {
+        --ink: #202123;
+        --muted: #71736e;
+        --line: #deded9;
+        --paper: #f6f6f3;
+        --orange: #e3702a;
+        --green: #10a37f;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 8% 0, #fff0df 0, transparent 31%),
+          var(--paper);
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      }
+      main {
+        width: min(920px, calc(100% - 36px));
+        margin: auto;
+        padding: 38px 0 80px;
+      }
+      .back {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        color: #9b4a1b;
+        font: 800 11px ui-monospace, monospace;
+        letter-spacing: .12em;
+        text-decoration: none;
+      }
+      .back:hover { color: var(--orange); }
+      header { padding: 70px 0 42px; }
+      .eyebrow {
+        color: var(--orange);
+        font: 800 11px ui-monospace, monospace;
+        letter-spacing: .16em;
+      }
+      h1 {
+        margin: 15px 0 13px;
+        font-size: clamp(46px, 8vw, 78px);
+        line-height: .98;
+        letter-spacing: -.055em;
+      }
+      .intro {
+        max-width: 580px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.75;
+      }
+      .games {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .game-card {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        min-height: 220px;
+        overflow: hidden;
+        color: inherit;
+        border: 1px solid var(--line);
+        border-radius: 6px 6px 24px 24px;
+        background: rgba(255, 255, 255, .94);
+        box-shadow: 0 18px 50px rgba(31, 35, 33, .08);
+        text-decoration: none;
+        transition: transform .18s ease, box-shadow .18s ease;
+      }
+      .game-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 64px rgba(31, 35, 33, .14);
+      }
+      .preview {
+        display: grid;
+        place-items: center;
+        padding: 23px;
+        background:
+          linear-gradient(rgba(7, 16, 10, .93), rgba(7, 16, 10, .97)),
+          repeating-linear-gradient(0deg, transparent 0 19px, #344237 19px 20px),
+          repeating-linear-gradient(90deg, transparent 0 19px, #344237 19px 20px);
+      }
+      .blocks {
+        display: grid;
+        grid-template-columns: repeat(3, 26px);
+        grid-template-rows: repeat(2, 26px);
+        filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, .32));
+      }
+      .block {
+        border: 2px solid #c67ce4;
+        background: #9d53bd;
+        box-shadow: inset 3px 3px rgba(255, 255, 255, .25);
+      }
+      .block:first-child {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .block:nth-child(2) { grid-column: 1; }
+      .block:nth-child(3) { grid-column: 2; }
+      .block:nth-child(4) { grid-column: 3; }
+      .copy {
+        position: relative;
+        padding: 27px 25px 54px;
+      }
+      .copy small {
+        color: var(--orange);
+        font: 800 9px ui-monospace, monospace;
+        letter-spacing: .13em;
+      }
+      .copy h2 {
+        margin: 16px 0 9px;
+        font-size: 25px;
+        letter-spacing: -.03em;
+      }
+      .copy p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.7;
+      }
+      .play {
+        position: absolute;
+        right: 24px;
+        bottom: 22px;
+        color: var(--green);
+        font: 800 11px ui-monospace, monospace;
+        letter-spacing: .08em;
+      }
+      footer {
+        margin-top: 34px;
+        color: #969792;
+        font-size: 10px;
+      }
+      @media (max-width: 760px) {
+        header { padding-top: 52px; }
+        .games { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 480px) {
+        .game-card { grid-template-columns: 112px 1fr; }
+        .preview { padding: 14px; }
+        .blocks {
+          grid-template-columns: repeat(3, 22px);
+          grid-template-rows: repeat(2, 22px);
+        }
+        .copy { padding: 23px 20px 52px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="../" aria-label="返回 Ivan's Web Labs 首页">
+        <span aria-hidden="true">←</span> WEB LABS
+      </a>
+
+      <header>
+        <div class="eyebrow">WEB GAMES</div>
+        <h1>游戏中心</h1>
+        <p class="intro">挑一个小游戏，直接在浏览器里开始。无需安装，也无需登录。</p>
+      </header>
+
+      <nav class="games" aria-label="游戏目录">
+        <a class="game-card" href="./tetris/">
+          <div class="preview" aria-hidden="true">
+            <div class="blocks">
+              <span class="block"></span>
+              <span class="block"></span>
+              <span class="block"></span>
+              <span class="block"></span>
+            </div>
+          </div>
+          <div class="copy">
+            <small>CLASSIC · KEYBOARD</small>
+            <h2>俄罗斯方块</h2>
+            <p>旋转并堆叠方块，完成整行来获得更高分数。</p>
+            <span class="play">开始游戏 →</span>
+          </div>
+        </a>
+      </nav>
+
+      <footer>ivanalgo.github.io · 1 个网页游戏</footer>
+    </main>
+  </body>
+</html>

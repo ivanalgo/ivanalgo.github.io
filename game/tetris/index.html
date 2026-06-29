@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="一个使用原生 JavaScript 制作的经典俄罗斯方块小游戏"
+    />
+    <title>经典俄罗斯方块 · Ivan's Web Labs</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="back-link" href="../" aria-label="返回游戏中心">
+          <span aria-hidden="true">←</span> 游戏中心
+        </a>
+        <button
+          class="sound-button"
+          id="soundButton"
+          type="button"
+          aria-pressed="false"
+          aria-label="开启背景音乐"
+        >
+          <span class="sound-icon" aria-hidden="true">♪</span>
+          <span id="soundLabel">音乐：关</span>
+        </button>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="gameTitle">
+          <p class="eyebrow">CLASSIC BLOCK GAME · 1984</p>
+          <h1 id="gameTitle">俄罗斯方块</h1>
+          <p>堆叠、消行，别让方块碰到顶端。</p>
+        </section>
+
+        <section class="game-layout" aria-label="俄罗斯方块游戏">
+          <aside class="panel stats-panel" aria-label="游戏数据">
+            <div class="stat">
+              <span>分数</span>
+              <strong id="score">000000</strong>
+            </div>
+            <div class="stat-row">
+              <div class="stat">
+                <span>消行</span>
+                <strong id="lines">0</strong>
+              </div>
+              <div class="stat">
+                <span>等级</span>
+                <strong id="level">1</strong>
+              </div>
+            </div>
+            <div class="status-block">
+              <span>状态</span>
+              <strong id="status" data-state="playing">游戏中</strong>
+            </div>
+          </aside>
+
+          <div class="game-column">
+            <div class="board-frame">
+              <canvas
+                id="gameCanvas"
+                width="300"
+                height="600"
+                tabindex="0"
+                aria-label="俄罗斯方块游戏区域"
+              ></canvas>
+              <div class="screen-message" id="screenMessage" hidden>
+                <strong id="messageTitle">已暂停</strong>
+                <span id="messageHint">按 P 继续</span>
+              </div>
+            </div>
+            <p class="keyboard-hint">
+              点击游戏区域后，可使用键盘控制
+            </p>
+          </div>
+
+          <aside class="panel side-panel" aria-label="游戏控制">
+            <div class="next-block">
+              <span class="panel-label">下一个</span>
+              <canvas
+                id="nextCanvas"
+                width="120"
+                height="120"
+                aria-label="下一个方块"
+              ></canvas>
+            </div>
+
+            <div class="controls" aria-label="键盘操作说明">
+              <span class="panel-label">操作</span>
+              <dl>
+                <div>
+                  <dt><kbd>←</kbd><kbd>→</kbd></dt>
+                  <dd>左右移动</dd>
+                </div>
+                <div>
+                  <dt><kbd>↑</kbd></dt>
+                  <dd>旋转方块</dd>
+                </div>
+                <div>
+                  <dt><kbd>↓</kbd></dt>
+                  <dd>加速下落</dd>
+                </div>
+                <div>
+                  <dt><kbd>Space</kbd></dt>
+                  <dd>直接落底</dd>
+                </div>
+                <div>
+                  <dt><kbd>P</kbd></dt>
+                  <dd>暂停 / 继续</dd>
+                </div>
+              </dl>
+            </div>
+
+            <button class="restart-button" id="restartButton" type="button">
+              重新开始 <span aria-hidden="true">↻</span>
+            </button>
+          </aside>
+        </section>
+      </main>
+
+      <footer>原生 JavaScript · 无需安装 · 键盘游玩</footer>
+    </div>
+
+    <script src="./game.js"></script>
+  </body>
+</html>

@@ -101,6 +101,11 @@
     networkOptimizerBadge: $("#networkOptimizerBadge"),
     networkLossBadge: $("#networkLossBadge"),
     networkSampleBadge: $("#networkSampleBadge"),
+    calculationPanel: $("#calculationPanel"),
+    calculationBadge: $("#calculationBadge"),
+    calculationTitle: $("#calculationTitle"),
+    calculationHint: $("#calculationHint"),
+    calculationContent: $("#calculationContent"),
     chartOptimizer: $("#chartOptimizer"),
     chartLossFunction: $("#chartLossFunction"),
     chartBatchSize: $("#chartBatchSize"),
@@ -115,6 +120,185 @@
 
   function htmlNotation(symbol, superscript, subscript = "") {
     return `<span class="math-notation"><span class="math-base">${symbol}</span><span class="math-scripts"><sup>${superscript}</sup>${subscript ? `<sub>${subscript}</sub>` : ""}</span></span>`;
+  }
+
+  function matrixView(label, values, { rowVector = false, maxRows = 4, maxCols = 4, digits = 3 } = {}) {
+    const source = Array.isArray(values) ? values : [];
+    const matrix = source.length && Array.isArray(source[0])
+      ? source
+      : rowVector ? [source] : source.map((value) => [value]);
+    const totalRows = matrix.length;
+    const totalCols = matrix[0]?.length || 0;
+    const shownRows = matrix.slice(0, maxRows);
+    const shownCols = Math.min(totalCols, maxCols);
+    const cells = shownRows.flatMap((row) =>
+      row.slice(0, shownCols).map((value) => `<span>${format(value, digits)}</span>`)
+    ).join("");
+    const clipped = totalRows > maxRows || totalCols > maxCols;
+    return `
+      <div class="matrix-term">
+        <div class="matrix-name">${label}</div>
+        <div class="matrix-bracket">
+          <div class="matrix-grid" style="--matrix-cols:${Math.max(1, shownCols)}">${cells || "<span>—</span>"}</div>
+        </div>
+        <small>${totalRows}×${totalCols}${clipped ? " · 截取显示" : ""}</small>
+      </div>`;
+  }
+
+  function transpose(matrix) {
+    if (!matrix.length) return [];
+    return matrix[0].map((_, column) => matrix.map((row) => row[column]));
+  }
+
+  function renderCalculation(stage) {
+    const panel = elements.calculationPanel;
+    const content = elements.calculationContent;
+    if (!panel || !content || !state.network) return;
+    const sample = state.data[state.sampleIndex];
+    const last = state.network.sizes.length - 1;
+    const phase = stage?.type || "ready";
+    panel.dataset.phase = phase;
+    elements.calculationBadge.textContent = stage?.badge || "READY";
+
+    if (!stage) {
+      elements.calculationTitle.textContent = "本步计算公式";
+      elements.calculationHint.textContent = "点击“下一步”，这里会代入当前样本和参数的真实数值";
+      content.innerHTML = `
+        <div class="calculation-empty">
+          <strong>输入 → 加权求和 → 激活 → Loss → 梯度 → 参数更新</strong>
+          <code>z⁽ˡ⁾ = W⁽ˡ⁾a⁽ˡ⁻¹⁾ + b⁽ˡ⁾　·　a⁽ˡ⁾ = σ(z⁽ˡ⁾)</code>
+        </div>`;
+      return;
+    }
+
+    if (stage.type === "input") {
+      elements.calculationTitle.textContent = `装载样本 #${state.sampleIndex + 1}`;
+      elements.calculationHint.textContent = "输入层只保存数据，不执行加权计算";
+      content.innerHTML = `
+        <div class="formula-flow compact-flow">
+          ${matrixView(`${htmlNotation("a", 0)} = ${htmlNotation("x", state.sampleIndex + 1)}`, sample.x, { digits: 4 })}
+          <span class="formula-operator">，</span>
+          <div class="scalar-result"><span>真实标签</span><strong>${htmlNotation("y", state.sampleIndex + 1)} = ${sample.y}</strong></div>
+        </div>`;
+      return;
+    }
+
+    if (stage.type === "forward") {
+      const layer = stage.layer;
+      const previous = state.network.activations[layer - 1];
+      const weights = state.network.weights[layer];
+      const biases = state.network.biases[layer];
+      const zValues = state.network.zValues[layer];
+      const activations = state.network.activations[layer];
+      const neuron = 0;
+      const terms = previous.slice(0, 6).map((value, source) =>
+        `${format(weights[neuron][source], 3)}×${format(value, 3)}`
+      ).join(" + ");
+      const suffix = previous.length > 6 ? " + …" : "";
+      elements.calculationTitle.textContent = `Forward · 第 ${layer} 层`;
+      elements.calculationHint.textContent = "先完成整层矩阵乘法；下方展开第 1 个神经元的实际计算";
+      content.innerHTML = `
+        <div class="formula-flow">
+          ${matrixView(htmlNotation("W", layer), weights)}
+          <span class="formula-operator">×</span>
+          ${matrixView(htmlNotation("a", layer - 1), previous)}
+          <span class="formula-operator">+</span>
+          ${matrixView(htmlNotation("b", layer), biases)}
+          <span class="formula-operator">=</span>
+          ${matrixView(htmlNotation("z", layer), zValues)}
+          <span class="formula-operator activation-arrow">σ →</span>
+          ${matrixView(htmlNotation("a", layer), activations)}
+        </div>
+        <div class="expanded-equation">
+          <span>展开神经元 1</span>
+          <code>${htmlNotation("z", layer, 1)} = ${terms}${suffix} + ${format(biases[neuron], 3)} = <b>${format(zValues[neuron], 6)}</b></code>
+          <code>${htmlNotation("a", layer, 1)} = σ(${format(zValues[neuron], 6)}) = <b>${format(activations[neuron], 6)}</b></code>
+        </div>`;
+      return;
+    }
+
+    if (stage.type === "loss") {
+      const prediction = state.network.activations[last][0];
+      const bce = state.network.lossFunction === "bce";
+      elements.calculationTitle.textContent = `${LOSS_NAMES[state.network.lossFunction]} · 计算当前样本 Loss`;
+      elements.calculationHint.textContent = "真实标签 y 只在这里与预测 ŷ 汇合";
+      content.innerHTML = `
+        <div class="loss-equation">
+          <div><span>预测</span><strong>ŷ = ${format(prediction, 6)}</strong></div>
+          <span class="formula-operator">与</span>
+          <div><span>标签</span><strong>y = ${sample.y}</strong></div>
+          <span class="formula-operator">→</span>
+          <div class="loss-result">
+            <span>${bce ? "−[y ln(ŷ) + (1−y) ln(1−ŷ)]" : "½(ŷ−y)²"}</span>
+            <strong>L = ${format(state.currentLoss, 7)}</strong>
+          </div>
+        </div>`;
+      return;
+    }
+
+    if (stage.type === "backward") {
+      const layer = stage.layer;
+      const delta = state.network.deltas[layer];
+      const previous = state.network.activations[layer - 1];
+      const gradients = state.network.weightGradients[layer];
+      const activation = state.network.activations[layer][0];
+      let symbolic;
+      let expanded;
+      if (layer === last) {
+        if (state.network.lossFunction === "bce") {
+          symbolic = `${htmlNotation("δ", layer)} = ${htmlNotation("a", layer)} − y`;
+          expanded = `${htmlNotation("δ", layer, 1)} = ${format(activation, 6)} − ${sample.y} = <b>${format(delta[0], 7)}</b>`;
+        } else {
+          symbolic = `${htmlNotation("δ", layer)} = (${htmlNotation("a", layer)} − y) ⊙ ${htmlNotation("a", layer)} ⊙ (1−${htmlNotation("a", layer)})`;
+          expanded = `${htmlNotation("δ", layer, 1)} = (${format(activation, 6)}−${sample.y})×${format(activation, 6)}×(1−${format(activation, 6)}) = <b>${format(delta[0], 7)}</b>`;
+        }
+      } else {
+        const nextWeights = state.network.weights[layer + 1];
+        const nextDelta = state.network.deltas[layer + 1];
+        const downstreamTerms = nextDelta.slice(0, 6).map((value, next) =>
+          `${format(nextWeights[next][0], 3)}×${format(value, 5)}`
+        ).join(" + ");
+        symbolic = `${htmlNotation("δ", layer)} = (${htmlNotation("W", layer + 1)}ᵀ${htmlNotation("δ", layer + 1)}) ⊙ ${htmlNotation("a", layer)} ⊙ (1−${htmlNotation("a", layer)})`;
+        expanded = `${htmlNotation("δ", layer, 1)} = (${downstreamTerms}${nextDelta.length > 6 ? " + …" : ""})×${format(activation, 5)}×(1−${format(activation, 5)}) = <b>${format(delta[0], 7)}</b>`;
+      }
+      elements.calculationTitle.textContent = `Backward · 第 ${layer} 层`;
+      elements.calculationHint.textContent = "先传回误差信号 δ，再用外积得到本层 W 与 b 的梯度";
+      content.innerHTML = `
+        <div class="backward-signal">
+          <span>链式法则</span>
+          <code>${symbolic}</code>
+          <code>${expanded}</code>
+        </div>
+        <div class="formula-flow gradient-flow">
+          ${matrixView(htmlNotation("δ", layer), delta, { digits: 5 })}
+          <span class="formula-operator">×</span>
+          ${matrixView(`${htmlNotation("a", layer - 1)}ᵀ`, previous, { rowVector: true, digits: 4 })}
+          <span class="formula-operator">=</span>
+          ${matrixView(`∂L/∂${htmlNotation("W", layer)}`, gradients, { digits: 5 })}
+          <span class="formula-operator">，</span>
+          ${matrixView(`∂L/∂${htmlNotation("b", layer)} = ${htmlNotation("δ", layer)}`, state.network.biasGradients[layer], { digits: 5 })}
+        </div>`;
+      return;
+    }
+
+    if (stage.type === "update") {
+      const layer = 1;
+      const optimizerName = OPTIMIZER_NAMES[state.network.optimizer];
+      elements.calculationTitle.textContent = `${optimizerName} · 累积并更新参数`;
+      elements.calculationHint.textContent = state.lastUpdateApplied
+        ? "当前 Batch 的平均梯度已经写回 W 与 b"
+        : `梯度已累积 ${state.batchProgress} / ${state.config.batchSize}，参数暂不变化`;
+      content.innerHTML = `
+        <div class="formula-flow compact-flow">
+          ${matrixView(`∂L/∂${htmlNotation("W", layer)}`, state.network.weightGradients[layer], { digits: 5 })}
+          <span class="formula-operator">→</span>
+          <div class="optimizer-equation">
+            <span>${optimizerName}</span>
+            <code>g_batch = mean(g₁ … gₙ)</code>
+            <strong>${state.lastUpdateApplied ? "θ_new = θ + Δθ" : "继续累积梯度，等待 Batch 完成"}</strong>
+          </div>
+        </div>`;
+    }
   }
 
   function appendSvgNotation(container, {
@@ -750,6 +934,7 @@
       segment.classList.toggle("done", state.stageIndex >= 0 && index < state.stageIndex);
       segment.classList.toggle("current", index === state.stageIndex);
     });
+    renderCalculation(stage);
   }
 
   function drawGrid(ctx, width, height, margin) {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="逐步观察多层感知机的前向传播、损失计算、反向传播与参数更新" />
     <title>MLP 训练过程</title>
-    <link rel="stylesheet" href="./styles.css?v=20260628-13" />
+    <link rel="stylesheet" href="./styles.css?v=20260629-14" />
   </head>
   <body class="demo-page">
     <div class="page-shell">
@@ -67,6 +67,17 @@
                   <span><i class="legend-line pending-line"></i>尚未计算</span>
                 </div>
               </div>
+            </div>
+
+            <div id="calculationPanel" class="calculation-panel" aria-live="polite">
+              <div class="calculation-heading">
+                <div>
+                  <span id="calculationBadge" class="calculation-badge">READY</span>
+                  <strong id="calculationTitle">本步计算公式</strong>
+                </div>
+                <small id="calculationHint">点击“下一步”，这里会代入当前样本和参数的真实数值</small>
+              </div>
+              <div id="calculationContent" class="calculation-content"></div>
             </div>
 
             <div id="networkViewport" class="network-viewport">
@@ -204,8 +215,8 @@
       </footer>
     </div>
 
-    <script src="./data.js?v=20260628-13"></script>
-    <script src="./mlp.js?v=20260628-13"></script>
-    <script src="./app.js?v=20260628-13"></script>
+    <script src="./data.js?v=20260629-14"></script>
+    <script src="./mlp.js?v=20260629-14"></script>
+    <script src="./app.js?v=20260629-14"></script>
   </body>
 </html>

@@ -29,33 +29,42 @@
       </header>
 
       <main>
-        <section class="intro" aria-labelledby="gameTitle">
-          <p class="eyebrow">CLASSIC BLOCK GAME · 1984</p>
-          <h1 id="gameTitle">俄罗斯方块</h1>
-          <p>堆叠、消行，别让方块碰到顶端。</p>
-        </section>
-
         <section class="game-layout" aria-label="俄罗斯方块游戏">
-          <aside class="panel stats-panel" aria-label="游戏数据">
-            <div class="stat">
-              <span>分数</span>
-              <strong id="score">000000</strong>
-            </div>
-            <div class="stat-row">
+          <div class="left-column">
+            <section class="intro" aria-labelledby="gameTitle">
+              <p class="eyebrow">CLASSIC BLOCK GAME · 1984</p>
+              <h1 id="gameTitle">俄罗斯方块</h1>
+              <p>堆叠、消行，别让方块碰到顶端。</p>
+            </section>
+
+            <aside class="panel stats-panel" aria-label="游戏数据">
               <div class="stat">
-                <span>消行</span>
-                <strong id="lines">0</strong>
+                <span>分数</span>
+                <strong id="score">000000</strong>
               </div>
-              <div class="stat">
-                <span>等级</span>
-                <strong id="level">1</strong>
+              <div class="stat-row">
+                <div class="stat">
+                  <span>消行</span>
+                  <strong id="lines">0</strong>
+                </div>
+                <div class="stat">
+                  <span>等级</span>
+                  <strong id="level">1</strong>
+                </div>
               </div>
-            </div>
-            <div class="status-block">
-              <span>状态</span>
-              <strong id="status" data-state="playing">游戏中</strong>
-            </div>
-          </aside>
+              <div class="status-block">
+                <div>
+                  <span>状态</span>
+                  <strong id="status" data-state="playing">游戏中</strong>
+                </div>
+                <p class="score-note">四行同消：1,200 × 等级</p>
+              </div>
+            </aside>
+
+            <button class="restart-button" id="restartButton" type="button">
+              重新开始 <span aria-hidden="true">↻</span>
+            </button>
+          </div>
 
           <div class="game-column">
             <div class="board-frame">
@@ -72,11 +81,11 @@
               </div>
             </div>
             <p class="keyboard-hint">
-              点击游戏区域后，可使用键盘控制
+              ← → 移动 · ↑ 旋转 · ↓ 加速 · 空格落底 · P 暂停
             </p>
           </div>
 
-          <aside class="panel side-panel" aria-label="游戏控制">
+          <aside class="panel next-panel" aria-label="下一个方块">
             <div class="next-block">
               <span class="panel-label">下一个</span>
               <canvas
@@ -86,36 +95,6 @@
                 aria-label="下一个方块"
               ></canvas>
             </div>
-
-            <div class="controls" aria-label="键盘操作说明">
-              <span class="panel-label">操作</span>
-              <dl>
-                <div>
-                  <dt><kbd>←</kbd><kbd>→</kbd></dt>
-                  <dd>左右移动</dd>
-                </div>
-                <div>
-                  <dt><kbd>↑</kbd></dt>
-                  <dd>旋转方块</dd>
-                </div>
-                <div>
-                  <dt><kbd>↓</kbd></dt>
-                  <dd>加速下落</dd>
-                </div>
-                <div>
-                  <dt><kbd>Space</kbd></dt>
-                  <dd>直接落底</dd>
-                </div>
-                <div>
-                  <dt><kbd>P</kbd></dt>
-                  <dd>暂停 / 继续</dd>
-                </div>
-              </dl>
-            </div>
-
-            <button class="restart-button" id="restartButton" type="button">
-              重新开始 <span aria-hidden="true">↻</span>
-            </button>
           </aside>
         </section>
       </main>

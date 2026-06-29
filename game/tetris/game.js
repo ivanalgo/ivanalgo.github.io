@@ -333,7 +333,8 @@ class TetrisGame {
     }
 
     if (cleared > 0) {
-      const scoring = [0, 100, 300, 500, 800];
+      // Classic scoring heavily rewards clearing several lines at once.
+      const scoring = [0, 40, 100, 300, 1200];
       this.score += scoring[cleared] * this.level;
       this.lines += cleared;
       this.level = Math.floor(this.lines / 10) + 1;

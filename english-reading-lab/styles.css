@@ -274,6 +274,7 @@ h3 {
 }
 
 .topic-content {
+  padding-left: 8px;
   padding-top: 6px;
 }
 
@@ -312,10 +313,15 @@ h3 {
 
 .level-title::before {
   display: inline-block;
-  width: 30px;
+  width: 10px;
   height: 1px;
   background: var(--line);
   content: "";
+}
+
+.level-group .article-button {
+  margin-left: 18px;
+  width: calc(100% - 18px);
 }
 
 .level-title::after {

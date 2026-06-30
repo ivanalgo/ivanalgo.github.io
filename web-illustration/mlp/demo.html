@@ -42,8 +42,8 @@
         <section class="view-mode-switch" aria-label="观察模式">
           <button class="view-mode-button active" type="button" data-view-mode="anatomy">
             <span>01</span>
-            <strong>单样本解剖</strong>
-            <small>逐步看 forward / backward</small>
+            <strong>单样本逐步推导</strong>
+            <small>先用 1 个样本讲清 forward / backward / update</small>
           </button>
           <button class="view-mode-button" type="button" data-view-mode="matrix">
             <span>02</span>
@@ -53,7 +53,7 @@
           <button class="view-mode-button" type="button" data-view-mode="dashboard">
             <span>03</span>
             <strong>训练看板模式</strong>
-            <small>专注 Loss / Accuracy / 参数轨迹</small>
+            <small>专注 Loss / Accuracy 变化</small>
           </button>
         </section>
 
@@ -77,10 +77,6 @@
                   <span class="training-chip">
                     <small>当前样本</small>
                     <strong id="networkSampleBadge">—</strong>
-                  </span>
-                  <span class="training-chip">
-                    <small>Batch</small>
-                    <strong id="networkBatchBadge">—</strong>
                   </span>
                 </div>
                 <div class="legend" aria-label="颜色图例">
@@ -131,17 +127,6 @@
           </div>
 
           <aside class="side-column">
-            <div id="calculationPanel" class="mini-card calculation-panel side-calculation-panel" aria-live="polite">
-              <div class="calculation-heading">
-                <div>
-                  <span id="calculationBadge" class="calculation-badge">READY</span>
-                  <strong id="calculationTitle">本步计算公式</strong>
-                </div>
-                <small id="calculationHint">点击“下一步”，这里会代入当前样本和参数的真实数值</small>
-              </div>
-              <div id="calculationContent" class="calculation-content"></div>
-            </div>
-
             <div class="mini-card data-card">
               <div class="mini-card-heading">
                 <div>
@@ -155,6 +140,36 @@
                 <span><i class="class-dot class-zero"></i>标签 0</span>
                 <span><i class="class-dot class-one"></i>标签 1</span>
                 <span><i class="current-ring"></i>当前样本</span>
+              </div>
+              <div class="data-card-divider"></div>
+              <div class="mini-card-heading compact-heading">
+                <div>
+                  <span class="section-index">EFFECT</span>
+                  <h3>当前分类效果</h3>
+                </div>
+                <span id="classificationAccuracyLabel" class="inspector-hint">Accuracy —</span>
+              </div>
+              <canvas id="classificationCanvas" width="560" height="300" aria-label="当前模型对全部样本分类正确与错误图示"></canvas>
+              <div class="data-legend">
+                <span><i class="result-dot result-correct"></i>预测正确</span>
+                <span><i class="result-dot result-wrong"></i>预测错误</span>
+                <span><i class="current-ring dark-ring"></i>当前样本</span>
+              </div>
+            </div>
+
+            <div id="calculationPanel" class="mini-card calculation-panel side-calculation-panel" aria-live="polite">
+              <div class="calculation-heading">
+                <div>
+                  <span id="calculationBadge" class="calculation-badge">READY</span>
+                  <strong id="calculationTitle">本步计算公式</strong>
+                </div>
+                <small id="calculationHint">点击“下一步”，这里会代入当前样本和参数的真实数值</small>
+              </div>
+              <div id="calculationContent" class="calculation-content"></div>
+              <div class="sigmoid-explainer" aria-label="Sigmoid 函数说明">
+                <strong>为什么用 Sigmoid？</strong>
+                <code>σ(z) = 1 / (1 + e<sup>−z</sup>)</code>
+                <p>它把任意加权和 z 压到 0～1，可当作二分类概率；同时引入非线性，否则多层线性变换叠起来仍等价于一层线性模型。</p>
               </div>
             </div>
 
@@ -191,11 +206,13 @@
             <div>
               <span class="section-index">TRAINING DASHBOARD</span>
               <h2>训练看板：Loss 与 Accuracy 变化</h2>
-              <p class="chart-scene-note">这个模式只看连续训练后的整体趋势：绿色曲线是最近一轮平均 Loss，紫色虚线是最近一轮 Accuracy。</p>
+              <p class="chart-scene-note">这个模式按 Epoch 观察训练效果：1 个 Epoch 表示全部样本都被模型看过一次；每个点记录该 Epoch 结束时的平均 Loss 与 Accuracy。</p>
               <div class="chart-training-config" aria-label="训练配置">
                 <span>优化器 <strong id="chartOptimizer">—</strong></span>
                 <span>Loss <strong id="chartLossFunction">—</strong></span>
                 <span>Batch Size <strong id="chartBatchSize">—</strong></span>
+                <span>已完成 Epoch <strong id="dashboardEpochCount">0</strong></span>
+                <span>参数更新 <strong id="dashboardUpdateCount">0</strong></span>
               </div>
             </div>
             <div class="chart-stats">
@@ -209,8 +226,55 @@
               </div>
             </div>
           </div>
-          <canvas id="lossCanvas" width="1400" height="360" aria-label="训练步数、损失值与准确率折线图"></canvas>
-          <div class="axis-label x-axis-label">Epoch（从 0 开始）→</div>
+          <div class="dashboard-controls" aria-label="训练看板控制">
+            <label>
+              Batch Size
+              <select id="dashboardBatchSizeSelect"></select>
+            </label>
+            <label>
+              每轮推进 Epochs
+              <input id="dashboardEpochInput" type="number" min="1" max="50" step="1" value="1" />
+            </label>
+            <button id="dashboardTrainButton" class="button button-primary" type="button">开始训练</button>
+            <button id="dashboardResetButton" class="button button-ghost" type="button">重置模型</button>
+            <span id="dashboardTrainingStatus" class="dashboard-training-status">开始后会持续训练，直到点击暂停</span>
+          </div>
+          <div class="dashboard-layout">
+            <div class="dashboard-main-chart">
+              <canvas id="lossCanvas" width="1400" height="460" aria-label="按 Epoch 展示损失值与准确率折线图"></canvas>
+              <div class="axis-label x-axis-label">Epoch（完整看过一遍训练集）→</div>
+            </div>
+            <aside class="dashboard-side-figures" aria-label="训练数据和分类效果">
+              <div class="dashboard-figure-card">
+                <div class="mini-card-heading compact-heading">
+                  <div>
+                    <span class="section-index">DATA</span>
+                    <h3>训练样本分布</h3>
+                  </div>
+                  <span class="inspector-hint">标签视角</span>
+                </div>
+                <canvas id="dashboardDataCanvas" width="520" height="300" aria-label="训练数据样本分布"></canvas>
+                <div class="data-legend">
+                  <span><i class="class-dot class-zero"></i>标签 0</span>
+                  <span><i class="class-dot class-one"></i>标签 1</span>
+                </div>
+              </div>
+              <div class="dashboard-figure-card">
+                <div class="mini-card-heading compact-heading">
+                  <div>
+                    <span class="section-index">EFFECT</span>
+                    <h3>当前分类效果</h3>
+                  </div>
+                  <span id="dashboardClassificationAccuracyLabel" class="inspector-hint">Accuracy —</span>
+                </div>
+                <canvas id="dashboardClassificationCanvas" width="520" height="300" aria-label="当前模型分类正确与错误效果"></canvas>
+                <div class="data-legend">
+                  <span><i class="result-dot result-correct"></i>预测正确</span>
+                  <span><i class="result-dot result-wrong"></i>预测错误</span>
+                </div>
+              </div>
+            </aside>
+          </div>
         </section>
 
         <section class="chart-card parameter-history-card">

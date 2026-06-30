@@ -39,7 +39,10 @@
       .map((value) => Math.max(1, Math.min(32, Number(value))))
     : defaultConfig.hiddenLayers.slice();
   if (!LOSS_NAMES[config.lossFunction]) config.lossFunction = "mse";
-  config.batchSize = [1, 2, 4].includes(Number(config.batchSize)) ? Number(config.batchSize) : 1;
+  config.batchSize = Math.floor(Math.max(1, Math.min(
+    Number(config.batchSize) || 1,
+    Array.isArray(config.data) && config.data.length ? config.data.length : config.sampleCount
+  )));
 
   const state = {
     config,
@@ -59,6 +62,7 @@
     accuracyWindow: [],
     accuracyWindowSum: 0,
     metricHistory: [],
+    epochHistory: [],
     metricRecordStride: 1,
     currentAverageLoss: null,
     currentAverageAccuracy: null,
@@ -66,6 +70,8 @@
     currentLoss: null,
     playing: false,
     timer: null,
+    dashboardTraining: false,
+    dashboardTimer: null,
     fastRenderCounter: 0,
     parameterRecordStride: 1,
     selected: null,
@@ -87,6 +93,11 @@
     predictionMetric: $("#predictionMetric"),
     lossMetric: $("#lossMetric"),
     dataCanvas: $("#dataCanvas"),
+    classificationCanvas: $("#classificationCanvas"),
+    classificationAccuracyLabel: $("#classificationAccuracyLabel"),
+    dashboardDataCanvas: $("#dashboardDataCanvas"),
+    dashboardClassificationCanvas: $("#dashboardClassificationCanvas"),
+    dashboardClassificationAccuracyLabel: $("#dashboardClassificationAccuracyLabel"),
     lossCanvas: $("#lossCanvas"),
     parameterCanvas: $("#parameterCanvas"),
     averageLoss: $("#averageLoss"),
@@ -114,6 +125,13 @@
     chartOptimizer: $("#chartOptimizer"),
     chartLossFunction: $("#chartLossFunction"),
     chartBatchSize: $("#chartBatchSize"),
+    dashboardBatchSize: $("#dashboardBatchSizeSelect"),
+    dashboardEpochInput: $("#dashboardEpochInput"),
+    dashboardTrain: $("#dashboardTrainButton"),
+    dashboardReset: $("#dashboardResetButton"),
+    dashboardStatus: $("#dashboardTrainingStatus"),
+    dashboardEpochCount: $("#dashboardEpochCount"),
+    dashboardUpdateCount: $("#dashboardUpdateCount"),
     viewModeButtons: document.querySelectorAll("[data-view-mode]"),
     matrixBatchSize: $("#matrixBatchSizeSelect"),
     batchMatrixLayer: $("#batchMatrixLayerSelect"),
@@ -158,6 +176,31 @@
 
   function getConfiguredBatchSize() {
     return Math.max(1, Math.min(state.data.length || 1, Number(state.config.batchSize) || 1));
+  }
+
+  function getDashboardBatchSizeOptions() {
+    const sampleCount = Math.max(1, state.data.length || state.config.sampleCount || 1);
+    const options = new Set([1, sampleCount]);
+    for (let value = 2; value <= sampleCount; value *= 2) options.add(value);
+    for (let value = 2; value <= sampleCount; value += 1) {
+      if (sampleCount % value === 0) options.add(value);
+    }
+    return [...options]
+      .filter((value) => value >= 1 && value <= sampleCount)
+      .sort((a, b) => a - b);
+  }
+
+  function normalizeDashboardBatchSize(value) {
+    const options = getDashboardBatchSizeOptions();
+    const numeric = Math.max(1, Math.min(state.data.length || 1, Math.floor(Number(value) || 1)));
+    return options.reduce((best, option) =>
+      Math.abs(option - numeric) < Math.abs(best - numeric) ? option : best,
+      options[0]
+    );
+  }
+
+  function getTrainingBatchSize() {
+    return state.viewMode === "anatomy" ? 1 : getConfiguredBatchSize();
   }
 
   function getBatchRows({ count = getConfiguredBatchSize(), includeFuture = true } = {}) {
@@ -313,6 +356,7 @@
       accuracyWindow: state.accuracyWindow,
       accuracyWindowSum: state.accuracyWindowSum,
       metricHistory: state.metricHistory,
+      epochHistory: state.epochHistory,
       currentAverageLoss: state.currentAverageLoss,
       currentAverageAccuracy: state.currentAverageAccuracy,
       parameterHistory: state.parameterHistory,
@@ -355,6 +399,7 @@
     state.accuracyWindow = snapshot.accuracyWindow;
     state.accuracyWindowSum = snapshot.accuracyWindowSum;
     state.metricHistory = snapshot.metricHistory;
+    state.epochHistory = snapshot.epochHistory;
     state.currentAverageLoss = snapshot.currentAverageLoss;
     state.currentAverageAccuracy = snapshot.currentAverageAccuracy;
     state.parameterHistory = snapshot.parameterHistory;
@@ -393,6 +438,17 @@
     elements.matrixBatchSize.value = String(current);
   }
 
+  function populateDashboardBatchSizeSelect() {
+    if (!elements.dashboardBatchSize) return;
+    const options = getDashboardBatchSizeOptions();
+    const current = normalizeDashboardBatchSize(getConfiguredBatchSize());
+    elements.dashboardBatchSize.innerHTML = options.map((value) => {
+      const updates = Math.ceil((state.data.length || 1) / value);
+      return `<option value="${value}">${value} 个样本 · 每 Epoch 约 ${updates} 次更新</option>`;
+    }).join("");
+    elements.dashboardBatchSize.value = String(current);
+  }
+
   function persistCurrentConfig() {
     try {
       sessionStorage.setItem("mlpExperiment", JSON.stringify({
@@ -419,6 +475,94 @@
     persistCurrentConfig();
     rebuild();
     setViewMode("matrix");
+  }
+
+  function updateDashboardBatchSize(value) {
+    const next = normalizeDashboardBatchSize(value);
+    state.config.batchSize = next;
+    if (elements.dashboardBatchSize) elements.dashboardBatchSize.value = String(next);
+    if (elements.matrixBatchSize && [1, 2, 4].includes(next)) elements.matrixBatchSize.value = String(next);
+    persistCurrentConfig();
+    updateExperimentSummary();
+  }
+
+  function resetDashboardMetrics() {
+    state.lossWindow = [];
+    state.lossWindowSum = 0;
+    state.accuracyWindow = [];
+    state.accuracyWindowSum = 0;
+    state.metricHistory = [];
+    state.epochHistory = [];
+    state.currentAverageLoss = null;
+    state.currentAverageAccuracy = null;
+    state.processedSamples = 0;
+    state.batchProgress = 0;
+    state.lastBatchSize = 0;
+    state.lastBatchRows = [];
+    state.lastUpdateApplied = false;
+    state.sampleIndex = 0;
+    state.stageIndex = -1;
+  }
+
+  function trainDashboardEpochs() {
+    if (!state.network) return;
+    if (state.dashboardTraining) {
+      stopDashboardTraining();
+      return;
+    }
+    stopPlaying();
+    setViewMode("dashboard");
+    updateDashboardBatchSize(elements.dashboardBatchSize?.value || state.config.batchSize);
+    state.dashboardTraining = true;
+    if (elements.dashboardTrain) elements.dashboardTrain.textContent = "暂停训练";
+    runDashboardTrainingLoop();
+  }
+
+  function trainDashboardEpochChunk() {
+    const epochs = Math.max(1, Math.min(50, Number(elements.dashboardEpochInput?.value) || 1));
+    if (elements.dashboardEpochInput) elements.dashboardEpochInput.value = String(epochs);
+    const totalSamples = epochs * state.data.length;
+    state.metricRecordStride = 1;
+    state.parameterRecordStride = Math.max(1, Math.floor(totalSamples / 200));
+    for (let count = 0; count < totalSamples; count += 1) {
+      completeOneTrainingSample({ fullRender: false, renderCharts: false });
+    }
+    state.metricRecordStride = 1;
+    state.parameterRecordStride = 1;
+    drawLoss();
+    drawDashboardSideFigures();
+    renderBatchMatrix();
+    updateDashboardStats();
+    if (elements.dashboardStatus) {
+      elements.dashboardStatus.textContent = `训练中 · 已完成 ${Math.floor(state.processedSamples / state.data.length)} 个 Epoch · Batch Size ${getConfiguredBatchSize()} · 参数更新 ${state.trainStep} 次`;
+    }
+  }
+
+  function runDashboardTrainingLoop() {
+    if (!state.dashboardTraining) return;
+    trainDashboardEpochChunk();
+    state.dashboardTimer = setTimeout(runDashboardTrainingLoop, 90);
+  }
+
+  function stopDashboardTraining({ silent = false } = {}) {
+    const wasTraining = state.dashboardTraining || state.dashboardTimer;
+    state.dashboardTraining = false;
+    clearTimeout(state.dashboardTimer);
+    state.dashboardTimer = null;
+    if (elements.dashboardTrain) elements.dashboardTrain.textContent = "开始训练";
+    if (!silent && wasTraining && elements.dashboardStatus) {
+      const epochCount = Math.floor(state.processedSamples / Math.max(1, state.data.length));
+      elements.dashboardStatus.textContent = `已暂停 · 完成 ${epochCount} 个 Epoch · Batch Size ${getConfiguredBatchSize()} · 参数更新 ${state.trainStep} 次`;
+    }
+  }
+
+  function resetDashboardTraining() {
+    stopDashboardTraining();
+    rebuild();
+    setViewMode("dashboard");
+    if (elements.dashboardStatus) {
+      elements.dashboardStatus.textContent = "模型已重置，选择 Batch Size 和 Epochs 后开始训练";
+    }
   }
 
   function renderBatchMatrix() {
@@ -705,6 +849,8 @@
     });
     if (nextMode === "matrix") renderBatchMatrix();
     if (nextMode === "dashboard") {
+      syncDashboardControls();
+      drawDashboardSideFigures();
       drawLoss();
     }
   }
@@ -743,8 +889,7 @@
           ${matrixView(`${htmlNotation("a", 0)} = ${htmlNotation("x", state.sampleIndex + 1)}`, sample.x, { digits: 4 })}
           <span class="formula-operator">，</span>
           <div class="scalar-result"><span>真实标签</span><strong>${htmlNotation("y", state.sampleIndex + 1)} = ${sample.y}</strong></div>
-        </div>
-        ${renderBatchContext({ compact: true, includeFormula: true })}`;
+        </div>`;
       return;
     }
 
@@ -848,30 +993,26 @@
           ${matrixView(`∂L/∂${htmlNotation("W", layer)}`, gradients, { digits: 5 })}
           <span class="formula-operator">，</span>
           ${matrixView(`∂L/∂${htmlNotation("b", layer)} = ${htmlNotation("δ", layer)}`, state.network.biasGradients[layer], { digits: 5 })}
-        </div>
-        ${renderBatchContext({ compact: true, includeFormula: getConfiguredBatchSize() > 1 })}`;
+        </div>`;
       return;
     }
 
     if (stage.type === "update") {
       const layer = 1;
       const optimizerName = OPTIMIZER_NAMES[state.network.optimizer];
-      elements.calculationTitle.textContent = `${optimizerName} · 累积并更新参数`;
-      elements.calculationHint.textContent = state.lastUpdateApplied
-        ? "当前 Batch 的平均梯度已经写回 W 与 b"
-        : `梯度已累积 ${state.batchProgress} / ${state.config.batchSize}，参数暂不变化`;
+      elements.calculationTitle.textContent = `${optimizerName} · 更新当前样本参数`;
+      elements.calculationHint.textContent = "单样本推导中，只看当前样本梯度如何变成 ΔW / Δb 并修正参数";
       content.innerHTML = `
         <div class="formula-flow compact-flow">
           ${matrixView(`∂L/∂${htmlNotation("W", layer)}`, state.network.weightGradients[layer], { digits: 5 })}
           <span class="formula-operator">→</span>
           <div class="optimizer-equation">
             <span>${optimizerName}</span>
-            <code>g_batch = mean(g₁ … gₙ)</code>
-            <code>${getConfiguredBatchSize() > 1 ? `本批 m=${state.lastUpdateApplied ? state.lastBatchSize : state.batchProgress}，对每个样本的梯度先求平均再更新` : "m=1，单样本梯度就是 Batch 平均梯度"}</code>
-            <strong>${state.lastUpdateApplied ? "θ_new = θ + Δθ" : "继续累积梯度，等待 Batch 完成"}</strong>
+            <code>Δθ = optimizer(∂L/∂θ, η)</code>
+            <code>SGD 时 Δθ = −η · ∂L/∂θ；Momentum / Adam 会先修正更新方向</code>
+            <strong>θ_new = θ + Δθ</strong>
           </div>
-        </div>
-        ${renderBatchContext({ compact: true, includeFormula: true })}`;
+        </div>`;
     }
   }
 
@@ -973,6 +1114,22 @@
     state.currentAverageAccuracy = state.accuracyWindowSum / state.accuracyWindow.length;
 
     const sampleNumber = state.processedSamples + 1;
+    if (sampleNumber % state.data.length === 0) {
+      state.epochHistory.push({
+        epoch: sampleNumber / state.data.length,
+        loss: state.currentAverageLoss,
+        accuracy: state.currentAverageAccuracy,
+        samples: sampleNumber,
+      });
+      if (state.epochHistory.length > 5000) {
+        const compacted = [state.epochHistory[0]];
+        for (let index = 2; index < state.epochHistory.length - 1; index += 2) {
+          compacted.push(state.epochHistory[index]);
+        }
+        compacted.push(state.epochHistory[state.epochHistory.length - 1]);
+        state.epochHistory = compacted;
+      }
+    }
     if (sampleNumber === 1 || sampleNumber % state.metricRecordStride === 0) {
       state.metricHistory.push({
         step: sampleNumber,
@@ -1052,15 +1209,13 @@
       type: "update",
       layer: null,
       badge: "UPDATE",
-      title: `累积梯度，并按 Batch 使用 ${OPTIMIZER_NAMES[state.network.optimizer]} 更新`,
-      description: state.config.batchSize > 1
-        ? `每 ${state.config.batchSize} 个样本取一次平均梯度；一轮末尾不足一个 Batch 时使用剩余样本。`
-        : "Batch Size 为 1，每个样本完成后立即更新全部 W 与 B。",
+      title: `使用 ${OPTIMIZER_NAMES[state.network.optimizer]} 修正 W 与 B`,
+      description: "根据当前样本算出的梯度得到 ΔW / Δb，并把更新量写回参数。",
       formula: state.network.optimizer === "adam"
-        ? "g_batch = mean(g₁…gₙ)  ·  m,v → 偏差修正 → Δθ"
+        ? "g → m,v → 偏差修正 → Δθ → θ_new"
         : state.network.optimizer === "momentum"
-          ? "g_batch = mean(g₁…gₙ)  ·  v ← 0.9v + g_batch"
-          : "g_batch = mean(g₁…gₙ)  ·  θ ← θ − ηg_batch",
+          ? "g → v ← 0.9v + g → Δθ → θ_new"
+          : "g → Δθ = −ηg → θ_new",
     });
 
     state.stages = stages;
@@ -1086,9 +1241,41 @@
     elements.chartBatchSize.textContent = String(state.config.batchSize);
     elements.lossAverageLabel.textContent = `最近 ${state.data.length} 个样本平均 Loss`;
     elements.accuracyAverageLabel.textContent = `最近 ${state.data.length} 个样本准确率`;
+    updateDashboardStats();
+    syncDashboardControls();
+  }
+
+  function updateDashboardStats() {
+    if (elements.dashboardEpochCount) {
+      const epochs = state.data.length ? Math.floor(state.processedSamples / state.data.length) : 0;
+      elements.dashboardEpochCount.textContent = String(epochs);
+    }
+    if (elements.dashboardUpdateCount) {
+      elements.dashboardUpdateCount.textContent = String(state.trainStep);
+    }
+    if (elements.chartBatchSize) {
+      elements.chartBatchSize.textContent = String(getConfiguredBatchSize());
+    }
+  }
+
+  function syncDashboardControls() {
+    if (elements.dashboardBatchSize) {
+      if (!elements.dashboardBatchSize.options.length) populateDashboardBatchSizeSelect();
+      elements.dashboardBatchSize.value = String(normalizeDashboardBatchSize(getConfiguredBatchSize()));
+    }
+  }
+
+  function drawDashboardSideFigures() {
+    drawData(elements.dashboardDataCanvas, { highlightCurrent: false });
+    drawClassificationMap(
+      elements.dashboardClassificationCanvas,
+      elements.dashboardClassificationAccuracyLabel,
+      { highlightCurrent: false }
+    );
   }
 
   function rebuild() {
+    stopDashboardTraining({ silent: true });
     stopPlaying();
     if (state.data.length === 0) {
       state.data = window.MLPData.generateDataset(
@@ -1116,6 +1303,7 @@
     state.accuracyWindow = [];
     state.accuracyWindowSum = 0;
     state.metricHistory = [];
+    state.epochHistory = [];
     state.history = [];
     state.metricRecordStride = 1;
     state.currentAverageLoss = null;
@@ -1128,8 +1316,11 @@
     buildStages();
     populateBatchMatrixLayerSelect();
     populateMatrixBatchSizeSelect();
+    populateDashboardBatchSizeSelect();
     renderNetwork();
     drawData();
+    drawClassificationMap();
+    drawDashboardSideFigures();
     drawLoss();
     drawParameterHistory();
     renderBatchMatrix();
@@ -1144,7 +1335,7 @@
     const width = Math.max(900, sizes.length * 190 + 90);
     const largestLayer = Math.max(...sizes);
     const neuronSpacing = 70;
-    const height = Math.max(620, 140 + (largestLayer - 1) * neuronSpacing);
+    const height = Math.max(460, 140 + (largestLayer - 1) * neuronSpacing);
     const side = 78;
     const targetSpace = 150;
     const usableWidth = width - side - targetSpace;
@@ -1417,7 +1608,7 @@
       state.processedSamples += 1;
       const endOfEpoch = state.sampleIndex === state.data.length - 1;
       state.lastUpdateApplied =
-        state.batchProgress >= state.config.batchSize || endOfEpoch;
+        state.batchProgress >= getTrainingBatchSize() || endOfEpoch;
       if (state.lastUpdateApplied) {
         const appliedBatchSize = state.batchProgress;
         state.network.applyAccumulatedGradients(appliedBatchSize);
@@ -1435,6 +1626,7 @@
     updateConsole(stage);
     renderNetwork();
     drawData();
+    drawClassificationMap();
     drawLoss();
     drawParameterHistory();
     renderBatchMatrix();
@@ -1510,12 +1702,8 @@
       ? stage.description
       : "全部权重 w 与偏置 b 已显示。每次点击只推进一个可观察的计算阶段。";
     if (stage && stage.type === "update") {
-      elements.stepTitle.textContent = state.lastUpdateApplied
-        ? `${OPTIMIZER_NAMES[state.network.optimizer]} 已完成一次 Batch 更新`
-        : `正在累积 Batch 梯度 · ${state.batchProgress} / ${state.config.batchSize}`;
-      elements.stepDescription.textContent = state.lastUpdateApplied
-        ? "本批样本的平均梯度已用于更新全部 W 与 B。"
-        : "当前样本的梯度已经加入 Batch，尚未修改参数。";
+      elements.stepTitle.textContent = `${OPTIMIZER_NAMES[state.network.optimizer]} 修正 W 与 B`;
+      elements.stepDescription.textContent = "把当前样本产生的梯度转换成更新量 ΔW / Δb，并观察参数改变后的分类效果。";
     }
     if (stage && stage.type === "input") {
       elements.stepFormula.innerHTML = `样本 #${state.sampleIndex + 1}: (${htmlNotation("x", state.sampleIndex + 1, 1)}, ${htmlNotation("x", state.sampleIndex + 1, 2)}, ${htmlNotation("y", state.sampleIndex + 1)})`;
@@ -1555,8 +1743,8 @@
     }
   }
 
-  function drawData() {
-    const canvas = elements.dataCanvas;
+  function drawData(canvas = elements.dataCanvas, { highlightCurrent = true } = {}) {
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     const { width, height } = canvas;
     const margin = 24;
@@ -1569,17 +1757,97 @@
       const x = margin + ((point.x[0] + 1) / 2) * (width - margin * 2);
       const y = height - margin - ((point.x[1] + 1) / 2) * (height - margin * 2);
       ctx.beginPath();
-      ctx.arc(x, y, index === state.sampleIndex && state.stageIndex >= 0 ? 8 : 5.2, 0, Math.PI * 2);
+      const isCurrent = highlightCurrent && index === state.sampleIndex && state.stageIndex >= 0;
+      ctx.arc(x, y, isCurrent ? 8 : 5.2, 0, Math.PI * 2);
       ctx.fillStyle = point.y === 1 ? "#10a37f" : "#d97745";
-      ctx.globalAlpha = index === state.sampleIndex && state.stageIndex >= 0 ? 1 : 0.72;
+      ctx.globalAlpha = isCurrent ? 1 : 0.72;
       ctx.fill();
-      if (index === state.sampleIndex && state.stageIndex >= 0) {
+      if (isCurrent) {
         ctx.strokeStyle = "#202123";
         ctx.lineWidth = 2.5;
         ctx.stroke();
       }
     });
     ctx.globalAlpha = 1;
+  }
+
+  function predictSampleWithCurrentNetwork(point) {
+    if (!state.network) return 0.5;
+    let activation = point.x.slice();
+    for (let layer = 1; layer < state.network.sizes.length; layer += 1) {
+      activation = state.network.weights[layer].map((row, neuron) => {
+        const z = row.reduce((sum, weight, source) => sum + weight * activation[source], state.network.biases[layer][neuron]);
+        return sigmoid(z);
+      });
+    }
+    return activation[0] ?? 0.5;
+  }
+
+  function drawClassificationMap(
+    canvas = elements.classificationCanvas,
+    labelElement = elements.classificationAccuracyLabel,
+    { highlightCurrent = true } = {}
+  ) {
+    if (!canvas || !state.network) return;
+    const ctx = canvas.getContext("2d");
+    const { width, height } = canvas;
+    const margin = 24;
+    let correctCount = 0;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "#fafaf8";
+    ctx.fillRect(0, 0, width, height);
+    drawGrid(ctx, width, height, margin);
+
+    ctx.fillStyle = "#4b4d49";
+    ctx.font = "700 13px Inter, sans-serif";
+    ctx.fillText("W / b 当前状态下，对全部样本的预测效果", margin, 18);
+
+    state.data.forEach((point, index) => {
+      const prediction = predictSampleWithCurrentNetwork(point);
+      const predictedLabel = prediction >= 0.5 ? 1 : 0;
+      const correct = predictedLabel === point.y;
+      if (correct) correctCount += 1;
+
+      const x = margin + ((point.x[0] + 1) / 2) * (width - margin * 2);
+      const y = height - margin - ((point.x[1] + 1) / 2) * (height - margin * 2);
+      const isCurrent = highlightCurrent && index === state.sampleIndex && state.stageIndex >= 0;
+
+      ctx.beginPath();
+      ctx.arc(x, y, isCurrent ? 8 : 5.2, 0, Math.PI * 2);
+      ctx.fillStyle = point.y === 1 ? "rgba(16, 163, 127, .22)" : "rgba(217, 119, 69, .22)";
+      ctx.fill();
+      ctx.strokeStyle = correct ? "#10a37f" : "#ef4444";
+      ctx.lineWidth = correct ? 2.4 : 2.8;
+      ctx.stroke();
+
+      if (!correct) {
+        ctx.beginPath();
+        ctx.moveTo(x - 4, y - 4);
+        ctx.lineTo(x + 4, y + 4);
+        ctx.moveTo(x + 4, y - 4);
+        ctx.lineTo(x - 4, y + 4);
+        ctx.strokeStyle = "#ef4444";
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+      }
+
+      if (isCurrent) {
+        ctx.beginPath();
+        ctx.arc(x, y, 11, 0, Math.PI * 2);
+        ctx.strokeStyle = "#202123";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    });
+
+    const accuracy = state.data.length ? correctCount / state.data.length : 0;
+    if (labelElement) {
+      labelElement.textContent = `Accuracy ${(accuracy * 100).toFixed(1)}% · ${correctCount}/${state.data.length}`;
+    }
+    ctx.fillStyle = "#202123";
+    ctx.font = "800 13px Inter, sans-serif";
+    ctx.fillText(`Accuracy ${(accuracy * 100).toFixed(1)}%`, width - margin - 112, 18);
   }
 
   function compressHistoryPoints(points, maxPoints = 120) {
@@ -1626,22 +1894,38 @@
 
   function drawLoss() {
     const canvas = elements.lossCanvas;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     const { width, height } = canvas;
     const margin = { left: 76, right: 76, top: 20, bottom: 34 };
     ctx.clearRect(0, 0, width, height);
 
-    const metricPoints = state.metricHistory.slice();
-    const lastRecorded = metricPoints[metricPoints.length - 1];
-    if (
-      state.currentAverageLoss !== null
-      && (!lastRecorded || lastRecorded.step !== state.processedSamples)
-    ) {
-      metricPoints.push({
-        step: state.processedSamples,
-        loss: state.currentAverageLoss,
-        accuracy: state.currentAverageAccuracy,
-      });
+    const dashboardMode = document.body.dataset.viewMode === "dashboard";
+    if (elements.lossAverageLabel) {
+      elements.lossAverageLabel.textContent = dashboardMode ? "最后 Epoch 平均 Loss" : `最近 ${state.data.length} 个样本平均 Loss`;
+    }
+    if (elements.accuracyAverageLabel) {
+      elements.accuracyAverageLabel.textContent = dashboardMode ? "最后 Epoch Accuracy" : `最近 ${state.data.length} 个样本准确率`;
+    }
+    const metricPoints = dashboardMode
+      ? state.epochHistory.map((point) => ({
+        step: point.epoch,
+        loss: point.loss,
+        accuracy: point.accuracy,
+      }))
+      : state.metricHistory.slice();
+    if (!dashboardMode) {
+      const lastRecorded = metricPoints[metricPoints.length - 1];
+      if (
+        state.currentAverageLoss !== null
+        && (!lastRecorded || lastRecorded.step !== state.processedSamples)
+      ) {
+        metricPoints.push({
+          step: state.processedSamples,
+          loss: state.currentAverageLoss,
+          accuracy: state.currentAverageAccuracy,
+        });
+      }
     }
     const visible = compressHistoryPoints(
       metricPoints.map((point) => ({ step: point.step, value: point.loss }))
@@ -1661,6 +1945,17 @@
     ctx.textBaseline = "middle";
     ctx.strokeStyle = "#e4e4df";
     ctx.lineWidth = 1;
+    ctx.textBaseline = "top";
+    ctx.font = '18px Inter, system-ui, sans-serif';
+    ctx.fillStyle = "#10a37f";
+    ctx.textAlign = "left";
+    ctx.fillText("Loss", margin.left, 0);
+    ctx.fillStyle = "#7c5ce7";
+    ctx.textAlign = "right";
+    ctx.fillText("Accuracy", width - margin.right, 0);
+    ctx.font = '18px "SFMono-Regular", Consolas, monospace';
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#8a8b86";
     for (let i = 0; i <= 4; i += 1) {
       const y = margin.top + ((height - margin.top - margin.bottom) * i) / 4;
       const value = lossRange.max - ((lossRange.max - lossRange.min) * i) / 4;
@@ -1677,13 +1972,18 @@
       ctx.textAlign = "center";
       ctx.fillStyle = "#9a9b96";
       ctx.font = '20px Inter, system-ui, sans-serif';
-      ctx.fillText("完成第一次参数更新后，平均 Loss 曲线会出现在这里", width / 2, height / 2);
+      ctx.fillText(
+        dashboardMode ? "点击“开始训练”后，每个 Epoch 的 Loss / Accuracy 会出现在这里" : "完成第一次参数更新后，平均 Loss 曲线会出现在这里",
+        width / 2,
+        height / 2
+      );
       elements.averageLoss.textContent = "—";
       elements.averageAccuracy.textContent = "—";
+      updateDashboardStats();
       return;
     }
 
-    const maxLossStep = Math.max(1, state.processedSamples);
+    const maxLossStep = Math.max(1, metricPoints[metricPoints.length - 1].step);
     const xAt = (step) => margin.left + (step / maxLossStep) * (width - margin.left - margin.right);
     const yAt = (value) => margin.top
       + ((lossRange.max - value) / (lossRange.max - lossRange.min))
@@ -1747,7 +2047,7 @@
     ctx.fillStyle = "#878883";
     ctx.font = '17px "SFMono-Regular", Consolas, monospace';
     ctx.fillText("0", margin.left, height - margin.bottom + 10);
-    const epoch = state.processedSamples / state.data.length;
+    const epoch = dashboardMode ? maxLossStep : state.processedSamples / state.data.length;
     const epochLabel = epoch >= 100
       ? epoch.toFixed(1)
       : epoch.toFixed(2).replace(/\.?0+$/, "");
@@ -1756,6 +2056,7 @@
 
     elements.averageLoss.textContent = format(state.currentAverageLoss);
     elements.averageAccuracy.textContent = `${(state.currentAverageAccuracy * 100).toFixed(1)}%`;
+    updateDashboardStats();
   }
 
   function drawParameterHistory() {
@@ -2191,6 +2492,15 @@
   });
   if (elements.matrixBatchSize) {
     elements.matrixBatchSize.addEventListener("change", () => updateMatrixBatchSize(elements.matrixBatchSize.value));
+  }
+  if (elements.dashboardBatchSize) {
+    elements.dashboardBatchSize.addEventListener("change", () => updateDashboardBatchSize(elements.dashboardBatchSize.value));
+  }
+  if (elements.dashboardTrain) {
+    elements.dashboardTrain.addEventListener("click", trainDashboardEpochs);
+  }
+  if (elements.dashboardReset) {
+    elements.dashboardReset.addEventListener("click", resetDashboardTraining);
   }
 
   rebuild();

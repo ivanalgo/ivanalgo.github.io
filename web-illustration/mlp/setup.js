@@ -17,7 +17,6 @@
     learningRateOutput: $("#learningRateOutput"),
     optimizer: $("#optimizerSelect"),
     lossFunction: $("#lossFunctionSelect"),
-    batchSize: $("#batchSizeSelect"),
     noise: $("#noiseLevel"),
     noiseOutput: $("#noiseLevelOutput"),
     layerEditor: $("#layerEditor"),
@@ -105,7 +104,7 @@
       learningRate: Number(elements.learningRate.value),
       optimizer: elements.optimizer.value,
       lossFunction: elements.lossFunction.value,
-      batchSize: Number(elements.batchSize.value),
+      batchSize: 1,
       noise: Number(elements.noise.value),
       hiddenLayers: state.hiddenLayers.slice(),
       data: state.data,
@@ -150,11 +149,6 @@
         elements.learningRate.value = "0.03";
       }
       if (saved.lossFunction) elements.lossFunction.value = saved.lossFunction;
-      if ([1, 2, 4].includes(Number(saved.batchSize))) {
-        elements.batchSize.value = String(saved.batchSize);
-      } else {
-        elements.batchSize.value = "1";
-      }
       if (saved.noise !== undefined) elements.noise.value = String(saved.noise);
       if (Array.isArray(saved.hiddenLayers) && saved.hiddenLayers.length) {
         state.hiddenLayers = saved.hiddenLayers

@@ -1045,6 +1045,7 @@ body[data-view-mode="dashboard"] #parameterCanvas { max-height: 420px; }
 }
 .matrix-mode-summary strong { color: #30334b; font-size: 11px; }
 .matrix-mode-summary p { display: flex; flex-wrap: wrap; gap: 6px; margin: 7px 0 0; }
+.matrix-mode-summary small { display: block; margin-top: 7px; color: #6a7180; font: 8px ui-monospace, monospace; }
 .matrix-mode-summary code {
   max-width: 62%;
   overflow-wrap: anywhere;
@@ -1088,6 +1089,23 @@ body[data-view-mode="dashboard"] #parameterCanvas { max-height: 420px; }
   overflow-y: hidden;
   padding-bottom: 4px;
 }
+.matrix-shape-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  width: max-content;
+  max-width: 100%;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border: 1px solid #dce8f7;
+  border-radius: 10px;
+  background: #f4f7ff;
+  color: #586172;
+  font-size: 8px;
+}
+.matrix-shape-note strong { color: #3154bf; font-size: 9px; }
+.matrix-shape-note code { color: #3f4652; font: 8px ui-monospace, monospace; }
 .matrix-local-flow {
   min-width: max-content;
   flex-wrap: nowrap;

@@ -170,7 +170,7 @@
         <div class="matrix-bracket">
           <div class="matrix-grid" style="--matrix-cols:${Math.max(1, shownCols)}">${cells || "<span>—</span>"}</div>
         </div>
-        <small>${totalRows}×${totalCols}${clipped ? " · 截取显示" : ""}</small>
+        <small>实际 ${totalRows}×${totalCols}${clipped ? ` · 仅显示前 ${shownRows.length}×${shownCols}` : ""}</small>
       </div>`;
   }
 
@@ -607,7 +607,14 @@
         <span class="formula-operator">，</span>
         ${matrixView("Y_B", yMatrix, { maxRows: 1, maxCols: 4, digits: 0 })}
       </div>`);
-    const forwardCard = renderMatrixCard(`Forward · 第 ${selectedLayer} 层`, "整层同时处理 m 列样本", `
+    const layerNeuronCount = state.network.sizes[selectedLayer];
+    const previousNeuronCount = state.network.sizes[selectedLayer - 1];
+    const forwardCard = renderMatrixCard(`Forward · 第 ${selectedLayer} 层`, `n${selectedLayer}=${layerNeuronCount} 个神经元，m=${snapshot.batchSize} 列样本`, `
+      <div class="matrix-shape-note">
+        <strong>行数 = 当前层神经元数 n${selectedLayer} = ${layerNeuronCount}</strong>
+        <span>列数 = mini-batch 样本数 m = ${snapshot.batchSize}</span>
+        <code>W⁽${selectedLayer}⁾: ${layerNeuronCount}×${previousNeuronCount}，A⁽${selectedLayer - 1}⁾: ${previousNeuronCount}×${snapshot.batchSize}，Z⁽${selectedLayer}⁾ / A⁽${selectedLayer}⁾: ${layerNeuronCount}×${snapshot.batchSize}</code>
+      </div>
       <div class="formula-flow matrix-local-flow">
         ${matrixView(htmlNotation("W", selectedLayer), state.network.weights[selectedLayer], { maxRows: 5, maxCols: 5, digits: 3 })}
         <span class="formula-operator">×</span>
@@ -831,6 +838,7 @@
         <div>
           <strong>列就是样本</strong>
           <p>${columnLabels}</p>
+          <small>当前网络结构：${state.network.sizes.join(" → ")}</small>
         </div>
         <code>${stageFormula}</code>
       </div>

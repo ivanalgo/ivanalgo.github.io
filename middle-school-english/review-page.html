@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f2eee3" />
+    <meta name="description" content="初中英语单词沉浸复习，一页一个词。" />
+    <title>单词复习 · 初中英语</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="review-page">
+    <header class="review-header">
+      <a class="back-link" href="./" aria-label="返回学期选择">← 学期</a>
+      <div class="course-name">
+        <span id="semesterName">载入中</span>
+        <small id="unitName">请选择单元</small>
+      </div>
+      <div class="header-actions">
+        <button class="icon-button" id="dataButton" type="button" aria-label="备份学习记录">↥</button>
+        <button class="icon-button" id="themeButton" type="button" aria-label="切换明暗主题">◐</button>
+      </div>
+    </header>
+
+    <div class="progress-track" aria-hidden="true">
+      <span id="progressBar"></span>
+    </div>
+
+    <main class="review-shell">
+      <section class="session-tools" aria-label="复习范围和进度">
+        <label>
+          <span>复习范围</span>
+          <select id="unitSelect">
+            <option value="all">全册</option>
+          </select>
+        </label>
+        <div class="session-count">
+          <span>本次进度</span>
+          <strong><span id="currentNumber">0</span> / <span id="totalNumber">0</span></strong>
+        </div>
+        <div class="mastery-count">
+          <span>已复习</span>
+          <strong id="reviewedCount">0</strong>
+        </div>
+      </section>
+
+      <article class="word-card" id="wordCard" aria-live="polite">
+        <div class="word-context">
+          <span id="wordUnit">Unit</span>
+          <span id="audioStatus">联网获取真人发音</span>
+        </div>
+
+        <button class="word-button" id="wordButton" type="button" aria-label="播放当前单词">
+          <span id="wordText">loading</span>
+          <span class="speaker-mark" aria-hidden="true">⌁</span>
+        </button>
+
+        <div class="phonetic-row">
+          <span id="phoneticText">正在查询音标…</span>
+          <span id="partOfSpeech"></span>
+        </div>
+
+        <div class="sound-controls" aria-label="发音控制">
+          <button id="playButton" type="button">
+            <span aria-hidden="true">▶</span> 播放
+          </button>
+          <button id="repeatButton" type="button">
+            <span aria-hidden="true">↻</span> 重复 3 遍
+          </button>
+          <label>
+            <span>语速</span>
+            <select id="rateSelect">
+              <option value="0.75">慢速</option>
+              <option value="0.9" selected>正常</option>
+              <option value="1">原速</option>
+            </select>
+          </label>
+        </div>
+
+        <section class="meaning-panel">
+          <span class="section-label">中文意思</span>
+          <p id="meaningText">正在加载词库…</p>
+        </section>
+
+        <div class="detail-grid">
+          <section class="detail-panel">
+            <span class="section-label">例句</span>
+            <p class="example-en" id="exampleText">正在从在线词典寻找例句…</p>
+            <p class="example-note" id="exampleNote">例句由在线词典提供</p>
+          </section>
+
+          <section class="detail-panel">
+            <span class="section-label">常用搭配</span>
+            <ul class="collocation-list" id="collocationList">
+              <li>正在整理当前单词的搭配…</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <section class="rating-panel" aria-label="选择掌握程度">
+        <p>这个词记得怎么样？</p>
+        <div class="rating-buttons">
+          <button class="rating-again" data-rating="again" type="button">
+            <span>1</span><strong>不认识</strong><small>稍后再见</small>
+          </button>
+          <button class="rating-hard" data-rating="hard" type="button">
+            <span>2</span><strong>有点模糊</strong><small>明天复习</small>
+          </button>
+          <button class="rating-good" data-rating="good" type="button">
+            <span>3</span><strong>认识</strong><small>拉长间隔</small>
+          </button>
+        </div>
+      </section>
+
+      <nav class="word-navigation" aria-label="词条导航">
+        <button id="previousButton" type="button">← 上一个</button>
+        <button id="randomButton" type="button">随机一个</button>
+        <button id="nextButton" type="button">下一个 →</button>
+      </nav>
+    </main>
+
+    <dialog id="dataDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <span class="section-label">LOCAL DATA</span>
+            <h2>学习记录</h2>
+          </div>
+          <button class="dialog-close" value="close" aria-label="关闭">×</button>
+        </div>
+        <p>记录保存在当前浏览器。换设备前，请先导出备份文件。</p>
+        <div class="dialog-actions">
+          <button id="exportButton" type="button">导出全部记录</button>
+          <button id="importButton" type="button">导入记录</button>
+          <input id="importInput" type="file" accept="application/json,.json" hidden />
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

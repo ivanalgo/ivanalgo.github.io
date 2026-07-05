@@ -1,0 +1,19 @@
+{
+  "name": "初中英语 · 一词一页",
+  "short_name": "初中单词",
+  "description": "按六个学期复习初中英语单词。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2eee3",
+  "theme_color": "#253c37",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

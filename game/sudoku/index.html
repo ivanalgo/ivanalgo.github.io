@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="静态数独游戏，包含难度分级、候选数编辑与高级技巧提示。" />
+    <title>数独 | Ivan's Game Lab</title>
+    <link rel="icon" href="./sudoku-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./sudoku.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="game-layout" aria-label="数独游戏">
+        <div class="board-panel">
+          <header class="game-header">
+            <img class="brand-mark" src="./sudoku-mark.svg" alt="" />
+            <div>
+              <p class="eyebrow">Ivan's Game Lab</p>
+              <h1>数独</h1>
+            </div>
+            <div class="score-strip" aria-live="polite">
+              <span id="timer">00:00</span>
+              <span id="filled-count">0/81</span>
+            </div>
+          </header>
+
+          <div class="board-frame">
+            <div id="sudoku-board" class="sudoku-board" role="grid" aria-label="数独棋盘"></div>
+          </div>
+
+          <div class="board-actions" aria-label="棋局操作">
+            <button type="button" class="icon-button" id="new-game-button" title="新题" aria-label="新题">
+              <span aria-hidden="true">+</span><span>新题</span>
+            </button>
+            <button type="button" class="icon-button" id="reset-button" title="重置" aria-label="重置">
+              <span aria-hidden="true">↺</span><span>重置</span>
+            </button>
+            <button type="button" class="icon-button" id="undo-button" title="撤销" aria-label="撤销">
+              <span aria-hidden="true">↶</span><span>撤销</span>
+            </button>
+            <button type="button" class="icon-button" id="check-button" title="核对" aria-label="核对">
+              <span aria-hidden="true">✓</span><span>核对</span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="side-panel" aria-label="数独控制台">
+          <section class="panel">
+            <div class="panel-title">难度</div>
+            <div class="segmented" id="difficulty-buttons" role="group" aria-label="难度">
+              <button type="button" data-difficulty="intro" class="active">入门级</button>
+              <button type="button" data-difficulty="middle">中级</button>
+              <button type="button" data-difficulty="hard">高级</button>
+              <button type="button" data-difficulty="expert">骨灰级</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">输入</div>
+            <div class="mode-row">
+              <button type="button" class="toggle-button" id="note-mode-button" aria-pressed="false">候选模式</button>
+              <label class="switch">
+                <input type="checkbox" id="candidate-toggle" checked />
+                <span>显示候选</span>
+              </label>
+            </div>
+            <div class="number-pad" id="number-pad" aria-label="数字键盘">
+              <button type="button" data-number="1">1</button>
+              <button type="button" data-number="2">2</button>
+              <button type="button" data-number="3">3</button>
+              <button type="button" data-number="4">4</button>
+              <button type="button" data-number="5">5</button>
+              <button type="button" data-number="6">6</button>
+              <button type="button" data-number="7">7</button>
+              <button type="button" data-number="8">8</button>
+              <button type="button" data-number="9">9</button>
+              <button type="button" class="wide" id="erase-button">删除</button>
+            </div>
+            <div class="candidate-tools">
+              <button type="button" id="fill-candidates-button">补全候选</button>
+              <button type="button" id="clear-candidates-button">清空候选</button>
+            </div>
+          </section>
+
+          <section class="panel technique-panel">
+            <div class="panel-title">技巧</div>
+            <div class="technique-stack">
+              <div class="technique-readout">
+                <div class="technique-name" id="technique-name">等待扫描</div>
+                <p id="technique-copy">尚未扫描。</p>
+              </div>
+              <div class="technique-actions">
+                <button type="button" id="hint-button">扫描技巧</button>
+                <button type="button" id="apply-hint-button" disabled>应用</button>
+              </div>
+              <div class="technique-chips" aria-label="技巧库">
+                <span>唯一候选</span>
+                <span>隐性唯一</span>
+                <span>数对删减</span>
+                <span>区块排除</span>
+                <span>X-Wing</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel status-panel">
+            <div class="panel-title">状态</div>
+            <div id="game-message" class="game-message" aria-live="polite">入门级 · 准备就绪</div>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./sudoku.js" defer></script>
+  </body>
+</html>

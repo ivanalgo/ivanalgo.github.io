@@ -1,36 +1,10 @@
 # 数据来源与许可
 
-本站的初中英语基础词表按人教版年级与单元结构整理，数据改编自：
+本站词库按沪教牛津版（深圳常用）初中英语教材的单元主题整理，作为个人学习辅助使用。
+词条释义为学习用中文释义，例句和搭配不复制教材课文原句；若学校后续提供官方词表，可继续校准替换。
 
-- 项目：`henry1786580051-lang/english-test`
-- 地址：https://github.com/henry1786580051-lang/english-test
-- 许可：MIT License
-- 原作者版权：Copyright (c) 2026 顾文翰
-
-根据 MIT License，特此保留原项目的版权与许可说明。词表仅作为学习辅助，
-可能存在词性、释义或教材版本差异，不替代正式教材。
-
-## MIT License
-
-Copyright (c) 2026 顾文翰
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+词表源文件在 `middle-school-english/scripts/build-oxford-shenzhen-data.mjs`，用于生成各学期的
+`words.json`。当前词库不是出版社官方电子词表，不替代正式教材。
 
 在线音标、英文释义、例句及录音由 Free Dictionary API 在用户请求时提供：
 

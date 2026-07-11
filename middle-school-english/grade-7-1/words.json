@@ -1,2347 +1,1299 @@
 {
   "semester": "grade-7-1",
-  "title": "七年级上册",
-  "source": "henry1786580051-lang/english-test (MIT)",
+  "title": "七年级上册 · 沪教牛津版",
+  "source": "沪教牛津版（深圳常用）核心词表 · 按教材单元主题整理",
   "units": [
     {
-      "name": "Starter Unit 1",
+      "name": "Unit 1 Making friends",
       "words": [
         {
           "id": "grade-7-1-1-1",
-          "word": "hello",
-          "meaning": "你好；喂",
-          "partOfSpeech": "int."
+          "word": "German",
+          "meaning": "德国的；德国人的；德语；德国人",
+          "partOfSpeech": "adj./n."
         },
         {
           "id": "grade-7-1-1-2",
-          "word": "how",
-          "meaning": "怎样；如何",
+          "word": "grammar",
+          "meaning": "语法",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-1-3",
-          "word": "do",
-          "meaning": "做；干",
-          "partOfSpeech": "v."
+          "word": "sound",
+          "meaning": "声音；听起来",
+          "partOfSpeech": "n./v."
         },
         {
           "id": "grade-7-1-1-4",
-          "word": "you",
-          "meaning": "你；你们",
-          "partOfSpeech": "pron."
+          "word": "complete",
+          "meaning": "完成；完整的",
+          "partOfSpeech": "v./adj."
         },
         {
           "id": "grade-7-1-1-5",
-          "word": "people",
-          "meaning": "人；人们",
+          "word": "hobby",
+          "meaning": "爱好",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-1-6",
-          "word": "hi",
-          "meaning": "嗨；喂",
-          "partOfSpeech": "int."
+          "word": "country",
+          "meaning": "国家；乡下",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-1-7",
-          "word": "good",
-          "meaning": "好的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-1-8",
-          "word": "morning",
-          "meaning": "早晨；上午",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-1-9",
-          "word": "and",
-          "meaning": "和；又",
-          "partOfSpeech": "conj."
-        },
-        {
-          "id": "grade-7-1-1-10",
-          "word": "Ms",
-          "meaning": "(用于女子的姓氏或姓名前，不指明婚否) 女士",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-1-11",
-          "word": "class",
-          "meaning": "班级；课",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-1-12",
-          "word": "sit",
-          "meaning": "坐",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-1-13",
-          "word": "down",
-          "meaning": "向下",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-1-14",
-          "word": "please",
-          "meaning": "(用于客气地请求或吩咐) 请",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-1-15",
-          "word": "can",
-          "meaning": "能；会",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-16",
-          "word": "say",
-          "meaning": "说；讲",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-17",
-          "word": "to",
-          "meaning": "朝；向；至；对 (用于原形动词之前，表示该动词为不定式)",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-1-18",
-          "word": "the",
-          "meaning": "指已提到或易领会到的人或事物",
-          "partOfSpeech": "art."
-        },
-        {
-          "id": "grade-7-1-1-19",
-          "word": "I",
-          "meaning": "我",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-20",
-          "word": "am",
-          "meaning": "是",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-21",
-          "word": "thank",
-          "meaning": "感谢；谢谢",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-22",
-          "word": "now",
-          "meaning": "现在；目前",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-1-23",
-          "word": "my",
-          "meaning": "我的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-24",
-          "word": "name",
-          "meaning": "名字；名称",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-1-25",
-          "word": "is",
-          "meaning": "是",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-26",
-          "word": "nice",
-          "meaning": "令人愉快的；宜人的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-1-27",
-          "word": "meet",
-          "meaning": "遇见；相逢",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-28",
-          "word": "so",
-          "meaning": "用来引出评论或问题；所以 这么；那么",
-          "partOfSpeech": "conj."
-        },
-        {
-          "id": "grade-7-1-1-29",
-          "word": "what",
-          "meaning": "什么",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-30",
-          "word": "your",
-          "meaning": "你的；您的；你们的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-31",
-          "word": "too",
-          "meaning": "也；又；太",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-1-32",
-          "word": "a",
-          "meaning": "(用于单数可数名词前，表示未曾提到的一个人、事、物)",
-          "partOfSpeech": "art."
-        },
-        {
-          "id": "grade-7-1-1-33",
-          "word": "are",
-          "meaning": "是",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-34",
-          "word": "goodbye",
-          "meaning": "再见；再会",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-1-35",
-          "word": "may",
-          "meaning": "可以；可能",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-36",
-          "word": "have",
-          "meaning": "有",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-37",
-          "word": "call",
-          "meaning": "把……叫作；(给……)打电话 电话；大声呼喊",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-38",
-          "word": "me",
-          "meaning": "我",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-39",
-          "word": "fine",
-          "meaning": "健康的；美好的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-1-40",
-          "word": "great",
-          "meaning": "美妙的；伟大的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-1-41",
-          "word": "that",
-          "meaning": "那个",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-42",
-          "word": "let",
-          "meaning": "允许；让",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-43",
-          "word": "us",
-          "meaning": "我们",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-44",
-          "word": "go",
-          "meaning": "去；走",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-1-45",
-          "word": "bye",
-          "meaning": "再见",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-1-46",
-          "word": "it",
-          "meaning": "它",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-1-47",
-          "word": "time",
-          "meaning": "时间；次",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-1-48",
-          "word": "for",
-          "meaning": "为了；给；对",
-          "partOfSpeech": "prep."
-        }
-      ]
-    },
-    {
-      "name": "Starter Unit 2",
-      "words": [
-        {
-          "id": "grade-7-1-2-1",
-          "word": "keep",
-          "meaning": "(使)保持；保留",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-2-2",
-          "word": "tidy",
-          "meaning": "整洁的；井井有条的",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-3",
-          "word": "in",
-          "meaning": "在……里面；表示某事完成或发生的方式",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-2-4",
-          "word": "schoolbag",
-          "meaning": "书包",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-5",
-          "word": "cap",
-          "meaning": "(无檐或有帽舌的)帽子；棒球帽",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-6",
-          "word": "ruler",
-          "meaning": "直尺",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-7",
-          "word": "pencil",
-          "meaning": "铅笔",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-8",
-          "word": "brown",
-          "meaning": "棕色(的)；褐色(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-9",
-          "word": "black",
-          "meaning": "黑色(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-10",
-          "word": "yellow",
-          "meaning": "黄色(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-11",
-          "word": "orange",
-          "meaning": "橙色(的)；橘黄色(的) 橙子；柑橘",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-12",
-          "word": "green",
-          "meaning": "绿色(的)",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-2-13",
-          "word": "blue",
-          "meaning": "蓝色(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-14",
-          "word": "white",
-          "meaning": "白色(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-15",
-          "word": "red",
-          "meaning": "红色(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-16",
-          "word": "colour",
-          "meaning": "颜色",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-17",
-          "word": "trousers",
-          "meaning": "() 裤子",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-18",
-          "word": "they",
-          "meaning": "他(她、它)们",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-2-19",
-          "word": "bicycle",
-          "meaning": "自行车；脚踏车",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-20",
-          "word": "shoe",
-          "meaning": "鞋",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-21",
-          "word": "where",
-          "meaning": "在哪里；到哪里",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-22",
-          "word": "put",
-          "meaning": "放",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-23",
-          "word": "bed",
-          "meaning": "床",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-24",
-          "word": "desk",
-          "meaning": "书桌",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-25",
-          "word": "chair",
-          "meaning": "椅子",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-26",
-          "word": "book",
-          "meaning": "书",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-27",
-          "word": "box",
-          "meaning": "箱；盒；方框",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-28",
-          "word": "sock",
-          "meaning": "短袜",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-29",
-          "word": "some",
-          "meaning": "一些；某些 有些；有的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-2-30",
-          "word": "pair",
-          "meaning": "一双；一对",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-31",
-          "word": "of",
-          "meaning": "属于(某人)；关于(某人)",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-2-32",
-          "word": "on",
-          "meaning": "在……上",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-2-33",
-          "word": "under",
-          "meaning": "在……下",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-2-34",
-          "word": "mum",
-          "meaning": "妈妈",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-35",
-          "word": "not",
-          "meaning": "没有",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-36",
-          "word": "find",
-          "meaning": "找到；发现",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-2-37",
-          "word": "new",
-          "meaning": "新的；刚出现的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-2-38",
-          "word": "no",
-          "meaning": "不；不要 没有；不是",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-2-39",
-          "word": "here",
-          "meaning": "在这里",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-2-40",
-          "word": "room",
-          "meaning": "房间",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-41",
-          "word": "ok",
-          "meaning": "好；行",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-2-42",
-          "word": "sorry",
-          "meaning": "抱歉的；惋惜的",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-2-43",
-          "word": "ok",
-          "meaning": "可以(的)",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-2-44",
-          "word": "glasses",
-          "meaning": "() 眼镜",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-45",
-          "word": "see",
-          "meaning": "看见",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-46",
-          "word": "them",
-          "meaning": "他(她、它)们",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-2-47",
-          "word": "wait",
-          "meaning": "等待；等候",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-2-48",
-          "word": "minute",
-          "meaning": "分钟",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-49",
-          "word": "head",
-          "meaning": "头",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-50",
-          "word": "welcome",
-          "meaning": "受欢迎的 欢迎",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-2-51",
-          "word": "her",
-          "meaning": "她的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-2-52",
-          "word": "nose",
-          "meaning": "鼻子",
-          "partOfSpeech": "n."
-        }
-      ]
-    },
-    {
-      "name": "Starter Unit 3",
-      "words": [
-        {
-          "id": "grade-7-1-3-1",
-          "word": "cat",
-          "meaning": "猫",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-2",
-          "word": "these",
-          "meaning": "这些",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-3-3",
-          "word": "plant",
-          "meaning": "植物 种植",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-4",
-          "word": "baby",
-          "meaning": "动物幼崽；婴儿",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-5",
-          "word": "chicken",
-          "meaning": "鸡；鸡肉",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-6",
-          "word": "dog",
-          "meaning": "狗",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-7",
-          "word": "rabbit",
-          "meaning": "兔子",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-8",
-          "word": "tomato",
-          "meaning": "西红柿",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-9",
-          "word": "flower",
-          "meaning": "花",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-10",
-          "word": "apple",
-          "meaning": "苹果",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-11",
-          "word": "tree",
-          "meaning": "树",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-12",
-          "word": "this",
-          "meaning": "这；这个",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-3-13",
-          "word": "those",
-          "meaning": "那些",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-3-14",
-          "word": "animal",
-          "meaning": "动物",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-15",
-          "word": "duck",
-          "meaning": "鸭子",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-16",
-          "word": "potato",
-          "meaning": "土豆",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-17",
-          "word": "many",
-          "meaning": "许多",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-18",
-          "word": "grandpa",
-          "meaning": "爷爷；外公",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-19",
-          "word": "farm",
-          "meaning": "农场",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-20",
-          "word": "cow",
-          "meaning": "奶牛",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-21",
-          "word": "small",
-          "meaning": "小的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-3-22",
-          "word": "lake",
-          "meaning": "湖",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-23",
-          "word": "house",
-          "meaning": "房子",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-24",
-          "word": "horse",
-          "meaning": "马",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-25",
-          "word": "sheep",
-          "meaning": "羊；绵羊",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-26",
-          "word": "big",
-          "meaning": "大的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-3-27",
-          "word": "look",
-          "meaning": "看",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-28",
-          "word": "uncle",
-          "meaning": "舅父；叔父；伯父；姑父；姨父",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-29",
-          "word": "grass",
-          "meaning": "草",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-30",
-          "word": "kind",
-          "meaning": "种类 体贴的；亲切的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-3-31",
-          "word": "he",
-          "meaning": "他",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-3-32",
-          "word": "pig",
-          "meaning": "猪",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-33",
-          "word": "there",
-          "meaning": "在那里",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-3-34",
-          "word": "behind",
-          "meaning": "在……的后面",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-3-35",
-          "word": "home",
-          "meaning": "家",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-36",
-          "word": "beautiful",
-          "meaning": "美丽的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-3-37",
-          "word": "like",
-          "meaning": "喜欢 例如；像……一样",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-3-38",
-          "word": "his",
-          "meaning": "他的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-3-39",
-          "word": "at",
-          "meaning": "向；朝；在(某处、某时间或时刻)",
-          "partOfSpeech": "prep."
-        }
-      ]
-    },
-    {
-      "name": "Unit 1",
-      "words": [
-        {
-          "id": "grade-7-1-4-1",
-          "word": "we",
-          "meaning": "我们",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-4-2",
-          "word": "make",
-          "meaning": "使成为；制造",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-4-3",
-          "word": "friend",
-          "meaning": "朋友",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-4",
-          "word": "get angry",
-          "meaning": "生气的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-4-5",
-          "word": "know",
-          "meaning": "知道",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-4-6",
-          "word": "from",
-          "meaning": "从……来；从……开始",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-4-7",
-          "word": "old",
-          "meaning": "老的；旧的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-4-8",
-          "word": "last",
-          "meaning": "最后的；末尾的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-4-9",
-          "word": "year",
-          "meaning": "年",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-10",
-          "word": "yes",
-          "meaning": "是的；可以",
-          "partOfSpeech": "int."
-        },
-        {
-          "id": "grade-7-1-4-11",
-          "word": "Mr",
-          "meaning": "(用于男子的姓氏或姓名前) 先生",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-12",
-          "word": "our",
-          "meaning": "我们的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-4-13",
-          "word": "English",
-          "meaning": "英语；英格兰人 英语的；英格兰的",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-14",
-          "word": "teacher",
-          "meaning": "教师",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-15",
-          "word": "which",
-          "meaning": "哪一个；哪些",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-4-16",
-          "word": "who",
-          "meaning": "谁；什么人",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-4-17",
-          "word": "job",
-          "meaning": "工作",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-18",
-          "word": "student",
-          "meaning": "学生",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-19",
           "word": "age",
           "meaning": "年龄",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-20",
-          "word": "she",
-          "meaning": "她",
+          "id": "grade-7-1-1-8",
+          "word": "dream",
+          "meaning": "梦想；做梦",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-7-1-1-9",
+          "word": "everyone",
+          "meaning": "所有人；每个人",
           "partOfSpeech": "pron."
         },
         {
-          "id": "grade-7-1-4-21",
-          "word": "favourite",
-          "meaning": "最喜欢的；最爱的 最喜欢的人或物",
+          "id": "grade-7-1-1-10",
+          "word": "Germany",
+          "meaning": "德国",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-22",
-          "word": "pet",
-          "meaning": "宠物",
+          "id": "grade-7-1-1-11",
+          "word": "mountain",
+          "meaning": "山；山脉",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-23",
-          "word": "very",
-          "meaning": "很；非常",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-4-24",
-          "word": "cute",
-          "meaning": "可爱的",
+          "id": "grade-7-1-1-12",
+          "word": "elder",
+          "meaning": "年长的",
           "partOfSpeech": "adj."
         },
         {
-          "id": "grade-7-1-4-25",
-          "word": "much",
-          "meaning": "非常；十分 许多；大量；多少",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-26",
-          "word": "school",
-          "meaning": "学校",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-27",
-          "word": "China",
-          "meaning": "中国",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-28",
-          "word": "panda",
-          "meaning": "熊猫",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-29",
-          "word": "hot",
-          "meaning": "热的；炎热的",
+          "id": "grade-7-1-1-13",
+          "word": "friendly",
+          "meaning": "友好的",
           "partOfSpeech": "adj."
         },
         {
-          "id": "grade-7-1-4-30",
-          "word": "also",
-          "meaning": "而且；也；况且",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-4-31",
-          "word": "live",
-          "meaning": "居住；生活",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-4-32",
-          "word": "with",
-          "meaning": "和……在一起；带有；使用",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-4-33",
-          "word": "parent",
-          "meaning": "父(母)亲",
+          "id": "grade-7-1-1-14",
+          "word": "engineer",
+          "meaning": "工程师",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-34",
-          "word": "Chinese",
-          "meaning": "中国的 中国人；汉语",
+          "id": "grade-7-1-1-15",
+          "word": "world",
+          "meaning": "世界",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-35",
-          "word": "food",
-          "meaning": "食物",
+          "id": "grade-7-1-1-16",
+          "word": "Japan",
+          "meaning": "日本",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-36",
-          "word": "lot",
-          "meaning": "大量；许多",
+          "id": "grade-7-1-1-17",
+          "word": "flat",
+          "meaning": "公寓；平的",
+          "partOfSpeech": "n./adj."
+        },
+        {
+          "id": "grade-7-1-1-18",
+          "word": "yourself",
+          "meaning": "你自己",
+          "partOfSpeech": "pron."
+        },
+        {
+          "id": "grade-7-1-1-19",
+          "word": "blog",
+          "meaning": "博客",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-37",
-          "word": "about",
-          "meaning": "关于 大约",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-4-38",
-          "word": "wall",
-          "meaning": "墙",
+          "id": "grade-7-1-1-20",
+          "word": "paragraph",
+          "meaning": "段落",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-4-39",
-          "word": "all",
-          "meaning": "所有(的)；全部(的)",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-1-21",
+          "word": "close to",
+          "meaning": "接近；离……近",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-7-1-4-40",
-          "word": "hour",
-          "meaning": "小时",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-1-22",
+          "word": "go to school",
+          "meaning": "去上学",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-7-1-4-41",
-          "word": "ago",
-          "meaning": "以前",
-          "partOfSpeech": "adv."
+          "id": "grade-7-1-1-23",
+          "word": "be good at",
+          "meaning": "擅长",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-7-1-4-42",
-          "word": "family",
-          "meaning": "家庭",
-          "partOfSpeech": "adj."
+          "id": "grade-7-1-1-24",
+          "word": "make friends",
+          "meaning": "交朋友",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-7-1-4-43",
-          "word": "bird",
-          "meaning": "鸟",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-1-25",
+          "word": "all over the world",
+          "meaning": "全世界",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-7-1-4-44",
-          "word": "speak",
-          "meaning": "说(某种语言)；说话",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-45",
-          "word": "sport",
-          "meaning": "运动",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-46",
-          "word": "often",
-          "meaning": "时常；常常",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-4-47",
-          "word": "play",
-          "meaning": "玩",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-48",
-          "word": "after",
-          "meaning": "在……以后",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-4-49",
-          "word": "want",
+          "id": "grade-7-1-1-26",
+          "word": "would like to",
           "meaning": "想要",
-          "partOfSpeech": "v."
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-7-1-4-50",
-          "word": "be",
-          "meaning": "是",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-4-51",
-          "word": "place",
-          "meaning": "地方；地点",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-52",
-          "word": "music",
-          "meaning": "音乐",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-53",
-          "word": "love",
-          "meaning": "喜爱；爱",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-4-54",
-          "word": "write",
-          "meaning": "写",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-55",
-          "word": "tennis",
-          "meaning": "网球运动",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-56",
-          "word": "tofu",
-          "meaning": "豆腐",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-4-57",
-          "word": "yours",
-          "meaning": "你的；您的；你们的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-4-58",
-          "word": "unit",
-          "meaning": "单元",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-1-27",
+          "word": "hear from",
+          "meaning": "收到……的来信",
+          "partOfSpeech": "phr."
         }
       ]
     },
     {
-      "name": "Unit 2",
+      "name": "Unit 2 Daily life",
       "words": [
         {
-          "id": "grade-7-1-5-1",
-          "word": "or",
-          "meaning": "或者；也不(用于否定句)",
-          "partOfSpeech": "conj."
+          "id": "grade-7-1-2-1",
+          "word": "daily",
+          "meaning": "每日的；日常的",
+          "partOfSpeech": "adj."
         },
         {
-          "id": "grade-7-1-5-2",
-          "word": "mother",
-          "meaning": "母亲",
+          "id": "grade-7-1-2-2",
+          "word": "article",
+          "meaning": "文章",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-5-3",
-          "word": "child",
-          "meaning": "儿童；小孩",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-4",
-          "word": "sister",
-          "meaning": "姐；妹",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-5",
-          "word": "brother",
-          "meaning": "兄；弟",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-6",
-          "word": "cousin",
-          "meaning": "堂兄(弟、姊、妹)；表兄(弟、姊、妹)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-7",
-          "word": "aunt",
-          "meaning": "姑(姨、伯、婶、舅)母",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-8",
-          "word": "grandmother",
-          "meaning": "奶奶；外婆",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-9",
-          "word": "come",
-          "meaning": "来；来到",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-5-10",
-          "word": "ping-pong",
-          "meaning": "乒乓球运动",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-11",
-          "word": "whose",
-          "meaning": "谁的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-5-12",
-          "word": "well",
-          "meaning": "嗯；好吧 好；令人满意地 健康的",
+          "id": "grade-7-1-2-3",
+          "word": "never",
+          "meaning": "从不",
           "partOfSpeech": "adv."
         },
         {
-          "id": "grade-7-1-5-13",
-          "word": "every",
-          "meaning": "每一；每个",
+          "id": "grade-7-1-2-4",
+          "word": "table tennis",
+          "meaning": "乒乓球",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-5-14",
-          "word": "day",
-          "meaning": "一天；白天",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-2-5",
+          "word": "ride",
+          "meaning": "骑；乘坐；短途旅程",
+          "partOfSpeech": "v./n."
         },
         {
-          "id": "grade-7-1-5-15",
-          "word": "week",
-          "meaning": "周；星期",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-16",
-          "word": "fish",
-          "meaning": "钓鱼 鱼；鱼肉",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-17",
-          "word": "father",
-          "meaning": "父亲；爸爸",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-18",
-          "word": "piano",
-          "meaning": "钢琴",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-19",
-          "word": "basketball",
-          "meaning": "篮球；篮球运动",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-20",
-          "word": "read",
-          "meaning": "阅读",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-21",
-          "word": "garden",
-          "meaning": "做园艺工作；种植花木 庭园；花园",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-5-22",
-          "word": "classroom",
-          "meaning": "教室",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-23",
-          "word": "their",
-          "meaning": "他(她、它)们的",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-5-24",
-          "word": "clean",
-          "meaning": "干净的 使……干净；打扫",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-25",
-          "word": "little",
-          "meaning": "小的；年幼的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-26",
-          "word": "ball",
-          "meaning": "球",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-27",
-          "word": "playground",
-          "meaning": "游乐场；操场",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-28",
-          "word": "wear",
-          "meaning": "穿；戴",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-5-29",
-          "word": "talk",
-          "meaning": "说话；交谈",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-30",
-          "word": "tall",
-          "meaning": "高的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-31",
-          "word": "short",
-          "meaning": "短的；矮的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-32",
-          "word": "hair",
-          "meaning": "头发",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-33",
-          "word": "long",
-          "meaning": "长的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-34",
-          "word": "quiet",
-          "meaning": "安静的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-35",
-          "word": "girl",
-          "meaning": "女孩",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-36",
-          "word": "but",
-          "meaning": "但是",
-          "partOfSpeech": "conj."
-        },
-        {
-          "id": "grade-7-1-5-37",
-          "word": "any",
-          "meaning": "任何(的)；任一(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-38",
-          "word": "photo",
-          "meaning": "照片",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-39",
-          "word": "pink",
-          "meaning": "粉红色(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-40",
-          "word": "left",
-          "meaning": "左边 向左边",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-41",
-          "word": "right",
-          "meaning": "右边 向右边 正确的；适当的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-42",
-          "word": "always",
-          "meaning": "总是",
+          "id": "grade-7-1-2-6",
+          "word": "usually",
+          "meaning": "通常",
           "partOfSpeech": "adv."
         },
         {
-          "id": "grade-7-1-5-43",
-          "word": "story",
-          "meaning": "故事",
+          "id": "grade-7-1-2-7",
+          "word": "seldom",
+          "meaning": "很少；不常",
+          "partOfSpeech": "adv."
+        },
+        {
+          "id": "grade-7-1-2-8",
+          "word": "Geography",
+          "meaning": "地理",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-5-44",
-          "word": "night",
-          "meaning": "夜晚",
+          "id": "grade-7-1-2-9",
+          "word": "break",
+          "meaning": "休息；间歇；打破",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-7-1-2-10",
+          "word": "bell",
+          "meaning": "铃；钟",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-5-45",
-          "word": "middle",
-          "meaning": "中间 中间的",
+          "id": "grade-7-1-2-11",
+          "word": "ring",
+          "meaning": "发出铃声；打电话",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-2-12",
+          "word": "end",
+          "meaning": "结束；末尾",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-7-1-2-13",
+          "word": "band",
+          "meaning": "乐队",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-5-46",
-          "word": "think",
-          "meaning": "思考；想",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-2-14",
+          "word": "practice",
+          "meaning": "练习",
+          "partOfSpeech": "n./v."
         },
         {
-          "id": "grade-7-1-5-47",
-          "word": "football",
-          "meaning": "足球；足球运动",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-48",
-          "word": "happy",
-          "meaning": "快乐的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-5-49",
-          "word": "eye",
-          "meaning": "眼睛",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-50",
-          "word": "clever",
-          "meaning": "聪明的",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-51",
-          "word": "next",
-          "meaning": "下一个(的)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-52",
-          "word": "him",
-          "meaning": "他",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-7-1-5-53",
-          "word": "help",
-          "meaning": "帮助",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-54",
-          "word": "spend",
-          "meaning": "花 (时间、钱等)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-5-55",
+          "id": "grade-7-1-2-15",
           "word": "together",
-          "meaning": "在一起；共同",
+          "meaning": "在一起",
           "partOfSpeech": "adv."
+        },
+        {
+          "id": "grade-7-1-2-16",
+          "word": "market",
+          "meaning": "市场",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-2-17",
+          "word": "guitar",
+          "meaning": "吉他",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-2-18",
+          "word": "grade",
+          "meaning": "年级；等级",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-2-19",
+          "word": "junior",
+          "meaning": "初级的；年少的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-2-20",
+          "word": "rest",
+          "meaning": "休息",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-7-1-2-21",
+          "word": "on foot",
+          "meaning": "步行",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-2-22",
+          "word": "take part in",
+          "meaning": "参加",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-2-23",
+          "word": "have a good time",
+          "meaning": "玩得开心",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-2-24",
+          "word": "morning break",
+          "meaning": "上午课间休息",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-2-25",
+          "word": "junior high school",
+          "meaning": "初级中学",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-2-26",
+          "word": "go to bed",
+          "meaning": "上床睡觉",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-2-27",
+          "word": "get up",
+          "meaning": "起床",
+          "partOfSpeech": "phr."
         }
       ]
     },
     {
-      "name": "Unit 3",
+      "name": "Unit 3 The Earth",
       "words": [
         {
-          "id": "grade-7-1-6-1",
-          "word": "front",
-          "meaning": "前面",
+          "id": "grade-7-1-3-1",
+          "word": "Earth",
+          "meaning": "地球",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-6-2",
-          "word": "art",
-          "meaning": "艺术；美术",
+          "id": "grade-7-1-3-2",
+          "word": "quiz",
+          "meaning": "小测验；知识竞赛",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-6-3",
-          "word": "between",
-          "meaning": "在……之间",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-6-4",
-          "word": "library",
-          "meaning": "图书馆",
+          "id": "grade-7-1-3-3",
+          "word": "pattern",
+          "meaning": "模式；图案",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-6-5",
-          "word": "blackboard",
-          "meaning": "黑板",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-6",
-          "word": "up",
-          "meaning": "向上",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-6-7",
-          "word": "back",
-          "meaning": "后面；背部 后面的；背后的 回来；回原处",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-6-8",
-          "word": "clock",
-          "meaning": "时钟；钟",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-9",
-          "word": "map",
-          "meaning": "地图",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-10",
-          "word": "computer",
-          "meaning": "电脑",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-11",
-          "word": "window",
-          "meaning": "窗户",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-12",
-          "word": "science",
-          "meaning": "科学",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-13",
-          "word": "picture",
-          "meaning": "照片；图画",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-14",
-          "word": "famous",
-          "meaning": "著名的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-6-15",
-          "word": "table",
-          "meaning": "桌子",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-6-16",
-          "word": "today",
-          "meaning": "在今天 今天",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-6-17",
-          "word": "email",
-          "meaning": "电子邮件 (给某人)发电子邮件",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-18",
-          "word": "sports field",
-          "meaning": "运动场",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-19",
-          "word": "special",
-          "meaning": "特别的；特殊的",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-6-20",
-          "word": "whiteboard",
-          "meaning": "白板；白色书写板",
-          "partOfSpeech": "n."
-        }
-      ]
-    },
-    {
-      "name": "Unit 4",
-      "words": [
-        {
-          "id": "grade-7-1-7-1",
-          "word": "answer",
-          "meaning": "回答；答复 答案",
+          "id": "grade-7-1-3-4",
+          "word": "protect",
+          "meaning": "保护",
           "partOfSpeech": "v."
         },
         {
-          "id": "grade-7-1-7-2",
-          "word": "question",
+          "id": "grade-7-1-3-5",
+          "word": "report",
+          "meaning": "报告；报道",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-7-1-3-6",
+          "word": "part",
+          "meaning": "部分",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-3-7",
+          "word": "land",
+          "meaning": "陆地；土地",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-3-8",
+          "word": "field",
+          "meaning": "田地；领域",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-3-9",
+          "word": "large",
+          "meaning": "大的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-3-10",
+          "word": "provide",
+          "meaning": "提供",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-3-11",
+          "word": "pollution",
+          "meaning": "污染",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-3-12",
+          "word": "burn",
+          "meaning": "燃烧；烧毁",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-3-13",
+          "word": "energy",
+          "meaning": "能量；能源",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-3-14",
+          "word": "pollute",
+          "meaning": "污染",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-3-15",
+          "word": "ground",
+          "meaning": "地面",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-3-16",
+          "word": "kill",
+          "meaning": "杀死；使停止",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-3-17",
+          "word": "important",
+          "meaning": "重要的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-3-18",
+          "word": "fact",
+          "meaning": "事实",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-3-19",
+          "word": "few",
+          "meaning": "不多；很少",
+          "partOfSpeech": "det./adj."
+        },
+        {
+          "id": "grade-7-1-3-20",
+          "word": "problem",
           "meaning": "问题",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-7-3",
-          "word": "exercise",
-          "meaning": "运动；锻炼；练习",
+          "id": "grade-7-1-3-21",
+          "word": "catch",
+          "meaning": "抓住；赶上",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-3-22",
+          "word": "kilometre",
+          "meaning": "千米；公里",
           "partOfSpeech": "n."
         },
         {
+          "id": "grade-7-1-3-23",
+          "word": "own",
+          "meaning": "自己的；拥有",
+          "partOfSpeech": "adj./v."
+        },
+        {
+          "id": "grade-7-1-3-24",
+          "word": "on Earth",
+          "meaning": "在地球上；究竟",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-3-25",
+          "word": "throw away",
+          "meaning": "扔掉",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-3-26",
+          "word": "stop doing",
+          "meaning": "停止做某事",
+          "partOfSpeech": "phr."
+        }
+      ]
+    },
+    {
+      "name": "Unit 4 Seasons",
+      "words": [
+        {
+          "id": "grade-7-1-4-1",
+          "word": "season",
+          "meaning": "季节",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-2",
+          "word": "Australia",
+          "meaning": "澳大利亚",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-3",
+          "word": "wet",
+          "meaning": "湿的；潮湿的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-4-4",
+          "word": "dry",
+          "meaning": "干的；干燥的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-4-5",
+          "word": "snowy",
+          "meaning": "下雪多的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-4-6",
+          "word": "spend",
+          "meaning": "花费；度过",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-4-7",
+          "word": "relative",
+          "meaning": "亲戚",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-8",
+          "word": "during",
+          "meaning": "在……期间",
+          "partOfSpeech": "prep."
+        },
+        {
+          "id": "grade-7-1-4-9",
+          "word": "grandparent",
+          "meaning": "祖父母；外祖父母",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-10",
+          "word": "picnic",
+          "meaning": "野餐",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-11",
+          "word": "shine",
+          "meaning": "照耀；发光",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-4-12",
+          "word": "brightly",
+          "meaning": "明亮地",
+          "partOfSpeech": "adv."
+        },
+        {
+          "id": "grade-7-1-4-13",
+          "word": "trip",
+          "meaning": "旅行",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-14",
+          "word": "everything",
+          "meaning": "一切；所有事物",
+          "partOfSpeech": "pron."
+        },
+        {
+          "id": "grade-7-1-4-15",
+          "word": "snowman",
+          "meaning": "雪人",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-16",
+          "word": "kick",
+          "meaning": "踢",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-4-17",
+          "word": "blow",
+          "meaning": "吹",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-4-18",
+          "word": "temperature",
+          "meaning": "温度",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-19",
+          "word": "festival",
+          "meaning": "节日",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-20",
+          "word": "dumpling",
+          "meaning": "饺子",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-21",
+          "word": "spring",
+          "meaning": "春天",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-22",
+          "word": "summer",
+          "meaning": "夏天",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-23",
+          "word": "autumn",
+          "meaning": "秋天",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-24",
+          "word": "winter",
+          "meaning": "冬天",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-4-25",
+          "word": "go on a picnic",
+          "meaning": "去野餐",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-4-26",
+          "word": "make snowmen",
+          "meaning": "堆雪人",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-4-27",
+          "word": "fly kites",
+          "meaning": "放风筝",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-4-28",
+          "word": "take a trip",
+          "meaning": "去旅行",
+          "partOfSpeech": "phr."
+        }
+      ]
+    },
+    {
+      "name": "Unit 5 Visiting the Moon",
+      "words": [
+        {
+          "id": "grade-7-1-5-1",
+          "word": "diary",
+          "meaning": "日记",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-2",
+          "word": "space",
+          "meaning": "太空；空间",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-3",
+          "word": "spaceship",
+          "meaning": "宇宙飞船",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-4",
+          "word": "spacesuit",
+          "meaning": "宇航服",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-5",
+          "word": "nervous",
+          "meaning": "紧张的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-5-6",
+          "word": "leave",
+          "meaning": "离开；留下",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-5-7",
+          "word": "able",
+          "meaning": "能够的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-5-8",
+          "word": "tie",
+          "meaning": "系；捆；领带",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-7-1-5-9",
+          "word": "ourselves",
+          "meaning": "我们自己",
+          "partOfSpeech": "pron."
+        },
+        {
+          "id": "grade-7-1-5-10",
+          "word": "without",
+          "meaning": "没有",
+          "partOfSpeech": "prep."
+        },
+        {
+          "id": "grade-7-1-5-11",
+          "word": "breathe",
+          "meaning": "呼吸",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-5-12",
+          "word": "if",
+          "meaning": "如果；是否",
+          "partOfSpeech": "conj."
+        },
+        {
+          "id": "grade-7-1-5-13",
+          "word": "camera",
+          "meaning": "照相机",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-14",
+          "word": "work",
+          "meaning": "运转；工作；作品",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-7-1-5-15",
+          "word": "garden",
+          "meaning": "花园",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-16",
+          "word": "rock",
+          "meaning": "岩石",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-17",
+          "word": "weak",
+          "meaning": "虚弱的；无力的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-5-18",
+          "word": "float",
+          "meaning": "漂浮",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-7-1-5-19",
+          "word": "return",
+          "meaning": "返回；归还",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-7-1-5-20",
+          "word": "gravity",
+          "meaning": "重力",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-5-21",
+          "word": "more than",
+          "meaning": "多于；超过",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-5-22",
+          "word": "be able to",
+          "meaning": "能够",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-5-23",
+          "word": "have to",
+          "meaning": "不得不；必须",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-5-24",
+          "word": "so that",
+          "meaning": "以便；为了",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-5-25",
+          "word": "take photos",
+          "meaning": "拍照",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-5-26",
+          "word": "as...as",
+          "meaning": "和……一样",
+          "partOfSpeech": "phr."
+        }
+      ]
+    },
+    {
+      "name": "Unit 6 Travelling around Asia",
+      "words": [
+        {
+          "id": "grade-7-1-6-1",
+          "word": "Asia",
+          "meaning": "亚洲",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-2",
+          "word": "guide",
+          "meaning": "导游；指南；指导",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-7-1-6-3",
+          "word": "area",
+          "meaning": "地区；面积",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-4",
+          "word": "traditional",
+          "meaning": "传统的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-6-5",
+          "word": "modern",
+          "meaning": "现代的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-6-6",
+          "word": "sightseeing",
+          "meaning": "观光；游览",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-7",
+          "word": "centre",
+          "meaning": "中心",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-8",
+          "word": "natural",
+          "meaning": "自然的；天然的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-7-1-6-9",
+          "word": "beauty",
+          "meaning": "美；美人",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-10",
+          "word": "bridge",
+          "meaning": "桥",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-11",
+          "word": "pond",
+          "meaning": "池塘",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-12",
+          "word": "snack",
+          "meaning": "小吃",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-13",
+          "word": "outside",
+          "meaning": "在外面；在……外面",
+          "partOfSpeech": "adv./prep."
+        },
+        {
+          "id": "grade-7-1-6-14",
+          "word": "direction",
+          "meaning": "方向；指示",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-15",
+          "word": "light",
+          "meaning": "灯；光；照亮",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-7-1-6-16",
+          "word": "building",
+          "meaning": "建筑物",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-17",
+          "word": "across",
+          "meaning": "穿过；在对面",
+          "partOfSpeech": "prep./adv."
+        },
+        {
+          "id": "grade-7-1-6-18",
+          "word": "temple",
+          "meaning": "寺庙",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-19",
+          "word": "palace",
+          "meaning": "宫殿",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-20",
+          "word": "square",
+          "meaning": "广场；正方形",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-21",
+          "word": "travel guide",
+          "meaning": "旅行指南",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-22",
+          "word": "place of interest",
+          "meaning": "名胜",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-6-23",
+          "word": "walk along",
+          "meaning": "沿着……走",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-6-24",
+          "word": "light up",
+          "meaning": "点亮；照亮",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-6-25",
+          "word": "in the centre of",
+          "meaning": "在……中心",
+          "partOfSpeech": "phr."
+        }
+      ]
+    },
+    {
+      "name": "Unit 7 School clubs",
+      "words": [
+        {
+          "id": "grade-7-1-7-1",
+          "word": "fair",
+          "meaning": "展览会；公平的",
+          "partOfSpeech": "n./adj."
+        },
+        {
+          "id": "grade-7-1-7-2",
+          "word": "rocket",
+          "meaning": "火箭",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-7-3",
+          "word": "solar",
+          "meaning": "太阳的",
+          "partOfSpeech": "adj."
+        },
+        {
           "id": "grade-7-1-7-4",
-          "word": "way",
-          "meaning": "方式；道路",
+          "word": "power",
+          "meaning": "能量；力量",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-5",
-          "word": "best",
-          "meaning": "最好的 最",
-          "partOfSpeech": "n."
+          "word": "attend",
+          "meaning": "参加；出席",
+          "partOfSpeech": "v."
         },
         {
           "id": "grade-7-1-7-6",
-          "word": "because",
-          "meaning": "因为",
-          "partOfSpeech": "conj."
+          "word": "teach",
+          "meaning": "教",
+          "partOfSpeech": "v."
         },
         {
           "id": "grade-7-1-7-7",
-          "word": "why",
-          "meaning": "为什么",
-          "partOfSpeech": "n."
+          "word": "launch",
+          "meaning": "发射；发动",
+          "partOfSpeech": "v./n."
         },
         {
           "id": "grade-7-1-7-8",
-          "word": "dear",
-          "meaning": "亲爱的",
-          "partOfSpeech": "adj."
+          "word": "disappear",
+          "meaning": "消失",
+          "partOfSpeech": "v."
         },
         {
           "id": "grade-7-1-7-9",
-          "word": "tell",
-          "meaning": "告诉",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-7-10",
-          "word": "interesting",
-          "meaning": "有趣的",
+          "word": "surprised",
+          "meaning": "惊讶的",
           "partOfSpeech": "adj."
         },
         {
+          "id": "grade-7-1-7-10",
+          "word": "another",
+          "meaning": "又一；另一个",
+          "partOfSpeech": "det./pron."
+        },
+        {
           "id": "grade-7-1-7-11",
-          "word": "subject",
-          "meaning": "学科；科目",
-          "partOfSpeech": "n."
+          "word": "amazing",
+          "meaning": "令人惊奇的",
+          "partOfSpeech": "adj."
         },
         {
           "id": "grade-7-1-7-12",
-          "word": "learn",
-          "meaning": "学习；得知",
-          "partOfSpeech": "v."
+          "word": "skill",
+          "meaning": "技能",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-13",
-          "word": "maths",
-          "meaning": "数学",
-          "partOfSpeech": "v."
+          "word": "boring",
+          "meaning": "令人厌烦的",
+          "partOfSpeech": "adj."
         },
         {
           "id": "grade-7-1-7-14",
-          "word": "PE",
-          "meaning": "体育",
+          "word": "information",
+          "meaning": "信息",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-15",
-          "word": "hard",
-          "meaning": "困难的 努力地",
-          "partOfSpeech": "adv."
+          "word": "ant",
+          "meaning": "蚂蚁",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-16",
-          "word": "difficult",
-          "meaning": "困难的",
-          "partOfSpeech": "adj."
+          "word": "butterfly",
+          "meaning": "蝴蝶",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-17",
-          "word": "sure",
-          "meaning": "当然；确信",
+          "word": "bee",
+          "meaning": "蜜蜂",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-18",
-          "word": "easy",
-          "meaning": "容易的",
-          "partOfSpeech": "adj."
+          "word": "headline",
+          "meaning": "标题",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-19",
-          "word": "use",
-          "meaning": "使用；利用 使用；用途",
-          "partOfSpeech": "v."
+          "word": "photography",
+          "meaning": "摄影",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-20",
-          "word": "give",
-          "meaning": "给；供给",
-          "partOfSpeech": "v."
+          "word": "recent",
+          "meaning": "最近的",
+          "partOfSpeech": "adj."
         },
         {
           "id": "grade-7-1-7-21",
-          "word": "idea",
-          "meaning": "想法；主意",
+          "word": "experiment",
+          "meaning": "实验",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-7-22",
-          "word": "listen",
-          "meaning": "听",
-          "partOfSpeech": "v."
+          "word": "learn about",
+          "meaning": "了解；学习",
+          "partOfSpeech": "phr."
         },
         {
           "id": "grade-7-1-7-23",
-          "word": "draw",
-          "meaning": "画画",
-          "partOfSpeech": "n."
+          "word": "all the way",
+          "meaning": "一路上；自始至终",
+          "partOfSpeech": "phr."
         },
         {
           "id": "grade-7-1-7-24",
-          "word": "travel",
-          "meaning": "旅行；游历",
-          "partOfSpeech": "n."
+          "word": "of course",
+          "meaning": "当然",
+          "partOfSpeech": "phr."
         },
         {
           "id": "grade-7-1-7-25",
-          "word": "walk",
-          "meaning": "行走；步行",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-7-26",
-          "word": "afternoon",
-          "meaning": "下午",
+          "word": "solar power",
+          "meaning": "太阳能",
           "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-7-27",
-          "word": "then",
-          "meaning": "那时；然后；那么",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-7-28",
-          "word": "Miss",
-          "meaning": "(对未婚女子礼貌的称呼) 小姐；女士",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-7-29",
-          "word": "work",
-          "meaning": "工作",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-7-30",
-          "word": "sometimes",
-          "meaning": "有时",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-7-31",
-          "word": "feel",
-          "meaning": "感觉；觉得",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-7-32",
-          "word": "busy",
-          "meaning": "忙碌的；忙的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-7-33",
-          "word": "study",
-          "meaning": "学习；研究",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-7-34",
-          "word": "song",
-          "meaning": "歌曲",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-7-35",
-          "word": "out",
-          "meaning": "(从……里)出来；出去",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-7-36",
-          "word": "term",
-          "meaning": "学期",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-7-37",
-          "word": "work out",
-          "meaning": "计算出；解决",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-7-38",
-          "word": "useful",
-          "meaning": "有用的；有益的",
-          "partOfSpeech": "adj."
         }
       ]
     },
     {
-      "name": "Unit 5",
+      "name": "Unit 8 Collecting things",
       "words": [
         {
           "id": "grade-7-1-8-1",
-          "word": "sing",
-          "meaning": "唱歌",
-          "partOfSpeech": "v."
+          "word": "collection",
+          "meaning": "收藏品；收集",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-8-2",
-          "word": "swim",
-          "meaning": "游泳",
+          "word": "collector",
+          "meaning": "收藏家",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-8-3",
-          "word": "run",
-          "meaning": "跑步",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-8-4",
-          "word": "fast",
-          "meaning": "快地 快的",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-7-1-8-5",
-          "word": "dance",
-          "meaning": "跳舞",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-8-6",
-          "word": "fly",
-          "meaning": "飞",
+          "word": "unusual",
+          "meaning": "与众不同的；不寻常的",
           "partOfSpeech": "adj."
         },
         {
+          "id": "grade-7-1-8-4",
+          "word": "interview",
+          "meaning": "采访；面试",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-7-1-8-5",
+          "word": "model",
+          "meaning": "模型；模特",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-8-6",
+          "word": "stamp",
+          "meaning": "邮票",
+          "partOfSpeech": "n."
+        },
+        {
           "id": "grade-7-1-8-7",
-          "word": "watch",
-          "meaning": "注视；观看 表；手表",
+          "word": "doorbell",
+          "meaning": "门铃",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-7-1-8-8",
-          "word": "cake",
-          "meaning": "蛋糕",
-          "partOfSpeech": "n."
+          "word": "silver",
+          "meaning": "银色的；银",
+          "partOfSpeech": "adj./n."
         },
         {
           "id": "grade-7-1-8-9",
-          "word": "cook",
-          "meaning": "做饭 厨师",
-          "partOfSpeech": "n."
+          "word": "push",
+          "meaning": "推",
+          "partOfSpeech": "v."
         },
         {
           "id": "grade-7-1-8-10",
-          "word": "noodle",
-          "meaning": "面条",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-8-11",
-          "word": "open",
-          "meaning": "打开 开放的；敞开的",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-8-12",
-          "word": "take",
-          "meaning": "拍摄；拿；取；买下",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-8-13",
-          "word": "visit",
-          "meaning": "参观；拜访",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-8-14",
-          "word": "park",
-          "meaning": "公园",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-8-15",
-          "word": "when",
-          "meaning": "什么时候",
-          "partOfSpeech": "conj."
-        },
-        {
-          "id": "grade-7-1-8-16",
-          "word": "share",
-          "meaning": "分享；合用；分担",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-8-17",
-          "word": "than",
-          "meaning": "(用于引出比较的第二部分) 比",
-          "partOfSpeech": "conj."
-        },
-        {
-          "id": "grade-7-1-8-18",
-          "word": "thing",
-          "meaning": "东西；事情",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-8-19",
-          "word": "wildlife",
-          "meaning": "野生动物；野生生物",
-          "partOfSpeech": "n."
-        }
-      ]
-    },
-    {
-      "name": "Unit 6",
-      "words": [
-        {
-          "id": "grade-7-1-9-1",
-          "word": "o'clock",
-          "meaning": "(表示整点)……点钟",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-2",
-          "word": "half",
-          "meaning": "一半；半",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-3",
-          "word": "dress",
-          "meaning": "穿衣服 连衣裙",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-4",
-          "word": "breakfast",
-          "meaning": "早餐",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-5",
-          "word": "before",
-          "meaning": "以前",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-7-1-9-6",
-          "word": "begin",
-          "meaning": "开始",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-7",
-          "word": "dinner",
-          "meaning": "正餐；晚餐",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-8",
-          "word": "early",
-          "meaning": "早的；早期的 提前；在早期",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-7-1-9-9",
-          "word": "ask",
-          "meaning": "询问；请求",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-9-10",
-          "word": "lunch",
-          "meaning": "午餐",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-11",
-          "word": "film",
-          "meaning": "电影",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-12",
-          "word": "lesson",
-          "meaning": "课；一节课",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-13",
-          "word": "ice",
-          "meaning": "冰；冰块",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-14",
-          "word": "stay",
-          "meaning": "停留；留",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-9-15",
-          "word": "take a shower",
-          "meaning": "淋浴",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-16",
-          "word": "tooth",
-          "meaning": "牙齿",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-9-17",
-          "word": "usually",
-          "meaning": "通常地；一般地",
+          "word": "soon",
+          "meaning": "不久",
           "partOfSpeech": "adv."
         },
         {
-          "id": "grade-7-1-9-18",
-          "word": "weekend",
-          "meaning": "周末",
+          "id": "grade-7-1-8-11",
+          "word": "grandson",
+          "meaning": "孙子；外孙",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-9-19",
-          "word": "while",
-          "meaning": "一段时间；一会儿 在……期间；当……的时候",
-          "partOfSpeech": "conj."
-        }
-      ]
-    },
-    {
-      "name": "Unit 7",
-      "words": [
-        {
-          "id": "grade-7-1-10-1",
-          "word": "birthday",
-          "meaning": "生日",
+          "id": "grade-7-1-8-12",
+          "word": "granddaughter",
+          "meaning": "孙女；外孙女",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-10-2",
-          "word": "month",
-          "meaning": "月份",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-8-13",
+          "word": "inside",
+          "meaning": "在里面；在……里面",
+          "partOfSpeech": "adv./prep."
         },
         {
-          "id": "grade-7-1-10-3",
-          "word": "gift",
-          "meaning": "礼物",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-8-14",
+          "word": "everywhere",
+          "meaning": "到处",
+          "partOfSpeech": "adv."
         },
         {
-          "id": "grade-7-1-10-4",
-          "word": "party",
-          "meaning": "聚会",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-5",
-          "word": "buy",
-          "meaning": "买",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-6",
-          "word": "shop",
-          "meaning": "商店 逛商店；在商店购物",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-7",
-          "word": "woman",
-          "meaning": "女人",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-8",
-          "word": "candle",
-          "meaning": "蜡烛",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-9",
-          "word": "will",
-          "meaning": "将要；会",
+          "id": "grade-7-1-8-15",
+          "word": "follow",
+          "meaning": "跟随；遵循",
           "partOfSpeech": "v."
         },
         {
-          "id": "grade-7-1-10-10",
-          "word": "egg",
-          "meaning": "蛋",
-          "partOfSpeech": "n."
+          "id": "grade-7-1-8-16",
+          "word": "hardly",
+          "meaning": "几乎不",
+          "partOfSpeech": "adv."
         },
         {
-          "id": "grade-7-1-10-11",
-          "word": "milk",
-          "meaning": "牛奶",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-12",
-          "word": "candy",
-          "meaning": "糖果",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-13",
-          "word": "drink",
-          "meaning": "饮料 喝",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-14",
-          "word": "card",
-          "meaning": "厚纸片；卡片",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-15",
-          "word": "doll",
-          "meaning": "玩偶；玩具娃娃",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-16",
-          "word": "Mrs",
-          "meaning": "(对已婚妇女的礼貌称呼) 夫人；太太",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-17",
-          "word": "eat",
-          "meaning": "吃",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-18",
-          "word": "wish",
-          "meaning": "希望；祝愿 愿望",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-19",
-          "word": "nurse",
-          "meaning": "护士",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-20",
-          "word": "hear",
-          "meaning": "听见",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-21",
-          "word": "door",
-          "meaning": "门",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-22",
-          "word": "spell",
-          "meaning": "用字母拼；拼写",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-23",
-          "word": "start",
-          "meaning": "开始；着手",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-10-24",
-          "word": "surprise",
-          "meaning": "惊喜；惊奇 使感到意外",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-10-25",
-          "word": "symbol",
-          "meaning": "象征；符号",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-10-26",
-          "word": "take a photo",
-          "meaning": "拍照",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-27",
-          "word": "take photos",
-          "meaning": "拍照",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-28",
-          "word": "total",
-          "meaning": "总数；合计 总的；全体的",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-7-1-10-29",
-          "word": "twin",
-          "meaning": "双胞胎之一 双胞胎之一的",
+          "id": "grade-7-1-8-17",
+          "word": "free",
+          "meaning": "空闲的；免费的",
           "partOfSpeech": "adj."
         },
         {
-          "id": "grade-7-1-10-30",
-          "word": "village",
-          "meaning": "村庄；村镇",
+          "id": "grade-7-1-8-18",
+          "word": "front",
+          "meaning": "前面；前部的",
+          "partOfSpeech": "n./adj."
+        },
+        {
+          "id": "grade-7-1-8-19",
+          "word": "newspaper",
+          "meaning": "报纸",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-10-31",
-          "word": "violin",
-          "meaning": "小提琴",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-7-1-10-32",
-          "word": "whom",
-          "meaning": "谁；什么人",
+          "id": "grade-7-1-8-20",
+          "word": "something",
+          "meaning": "某事；某物",
           "partOfSpeech": "pron."
         },
         {
-          "id": "grade-7-1-10-33",
-          "word": "yard",
-          "meaning": "院子；园圃",
+          "id": "grade-7-1-8-21",
+          "word": "living room",
+          "meaning": "客厅",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-7-1-10-34",
-          "word": "yogurt",
-          "meaning": "酸奶",
+          "id": "grade-7-1-8-22",
+          "word": "be interested in",
+          "meaning": "对……感兴趣",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-8-23",
+          "word": "be bad for",
+          "meaning": "对……有害",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-7-1-8-24",
+          "word": "work of art",
+          "meaning": "艺术品",
           "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-7-1-8-25",
+          "word": "look for",
+          "meaning": "寻找",
+          "partOfSpeech": "phr."
         }
       ]
     }

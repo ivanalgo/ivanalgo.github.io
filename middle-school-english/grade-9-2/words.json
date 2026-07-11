@@ -1,1246 +1,923 @@
 {
   "semester": "grade-9-2",
-  "title": "九年级下学期（Unit 8–14）",
-  "source": "henry1786580051-lang/english-test (MIT)",
+  "title": "九年级下册 · 沪教牛津版",
+  "source": "沪教牛津版（深圳常用）核心词表 · 按教材单元主题整理",
   "units": [
     {
-      "name": "Unit 8",
+      "name": "Unit 1 Great explorations",
       "words": [
         {
           "id": "grade-9-2-1-1",
-          "word": "truck",
-          "meaning": "卡车",
+          "word": "voyage",
+          "meaning": "航行",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-2",
-          "word": "rabbit",
-          "meaning": "兔子",
+          "word": "exploration",
+          "meaning": "探索",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-3",
-          "word": "whose",
-          "meaning": "谁的",
-          "partOfSpeech": "pron."
+          "word": "explorer",
+          "meaning": "探险家",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-4",
-          "word": "attend",
-          "meaning": "出席；参加",
+          "word": "discovery",
+          "meaning": "发现",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-5",
-          "word": "valuable",
-          "meaning": "贵重的；有价值的",
-          "partOfSpeech": "adj."
+          "word": "rise",
+          "meaning": "上升；增加",
+          "partOfSpeech": "v./n."
         },
         {
           "id": "grade-9-2-1-6",
-          "word": "pink",
-          "meaning": "粉红色的 粉红色",
-          "partOfSpeech": "n."
+          "word": "official",
+          "meaning": "官员；官方的",
+          "partOfSpeech": "n./adj."
         },
         {
           "id": "grade-9-2-1-7",
-          "word": "picnic",
-          "meaning": "野餐",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-1-8",
-          "word": "anybody",
-          "meaning": "任何人",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-9-2-1-9",
-          "word": "drop",
-          "meaning": "落下；掉落",
+          "word": "relation",
+          "meaning": "关系；联系",
           "partOfSpeech": "n."
         },
         {
+          "id": "grade-9-2-1-8",
+          "word": "trade",
+          "meaning": "贸易；交易",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-1-9",
+          "word": "develop",
+          "meaning": "发展；培养",
+          "partOfSpeech": "v."
+        },
+        {
           "id": "grade-9-2-1-10",
-          "word": "symphony",
-          "meaning": "交响乐",
+          "word": "fleet",
+          "meaning": "舰队；船队",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-11",
-          "word": "optometrist",
-          "meaning": "验光师",
+          "word": "Africa",
+          "meaning": "非洲",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-12",
-          "word": "appointment",
-          "meaning": "约会；预约",
+          "word": "silk",
+          "meaning": "丝绸",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-13",
-          "word": "crucial",
-          "meaning": "至关重要的",
+          "word": "giraffe",
+          "meaning": "长颈鹿",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-14",
-          "word": "make up",
-          "meaning": "组成；化妆；编造",
-          "partOfSpeech": "n."
+          "word": "besides",
+          "meaning": "除……之外；此外",
+          "partOfSpeech": "prep./adv."
         },
         {
           "id": "grade-9-2-1-15",
-          "word": "final",
-          "meaning": "最后的 决赛/期末考",
+          "word": "development",
+          "meaning": "发展",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-16",
-          "word": "anxious",
-          "meaning": "焦虑的；担心的",
-          "partOfSpeech": "adj."
+          "word": "region",
+          "meaning": "地区",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-17",
-          "word": "worried",
-          "meaning": "担心的",
-          "partOfSpeech": "adj."
+          "word": "pioneer",
+          "meaning": "先驱；先锋",
+          "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-18",
-          "word": "owner",
-          "meaning": "主人；物主",
+          "word": "route",
+          "meaning": "路线",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-19",
-          "word": "chase",
-          "meaning": "追赶；追逐",
-          "partOfSpeech": "n."
+          "word": "foreign",
+          "meaning": "外国的",
+          "partOfSpeech": "adj."
         },
         {
           "id": "grade-9-2-1-20",
-          "word": "sky",
-          "meaning": "天空",
+          "word": "journey",
+          "meaning": "旅程",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-1-21",
-          "word": "helicopter",
-          "meaning": "直升机",
-          "partOfSpeech": "n."
+          "word": "open up",
+          "meaning": "开辟；开放",
+          "partOfSpeech": "phr."
         },
         {
           "id": "grade-9-2-1-22",
-          "word": "creature",
-          "meaning": "生物；动物",
-          "partOfSpeech": "n."
+          "word": "go on a trip",
+          "meaning": "去旅行",
+          "partOfSpeech": "phr."
         },
         {
           "id": "grade-9-2-1-23",
-          "word": "catch",
-          "meaning": "(caught) 抓住；赶上",
-          "partOfSpeech": "n."
+          "word": "set up",
+          "meaning": "建立；设立",
+          "partOfSpeech": "phr."
         },
         {
           "id": "grade-9-2-1-24",
-          "word": "neighborhood",
-          "meaning": "社区；街坊",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-1-25",
-          "word": "stone",
-          "meaning": "石头",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-1-26",
-          "word": "monument",
-          "meaning": "纪念碑",
-          "partOfSpeech": "n."
+          "word": "lead to",
+          "meaning": "导致；通向",
+          "partOfSpeech": "phr."
         }
       ]
     },
     {
-      "name": "Unit 9",
+      "name": "Unit 2 Culture shock",
       "words": [
         {
           "id": "grade-9-2-2-1",
-          "word": "prefer",
-          "meaning": "更喜欢",
+          "word": "culture",
+          "meaning": "文化",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-2-2",
-          "word": "lyrics",
-          "meaning": "歌词",
-          "partOfSpeech": "n."
+          "word": "shock",
+          "meaning": "震惊；使震惊",
+          "partOfSpeech": "n./v."
         },
         {
           "id": "grade-9-2-2-3",
-          "word": "australian",
-          "meaning": "澳大利亚的 澳大利亚人",
+          "word": "camp",
+          "meaning": "营地",
           "partOfSpeech": "n."
         },
         {
           "id": "grade-9-2-2-4",
-          "word": "electronic",
-          "meaning": "电子的",
+          "word": "international",
+          "meaning": "国际的",
           "partOfSpeech": "adj."
         },
         {
           "id": "grade-9-2-2-5",
-          "word": "suppose",
-          "meaning": "推断；料想",
-          "partOfSpeech": "n."
+          "word": "admit",
+          "meaning": "承认；准许进入",
+          "partOfSpeech": "v."
         },
         {
           "id": "grade-9-2-2-6",
-          "word": "smooth",
-          "meaning": "光滑的；平稳的",
-          "partOfSpeech": "n."
+          "word": "spare",
+          "meaning": "空闲的；抽出",
+          "partOfSpeech": "adj./v."
         },
         {
           "id": "grade-9-2-2-7",
-          "word": "spare",
-          "meaning": "空闲的 抽出（时间）",
-          "partOfSpeech": "n."
+          "word": "manage",
+          "meaning": "完成；管理",
+          "partOfSpeech": "v."
         },
         {
           "id": "grade-9-2-2-8",
-          "word": "director",
-          "meaning": "导演；部门负责人",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-9",
-          "word": "case",
-          "meaning": "情况；案例",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-10",
-          "word": "in that case",
-          "meaning": "既然那样；假如果真如此",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-11",
-          "word": "war",
-          "meaning": "战争",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-12",
-          "word": "master",
-          "meaning": "大师；主人 掌握",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-13",
-          "word": "praise",
-          "meaning": "表扬；赞扬",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-2-14",
-          "word": "recall",
-          "meaning": "回忆起；回想起",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-15",
-          "word": "wound",
-          "meaning": "伤口；创伤 使受伤",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-16",
-          "word": "painful",
-          "meaning": "痛苦的；令人疼痛的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-2-17",
-          "word": "reflect",
-          "meaning": "反映；映射；沉思",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-18",
-          "word": "moving",
-          "meaning": "动人的；令人感动的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-2-19",
-          "word": "pity",
-          "meaning": "遗憾；可怜 同情",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-20",
-          "word": "sense",
-          "meaning": "感觉；意识 感觉到",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-2-21",
-          "word": "sadness",
-          "meaning": "悲伤；沮丧",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-22",
-          "word": "pain",
-          "meaning": "疼痛；痛苦",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-23",
-          "word": "total",
-          "meaning": "总的 总数",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-2-24",
-          "word": "in total",
-          "meaning": "总共",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-25",
-          "word": "masterpiece",
-          "meaning": "杰作；代表作",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-26",
-          "word": "look back on",
-          "meaning": "回顾；回忆",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-2-27",
-          "word": "oh",
-          "meaning": "哦；呀",
-          "partOfSpeech": "int."
-        }
-      ]
-    },
-    {
-      "name": "Unit 10",
-      "words": [
-        {
-          "id": "grade-9-2-3-1",
-          "word": "custom",
-          "meaning": "风俗；习俗",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-2",
-          "word": "bow",
-          "meaning": "鞠躬",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-3",
-          "word": "kiss",
-          "meaning": "吻；接吻",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-4",
-          "word": "greet",
-          "meaning": "问候；打招呼",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-5",
-          "word": "relaxed",
-          "meaning": "放松的；自在的",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-6",
-          "word": "value",
-          "meaning": "价值 重视；珍视",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-7",
-          "word": "drop by",
-          "meaning": "顺便拜访",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-8",
-          "word": "capital",
-          "meaning": "首都；资本",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-9",
-          "word": "noon",
-          "meaning": "中午；正午",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-10",
-          "word": "mad",
-          "meaning": "发疯的；生气的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-3-11",
-          "word": "effort",
-          "meaning": "努力；尽力",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-12",
-          "word": "make an effort",
-          "meaning": "作出努力",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-13",
           "word": "passport",
           "meaning": "护照",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-3-14",
-          "word": "chalk",
-          "meaning": "粉笔",
+          "id": "grade-9-2-2-9",
+          "word": "host family",
+          "meaning": "寄宿家庭",
           "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-2-10",
+          "word": "custom",
+          "meaning": "风俗；习惯",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-2-11",
+          "word": "stranger",
+          "meaning": "陌生人",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-2-12",
+          "word": "exchange",
+          "meaning": "交流；交换",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-2-13",
+          "word": "experience",
+          "meaning": "经历；体验",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-2-14",
+          "word": "local",
+          "meaning": "当地的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-2-15",
+          "word": "continue",
+          "meaning": "继续",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-9-2-2-16",
+          "word": "education",
+          "meaning": "教育",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-2-17",
+          "word": "weekday",
+          "meaning": "工作日",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-2-18",
+          "word": "degree",
+          "meaning": "程度；学位",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-2-19",
+          "word": "weather",
+          "meaning": "天气",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-2-20",
+          "word": "homesick",
+          "meaning": "想家的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-2-21",
+          "word": "keep in touch",
+          "meaning": "保持联系",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-2-22",
+          "word": "on time",
+          "meaning": "准时",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-2-23",
+          "word": "to a certain degree",
+          "meaning": "在某种程度上",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-2-24",
+          "word": "under the weather",
+          "meaning": "身体不适",
+          "partOfSpeech": "phr."
+        }
+      ]
+    },
+    {
+      "name": "Unit 3 The environment",
+      "words": [
+        {
+          "id": "grade-9-2-3-1",
+          "word": "environment",
+          "meaning": "环境",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-3-2",
+          "word": "greenhouse",
+          "meaning": "温室；温室的",
+          "partOfSpeech": "n./adj."
+        },
+        {
+          "id": "grade-9-2-3-3",
+          "word": "gas",
+          "meaning": "气体",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-3-4",
+          "word": "fuel",
+          "meaning": "燃料",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-3-5",
+          "word": "carbon dioxide",
+          "meaning": "二氧化碳",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-3-6",
+          "word": "increase",
+          "meaning": "增加",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-9-2-3-7",
+          "word": "temperature",
+          "meaning": "温度",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-3-8",
+          "word": "flood",
+          "meaning": "洪水；淹没",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-3-9",
+          "word": "surface",
+          "meaning": "表面",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-3-10",
+          "word": "destroy",
+          "meaning": "破坏；毁灭",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-9-2-3-11",
+          "word": "nature",
+          "meaning": "自然",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-3-12",
+          "word": "proper",
+          "meaning": "合适的；正确的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-3-13",
+          "word": "friendly",
+          "meaning": "友好的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-3-14",
+          "word": "recycle",
+          "meaning": "回收利用",
+          "partOfSpeech": "v."
         },
         {
           "id": "grade-9-2-3-15",
-          "word": "blackboard",
-          "meaning": "黑板",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-16",
-          "word": "northern",
-          "meaning": "北方的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-3-17",
-          "word": "coast",
-          "meaning": "海岸；海滨",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-18",
-          "word": "season",
-          "meaning": "季节",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-19",
-          "word": "knock",
-          "meaning": "敲击；碰撞",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-20",
-          "word": "manner",
-          "meaning": "方式；礼貌（复数）",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-3-21",
-          "word": "empty",
-          "meaning": "空的 倒空",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-22",
-          "word": "totally",
-          "meaning": "完全地",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-3-23",
-          "word": "worth",
-          "meaning": "值得的 价值",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-24",
-          "word": "spoon",
-          "meaning": "勺子",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-25",
-          "word": "knife",
-          "meaning": "刀 (knives)",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-26",
-          "word": "fork",
-          "meaning": "叉；餐叉",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-27",
-          "word": "napkin",
-          "meaning": "餐巾纸",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-28",
-          "word": "hang",
-          "meaning": "(hung) 悬挂；吊",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-3-29",
-          "word": "gradually",
-          "meaning": "逐渐地",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-3-30",
-          "word": "suggestion",
-          "meaning": "建议；提议",
-          "partOfSpeech": "v."
-        }
-      ]
-    },
-    {
-      "name": "Unit 11",
-      "words": [
-        {
-          "id": "grade-9-2-4-1",
-          "word": "rather",
-          "meaning": "相当；宁愿",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-9-2-4-2",
-          "word": "rather than",
-          "meaning": "宁愿；而不是",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-3",
-          "word": "drive",
-          "meaning": "驾驶；迫使（某人做某事）",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-4-4",
-          "word": "drive sb. crazy",
-          "meaning": "使某人发疯/发狂",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-4-5",
-          "word": "friendship",
-          "meaning": "友谊；友情",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-6",
-          "word": "king",
-          "meaning": "国王",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-7",
-          "word": "prime",
-          "meaning": "首要的；最好的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-4-8",
-          "word": "minister",
-          "meaning": "大臣；部长",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-9",
-          "word": "prime minister",
-          "meaning": "首相；总理",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-10",
-          "word": "fame",
-          "meaning": "名声；名誉",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-11",
-          "word": "pale",
-          "meaning": "苍白的；灰白的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-4-12",
-          "word": "queen",
-          "meaning": "女王；王后",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-4-13",
-          "word": "examine",
-          "meaning": "检查；调查",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-4-14",
-          "word": "nor",
-          "meaning": "也不",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-15",
-          "word": "neither ... nor",
-          "meaning": "既不……也不……",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-16",
-          "word": "palace",
-          "meaning": "宫殿",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-17",
-          "word": "power",
-          "meaning": "权力；力量",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-18",
-          "word": "wealth",
-          "meaning": "财富；财产",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-19",
-          "word": "grey",
-          "meaning": "灰色的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-4-20",
-          "word": "lemon",
-          "meaning": "柠檬",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-21",
-          "word": "uncomfortable",
-          "meaning": "不舒服的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-4-22",
-          "word": "weight",
-          "meaning": "重量；分量",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-23",
-          "word": "shoulder",
-          "meaning": "肩膀",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-24",
-          "word": "goal",
-          "meaning": "目标；进球得分",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-25",
-          "word": "let ... down",
-          "meaning": "使……失望",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-4-26",
-          "word": "coach",
-          "meaning": "教练",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-27",
-          "word": "kick",
-          "meaning": "踢",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-28",
-          "word": "teammate",
-          "meaning": "队友",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-29",
-          "word": "courage",
-          "meaning": "勇气；胆量",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-30",
-          "word": "rather",
-          "meaning": "相当",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-9-2-4-31",
-          "word": "nod",
-          "meaning": "点头",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-32",
-          "word": "agreement",
-          "meaning": "同意；协议",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-4-33",
-          "word": "fault",
-          "meaning": "错误；缺点",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-4-34",
-          "word": "disappoint",
-          "meaning": "使失望",
-          "partOfSpeech": "v."
-        }
-      ]
-    },
-    {
-      "name": "Unit 12",
-      "words": [
-        {
-          "id": "grade-9-2-5-1",
-          "word": "unexpected",
-          "meaning": "出乎意料的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-5-2",
-          "word": "by the time",
-          "meaning": "到……时候为止",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-3",
-          "word": "backpack",
-          "meaning": "双肩背包",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-4",
-          "word": "oversleep",
-          "meaning": "(overslept) 睡过头",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-5",
-          "word": "block",
-          "meaning": "街区 阻塞",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-6",
-          "word": "worker",
-          "meaning": "工人；劳动者",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-7",
-          "word": "stare",
-          "meaning": "凝视；注视",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-8",
-          "word": "disbelief",
-          "meaning": "不相信；怀疑",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-5-9",
-          "word": "above",
-          "meaning": "在……上方 在上面",
-          "partOfSpeech": "prep."
-        },
-        {
-          "id": "grade-9-2-5-10",
-          "word": "burn",
-          "meaning": "燃烧；烧毁",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-11",
-          "word": "burning",
-          "meaning": "燃烧的",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-5-12",
-          "word": "alive",
-          "meaning": "活着的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-5-13",
-          "word": "airport",
-          "meaning": "机场",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-14",
-          "word": "till",
-          "meaning": "直到……为止",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-15",
-          "word": "west",
-          "meaning": "西方 向西的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-5-16",
-          "word": "cream",
-          "meaning": "奶油；乳脂",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-17",
-          "word": "boss",
-          "meaning": "老板",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-18",
-          "word": "pie",
-          "meaning": "馅饼",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-19",
-          "word": "bean",
-          "meaning": "豆；豆科植物",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-20",
-          "word": "market",
-          "meaning": "市场；集市",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-21",
-          "word": "costume",
-          "meaning": "服装；戏装",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-22",
-          "word": "embarrassed",
-          "meaning": "尴尬的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-5-23",
-          "word": "fool",
-          "meaning": "愚弄 傻瓜",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-24",
-          "word": "April Fool's Day",
-          "meaning": "愚人节",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-25",
-          "word": "discovery",
-          "meaning": "发现",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-5-26",
-          "word": "lady",
-          "meaning": "女士；夫人",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-27",
-          "word": "officer",
-          "meaning": "军官；官员",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-5-28",
-          "word": "believable",
-          "meaning": "可信的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-5-29",
-          "word": "disappear",
-          "meaning": "消失；失踪",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-5-30",
-          "word": "embarrassing",
-          "meaning": "令人尴尬的",
-          "partOfSpeech": "v."
-        }
-      ]
-    },
-    {
-      "name": "Unit 13",
-      "words": [
-        {
-          "id": "grade-9-2-6-1",
-          "word": "litter",
-          "meaning": "乱扔 垃圾",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-2",
-          "word": "bottom",
-          "meaning": "底部；最下端",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-3",
-          "word": "fisherman",
-          "meaning": "渔民；钓鱼人",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-4",
-          "word": "coal",
-          "meaning": "煤；煤块",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-5",
-          "word": "public",
-          "meaning": "公众的 民众",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-6-6",
-          "word": "ugly",
-          "meaning": "丑陋的；难看的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-6-7",
-          "word": "advantage",
-          "meaning": "优点；优势",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-8",
-          "word": "cost",
-          "meaning": "花费 成本",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-9",
-          "word": "wooden",
-          "meaning": "木制的",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-6-10",
-          "word": "plastic",
-          "meaning": "塑料的 塑料",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-11",
-          "word": "cruel",
-          "meaning": "残酷的；残忍的",
-          "partOfSpeech": "adj."
-        },
-        {
-          "id": "grade-9-2-6-12",
-          "word": "shark",
-          "meaning": "鲨鱼",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-13",
-          "word": "fin",
-          "meaning": "鱼鳍",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-14",
-          "word": "cut off",
-          "meaning": "切断；割掉",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-15",
-          "word": "industry",
-          "meaning": "工业；行业",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-16",
-          "word": "law",
-          "meaning": "法律；法规",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-17",
           "word": "reusable",
           "meaning": "可重复使用的",
           "partOfSpeech": "adj."
         },
         {
-          "id": "grade-9-2-6-18",
-          "word": "transport",
-          "meaning": "运输；运送",
-          "partOfSpeech": "v."
+          "id": "grade-9-2-3-16",
+          "word": "plastic",
+          "meaning": "塑料；塑料的",
+          "partOfSpeech": "n./adj."
         },
         {
-          "id": "grade-9-2-6-19",
-          "word": "recycle",
-          "meaning": "回收利用",
+          "id": "grade-9-2-3-17",
+          "word": "rubbish",
+          "meaning": "垃圾",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-6-20",
-          "word": "napkin",
-          "meaning": "餐巾纸",
+          "id": "grade-9-2-3-18",
+          "word": "pollution",
+          "meaning": "污染",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-6-21",
-          "word": "gate",
-          "meaning": "大门",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-6-22",
-          "word": "bottle",
-          "meaning": "瓶子",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-23",
-          "word": "roof",
-          "meaning": "屋顶；车顶",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-6-24",
+          "id": "grade-9-2-3-19",
           "word": "waste",
-          "meaning": "浪费；废物 浪费",
+          "meaning": "废物；浪费",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-3-20",
+          "word": "action",
+          "meaning": "行动",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-6-25",
-          "word": "dust",
-          "meaning": "灰尘；尘土",
-          "partOfSpeech": "n."
+          "id": "grade-9-2-3-21",
+          "word": "cut down",
+          "meaning": "砍倒；削减",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-9-2-6-26",
-          "word": "purify",
-          "meaning": "净化；使纯净",
-          "partOfSpeech": "v."
+          "id": "grade-9-2-3-22",
+          "word": "result in",
+          "meaning": "导致",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-9-2-6-27",
-          "word": "economic",
-          "meaning": "经济的；经济学的",
-          "partOfSpeech": "adj."
+          "id": "grade-9-2-3-23",
+          "word": "mountains of",
+          "meaning": "大量的",
+          "partOfSpeech": "phr."
         },
         {
-          "id": "grade-9-2-6-28",
-          "word": "eco-friendly",
+          "id": "grade-9-2-3-24",
+          "word": "take action",
+          "meaning": "采取行动",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-3-25",
+          "word": "environmentally friendly",
           "meaning": "环保的",
           "partOfSpeech": "adj."
+        }
+      ]
+    },
+    {
+      "name": "Unit 4 Natural disasters",
+      "words": [
+        {
+          "id": "grade-9-2-4-1",
+          "word": "disaster",
+          "meaning": "灾难",
+          "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-6-29",
-          "word": "material",
-          "meaning": "材料；原料",
+          "id": "grade-9-2-4-2",
+          "word": "earthquake",
+          "meaning": "地震",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-3",
+          "word": "typhoon",
+          "meaning": "台风",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-4",
+          "word": "flood",
+          "meaning": "洪水；淹没",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-4-5",
+          "word": "drought",
+          "meaning": "干旱",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-6",
+          "word": "alive",
+          "meaning": "活着的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-4-7",
+          "word": "pool",
+          "meaning": "水池；池塘",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-8",
+          "word": "object",
+          "meaning": "物体；目标",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-9",
+          "word": "coach",
+          "meaning": "教练；长途汽车",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-10",
+          "word": "pass",
+          "meaning": "经过；通过；传球",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-9-2-4-11",
+          "word": "dead",
+          "meaning": "死的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-4-12",
+          "word": "missing",
+          "meaning": "失踪的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-4-13",
+          "word": "survivor",
+          "meaning": "幸存者",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-14",
+          "word": "medical",
+          "meaning": "医疗的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-4-15",
+          "word": "helicopter",
+          "meaning": "直升机",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-16",
+          "word": "immediately",
+          "meaning": "立即",
+          "partOfSpeech": "adv."
+        },
+        {
+          "id": "grade-9-2-4-17",
+          "word": "damage",
+          "meaning": "损害；破坏",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-4-18",
+          "word": "shelter",
+          "meaning": "避难所",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-19",
+          "word": "warning",
+          "meaning": "警告",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-4-20",
+          "word": "calm",
+          "meaning": "镇静的；使平静",
+          "partOfSpeech": "adj./v."
+        },
+        {
+          "id": "grade-9-2-4-21",
+          "word": "in danger",
+          "meaning": "处于危险中",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-4-22",
+          "word": "keep calm",
+          "meaning": "保持冷静",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-4-23",
+          "word": "pass by",
+          "meaning": "经过",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-4-24",
+          "word": "stick with",
+          "meaning": "坚持；不离开",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-4-25",
+          "word": "first aid",
+          "meaning": "急救",
           "partOfSpeech": "n."
         }
       ]
     },
     {
-      "name": "Unit 14",
+      "name": "Unit 5 Sport",
       "words": [
         {
-          "id": "grade-9-2-7-1",
-          "word": "survey",
-          "meaning": "调查",
+          "id": "grade-9-2-5-1",
+          "word": "sport",
+          "meaning": "运动",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-7-2",
-          "word": "standard",
-          "meaning": "标准 标准的",
+          "id": "grade-9-2-5-2",
+          "word": "skiing",
+          "meaning": "滑雪运动",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-7-3",
-          "word": "row",
-          "meaning": "一排；一行 划船",
+          "id": "grade-9-2-5-3",
+          "word": "volleyball",
+          "meaning": "排球",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-7-4",
-          "word": "in a row",
-          "meaning": "连续几次地",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-9-2-7-5",
-          "word": "keyboard",
-          "meaning": "键盘",
+          "id": "grade-9-2-5-4",
+          "word": "badminton",
+          "meaning": "羽毛球",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-7-6",
-          "word": "method",
-          "meaning": "方法；条理",
+          "id": "grade-9-2-5-5",
+          "word": "boxing",
+          "meaning": "拳击",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-7-7",
-          "word": "instruction",
-          "meaning": "指示；命令",
+          "id": "grade-9-2-5-6",
+          "word": "race",
+          "meaning": "比赛；竞赛",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-5-7",
+          "word": "track",
+          "meaning": "跑道；轨道",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-8",
+          "word": "beat",
+          "meaning": "打败；敲打",
           "partOfSpeech": "v."
         },
         {
-          "id": "grade-9-2-7-8",
-          "word": "double",
-          "meaning": "加倍 两倍的",
+          "id": "grade-9-2-5-9",
+          "word": "score",
+          "meaning": "得分；分数",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-5-10",
+          "word": "exercise",
+          "meaning": "锻炼",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-5-11",
+          "word": "event",
+          "meaning": "比赛项目；事件",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-12",
+          "word": "stadium",
+          "meaning": "体育场",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-13",
+          "word": "athlete",
+          "meaning": "运动员",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-14",
+          "word": "champion",
+          "meaning": "冠军",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-15",
+          "word": "final",
+          "meaning": "决赛；最后的",
+          "partOfSpeech": "n./adj."
+        },
+        {
+          "id": "grade-9-2-5-16",
+          "word": "medal",
+          "meaning": "奖牌",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-17",
+          "word": "training",
+          "meaning": "训练",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-18",
+          "word": "teammate",
+          "meaning": "队友",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-19",
+          "word": "decision",
+          "meaning": "决定",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-5-20",
+          "word": "fair",
+          "meaning": "公平的；展览会",
+          "partOfSpeech": "adj./n."
+        },
+        {
+          "id": "grade-9-2-5-21",
+          "word": "take part in",
+          "meaning": "参加",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-5-22",
+          "word": "go skiing",
+          "meaning": "去滑雪",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-5-23",
+          "word": "keep fit",
+          "meaning": "保持健康",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-5-24",
+          "word": "warm up",
+          "meaning": "热身",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-5-25",
+          "word": "set a record",
+          "meaning": "创造纪录",
+          "partOfSpeech": "phr."
+        }
+      ]
+    },
+    {
+      "name": "Unit 6 Caring for your health",
+      "words": [
+        {
+          "id": "grade-9-2-6-1",
+          "word": "health",
+          "meaning": "健康",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-6-2",
+          "word": "quarrel",
+          "meaning": "争吵",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-6-3",
+          "word": "pressure",
+          "meaning": "压力",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-6-4",
+          "word": "risk",
+          "meaning": "风险；冒险",
+          "partOfSpeech": "n./v."
+        },
+        {
+          "id": "grade-9-2-6-5",
+          "word": "guard",
+          "meaning": "保护；警卫",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-9-2-6-6",
+          "word": "cancel",
+          "meaning": "取消；抵消",
+          "partOfSpeech": "v."
+        },
+        {
+          "id": "grade-9-2-6-7",
+          "word": "bright",
+          "meaning": "明亮的；聪明的",
           "partOfSpeech": "adj."
         },
         {
-          "id": "grade-9-2-7-9",
-          "word": "shall",
-          "meaning": "将要；应该",
-          "partOfSpeech": "v."
+          "id": "grade-9-2-6-8",
+          "word": "force",
+          "meaning": "强迫；力量",
+          "partOfSpeech": "v./n."
         },
         {
-          "id": "grade-9-2-7-10",
-          "word": "look back at",
-          "meaning": "回顾；回头看",
-          "partOfSpeech": "n."
+          "id": "grade-9-2-6-9",
+          "word": "whether",
+          "meaning": "是否",
+          "partOfSpeech": "conj."
         },
         {
-          "id": "grade-9-2-7-11",
-          "word": "overcome",
-          "meaning": "克服；战胜",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-7-12",
-          "word": "graduate",
-          "meaning": "毕业 毕业生",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-7-13",
-          "word": "graduation",
-          "meaning": "毕业",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-7-14",
-          "word": "caring",
-          "meaning": "体贴的；关心的",
-          "partOfSpeech": "v."
-        },
-        {
-          "id": "grade-9-2-7-15",
-          "word": "ourselves",
-          "meaning": "我们自己",
-          "partOfSpeech": "pron."
-        },
-        {
-          "id": "grade-9-2-7-16",
-          "word": "thankful",
-          "meaning": "感激的",
+          "id": "grade-9-2-6-10",
+          "word": "private",
+          "meaning": "私人的",
           "partOfSpeech": "adj."
         },
         {
-          "id": "grade-9-2-7-17",
-          "word": "be thankful to sb.",
-          "meaning": "对某人充满感激",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-7-18",
-          "word": "ahead",
-          "meaning": "向前；在前面",
-          "partOfSpeech": "adv."
-        },
-        {
-          "id": "grade-9-2-7-19",
-          "word": "ahead of",
-          "meaning": "在……前面",
-          "partOfSpeech": "n."
-        },
-        {
-          "id": "grade-9-2-7-20",
-          "word": "responsible",
-          "meaning": "有责任的",
+          "id": "grade-9-2-6-11",
+          "word": "silent",
+          "meaning": "沉默的",
           "partOfSpeech": "adj."
         },
         {
-          "id": "grade-9-2-7-21",
-          "word": "be responsible for",
-          "meaning": "对……有责任/负责",
+          "id": "grade-9-2-6-12",
+          "word": "enemy",
+          "meaning": "敌人",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-7-22",
-          "word": "separate",
-          "meaning": "单独的 分开",
-          "partOfSpeech": "v."
+          "id": "grade-9-2-6-13",
+          "word": "regular",
+          "meaning": "有规律的；定期的",
+          "partOfSpeech": "adj."
         },
         {
-          "id": "grade-9-2-7-23",
-          "word": "set sail",
-          "meaning": "扬帆起航",
+          "id": "grade-9-2-6-14",
+          "word": "cheer",
+          "meaning": "欢呼；鼓励",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-9-2-6-15",
+          "word": "low",
+          "meaning": "低的；沮丧的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-6-16",
+          "word": "mood",
+          "meaning": "心情",
           "partOfSpeech": "n."
         },
         {
-          "id": "grade-9-2-7-24",
-          "word": "separate",
-          "meaning": "分离；隔开",
+          "id": "grade-9-2-6-17",
+          "word": "relaxed",
+          "meaning": "放松的",
+          "partOfSpeech": "adj."
+        },
+        {
+          "id": "grade-9-2-6-18",
+          "word": "focus",
+          "meaning": "集中；焦点",
+          "partOfSpeech": "v./n."
+        },
+        {
+          "id": "grade-9-2-6-19",
+          "word": "breathe",
+          "meaning": "呼吸",
           "partOfSpeech": "v."
         },
         {
-          "id": "grade-9-2-7-25",
-          "word": "wing",
-          "meaning": "翅膀；翼",
-          "partOfSpeech": "v."
+          "id": "grade-9-2-6-20",
+          "word": "lifestyle",
+          "meaning": "生活方式",
+          "partOfSpeech": "n."
+        },
+        {
+          "id": "grade-9-2-6-21",
+          "word": "deal with",
+          "meaning": "处理；应对",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-6-22",
+          "word": "guard against",
+          "meaning": "防止；提防",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-6-23",
+          "word": "cancel out",
+          "meaning": "抵消",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-6-24",
+          "word": "cheer up",
+          "meaning": "振作起来",
+          "partOfSpeech": "phr."
+        },
+        {
+          "id": "grade-9-2-6-25",
+          "word": "take up",
+          "meaning": "开始从事；占用",
+          "partOfSpeech": "phr."
         }
       ]
     }

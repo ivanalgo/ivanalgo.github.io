@@ -4,12 +4,12 @@ const DICTIONARY_CACHE_KEY = "middle-school-english:dictionary-cache";
 const DICTIONARY_ENDPOINT = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 const semesters = {
-  "grade-7-1": { title: "七年级上学期", data: "./grade-7-1/words.json" },
-  "grade-7-2": { title: "七年级下学期", data: "./grade-7-2/words.json" },
-  "grade-8-1": { title: "八年级上学期", data: "./grade-8-1/words.json" },
-  "grade-8-2": { title: "八年级下学期", data: "./grade-8-2/words.json" },
-  "grade-9-1": { title: "九年级上学期", data: "./grade-9-1/words.json" },
-  "grade-9-2": { title: "九年级下学期", data: "./grade-9-2/words.json" },
+  "grade-7-1": { title: "七年级上册 · 沪教牛津版", data: "./grade-7-1/words.json" },
+  "grade-7-2": { title: "七年级下册 · 沪教牛津版", data: "./grade-7-2/words.json" },
+  "grade-8-1": { title: "八年级上册 · 沪教牛津版", data: "./grade-8-1/words.json" },
+  "grade-8-2": { title: "八年级下册 · 沪教牛津版", data: "./grade-8-2/words.json" },
+  "grade-9-1": { title: "九年级上册 · 沪教牛津版", data: "./grade-9-1/words.json" },
+  "grade-9-2": { title: "九年级下册 · 沪教牛津版", data: "./grade-9-2/words.json" },
 };
 
 const collocations = {
@@ -246,19 +246,47 @@ function currentWord() {
   return state.queue[state.index];
 }
 
+function topicLabel(word) {
+  return (word.unit || "this topic").replace(/^Unit\s+\d+\s*/i, "").trim().toLowerCase();
+}
+
 function fallbackExample(word) {
-  return `Try to use “${word.word}” in a sentence today.`;
+  const topic = topicLabel(word);
+  if (word.word.includes(" ")) {
+    return `We often use “${word.word}” when talking about ${topic}.`;
+  }
+  return `The word “${word.word}” is useful when talking about ${topic}.`;
+}
+
+function articleFor(word) {
+  return /^[aeiou]/i.test(word) ? "an" : "a";
 }
 
 function fallbackCollocations(word) {
   const normalized = normalizeWord(word.word);
+  if (Array.isArray(word.collocations) && word.collocations.length > 0) {
+    return word.collocations;
+  }
   if (collocations[normalized]) {
     return collocations[normalized];
   }
   if (word.word.includes(" ")) {
     return [`${word.word}　${word.meaning}`];
   }
-  return ["在线词典暂未提供搭配，可先结合例句记忆"];
+  const part = (word.partOfSpeech || "").toLowerCase();
+  if (part.includes("v.")) {
+    return [`${word.word} something ${word.word} + 某事/某物`, `${word.word} carefully 认真地${word.word}`];
+  }
+  if (part.includes("adj.")) {
+    return [`be ${word.word} 是/变得${word.meaning.split(/[；;]/)[0]}`, `${word.word} + noun ${word.word} + 名词`];
+  }
+  if (part.includes("adv.")) {
+    return [`${word.word} + verb ${word.word} + 动词`, `${word.word} enough 足够${word.word}`];
+  }
+  if (part.includes("n.")) {
+    return [`${articleFor(word.word)} ${word.word} 一个/一件/一本 ${word.word}`, `${word.word} of ... ……的${word.word}`];
+  }
+  return [`use “${word.word}” 使用 ${word.word}`, `remember “${word.word}” 记住 ${word.word}`];
 }
 
 function renderCollocations(items) {

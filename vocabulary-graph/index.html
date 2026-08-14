@@ -4,9 +4,18 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="离线英语词汇关系图：搜索单词，探索它的近邻词汇。">
   <title>Word Orbit · 英语词汇关系图</title>
-  <link rel="stylesheet" href="styles.css?v=8"><link rel="stylesheet" href="meanings.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9"><link rel="stylesheet" href="meanings.css?v=9">
 </head>
 <body>
+  <div id="dataLoader" class="data-loader" role="status" aria-live="polite">
+    <div class="loader-card">
+      <div class="loader-mark">W</div>
+      <div class="loader-copy"><strong>正在加载词汇宇宙</strong><span id="loaderStatus">准备 50,000 个单词…</span></div>
+      <div class="loader-track"><span id="loaderBar"></span></div>
+      <div class="loader-meta"><span id="loaderPercent">0%</span><span id="loaderSize">正在连接数据</span></div>
+      <button id="loaderRetry" type="button" hidden>重新加载</button>
+    </div>
+  </div>
   <header>
     <a class="brand" href="./" aria-label="Word Orbit 首页"><span class="logo">W</span><span>Word Orbit</span></a>
     <div class="header-tagline">从一个词，走进一片词汇宇宙。</div>
@@ -34,6 +43,6 @@
     </section>
   </main>
   <footer><span>WORD ORBIT</span><span>Built for curious English learners</span></footer>
-  <script src="vocab-data.js?v=8"></script><script src="app.js?v=8"></script>
+  <script src="loader.js?v=9"></script>
 </body>
 </html>

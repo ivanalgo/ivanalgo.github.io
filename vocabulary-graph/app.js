@@ -1,9 +1,10 @@
-const {words,meanings,neighbors}=window.VOCAB_DATA;
+const {words,meanings}=window.VOCAB_DATA;
+const neighbors=window.VOCAB_NEIGHBORS;
 const index=new Map(words.map((w,i)=>[w,i]));
 const search=document.querySelector('#search'), suggestions=document.querySelector('#suggestions');
 const graph=document.querySelector('#graph'), nodes=document.querySelector('#nodes'), canvas=document.querySelector('#lines');
 const title=document.querySelector('#title'), titleMeaning=document.querySelector('#titleMeaning'), back=document.querySelector('#back');
-let current=index.get('learn')||0, history=[], rotation=0, activeSuggestion=0;
+let current=index.get('learn')||0, navigationHistory=[], rotation=0, activeSuggestion=0;
 
 function speakWord(word){
   if(!('speechSynthesis' in window))return;
@@ -15,16 +16,23 @@ function speakWord(word){
   speechSynthesis.speak(utterance);
 }
 
-function showWord(word,push=true){
+async function showWord(word,push=true){
   word=word.toLowerCase().trim();
   if(!index.has(word)){const first=words.find(w=>w.startsWith(word));if(!first)return;word=first}
-  if(push&&current!==index.get(word))history.push(current);
-  current=index.get(word);rotation=0;search.value=word;title.textContent=word;titleMeaning.textContent=meanings[current];back.disabled=!history.length;
-  suggestions.hidden=true;render();history.replaceState(null,'',`#${word}`);
+  const next=index.get(word);
+  if(push&&current!==next)navigationHistory.push(current);
+  current=next;rotation=0;search.value=word;title.textContent=word;titleMeaning.textContent=meanings[current];back.disabled=!navigationHistory.length;
+  suggestions.hidden=true;window.history.replaceState(null,'',`#${word}`);
+  if(!neighbors[next]){
+    nodes.innerHTML=`<div class="graph-loading">正在加载 ${word[0].toUpperCase()} 组关系…</div>`;
+    await window.ensureNeighborChunk(word[0]);
+  }
+  if(current===next)render();
 }
 function render(){
   nodes.innerHTML='';const rect=graph.getBoundingClientRect(),w=rect.width,h=rect.height,cx=w/2,cy=h/2;
-  const count=w<700?18:w<980?28:36, all=neighbors[current], list=all.slice(rotation).concat(all.slice(0,rotation));
+  const all=neighbors[current];if(!all)return;
+  const count=w<700?18:w<980?28:36, list=all.slice(rotation).concat(all.slice(0,rotation));
   const points=[];
   addNode(words[current],meanings[current],cx,cy,'center',null,0);
   list.slice(0,count).forEach(([idx,score],i)=>{
@@ -54,7 +62,7 @@ function updateSuggestions(){
 search.addEventListener('input',()=>{activeSuggestion=0;updateSuggestions()});
 search.addEventListener('keydown',e=>{const opts=[...suggestions.querySelectorAll('button')];if(e.key==='ArrowDown'){e.preventDefault();activeSuggestion=Math.min(activeSuggestion+1,opts.length-1);updateSuggestions()}else if(e.key==='ArrowUp'){e.preventDefault();activeSuggestion=Math.max(activeSuggestion-1,0);updateSuggestions()}else if(e.key==='Enter'){e.preventDefault();showWord(opts[activeSuggestion]?.dataset.word||search.value)}else if(e.key==='Escape')suggestions.hidden=true});
 document.querySelectorAll('[data-word]').forEach(b=>b.addEventListener('click',()=>showWord(b.dataset.word)));
-back.onclick=()=>{if(history.length){const i=history.pop();current=i;showWord(words[i],false)}};
-document.querySelector('#shuffle').onclick=()=>{rotation=(rotation+7)%neighbors[current].length;render()};
-addEventListener('resize',()=>requestAnimationFrame(render));
+back.onclick=()=>{if(navigationHistory.length){const i=navigationHistory.pop();showWord(words[i],false)}};
+document.querySelector('#shuffle').onclick=()=>{if(neighbors[current]){rotation=(rotation+7)%neighbors[current].length;render()}};
+addEventListener('resize',()=>{if(neighbors[current])requestAnimationFrame(render)});
 showWord(location.hash.slice(1)||'learn',false);

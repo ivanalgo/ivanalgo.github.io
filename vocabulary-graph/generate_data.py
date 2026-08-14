@@ -1,10 +1,10 @@
-import csv, json, re, zipfile
+import csv, json, os, re, zipfile
 import numpy as np
 
 SOURCE = "/tmp/en_full.txt"
 DICT_SOURCE = "/tmp/ecdict.csv"
 GLOVE_ZIP = "/tmp/glove.2024.wikigiga.100d.zip"
-OUT = "vocabulary-graph/vocab-data.js"
+DATA_DIR = "vocabulary-graph/data"
 WORD_COUNT = 50000
 NEIGHBOR_COUNT = 40
 SEARCH_COUNT = 500
@@ -84,9 +84,31 @@ with open(DICT_SOURCE, encoding="utf-8", errors="ignore", newline="") as f:
     raw_meanings[w]="；".join(parts[:2])[:34]
 
 meanings=[raw_meanings.get(w,"低频词或专有名称") for w in words]
-payload={"model":"GloVe 2024 WikiGigaword 100d","words":words,"meanings":meanings,"neighbors":neighbors}
-with open(OUT,"w",encoding="utf-8") as f:
+os.makedirs(DATA_DIR,exist_ok=True)
+
+core_path=os.path.join(DATA_DIR,"core.js")
+core={"model":"GloVe 2024 WikiGigaword 100d","words":words,"meanings":meanings}
+with open(core_path,"w",encoding="utf-8") as f:
   f.write("window.VOCAB_DATA=")
-  json.dump(payload,f,separators=(",",":"),ensure_ascii=False)
+  json.dump(core,f,separators=(",",":"),ensure_ascii=False)
   f.write(";")
-print(f"done: {len(words)} words -> {OUT}")
+
+chunk_meta={}
+for letter in "abcdefghijklmnopqrstuvwxyz":
+  ids=[i for i,w in enumerate(words) if w[0]==letter]
+  payload={"ids":ids,"neighbors":[neighbors[i] for i in ids]}
+  path=os.path.join(DATA_DIR,f"neighbors-{letter}.js")
+  with open(path,"w",encoding="utf-8") as f:
+    f.write("window.VOCAB_CHUNKS=window.VOCAB_CHUNKS||{};")
+    f.write(f"window.VOCAB_CHUNKS[{json.dumps(letter)}]=")
+    json.dump(payload,f,separators=(",",":"),ensure_ascii=False)
+    f.write(";")
+  chunk_meta[letter]={"bytes":os.path.getsize(path),"count":len(ids)}
+
+manifest={"version":11,"coreBytes":os.path.getsize(core_path),"chunks":chunk_meta}
+manifest_path=os.path.join(DATA_DIR,"manifest.js")
+with open(manifest_path,"w",encoding="utf-8") as f:
+  f.write("window.VOCAB_MANIFEST=")
+  json.dump(manifest,f,separators=(",",":"))
+  f.write(";")
+print(f"done: {len(words)} words -> {DATA_DIR} ({len(chunk_meta)} chunks)")

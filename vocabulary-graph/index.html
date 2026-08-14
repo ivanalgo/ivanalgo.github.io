@@ -4,7 +4,7 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="离线英语词汇关系图：搜索单词，探索它的近邻词汇。">
   <title>Word Orbit · 英语词汇关系图</title>
-  <link rel="stylesheet" href="styles.css?v=10"><link rel="stylesheet" href="meanings.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11"><link rel="stylesheet" href="meanings.css?v=11">
 </head>
 <body>
   <div id="dataLoader" class="data-loader" role="status" aria-live="polite">
@@ -19,7 +19,7 @@
   <header>
     <a class="brand" href="./" aria-label="Word Orbit 首页"><span class="logo">W</span><span>Word Orbit</span></a>
     <div class="header-tagline">从一个词，走进一片词汇宇宙。</div>
-    <div class="dataset"><span></span> 50,000 words · offline</div>
+    <div class="dataset"><span></span><b id="datasetStatus">50,000 words · loading</b></div>
   </header>
   <main>
     <section class="search-wrap" aria-label="单词搜索">
@@ -43,6 +43,6 @@
     </section>
   </main>
   <footer><span>WORD ORBIT</span><span>Built for curious English learners</span></footer>
-  <script src="loader.js?v=10"></script>
+  <script src="loader.js?v=11"></script>
 </body>
 </html>

@@ -29,7 +29,7 @@ function render(){
   addNode(words[current],meanings[current],cx,cy,'center',null,0);
   list.slice(0,count).forEach(([idx,score],i)=>{
     const ring=i<8?1:i<20?2:3,slot=ring===1?i:ring===2?i-8:i-20,total=ring===1?8:ring===2?Math.min(12,count-8):count-20;
-    const rx=ring===1?Math.min(175,w*.19):ring===2?Math.min(330,w*.32):Math.min(500,w*.44), ry=ring===1?115:ring===2?215:300;
+    const rx=ring===1?Math.min(235,w*.22):ring===2?Math.min(385,w*.35):Math.min(510,w*.44), ry=ring===1?140:ring===2?230:300;
     const angle=-Math.PI/2+(slot/total)*Math.PI*2+(ring===2?.16:ring===3?.08:0);
     const x=cx+Math.cos(angle)*rx,y=cy+Math.sin(angle)*ry;
     const tier=i<6?'hot':i<16?'warm':i<28?'mild':'cool';

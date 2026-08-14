@@ -4,6 +4,8 @@ const percent=document.querySelector('#loaderPercent');
 const size=document.querySelector('#loaderSize');
 const statusText=document.querySelector('#loaderStatus');
 const retry=document.querySelector('#loaderRetry');
+// fetch() 返回的是解压后的字节流，而 CDN 的 Content-Length 可能是 gzip/br 压缩体积。
+const EXPECTED_DATA_BYTES=29137347;
 
 function formatMB(bytes){return `${(bytes/1024/1024).toFixed(1)} MB`}
 function updateProgress(loaded,total){
@@ -21,12 +23,12 @@ async function loadData(){
     retry.hidden=true;
     if(location.protocol==='file:'){
       statusText.textContent='正在读取本地词库…';bar.classList.add('indeterminate');
-      await loadScript('vocab-data.js?v=9');
+      await loadScript('vocab-data.js?v=10');
     }else{
       statusText.textContent='正在下载离线词库…';
-      const response=await fetch('vocab-data.js?v=9');
+      const response=await fetch('vocab-data.js?v=10');
       if(!response.ok)throw new Error(`HTTP ${response.status}`);
-      const total=Number(response.headers.get('content-length'))||0;
+      const total=EXPECTED_DATA_BYTES;
       if(response.body&&response.body.getReader){
         const reader=response.body.getReader(),chunks=[];let loaded=0;
         while(true){
@@ -41,7 +43,7 @@ async function loadData(){
       }
     }
     statusText.textContent='正在生成关系图…';bar.classList.remove('indeterminate');bar.style.width='100%';percent.textContent='100%';
-    await loadScript('app.js?v=9');
+    await loadScript('app.js?v=10');
     overlay.classList.add('complete');setTimeout(()=>overlay.remove(),320);
   }catch(error){
     console.error('Word Orbit loading failed:',error);

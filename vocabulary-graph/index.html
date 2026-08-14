@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="离线英语词汇关系图：搜索单词，探索它的近邻词汇。">
+  <title>Word Orbit · 英语词汇关系图</title>
+  <link rel="stylesheet" href="styles.css?v=4"><link rel="stylesheet" href="meanings.css?v=4">
+</head>
+<body>
+  <header>
+    <a class="brand" href="./" aria-label="Word Orbit 首页"><span class="logo">W</span><span>Word Orbit</span></a>
+    <div class="dataset"><span></span> 20,000 words · offline</div>
+  </header>
+  <main>
+    <section class="intro compact-intro">
+      <div><p class="eyebrow">EXPLORE BY ASSOCIATION</p><h1>从一个词，走进一片词汇宇宙。</h1></div>
+      <p class="lead">搜索 2 万个常用英语词，点击节点沿语义关系连续探索。</p>
+    </section>
+    <section class="search-wrap" aria-label="单词搜索">
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input id="search" autocomplete="off" spellcheck="false" placeholder="Search a word, e.g. learn" aria-label="搜索英语单词">
+        <kbd>↵</kbd>
+      </div>
+      <div id="suggestions" class="suggestions" hidden></div>
+      <div class="search-meta"><div class="quick">试试： <button data-word="learn">learn</button><button data-word="happy">happy</button><button data-word="computer">computer</button><button data-word="journey">journey</button></div><span class="source-note">词库：英语词频表 + ECDICT 中文释义 · 近邻：GloVe 2024 100d 余弦相似度 Top 40，已过滤普通复数</span></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <div><span class="muted">WORD NEIGHBORHOOD</span><h2 id="title">learn</h2><p id="titleMeaning">学习；学会</p></div>
+        <div class="actions"><button id="back" title="返回上一个词" disabled>←</button><button id="shuffle" title="换一组近邻">↻</button></div>
+      </div>
+      <div id="graph" class="graph" role="application" aria-label="单词关系图">
+        <canvas id="lines"></canvas><div id="nodes"></div>
+        <div class="hint">点击周边单词继续探索</div>
+      </div>
+      <div class="legend"><span><i class="dot near"></i>更相关</span><span><i class="dot far"></i>较相关</span><span class="method">GloVe 2024 · 100d · cosine similarity</span></div>
+    </section>
+  </main>
+  <footer><span>WORD ORBIT</span><span>Built for curious English learners</span></footer>
+  <script src="vocab-data.js?v=4"></script><script src="app.js?v=4"></script>
+</body>
+</html>

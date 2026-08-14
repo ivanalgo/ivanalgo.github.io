@@ -5,6 +5,16 @@ const graph=document.querySelector('#graph'), nodes=document.querySelector('#nod
 const title=document.querySelector('#title'), titleMeaning=document.querySelector('#titleMeaning'), back=document.querySelector('#back');
 let current=index.get('learn')||0, history=[], rotation=0, activeSuggestion=0;
 
+function speakWord(word){
+  if(!('speechSynthesis' in window))return;
+  speechSynthesis.cancel();
+  const utterance=new SpeechSynthesisUtterance(word);
+  utterance.lang='en-US';utterance.rate=.82;utterance.pitch=1;
+  const voices=speechSynthesis.getVoices();
+  utterance.voice=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null;
+  speechSynthesis.speak(utterance);
+}
+
 function showWord(word,push=true){
   word=word.toLowerCase().trim();
   if(!index.has(word)){const first=words.find(w=>w.startsWith(word));if(!first)return;word=first}
@@ -29,9 +39,11 @@ function render(){
   points.forEach((p,i)=>{ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.strokeStyle=p.tier==='hot'?'rgba(255,91,88,.42)':p.tier==='warm'?'rgba(244,151,42,.29)':p.tier==='mild'?'rgba(35,176,154,.20)':'rgba(70,111,219,.12)';ctx.lineWidth=p.tier==='hot'?1.8:p.tier==='warm'?1.25:.8;ctx.stroke()});
 }
 function addNode(word,meaning,x,y,cls,score,delay){
-  const b=document.createElement('button');b.className=`node ${cls}`;b.style.left=x+'px';b.style.top=y+'px';b.style.animationDelay=(delay*.018)+'s';
-  b.innerHTML=`<span class="word-label">${word}</span><span class="meaning">${meaning}</span>${score?`<span class="score">语义相似度 ${score.toFixed(2)}</span>`:''}`;
-  if(score)b.onclick=()=>showWord(word);nodes.appendChild(b);
+  const b=document.createElement('div');b.className=`node ${cls}`;b.style.left=x+'px';b.style.top=y+'px';b.style.animationDelay=(delay*.018)+'s';
+  b.innerHTML=`<span class="word-row"><span class="word-label">${word}</span><button class="speak-btn" type="button" aria-label="播放 ${word} 的发音" title="播放发音">🔊</button></span><span class="meaning">${meaning}</span>${score?`<span class="score">语义相似度 ${score.toFixed(2)}</span>`:''}`;
+  const speaker=b.querySelector('.speak-btn');speaker.onclick=e=>{e.stopPropagation();speakWord(word)};
+  if(score){b.setAttribute('role','button');b.tabIndex=0;b.onclick=()=>showWord(word);b.onkeydown=e=>{if(e.target===b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();showWord(word)}}}
+  nodes.appendChild(b);
 }
 function updateSuggestions(){
   const q=search.value.toLowerCase().trim();if(!q){suggestions.hidden=true;return}

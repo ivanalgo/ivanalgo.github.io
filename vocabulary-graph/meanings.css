@@ -1,6 +1,10 @@
 .panel-head #titleMeaning { margin: 5px 0 0; color: #668077; font-size: 12px; }
 .node { border-radius: 16px; padding: 11px 16px; }
 .word-label { display: block; font-size: 16px; line-height: 1.08; font-weight: 780; letter-spacing: -.025em; color: #172d27; }
+.word-row { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.speak-btn { width: 21px; height: 21px; flex: 0 0 21px; display: inline-grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: rgba(23,45,39,.08); color: inherit; font-size: 11px; line-height: 1; cursor: pointer; opacity: .68; filter: grayscale(1); transition: opacity .16s, transform .16s, background .16s; }
+.speak-btn:hover,.speak-btn:focus-visible { opacity: 1; transform: scale(1.12); background: rgba(23,45,39,.15); outline: 2px solid currentColor; outline-offset: 1px; }
+.node.center .speak-btn { background: rgba(255,255,255,.15); filter: none; opacity: .85; }
 .meaning { display: block; max-width: 138px; overflow: hidden; text-overflow: ellipsis; font-size: 10px; font-weight: 500; color: #7b9187; margin-top: 6px; }
 .score { display: inline-block; margin-top: 6px; padding: 3px 7px; border-radius: 999px; background: rgba(31, 65, 54, .055); font-size: 8px; font-weight: 700; letter-spacing: .02em; }
 .node.hot .word-label { color: #a32424; font-size: 18px; }

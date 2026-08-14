@@ -215,7 +215,7 @@ for letter in "abcdefghijklmnopqrstuvwxyz":
     f.write(";")
   chunk_meta[letter]={"bytes":os.path.getsize(path),"count":len(ids)}
 
-manifest={"version":14,"coreBytes":os.path.getsize(core_path),"chunks":chunk_meta}
+manifest={"version":15,"coreBytes":os.path.getsize(core_path),"chunks":chunk_meta}
 manifest_path=os.path.join(DATA_DIR,"manifest.js")
 with open(manifest_path,"w",encoding="utf-8") as f:
   f.write("window.VOCAB_MANIFEST=")

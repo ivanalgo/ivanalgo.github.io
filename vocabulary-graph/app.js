@@ -25,8 +25,16 @@ async function showWord(word,push=true){
   current=next;rotation=0;search.value=word;title.textContent=word;titleMeaning.textContent=meanings[current];back.disabled=!navigationHistory.length;
   suggestions.hidden=true;window.history.replaceState(null,'',`#${word}`);
   if(!neighbors[next]){
-    nodes.innerHTML=`<div class="graph-loading">正在加载 ${word[0].toUpperCase()} 组关系…</div>`;
-    await window.ensureNeighborChunk(word[0]);
+    const letter=word[0].toUpperCase();
+    nodes.innerHTML=`<div class="graph-loading"><strong>正在加载 ${letter} 组关系…</strong><div class="chunk-progress"><span></span></div><div class="chunk-progress-meta"><span>0%</span><span>准备中</span></div></div>`;
+    const loading=nodes.querySelector('.graph-loading'),fill=loading.querySelector('.chunk-progress span'),meta=loading.querySelector('.chunk-progress-meta');
+    const updateChunkProgress=(loaded,total,indeterminate)=>{
+      if(!loading.isConnected)return;
+      if(indeterminate){fill.classList.add('indeterminate');meta.firstElementChild.textContent='读取中';meta.lastElementChild.textContent='';return}
+      fill.classList.remove('indeterminate');const value=total?Math.min(100,Math.round(loaded/total*100)):0;
+      fill.style.width=value+'%';meta.firstElementChild.textContent=value+'%';meta.lastElementChild.textContent=total?`${(loaded/1024/1024).toFixed(1)} / ${(total/1024/1024).toFixed(1)} MB`:'';
+    };
+    await window.ensureNeighborChunk(word[0],{onProgress:updateChunkProgress});
   }
   if(current===next)render();
 }

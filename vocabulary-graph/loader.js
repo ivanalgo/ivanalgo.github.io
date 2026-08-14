@@ -1,4 +1,4 @@
-const DATA_VERSION=14;
+const DATA_VERSION=15;
 const overlay=document.querySelector('#dataLoader');
 const bar=document.querySelector('#loaderBar');
 const percent=document.querySelector('#loaderPercent');
@@ -7,6 +7,7 @@ const statusText=document.querySelector('#loaderStatus');
 const retry=document.querySelector('#loaderRetry');
 const datasetStatus=document.querySelector('#datasetStatus');
 const chunkPromises=new Map();
+const chunkProgress=new Map();
 const loadedChunks=new Set();
 
 window.VOCAB_CHUNKS={};
@@ -22,21 +23,22 @@ function loadScript(src){
     const script=document.createElement('script');script.src=src;script.onload=()=>{script.remove();resolve()};script.onerror=reject;document.body.appendChild(script);
   });
 }
-async function loadAsset(src,total,showProgress=false){
+async function loadAsset(src,total,showProgress=false,onProgress=null){
   if(location.protocol==='file:'){
     if(showProgress)bar.classList.add('indeterminate');
+    if(onProgress)onProgress(0,total,true);
     await loadScript(src);return;
   }
   const response=await fetch(src);
   if(!response.ok)throw new Error(`HTTP ${response.status}: ${src}`);
   if(!response.body?.getReader){
-    const blob=await response.blob();if(showProgress)updateProgress(blob.size,total||blob.size);
+    const blob=await response.blob();if(showProgress)updateProgress(blob.size,total||blob.size);if(onProgress)onProgress(blob.size,total||blob.size,false);
     const url=URL.createObjectURL(blob);await loadScript(url);URL.revokeObjectURL(url);return;
   }
   const reader=response.body.getReader(),chunks=[];let loaded=0;
   while(true){
     const {done,value}=await reader.read();if(done)break;
-    chunks.push(value);loaded+=value.byteLength;if(showProgress)updateProgress(loaded,total);
+    chunks.push(value);loaded+=value.byteLength;if(showProgress)updateProgress(loaded,total);if(onProgress)onProgress(loaded,total,false);
   }
   const url=URL.createObjectURL(new Blob(chunks,{type:'text/javascript'}));
   await loadScript(url);URL.revokeObjectURL(url);
@@ -51,13 +53,23 @@ function integrateChunk(letter){
 window.ensureNeighborChunk=function(letter,options={}){
   letter=(letter||'l').toLowerCase();if(!/^[a-z]$/.test(letter))letter='l';
   if(loadedChunks.has(letter))return Promise.resolve();
-  if(chunkPromises.has(letter))return chunkPromises.get(letter);
   const meta=window.VOCAB_MANIFEST.chunks[letter];
+  if(chunkPromises.has(letter)){
+    const state=chunkProgress.get(letter);
+    if(options.onProgress&&state){state.listeners.add(options.onProgress);options.onProgress(state.loaded,state.total,state.indeterminate)}
+    return chunkPromises.get(letter);
+  }
+  const progressState={loaded:0,total:meta.bytes,indeterminate:false,listeners:new Set(options.onProgress?[options.onProgress]:[])};
+  chunkProgress.set(letter,progressState);
+  const report=(loaded,total,indeterminate=false)=>{
+    progressState.loaded=loaded;progressState.total=total||meta.bytes;progressState.indeterminate=indeterminate;
+    progressState.listeners.forEach(listener=>listener(progressState.loaded,progressState.total,progressState.indeterminate));
+  };
   const promise=(async()=>{
     if(options.foreground){statusText.textContent=`正在加载 ${letter.toUpperCase()} 组关系…`;bar.classList.remove('indeterminate');bar.style.width='0';percent.textContent='0%'}
-    await loadAsset(`data/neighbors-${letter}.js?v=${DATA_VERSION}`,meta.bytes,Boolean(options.foreground));
+    await loadAsset(`data/neighbors-${letter}.js?v=${DATA_VERSION}`,meta.bytes,Boolean(options.foreground),report);
     integrateChunk(letter);
-  })().finally(()=>chunkPromises.delete(letter));
+  })().finally(()=>{chunkPromises.delete(letter);chunkProgress.delete(letter)});
   chunkPromises.set(letter,promise);return promise;
 };
 function idlePause(){

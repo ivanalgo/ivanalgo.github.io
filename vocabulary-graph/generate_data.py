@@ -1,13 +1,13 @@
 import csv, json, re, zipfile
 import numpy as np
 
-SOURCE = "/tmp/en_50k.txt"
+SOURCE = "/tmp/en_full.txt"
 DICT_SOURCE = "/tmp/ecdict.csv"
 GLOVE_ZIP = "/tmp/glove.2024.wikigiga.100d.zip"
 OUT = "vocabulary-graph/vocab-data.js"
-WORD_COUNT = 20000
+WORD_COUNT = 50000
 NEIGHBOR_COUNT = 40
-SEARCH_COUNT = 120
+SEARCH_COUNT = 500
 PLURAL_EXCEPTIONS = {
   "arms","brains","clothes","contents","customs","earnings","goods","glasses",
   "letters","manners","means","minutes","papers","premises","proceeds","quarters",
@@ -23,12 +23,14 @@ def is_regular_plural(word, vocabulary):
   return any(stem in vocabulary for stem in stems)
 
 candidates=[]
+candidate_seen=set()
 with open(SOURCE, encoding="utf-8", errors="ignore") as f:
   for line in f:
     w=line.split()[0].lower() if line.split() else ""
-    if re.fullmatch(r"[a-z]+",w) and 2 < len(w) < 16 and w not in candidates:
+    if re.fullmatch(r"[a-z]+",w) and 2 < len(w) < 16 and w not in candidate_seen:
       candidates.append(w)
-    if len(candidates)>=30000: break
+      candidate_seen.add(w)
+    if len(candidates)>=80000: break
 candidate_set=set(candidates)
 
 vector_by_word={}

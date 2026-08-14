@@ -27,7 +27,7 @@
 .node.hot .score { color: #d55b55; }
 .node.warm .score { color: #c28a36; }
 @media(max-width:700px){.graph{height:580px}.node:nth-of-type(n+20){display:none}}
-.compact-intro { padding: 28px 0 18px; align-items: end; }
+.compact-intro { padding: 12px 0 10px; align-items: end; }
 .compact-intro h1 { margin-top: 8px; font-size: clamp(32px, 4vw, 50px); line-height: 1.04; white-space: nowrap; }
 .compact-intro .lead { font-size: 14px; line-height: 1.55; text-align: right; }
 .search-meta { min-height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }

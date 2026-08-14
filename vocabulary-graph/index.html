@@ -4,7 +4,7 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="离线英语词汇关系图：搜索单词，探索它的近邻词汇。">
   <title>Word Orbit · 英语词汇关系图</title>
-  <link rel="stylesheet" href="styles.css?v=11"><link rel="stylesheet" href="meanings.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=14"><link rel="stylesheet" href="meanings.css?v=14">
 </head>
 <body>
   <div id="dataLoader" class="data-loader" role="status" aria-live="polite">
@@ -29,7 +29,7 @@
         <kbd>↵</kbd>
       </div>
       <div id="suggestions" class="suggestions" hidden></div>
-      <div class="search-meta"><div class="quick">试试： <button data-word="learn">learn</button><button data-word="happy">happy</button><button data-word="computer">computer</button><button data-word="journey">journey</button></div><span class="source-note">词库：英语词频表 + ECDICT 中文释义 · 近邻：GloVe 2024 100d 余弦相似度 Top 40，已过滤普通复数</span></div>
+      <div class="search-meta"><div class="quick">试试： <button data-word="learn">learn</button><button data-word="happy">happy</button><button data-word="computer">computer</button><button data-word="journey">journey</button></div><span class="source-note">词库：英语词频表 + ECDICT + WordNet · 近邻：GloVe 语境相似度 + 词典关系重排</span></div>
     </section>
     <section class="panel">
       <div class="panel-head">
@@ -39,10 +39,10 @@
       <div id="graph" class="graph" role="application" aria-label="单词关系图">
         <canvas id="lines"></canvas><div id="nodes"></div>
       </div>
-      <div class="legend"><span><i class="dot near"></i>更相关</span><span><i class="dot far"></i>较相关</span><span class="method">GloVe 2024 · 100d · cosine similarity</span></div>
+      <div class="legend"><span><i class="dot near"></i>更相关</span><span><i class="dot far"></i>较相关</span><span class="method">GloVe 2024 + ECDICT hybrid rerank</span></div>
     </section>
   </main>
   <footer><span>WORD ORBIT</span><span>Built for curious English learners</span></footer>
-  <script src="loader.js?v=11"></script>
+  <script src="loader.js?v=14"></script>
 </body>
 </html>

@@ -7,6 +7,11 @@
 .node.center .speak-btn { background: rgba(255,255,255,.15); filter: none; opacity: .85; }
 .meaning { display: block; max-width: 122px; overflow: hidden; text-overflow: ellipsis; font-size: 9px; font-weight: 500; color: #7b9187; margin-top: 4px; }
 .score { display: inline-block; margin-top: 4px; padding: 2px 6px; border-radius: 999px; background: rgba(31, 65, 54, .055); font-size: 7px; font-weight: 700; letter-spacing: .02em; }
+.relation { display: inline-block; margin-left: 4px; padding-left: 5px; border-left: 1px solid currentColor; font-weight: 800; }
+.relation-syn { color: #087a5b; }
+.relation-ant { color: #c3423f; }
+.relation-hyper,.relation-hypo,.relation-hyper2,.relation-hypo2 { color: #7153b8; }
+.relation-deriv { color: #24739b; }
 .node.hot .word-label { color: #a32424; font-size: 17px; }
 .node.warm .word-label { color: #7b490c; font-size: 16px; }
 .node.mild .word-label { color: #0f6653; }

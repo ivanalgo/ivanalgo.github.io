@@ -1,4 +1,4 @@
-const DATA_VERSION=11;
+const DATA_VERSION=14;
 const overlay=document.querySelector('#dataLoader');
 const bar=document.querySelector('#loaderBar');
 const percent=document.querySelector('#loaderPercent');

@@ -5,6 +5,7 @@ const search=document.querySelector('#search'), suggestions=document.querySelect
 const graph=document.querySelector('#graph'), nodes=document.querySelector('#nodes'), canvas=document.querySelector('#lines');
 const title=document.querySelector('#title'), titleMeaning=document.querySelector('#titleMeaning'), back=document.querySelector('#back');
 let current=index.get('learn')||0, navigationHistory=[], rotation=0, activeSuggestion=0;
+const relationLabels={syn:'同义',ant:'反义',hyper:'上位',hypo:'下位',hyper2:'上位',hypo2:'下位',deriv:'派生'};
 
 function speakWord(word){
   if(!('speechSynthesis' in window))return;
@@ -34,21 +35,22 @@ function render(){
   const all=neighbors[current];if(!all)return;
   const count=w<700?18:w<980?28:36, list=all.slice(rotation).concat(all.slice(0,rotation));
   const points=[];
-  addNode(words[current],meanings[current],cx,cy,'center',null,0);
-  list.slice(0,count).forEach(([idx,score],i)=>{
+  addNode(words[current],meanings[current],cx,cy,'center',null,0,null);
+  list.slice(0,count).forEach(([idx,score,relation],i)=>{
     const ring=i<8?1:i<20?2:3,slot=ring===1?i:ring===2?i-8:i-20,total=ring===1?8:ring===2?Math.min(12,count-8):count-20;
     const rx=ring===1?Math.min(235,w*.22):ring===2?Math.min(385,w*.35):Math.min(510,w*.44), ry=ring===1?140:ring===2?230:300;
     const angle=-Math.PI/2+(slot/total)*Math.PI*2+(ring===2?.16:ring===3?.08:0);
     const x=cx+Math.cos(angle)*rx,y=cy+Math.sin(angle)*ry;
     const tier=i<6?'hot':i<16?'warm':i<28?'mild':'cool';
-    points.push({x,y,score,delay:i,tier});addNode(words[idx],meanings[idx],x,y,tier,score,i+1);
+    points.push({x,y,score,delay:i,tier});addNode(words[idx],meanings[idx],x,y,tier,score,i+1,relation);
   });
   const dpr=devicePixelRatio||1;canvas.width=w*dpr;canvas.height=h*dpr;const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
   points.forEach((p,i)=>{ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.strokeStyle=p.tier==='hot'?'rgba(255,91,88,.42)':p.tier==='warm'?'rgba(244,151,42,.29)':p.tier==='mild'?'rgba(35,176,154,.20)':'rgba(70,111,219,.12)';ctx.lineWidth=p.tier==='hot'?1.8:p.tier==='warm'?1.25:.8;ctx.stroke()});
 }
-function addNode(word,meaning,x,y,cls,score,delay){
+function addNode(word,meaning,x,y,cls,score,delay,relation){
   const b=document.createElement('div');b.className=`node ${cls}`;b.style.left=x+'px';b.style.top=y+'px';b.style.animationDelay=(delay*.018)+'s';
-  b.innerHTML=`<span class="word-row"><span class="word-label">${word}</span><button class="speak-btn" type="button" aria-label="播放 ${word} 的发音" title="播放发音">🔊</button></span><span class="meaning">${meaning}</span>${score?`<span class="score">语义相似度 ${score.toFixed(2)}</span>`:''}`;
+  const relationBadge=relationLabels[relation]?`<span class="relation relation-${relation}">${relationLabels[relation]}</span>`:'';
+  b.innerHTML=`<span class="word-row"><span class="word-label">${word}</span><button class="speak-btn" type="button" aria-label="播放 ${word} 的发音" title="播放发音">🔊</button></span><span class="meaning">${meaning}</span>${score?`<span class="score">关联度 ${score.toFixed(2)} ${relationBadge}</span>`:''}`;
   const speaker=b.querySelector('.speak-btn');speaker.onclick=e=>{e.stopPropagation();speakWord(word)};
   if(score){b.setAttribute('role','button');b.tabIndex=0;b.onclick=()=>showWord(word);b.onkeydown=e=>{if(e.target===b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();showWord(word)}}}
   nodes.appendChild(b);

@@ -4,7 +4,7 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="离线英语词汇关系图：搜索单词，探索它的近邻词汇。">
   <title>Word Orbit · 英语词汇关系图</title>
-  <link rel="stylesheet" href="styles.css?v=15"><link rel="stylesheet" href="meanings.css?v=15">
+  <link rel="stylesheet" href="styles.css?v=35"><link rel="stylesheet" href="meanings.css?v=35">
 </head>
 <body>
   <div id="dataLoader" class="data-loader" role="status" aria-live="polite">
@@ -29,20 +29,23 @@
         <kbd>↵</kbd>
       </div>
       <div id="suggestions" class="suggestions" hidden></div>
-      <div class="search-meta"><div class="quick">试试： <button data-word="learn">learn</button><button data-word="happy">happy</button><button data-word="computer">computer</button><button data-word="journey">journey</button></div><span class="source-note">词库：英语词频表 + ECDICT + WordNet · 近邻：GloVe 语境相似度 + 词典关系重排</span></div>
+      <div class="search-meta"><div class="quick">试试： <button data-word="learn">learn</button><button data-word="happy">happy</button><button data-word="computer">computer</button><button data-word="journey">journey</button></div><span class="source-note">词库：英语词频表 + ECDICT + WordNet + Wiktionary + Moby · 近邻：GloVe 语境相似度 + 词典关系重排</span></div>
     </section>
     <section class="panel">
       <div class="panel-head">
-        <div><span class="muted">WORD NEIGHBORHOOD</span><h2 id="title">learn</h2><p id="titleMeaning">学习；学会</p></div>
+        <div class="panel-head-main">
+          <div class="panel-word"><span id="modeLabel" class="muted">WORD NEIGHBORHOOD</span><div class="panel-title-row"><h2 id="title">learn</h2><button id="titleSpeak" class="speak-btn title-speak" type="button" aria-label="播放当前单词的发音" title="播放发音">🔊</button></div><p id="titleMeaning">学习；学会</p></div>
+          <nav class="mode-tabs" aria-label="学习模式"><button class="active" data-mode="orbit">关联星图</button><button data-mode="tree">概念树</button><button data-mode="lexical">近义反义</button><button data-mode="confuse">易混词</button></nav>
+        </div>
         <div class="actions"><button id="back" title="返回上一个词" disabled>←</button><button id="shuffle" title="换一组近邻">↻</button></div>
       </div>
       <div id="graph" class="graph" role="application" aria-label="单词关系图">
         <canvas id="lines"></canvas><div id="nodes"></div>
       </div>
-      <div class="legend"><span><i class="dot near"></i>更相关</span><span><i class="dot far"></i>较相关</span><span class="method">GloVe 2024 + ECDICT hybrid rerank</span></div>
+      <div class="legend"><span id="legendPrimary"><i class="dot near"></i>更相关</span><span id="legendSecondary"><i class="dot far"></i>较相关</span><span id="method" class="method">GloVe 2024 + ECDICT hybrid rerank</span></div>
     </section>
   </main>
   <footer><span>WORD ORBIT</span><span>Built for curious English learners</span></footer>
-  <script src="loader.js?v=15"></script>
+  <script src="loader.js?v=35"></script>
 </body>
 </html>

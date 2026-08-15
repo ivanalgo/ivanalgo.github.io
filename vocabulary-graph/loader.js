@@ -1,4 +1,4 @@
-const DATA_VERSION=15;
+const DATA_VERSION=35;
 const overlay=document.querySelector('#dataLoader');
 const bar=document.querySelector('#loaderBar');
 const percent=document.querySelector('#loaderPercent');
@@ -9,8 +9,13 @@ const datasetStatus=document.querySelector('#datasetStatus');
 const chunkPromises=new Map();
 const chunkProgress=new Map();
 const loadedChunks=new Set();
+const detailPromises=new Map();
+const detailProgress=new Map();
+const loadedDetails=new Set();
 
 window.VOCAB_CHUNKS={};
+window.VOCAB_DETAIL_CHUNKS={};
+window.VOCAB_CONCEPTS={};
 
 function formatMB(bytes){return `${(bytes/1024/1024).toFixed(1)} MB`}
 function updateProgress(loaded,total){
@@ -72,19 +77,28 @@ window.ensureNeighborChunk=function(letter,options={}){
   })().finally(()=>{chunkPromises.delete(letter);chunkProgress.delete(letter)});
   chunkPromises.set(letter,promise);return promise;
 };
-function idlePause(){
-  return new Promise(resolve=>{
-    const done=()=>setTimeout(resolve,220);
-    if('requestIdleCallback' in window)requestIdleCallback(done,{timeout:1500});else setTimeout(done,350);
-  });
+function integrateDetailChunk(letter){
+  const payload=window.VOCAB_DETAIL_CHUNKS[letter];
+  if(!payload)throw new Error(`Missing detail chunk: ${letter}`);
+  payload.ids.forEach((id,i)=>{window.VOCAB_DETAILS[id]=payload.details[i]});
+  Object.assign(window.VOCAB_CONCEPTS,payload.concepts||{});
+  delete window.VOCAB_DETAIL_CHUNKS[letter];loadedDetails.add(letter);
 }
-async function preloadInBackground(firstLetter){
-  const order='etaoinshrdlucmfwypvbgkjqxz'.split('').filter(x=>x!==firstLetter);
-  for(const letter of order){
-    await idlePause();
-    try{await window.ensureNeighborChunk(letter)}catch(error){console.warn(`Background chunk ${letter} failed`,error)}
+window.ensureDetailChunk=function(letter,options={}){
+  letter=(letter||'l').toLowerCase();if(!/^[a-z]$/.test(letter))letter='l';
+  if(loadedDetails.has(letter))return Promise.resolve();
+  const meta=window.VOCAB_MANIFEST.details[letter];
+  if(detailPromises.has(letter)){
+    const state=detailProgress.get(letter);
+    if(options.onProgress&&state){state.listeners.add(options.onProgress);options.onProgress(state.loaded,state.total,state.indeterminate)}
+    return detailPromises.get(letter);
   }
-}
+  const state={loaded:0,total:meta.bytes,indeterminate:false,listeners:new Set(options.onProgress?[options.onProgress]:[])};
+  detailProgress.set(letter,state);
+  const report=(loaded,total,indeterminate=false)=>{state.loaded=loaded;state.total=total||meta.bytes;state.indeterminate=indeterminate;state.listeners.forEach(fn=>fn(state.loaded,state.total,state.indeterminate))};
+  const promise=(async()=>{await loadAsset(`data/details-${letter}.js?v=${DATA_VERSION}`,meta.bytes,false,report);integrateDetailChunk(letter)})().finally(()=>{detailPromises.delete(letter);detailProgress.delete(letter)});
+  detailPromises.set(letter,promise);return promise;
+};
 async function boot(){
   try{
     retry.hidden=true;statusText.textContent='正在读取数据清单…';bar.classList.add('indeterminate');
@@ -92,13 +106,13 @@ async function boot(){
     statusText.textContent='正在加载基础词库…';bar.classList.remove('indeterminate');bar.style.width='0';percent.textContent='0%';
     await loadAsset(`data/core.js?v=${DATA_VERSION}`,window.VOCAB_MANIFEST.coreBytes,true);
     window.VOCAB_NEIGHBORS=new Array(window.VOCAB_DATA.words.length);
+    window.VOCAB_DETAILS=new Array(window.VOCAB_DATA.words.length);
     const hashWord=decodeURIComponent(location.hash.slice(1)).toLowerCase();
     const firstLetter=/^[a-z]/.test(hashWord)?hashWord[0]:'l';
     await window.ensureNeighborChunk(firstLetter,{foreground:true});
     statusText.textContent='正在生成关系图…';bar.classList.remove('indeterminate');bar.style.width='100%';percent.textContent='100%';
     await loadScript(`app.js?v=${DATA_VERSION}`);
     overlay.classList.add('complete');setTimeout(()=>overlay.remove(),320);
-    setTimeout(()=>preloadInBackground(firstLetter),800);
   }catch(error){
     console.error('Word Orbit loading failed:',error);
     statusText.textContent='词库加载失败，请检查网络后重试';size.textContent='';bar.classList.remove('indeterminate');

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="了解 Word Orbit 的关联星图、概念树、近义反义、易混词和关联度计算原理。">
+  <title>功能与原理 · Word Orbit</title>
+  <link rel="stylesheet" href="styles.css?v=35">
+  <link rel="stylesheet" href="about.css?v=3">
+</head>
+<body class="about-page guide-page">
+  <header>
+    <a class="brand" href="./" aria-label="返回 Word Orbit"><span class="logo">W</span><span>Word Orbit</span></a>
+    <div class="header-tagline">看见单词之间真正不同的关系。</div>
+    <div class="header-tools"><nav class="site-links" aria-label="网站说明"><a class="about-link active" href="guide.html" aria-current="page">功能与原理</a><a class="about-link" href="about.html">关于本站</a></nav><a class="explore-link" href="./">开始探索 <span>→</span></a></div>
+  </header>
+
+  <main class="about-main">
+    <section class="about-hero guide-hero">
+      <p class="eyebrow">HOW WORD ORBIT WORKS</p>
+      <h1>四种关系，<br>四种看法。</h1>
+      <p class="hero-lead">“相关”不是一种关系。我们把语境联想、概念层级、词典关系和音形混淆分开呈现。</p>
+    </section>
+
+    <nav class="about-nav" aria-label="本页目录"><a href="#why-four">为什么分开</a><a href="#modes">四种视角</a><a href="#score">关联度</a><a href="#loading">数据加载</a></nav>
+
+    <article class="essay">
+      <section id="why-four" class="essay-section">
+        <div class="section-label">01 · START WITH A QUESTION</div>
+        <div class="prose">
+          <h2>先弄清楚，我们想找的是哪一种“相关”</h2>
+          <p class="opening">查询一个单词时，出现在它周围的词可能意义相近，也可能只是经常出现在同一个场景里。</p>
+          <p>例如 <em>doctor</em> 与 <em>physician</em> 接近，是因为二者意义相近；<em>doctor</em> 与 <em>hospital</em> 接近，则更多来自共同语境。<em>hot</em> 与 <em>cold</em> 意义相反，却经常出现在相似句子里。<em>right</em> 与 <em>write</em> 发音相同，语义却完全不同。</p>
+          <p>如果把这些关系全部塞进一张图，学习者看到的只会是一个含义模糊的“相关词”列表。因此 Word Orbit 把它们拆成四种视角，让每一种关系回答一个清楚的问题。</p>
+        </div>
+      </section>
+
+      <section id="modes" class="essay-section">
+        <div class="section-label">02 · FOUR VIEWS</div>
+        <div class="prose">
+          <h2>从自由联想，到逐层认识一个概念</h2>
+          <div class="mode-rows">
+            <section><b>01</b><div><h3>关联星图</h3><p>它回答：“谈到这个词，还容易想到什么？”星图从真实语境出发，适合寻找同一主题、场景或经常共同出现的词。例如从 <em>doctor</em> 可以走向 <em>physician、hospital、patient</em>。这里的关系是联想，不等于严格同义。</p></div></section>
+            <section><b>02</b><div><h3>概念树</h3><p>它回答：“这个词属于什么，它下面还有什么？”概念树按照具体词义逐层展开上位和下位概念。例如 <em>red → color</em>，而 <em>color</em> 又可以向下展开 <em>red、blue、yellow、gray</em>。选择其中一个词继续向下，就像在知识树中逐层行走。</p></div></section>
+            <section><b>03</b><div><h3>近义词与反义词</h3><p>它回答：“这个词义还能怎么表达？”系统会先让用户选择具体词义，再分别展示严格同义、近义、反义和派生关系，避免把多义词的不同含义混成一组。</p></div></section>
+            <section><b>04</b><div><h3>易混词</h3><p>它回答：“哪些词看起来或听起来容易弄错？”这里会区分形近、同音、近音和常见误用，例如 <em>right、write、rite</em>。它们的接近程度不是语义相似度，也不会混进关联星图。</p></div></section>
+          </div>
+        </div>
+      </section>
+
+      <section id="score" class="essay-section">
+        <div class="section-label">03 · ASSOCIATION SCORE</div>
+        <div class="prose">
+          <h2>词向量给出距离，词典关系帮助校准</h2>
+          <p class="opening">Word embedding 技术可以把每个单词表示成一组数字。两个词越经常出现在相似语境中，它们在向量空间里的距离通常就越近。</p>
+          <p>关联星图使用 GloVe 词向量，先为每个词找到一批语境近邻。但“出现在相似语境”不一定等于“意义相近”，所以系统还会结合 ECDICT 的词性与英文释义，以及 WordNet 中明确记录的同义、反义、上下位和派生关系重新排序，并降低普通复数、屈折变化和弱语义高频词造成的噪声。</p>
+          <blockquote class="formula-quote"><span>最终关联度</span><strong>0.88 × 语境相似度</strong><i>＋ 释义与词性</i><i>＋ 词典关系奖励</i><i>− 弱语义噪声</i></blockquote>
+          <p>页面显示的“关联度”只是当前系统内部的排序分，不是概率。0.80 并不表示“80% 同义”。反义词也可能在向量空间中很接近，因为相反概念经常出现在相似的句子里；对学习者而言，明确标出关系类型比单看一个分数更重要。</p>
+          <p class="more-link">具体使用了哪些开放词典和语言数据库，可以在<a href="about.html#sources">关于本站的数据来源</a>中查看。</p>
+        </div>
+      </section>
+
+      <section id="loading" class="essay-section">
+        <div class="section-label">04 · STATIC PIPELINE</div>
+        <div class="prose">
+          <h2>没有远程数据库，也能逐步探索</h2>
+          <p class="opening">重量级计算都在网站发布之前完成。浏览器所做的事情，是在需要时取出已经计算好的结果。</p>
+          <p>处理后的 50,000 个单词被拆成基础词库、26 个星图分片和 26 个详情分片。打开网站时先加载轻量的基础词库；查询某个单词或切换学习模式时，再加载对应字母的数据。进度条按照真实下载字节增长，让较慢的网络也有明确反馈。</p>
+          <ol class="text-steps"><li><b>离线汇集</b><span>读取词频、词典、词向量和发音数据</span></li><li><b>清洗重排</b><span>按词义对齐、过滤噪声、计算关系</span></li><li><b>分片发布</b><span>把星图和详情数据按首字母拆分</span></li><li><b>按需加载</b><span>用户走到哪里，浏览器就加载到哪里</span></li></ol>
+          <p>因此 Word Orbit 仍然只是普通的 HTML、CSS 和 JavaScript，不依赖在线数据库，也不需要服务器实时运行词向量模型。</p>
+        </div>
+      </section>
+    </article>
+
+    <section class="about-ending"><p>理解原理以后，选一个词亲自走走。</p><a href="./#learn">从 learn 开始 →</a></section>
+  </main>
+  <footer><span>WORD ORBIT</span><span class="footer-links"><a href="about.html">关于本站</a><a href="./">返回词汇关系图</a></span><span>Built for curious English learners</span></footer>
+</body>
+</html>

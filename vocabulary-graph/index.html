@@ -4,7 +4,7 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="离线英语词汇关系图：搜索单词，探索它的近邻词汇。">
   <title>Word Orbit · 英语词汇关系图</title>
-  <link rel="stylesheet" href="styles.css?v=35"><link rel="stylesheet" href="meanings.css?v=35"><link rel="stylesheet" href="about.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=35"><link rel="stylesheet" href="meanings.css?v=35"><link rel="stylesheet" href="about.css?v=3">
 </head>
 <body>
   <div id="dataLoader" class="data-loader" role="status" aria-live="polite">
@@ -19,7 +19,7 @@
   <header>
     <a class="brand" href="./" aria-label="Word Orbit 首页"><span class="logo">W</span><span>Word Orbit</span></a>
     <div class="header-tagline">从一个词，走进一片词汇宇宙。</div>
-    <div class="header-tools"><a class="about-link" href="about.html">功能与原理</a><div class="dataset"><span></span><b id="datasetStatus">50,000 words · loading</b></div></div>
+    <div class="header-tools"><nav class="site-links" aria-label="网站说明"><a class="about-link" href="guide.html">功能与原理</a><a class="about-link" href="about.html">关于本站</a></nav><div class="dataset"><span></span><b id="datasetStatus">50,000 words · loading</b></div></div>
   </header>
   <main>
     <section class="search-wrap" aria-label="单词搜索">
@@ -45,7 +45,7 @@
       <div class="legend"><span id="legendPrimary"><i class="dot near"></i>更相关</span><span id="legendSecondary"><i class="dot far"></i>较相关</span><span id="method" class="method">GloVe 2024 + ECDICT hybrid rerank</span></div>
     </section>
   </main>
-  <footer><span>WORD ORBIT</span><a href="about.html">功能、原理与数据来源</a><span>Built for curious English learners</span></footer>
+  <footer><span>WORD ORBIT</span><span class="footer-links"><a href="guide.html">功能与原理</a><a href="about.html">关于本站</a></span><span>Built for curious English learners</span></footer>
   <script src="loader.js?v=35"></script>
 </body>
 </html>

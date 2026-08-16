@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="了解 Word Orbit 关联星图、概念树、近义反义与易混词的原理和数据来源。">
+  <title>功能与原理 · Word Orbit</title>
+  <link rel="stylesheet" href="styles.css?v=35">
+  <link rel="stylesheet" href="about.css?v=1">
+</head>
+<body class="about-page">
+  <header>
+    <a class="brand" href="./" aria-label="返回 Word Orbit"><span class="logo">W</span><span>Word Orbit</span></a>
+    <div class="header-tagline">看见单词之间真正不同的关系。</div>
+    <div class="header-tools"><a class="about-link active" href="about.html" aria-current="page">功能与原理</a><a class="explore-link" href="./">开始探索 <span>→</span></a></div>
+  </header>
+
+  <main class="about-main">
+    <section class="about-hero">
+      <div>
+        <p class="about-kicker">BEHIND WORD ORBIT</p>
+        <h1>一张图看联想，<br>一棵树看知识。</h1>
+      </div>
+      <div class="about-hero-copy">
+        <p>Word Orbit 不是把所有“相关词”混在一起，而是用四种视角回答四个不同的问题。</p>
+        <div class="hero-facts"><span><b>50,000</b> 个常用词</span><span><b>4</b> 种学习视角</span><span><b>0</b> 个远程数据库</span></div>
+      </div>
+    </section>
+
+    <nav class="about-nav" aria-label="本页目录">
+      <a href="#modes">四种模式</a><a href="#score">关联度</a><a href="#sources">数据来源</a><a href="#pipeline">数据如何到达页面</a>
+    </nav>
+
+    <section id="modes" class="about-section">
+      <div class="section-heading"><p>01 · FOUR VIEWS</p><h2>同一个词，四种看法</h2><span>每种模式解决不同的学习问题，不能互相替代。</span></div>
+      <div class="mode-explainer-grid">
+        <article class="feature-card orbit-card">
+          <div class="feature-top"><span class="feature-number">01</span><span class="feature-icon orbit-icon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+          <h3>关联星图</h3><p class="feature-question">“谈到这个词，还容易想到什么？”</p>
+          <p>以 GloVe 语境向量为基础，再结合词性、英文释义和 WordNet 词典关系重排。它适合自由联想同一主题、场景和常见搭配，但不等于严格的同义词表。</p>
+          <div class="example-line"><b>doctor</b><span>physician</span><span>hospital</span><span>patient</span></div>
+        </article>
+        <article class="feature-card tree-card">
+          <div class="feature-top"><span class="feature-number">02</span><span class="feature-icon tree-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>
+          <h3>概念树</h3><p class="feature-question">“它属于什么？它下面还有什么？”</p>
+          <p>按 WordNet 的具体词义（synset）展示直接上位和直接下位概念。用户先选词义，再逐层点击展开；只会折叠一层没有学习价值的技术节点，不拿远距离后代补数。</p>
+          <div class="tree-example"><span>color</span><i></i><div><b>red</b><b>blue</b><b>yellow</b></div></div>
+        </article>
+        <article class="feature-card lexical-card">
+          <div class="feature-top"><span class="feature-number">03</span><span class="feature-icon lexical-icon" aria-hidden="true">≈ <small>≠</small></span></div>
+          <h3>近义 · 反义</h3><p class="feature-question">“这个词义还能怎么说？”</p>
+          <p>严格同义来自同一 WordNet 词义；近义补充 Wiktionary 与经过严格筛选的 Moby 候选；反义按具体词义对齐。多义词不会把不同含义的关系混成一组。</p>
+          <div class="example-line"><b>beautiful</b><span>gorgeous</span><span>lovely</span><span class="opposite">ugly</span></div>
+        </article>
+        <article class="feature-card confuse-card">
+          <div class="feature-top"><span class="feature-number">04</span><span class="feature-icon confuse-icon" aria-hidden="true">Aa</span></div>
+          <h3>易混词</h3><p class="feature-question">“哪些词看起来、听起来容易弄错？”</p>
+          <p>形近词比较字符编辑距离；同音与近音词比较 CMUdict 音素；常见误用来自可审查的人工混淆组。这里的接近程度不是语义关联度。</p>
+          <div class="example-line"><b>right</b><span>write</span><span>rite</span><span>quite</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="score" class="about-section score-section">
+      <div class="section-heading"><p>02 · ASSOCIATION SCORE</p><h2>“关联度”是排序分，不是概率</h2><span>0.80 不是“80% 同义”，它只表示在当前混合模型中排得更靠前。</span></div>
+      <div class="score-board">
+        <div class="formula"><span>最终关联度</span><b>=</b><div><em>0.88 × 语境相似度</em><em>+ 释义与词性</em><em>+ 词典关系奖励</em><em>− 弱语义噪声</em></div></div>
+        <div class="signal-list">
+          <div><i class="signal-context"></i><b>语境</b><span>GloVe 余弦相似度</span></div>
+          <div><i class="signal-definition"></i><b>释义</b><span>ECDICT 英文释义与词性</span></div>
+          <div><i class="signal-dictionary"></i><b>词典</b><span>同义、反义、上下位、派生加分</span></div>
+          <div><i class="signal-filter"></i><b>降噪</b><span>屈折变化、普通复数和弱共现降权</span></div>
+        </div>
+      </div>
+      <p class="score-note">反义词在向量空间中未必“远”，因为相反概念经常出现在相似语境里；对学习者而言它又非常重要，所以系统会显式标注并给予词典关系奖励。</p>
+    </section>
+
+    <section id="sources" class="about-section">
+      <div class="section-heading"><p>03 · DATA SOURCES</p><h2>每个数据源，各司其职</h2><span>网页不在线查询这些服务；数据先在离线生成阶段整理，再随静态页面发布。</span></div>
+      <div class="source-grid">
+        <a class="source-card" href="https://github.com/hermitdave/FrequencyWords" target="_blank" rel="noreferrer"><span>VOCABULARY</span><h3>FrequencyWords</h3><p>确定英语候选词及常用度排序，是 50,000 主词表的入口。</p><b>词表 · 词频 ↗</b></a>
+        <a class="source-card" href="https://github.com/skywind3000/ECDICT" target="_blank" rel="noreferrer"><span>DICTIONARY</span><h3>ECDICT</h3><p>提供简洁中文释义、英文释义、词性和词形变化信息。</p><b>中英释义 · 词性 ↗</b></a>
+        <a class="source-card" href="https://nlp.stanford.edu/projects/glove/" target="_blank" rel="noreferrer"><span>EMBEDDING</span><h3>GloVe 2024</h3><p>使用 WikiGigaword 100 维词向量，计算词语在真实语境中的接近程度。</p><b>语境向量 ↗</b></a>
+        <a class="source-card" href="https://wordnet.princeton.edu/" target="_blank" rel="noreferrer"><span>LEXICAL DATABASE</span><h3>WordNet / OEWN</h3><p>提供词义、同义、反义、派生，以及严格的上位和下位概念关系。</p><b>词义网络 · 概念层级 ↗</b></a>
+        <a class="source-card" href="https://omwn.org/" target="_blank" rel="noreferrer"><span>MULTILINGUAL</span><h3>Open Multilingual WordNet</h3><p>为具体 WordNet 词义提供对齐的中文名称，减少多义词翻译错位。</p><b>词义对齐中文 ↗</b></a>
+        <a class="source-card" href="https://www.wiktionary.org/" target="_blank" rel="noreferrer"><span>COLLABORATIVE DICTIONARY</span><h3>Wiktionary</h3><p>补充按词性和释义对齐的显式近义词与反义词候选。</p><b>近义 · 反义 ↗</b></a>
+        <a class="source-card" href="https://github.com/words/moby" target="_blank" rel="noreferrer"><span>THESAURUS</span><h3>Moby Thesaurus</h3><p>扩大近义候选召回；必须经过词性、词义距离和释义相似度筛选后才展示。</p><b>受控近义候选 ↗</b></a>
+        <a class="source-card" href="https://github.com/cmusphinx/cmudict" target="_blank" rel="noreferrer"><span>PRONUNCIATION</span><h3>CMUdict</h3><p>提供美式英语 ARPAbet 音素，用于离线计算同音与近音词。</p><b>音素 · 音近词 ↗</b></a>
+      </div>
+      <div class="source-caveat"><b>关于发音按钮</b><span>点击扬声器时使用浏览器设备内的 Web Speech API，不从 Google 或上述词典下载音频；实际音色与可用性取决于用户设备安装的英文语音。</span></div>
+    </section>
+
+    <section id="pipeline" class="about-section pipeline-section">
+      <div class="section-heading"><p>04 · STATIC PIPELINE</p><h2>没有远程数据库，也能逐步探索</h2><span>重量级计算都在发布前完成，浏览器只下载当前真正需要的数据。</span></div>
+      <div class="pipeline">
+        <div><span>01</span><b>离线汇集</b><p>词频、词典、词向量与发音数据</p></div><i>→</i>
+        <div><span>02</span><b>清洗重排</b><p>按词义对齐、过滤噪声、计算关系</p></div><i>→</i>
+        <div><span>03</span><b>分片发布</b><p>基础词库 + 26 个星图分片 + 26 个详情分片</p></div><i>→</i>
+        <div><span>04</span><b>按需加载</b><p>打开哪个字母，就下载哪个分片并显示真实进度</p></div>
+      </div>
+      <div class="principles">
+        <div><b>静态可托管</b><span>HTML + CSS + JavaScript，无服务器依赖</span></div>
+        <div><b>可分享</b><span>网址 hash 记录当前单词</span></div>
+        <div><b>不混淆边界</b><span>语义联想、词典关系与音形接近分别展示</span></div>
+      </div>
+    </section>
+
+    <section class="about-cta"><p>知道它如何工作以后，挑一个词开始走。</p><a href="./#animal">从 animal 开始 <span>→</span></a></section>
+  </main>
+  <footer><span>WORD ORBIT</span><a href="./">返回词汇关系图</a><span>Built for curious English learners</span></footer>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Learn Cambridge-aligned B2 vocabulary across six topics through visual scenes, collocations and bilingual examples.">
+  <title>CEFR Visual Vocabulary · B2 Topics</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="enhancements.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">CEFR <i>Visual Vocabulary</i></a>
+    <nav><span class="level">B2</span><button id="methodButton" class="text-button" type="button">Methodology</button></nav>
+  </header>
+  <main>
+    <section id="home" class="hero">
+      <p class="eyebrow">Cambridge-aligned · sense-level learning</p>
+      <h1>Learn vocabulary through <em>topics, scenes and connections.</em></h1>
+      <p>Build productive English around meaning—not an alphabetical list.</p>
+      <div class="search-wrap"><label for="search">Search the lab</label><input id="search" type="search" placeholder="Try evoke, 情感, emotion, stage…" autocomplete="off"><kbd>/</kbd></div>
+      <div id="topicGrid" class="topic-grid"></div>
+    </section>
+    <section id="topic" class="topic-view" hidden>
+      <div class="topic-head"><button id="backButton" class="back" type="button">← Topics</button><div class="topic-title"><p id="topicEyebrow" class="eyebrow"></p><h1 id="topicName"></h1></div><p id="topicSummary" class="topic-summary"></p><strong id="topicStats"></strong></div>
+      <div class="topic-tools"><label id="topicSearchLabel" for="topicSearch">Search B2</label><input id="topicSearch" type="search" placeholder="Headword, 中文 or collocation…" autocomplete="off"><p id="resultCount"></p></div>
+      <div id="searchResults" class="search-results" hidden></div>
+      <nav id="deckNav" class="deck-nav" aria-label="Study cards"></nav>
+      <section id="deckContent" class="deck-content"></section>
+    </section>
+  </main>
+  <dialog id="detail"><button id="closeDetail" class="close" type="button" aria-label="Close">×</button><div id="detailContent"></div></dialog>
+  <dialog id="method"><button id="closeMethod" class="close" type="button" aria-label="Close">×</button><article><p class="eyebrow">About the method</p><h2>Aligned, not copied</h2><p>Topic organisation is aligned with Cambridge SMART Vocabulary where practical. CEFR labels use Cambridge or English Profile evidence where available.</p><p>Definitions, translations, examples and learning scenes are original. An <b>inferred</b> label is an editorial B2 judgement, not a Cambridge claim.</p><p>CEFR belongs to a particular meaning or phrase, not automatically to every meaning of a headword.</p><h3>Current topic references</h3><ul id="methodReferences"></ul></article></dialog>
+  <footer><p>Original bilingual learning content · Cambridge-aligned taxonomy · No account or backend required</p></footer>
+  <script src="data/topics.js"></script><script src="data/scenes-music-b2.js"></script><script src="data/music-b2.js"></script><script src="data/music-b2-zh.js"></script><script src="data/music-b2-examples.js"></script><script src="data/additional-b2.js"></script><script src="data/expanded-b2-core.js"></script><script src="data/travel-b2-expanded.js"></script><script src="data/work-b2-expanded.js"></script><script src="data/technology-b2-expanded.js"></script><script src="data/environment-b2-expanded.js"></script><script src="data/health-b2-expanded.js"></script><script src="app.js"></script>
+</body>
+</html>

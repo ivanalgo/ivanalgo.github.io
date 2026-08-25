@@ -37,6 +37,11 @@
       const words=pack.vocabulary.filter(item=>item.scenes.includes(scene.id));
       words.forEach(item=>{item.relatedWords=item.relatedWords.map(value=>pack.vocabulary.some(candidate=>candidate.id===value)?value:words.find(candidate=>candidate.id!==item.id)?.id).filter(Boolean).slice(0,2);});
       scene.labels=words.map((item,index)=>({id:item.id,x:positions[index][0],y:positions[index][1]}));
+      scene.visualCards=words.map(item=>({
+        id:item.id,
+        image:`assets/images/${topic.id}/${scene.id}-cards/${item.id.replace(`${topic.id}-`,"")}.webp`,
+        alt:`Visual meaning of ${item.display}: ${item.sense.definition}`
+      }));
     });
   };
 })();

@@ -1,6 +1,7 @@
 /* Card-based study navigation, roomier word rows and compact audio controls. */
 :root{--ink:#14323b;--muted:#4c646c;--paper:#f8faf8;--surface:#fff;--line:#d5dfdc;--blue:#315ed1;--teal:#007c78;--coral:#d9574b;--yellow:#bb7808}
 [hidden]{display:none!important}
+html,body{overflow-x:hidden}
 body{color:var(--ink);background:var(--paper);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;font-weight:450;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 h1,h2,.scene h2,.deck-panel h2,.word-title h2,.example-word b,.idiom-card h3{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;color:#12313a;font-weight:760;letter-spacing:-.025em}
 p,small,input,button{letter-spacing:.005em}
@@ -39,3 +40,27 @@ main{width:min(1520px,100%)}
 @media(max-width:1100px){.topic-grid{grid-template-columns:1fr}.scene-layout{grid-template-columns:1fr}.visual{min-height:560px}.icon-visual{min-height:480px}.word-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:none}.word-card{min-height:72px}}
 @media(max-width:860px){.example-deck-grid,.idiom-deck-grid{grid-template-columns:1fr}.scene-collocations .bank-collocations{grid-template-columns:1fr}.hero h1{white-space:normal}.topic-head{grid-template-columns:auto 1fr}.topic-head>strong{display:none}.topic-title .eyebrow{display:none}}
 @media(max-width:560px){.topic-card{grid-template-columns:110px minmax(0,1fr);min-height:150px}.topic-card .card-art{min-height:130px}.topic-icon{font-size:3.6rem!important}.topic-card .card-art span:last-child{font-size:.68rem}.visual,.icon-visual{min-height:360px}.scene-symbol>span{font-size:6rem}.word-list{grid-template-columns:1fr}.scene-layout{gap:12px}.word-card{min-height:70px}.topic-head .topic-title h1{font-size:1.9rem}}
+
+/* Compact theme overview followed by one image for each vocabulary sense. */
+.visual-pilot{display:grid;gap:14px}
+.pilot-overview{position:relative;height:clamp(170px,18vw,235px);overflow:hidden;border:1px solid #fff;border-radius:16px;background:#e9f3f2;box-shadow:var(--shadow)}
+.pilot-overview>img{width:100%;height:100%;object-fit:cover;object-position:center 43%}
+.pilot-overview::after{position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#102b376e);content:"";pointer-events:none}
+.pilot-overview-caption{position:absolute;z-index:1;left:18px;bottom:15px;display:grid;gap:2px;color:#fff;text-shadow:0 1px 10px #102b37b8}
+.pilot-overview-caption span{font-size:.68rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.pilot-overview-caption b{font-size:.86rem}
+.visual-word-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.visual-word-card{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 10px 28px #16312c0b;transition:transform .18s,border-color .18s,box-shadow .18s}
+.visual-word-card:hover{transform:translateY(-3px);border-color:#315ed15e;box-shadow:0 16px 34px #16312c16}
+.visual-word-image{display:block;width:100%;aspect-ratio:4/3;overflow:hidden;border:0;padding:0;background:#edf4f2;cursor:pointer}
+.visual-word-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.visual-word-card:hover .visual-word-image img{transform:scale(1.025)}
+.visual-word-copy{display:grid;grid-template-columns:25px minmax(0,1fr);align-items:start;gap:9px;min-height:94px;padding:11px}
+.visual-word-copy>.audio-button{margin-top:1px}
+.visual-word-open{display:grid;min-width:0;gap:1px;border:0;padding:0;text-align:left;background:transparent;cursor:pointer}
+.visual-word-open b{overflow:hidden;color:#12313a;font-size:1rem;font-weight:800;text-overflow:ellipsis;white-space:nowrap}
+.visual-word-open span{overflow:hidden;color:var(--teal);font-size:.76rem;font-weight:650;text-overflow:ellipsis;white-space:nowrap}
+.visual-word-open small{overflow:hidden;margin-top:3px;color:var(--muted);font-size:.66rem;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:1180px){.visual-word-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:860px){.visual-word-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.pilot-overview{height:145px}.visual-word-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.visual-word-copy{min-height:88px;padding:9px}.visual-word-open b{font-size:.92rem}}

@@ -14,6 +14,7 @@ require("../data/work-b2-expanded.js");
 require("../data/technology-b2-expanded.js");
 require("../data/environment-b2-expanded.js");
 require("../data/health-b2-expanded.js");
+require("../data/remaining-b2-topics.js");
 
 const packs={music:{topic:CEFR_TOPICS.find(item=>item.id==="music"),vocabulary:CEFR_VOCABULARY,scenes:CEFR_SCENES,idioms:CEFR_LEARNING_NOTES.idioms},...CEFR_ADDITIONAL_TOPIC_PACKS};
 const errors=[];

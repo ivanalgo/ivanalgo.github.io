@@ -1,6 +1,6 @@
 # CEFR Visual Vocabulary
 
-A no-build, static visual vocabulary lab for GitHub Pages. It includes six B2 topics: Music, Travel, Work, Technology, Environment and Health. Each topic provides 50 vocabulary senses across five semantic scenes, with original bilingual definitions and examples, collocations, related words and reusable idiom cards.
+A no-build, static visual vocabulary lab for GitHub Pages. It includes ten B2 topics: Music, Travel, Work, Technology, Environment, Health, Society, Science, Education and Communication. Each topic provides 50 vocabulary senses across five semantic scenes, with original bilingual definitions and examples, collocations, related words and reusable idiom cards.
 
 ## Architecture
 
@@ -12,6 +12,7 @@ A no-build, static visual vocabulary lab for GitHub Pages. It includes six B2 to
 - `data/scenes-music-b2.js`: our pedagogical scene layer and overlay coordinates.
 - `data/additional-b2.js`: base topic packs for Travel, Work, Technology, Environment and Health.
 - `data/*-b2-expanded.js`: topic-specific expansions that bring every topic to 50 senses and five scenes.
+- `data/remaining-b2-topics.js`: complete packs for Society, Science, Education and Communication.
 - `assets/images/<topic>/`: generated illustration assets and provenance metadata.
 - `image-prompts/<topic>/`: generation direction.
 - `scripts/validate-data.js`: optional dependency-free validator.

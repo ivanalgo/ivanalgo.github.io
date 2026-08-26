@@ -18,11 +18,41 @@ vm.createContext(context);
   "data/technology-b2-expanded.js",
   "data/environment-b2-expanded.js",
   "data/health-b2-expanded.js"
+  ,"data/remaining-b2-topics.js"
 ].forEach(file=>vm.runInContext(fs.readFileSync(path.join(root,file),"utf8"),context,{filename:file}));
 
 const slug=value=>value.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
-const topics=Object.values(context.CEFR_ADDITIONAL_TOPIC_PACKS)
-  .filter(pack=>!args.topic||pack.topic.id===args.topic)
+const matchingPacks=Object.values(context.CEFR_ADDITIONAL_TOPIC_PACKS)
+  .filter(pack=>!args.topic||pack.topic.id===args.topic);
+const styleReferences={
+  society:"assets/images/environment/action-policy-v2.webp",
+  science:"assets/images/technology/digital-innovation-v2.webp",
+  education:"assets/images/work/careers-growth-v2.webp",
+  communication:"assets/images/work/communication-meetings-v2.webp"
+};
+const overview=args.overview==="true";
+const topics=overview?matchingPacks.flatMap(pack=>pack.scenes
+  .filter(scene=>!args.scene||scene.id===args.scene)
+  .map(scene=>({
+    topicId:pack.topic.id,
+    topicTitle:pack.topic.title,
+    sceneId:scene.id,
+    sceneTitle:scene.title,
+    reference:path.join(root,styleReferences[pack.topic.id]||"assets/images/music/music-emotion-v2.webp"),
+    output:path.join(root,"assets/images",pack.topic.id,`${scene.id}-v2.webp`),
+    prompt:[
+      "Use case: illustration-story",
+      "Asset type: wide 16:9 scene overview for an adult B2 English-learning website",
+      `Input image: style-only reference; create a new illustration for ${pack.topic.title} / ${scene.title} and do not copy the reference composition`,
+      `Primary request: show a coherent, believable learning scene about ${scene.description}`,
+      `Subject: adults naturally engaged with these ten ideas: ${pack.vocabulary.filter(item=>item.scenes.includes(scene.id)).map(item=>item.display).join(", ")}.`,
+      "Style/medium: polished contemporary editorial illustration, bright natural background, warm human detail, clean shapes, sophisticated but approachable",
+      "Composition/framing: one connected wide scene with 3–6 people or focal objects; clear foreground, middle ground and background; no collage and no multi-panel layout",
+      "Lighting/mood: airy daylight, optimistic and calm, high legibility",
+      "Constraints: show several concrete actions from the scene; diverse natural-looking adults where people are needed; no written words, letters, captions, labels, UI, logos, trademarks or watermark",
+      "Avoid: vague symbolism, dark murky lighting, decorative clutter, duplicated people, distorted hands"
+    ].join("\n")
+  }))):matchingPacks
   .flatMap(pack=>pack.scenes
     .filter(scene=>!args.scene||scene.id===args.scene)
     .flatMap(scene=>pack.vocabulary
@@ -57,7 +87,7 @@ const topics=Object.values(context.CEFR_ADDITIONAL_TOPIC_PACKS)
       })));
 
 if(!topics.length){
-  console.error("No visual-card prompts matched the requested topic and scene.");
+  console.error("No image prompts matched the requested topic and scene.");
   process.exit(1);
 }
 process.stdout.write(JSON.stringify(topics,null,2));

@@ -49,5 +49,42 @@ window.CEFR_TOPICS = [
       "https://dictionary.cambridge.org/topics/medicine/symptoms-and-diagnosis-of-medical-problems/",
       "https://dictionary.cambridge.org/topics/disease-and-illness/not-fit-and-healthy/"
     ]
+  },
+  {
+    id:"society",title:"Society",titleZh:"社会",level:"B2",category:"Society",icon:"◎",accent:"#a34f6f",accent2:"#d9856b",
+    description:"Discuss communities, equality, social change, public responsibility and cultural identity.",
+    taxonomyReferences:[
+      "https://dictionary.cambridge.org/topics/society/society-general-words/",
+      "https://dictionary.cambridge.org/topics/people-in-society/social-groups-and-organizations/",
+      "https://dictionary.cambridge.org/topics/people-in-society/racial-and-sexual-discrimination/"
+    ]
+  },
+  {
+    id:"science",title:"Science",titleZh:"科学",level:"B2",category:"Science",icon:"⚗",accent:"#4d67a8",accent2:"#37a0a1",
+    description:"Explain research, experiments, discoveries, natural processes and science in public life.",
+    taxonomyReferences:[
+      "https://dictionary.cambridge.org/topics/science/scientific-techniques/",
+      "https://dictionary.cambridge.org/topics/science/inventing-designing-and-innovation/",
+      "https://dictionary.cambridge.org/topics/science/scientific-equipment/"
+    ]
+  },
+  {
+    id:"education",title:"Education",titleZh:"教育",level:"B2",category:"Education",icon:"▤",accent:"#b46a2f",accent2:"#d3a03f",
+    description:"Talk about coursework, learning strategies, assessment, qualifications and effective teaching.",
+    taxonomyReferences:[
+      "https://dictionary.cambridge.org/topics/education/classes-courses-and-coursework/",
+      "https://dictionary.cambridge.org/topics/education/teaching-in-general/",
+      "https://dictionary.cambridge.org/topics/education/university-and-college-education/"
+    ]
+  },
+  {
+    id:"communication",title:"Communication",titleZh:"沟通",level:"B2",category:"Communication",icon:"◌",accent:"#236e8a",accent2:"#5cae91",
+    description:"Express ideas clearly, understand others, discuss, summarise and persuade across different contexts.",
+    taxonomyReferences:[
+      "https://dictionary.cambridge.org/topics/communication/saying-and-uttering/",
+      "https://dictionary.cambridge.org/topics/communication/meaning-and-significance/",
+      "https://dictionary.cambridge.org/topics/communication/summaries-and-summarising/",
+      "https://dictionary.cambridge.org/topics/communication/suggestions-and-proposals/"
+    ]
   }
 ];

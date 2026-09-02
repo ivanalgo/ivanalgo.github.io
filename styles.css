@@ -78,6 +78,16 @@ button {
   background: var(--surface);
 }
 
+.header-meta a {
+  border: 1px solid rgba(43, 111, 106, 0.34);
+  border-radius: 999px;
+  padding: 3px 10px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 800;
+  text-decoration: none;
+}
+
 .reader-shell {
   position: relative;
   display: grid;

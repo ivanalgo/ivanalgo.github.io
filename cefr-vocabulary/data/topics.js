@@ -86,5 +86,35 @@ window.CEFR_TOPICS = [
       "https://dictionary.cambridge.org/topics/communication/summaries-and-summarising/",
       "https://dictionary.cambridge.org/topics/communication/suggestions-and-proposals/"
     ]
+  },
+  {
+    id:"personality",title:"Personality & Character",titleZh:"性格与品格",level:"B2",category:"Personal life",icon:"✦",accent:"#7c4fc4",accent2:"#c46aa3",
+    description:"Describe personal qualities, social behaviour, strengths, weaknesses and character development.",
+    taxonomyReferences:["https://dictionary.cambridge.org/topics/people-and-places/character-personality-and-appearance-general-words/"]
+  },
+  {
+    id:"emotions",title:"Emotions & Reactions",titleZh:"情绪与反应",level:"B2",category:"Personal life",icon:"◒",accent:"#d45b78",accent2:"#ee9a62",
+    description:"Express emotional states, intensity, reactions, empathy and ways of recovering balance.",
+    taxonomyReferences:["https://dictionary.cambridge.org/topics/expressing-and-controlling-emotions/feelings-general-words/","https://dictionary.cambridge.org/topics/expressing-and-controlling-emotions/controlling-emotions/"]
+  },
+  {
+    id:"family",title:"Family & Relationships",titleZh:"家庭与关系",level:"B2",category:"Family and relationships",icon:"⌂",accent:"#b65e4a",accent2:"#df9a55",
+    description:"Discuss family structures, close relationships, support, conflict, responsibility and change.",
+    taxonomyReferences:["https://dictionary.cambridge.org/topics/family-and-relationships/family-relations-in-general/","https://dictionary.cambridge.org/topics/family-and-relationships/relationships-in-general/"]
+  },
+  {
+    id:"home",title:"Home & Housing",titleZh:"住房与居住",level:"B2",category:"Home and living",icon:"⌂",accent:"#357b72",accent2:"#78ad75",
+    description:"Talk about accommodation, renting, neighbourhoods, household features and housing decisions.",
+    taxonomyReferences:["https://dictionary.cambridge.org/topics/home-and-living/home/","https://dictionary.cambridge.org/topics/buildings/people-who-live-or-settle-somewhere/"]
+  },
+  {
+    id:"food",title:"Food & Cooking",titleZh:"食物与烹饪",level:"B2",category:"Food and drink",icon:"◐",accent:"#cf6c37",accent2:"#d8a33b",
+    description:"Describe ingredients, preparation, flavour, cooking techniques and thoughtful food choices.",
+    taxonomyReferences:["https://dictionary.cambridge.org/topics/food/food-general-words/","https://dictionary.cambridge.org/topics/preparing-food/preparing-food/"]
+  },
+  {
+    id:"money",title:"Money & Personal Finance",titleZh:"金钱与个人理财",level:"B2",category:"Finance",icon:"◇",accent:"#39755a",accent2:"#87a746",
+    description:"Manage budgets, payments, saving, borrowing, financial risk and everyday money decisions.",
+    taxonomyReferences:["https://dictionary.cambridge.org/topics/finance/paying-money/","https://dictionary.cambridge.org/topics/finance/saving-and-savings-accounts/"]
   }
 ];

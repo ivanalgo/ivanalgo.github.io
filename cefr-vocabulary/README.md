@@ -1,6 +1,6 @@
 # CEFR Visual Vocabulary
 
-A no-build, static visual vocabulary lab for GitHub Pages. It includes ten B2 topics: Music, Travel, Work, Technology, Environment, Health, Society, Science, Education and Communication. Each topic provides 50 vocabulary senses across five semantic scenes, with original bilingual definitions and examples, collocations, related words and reusable idiom cards.
+A no-build, static visual vocabulary lab for GitHub Pages. The canonical 48-topic curriculum is recorded in `TOPIC-ROADMAP.md`; topics are released in batches. Each completed topic provides 50 vocabulary senses across five semantic scenes, with original bilingual definitions and examples, collocations, related words and reusable idiom cards.
 
 ## Architecture
 

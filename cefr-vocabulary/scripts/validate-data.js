@@ -15,6 +15,7 @@ require("../data/technology-b2-expanded.js");
 require("../data/environment-b2-expanded.js");
 require("../data/health-b2-expanded.js");
 require("../data/remaining-b2-topics.js");
+require("../data/batch-1-b2.js");
 
 const packs={music:{topic:CEFR_TOPICS.find(item=>item.id==="music"),vocabulary:CEFR_VOCABULARY,scenes:CEFR_SCENES,idioms:CEFR_LEARNING_NOTES.idioms},...CEFR_ADDITIONAL_TOPIC_PACKS};
 const errors=[];
@@ -40,13 +41,13 @@ CEFR_TOPICS.forEach(topic=>{
   });
   pack.scenes.forEach(scene=>{
     if(scene.labels.length!==10)errors.push(`${topic.id}/${scene.id}: expected 10 labels, found ${scene.labels.length}`);
-    if(!scene.image||!fs.existsSync(path.join(__dirname,"..",scene.image)))errors.push(`${topic.id}/${scene.id}: missing scene image ${scene.image||"(none)"}`);
+    if(!scene.image||(!scene.image.startsWith("data:image/")&&!fs.existsSync(path.join(__dirname,"..",scene.image))))errors.push(`${topic.id}/${scene.id}: missing scene image ${scene.image||"(none)"}`);
     scene.labels.forEach(label=>{if(!pack.vocabulary.some(item=>item.id===label.id))errors.push(`${topic.id}/${scene.id}: unknown label ${label.id}`);});
     if(scene.visualCards?.length!==10)errors.push(`${topic.id}/${scene.id}: expected 10 visual cards, found ${scene.visualCards?.length||0}`);
     scene.visualCards?.forEach(card=>{
       if(!pack.vocabulary.some(item=>item.id===card.id))errors.push(`${topic.id}/${scene.id}: unknown visual-card word ${card.id}`);
       if(!card.alt)errors.push(`${topic.id}/${scene.id}/${card.id}: missing visual-card alt text`);
-      if(!card.image||!fs.existsSync(path.join(__dirname,"..",card.image)))errors.push(`${topic.id}/${scene.id}/${card.id}: missing visual-card image ${card.image||"(none)"}`);
+      if(!card.image||(!card.image.startsWith("data:image/")&&!fs.existsSync(path.join(__dirname,"..",card.image))))errors.push(`${topic.id}/${scene.id}/${card.id}: missing visual-card image ${card.image||"(none)"}`);
     });
   });
   pack.idioms.forEach(item=>{if(item.examples?.length<3||item.examples.length!==item.examplesZh?.length)errors.push(`${topic.id}/${item.phrase}: idiom examples incomplete`);});

@@ -103,6 +103,11 @@ window.CEFR_TOPICS = [
     taxonomyReferences:["https://dictionary.cambridge.org/topics/family-and-relationships/family-relations-in-general/","https://dictionary.cambridge.org/topics/family-and-relationships/relationships-in-general/"]
   },
   {
+    id:"friendship",title:"Friendship & Social Life",titleZh:"友谊与社交生活",level:"B2",category:"Personal life",icon:"◎",accent:"#3f6fa8",accent2:"#5aa89b",
+    description:"Build friendships, describe social groups, handle changing relationships and take part in social life.",
+    taxonomyReferences:["https://dictionary.cambridge.org/topics/family-and-relationships/friends-acquaintances-and-contemporaries/","https://dictionary.cambridge.org/topics/family-and-relationships/relationships-in-general/"]
+  },
+  {
     id:"home",title:"Home & Housing",titleZh:"住房与居住",level:"B2",category:"Home and living",icon:"⌂",accent:"#357b72",accent2:"#78ad75",
     description:"Talk about accommodation, renting, neighbourhoods, household features and housing decisions.",
     taxonomyReferences:["https://dictionary.cambridge.org/topics/home-and-living/home/","https://dictionary.cambridge.org/topics/buildings/people-who-live-or-settle-somewhere/"]

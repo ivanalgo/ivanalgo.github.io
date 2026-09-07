@@ -108,6 +108,11 @@ window.CEFR_TOPICS = [
     taxonomyReferences:["https://dictionary.cambridge.org/topics/family-and-relationships/friends-acquaintances-and-contemporaries/","https://dictionary.cambridge.org/topics/family-and-relationships/relationships-in-general/"]
   },
   {
+    id:"life-stages",title:"Life Stages & Change",titleZh:"人生阶段与变化",level:"B2",category:"Personal life",icon:"↗",accent:"#6b62a8",accent2:"#cf7f72",
+    description:"Describe growing up, adult milestones, major transitions, ageing and the way experience changes people.",
+    taxonomyReferences:["https://dictionary.cambridge.org/us/topics/time/stages-of-life/","https://dictionary.cambridge.org/us/topics/changing-and-not-changing/change-and-changes/"]
+  },
+  {
     id:"home",title:"Home & Housing",titleZh:"住房与居住",level:"B2",category:"Home and living",icon:"⌂",accent:"#357b72",accent2:"#78ad75",
     description:"Talk about accommodation, renting, neighbourhoods, household features and housing decisions.",
     taxonomyReferences:["https://dictionary.cambridge.org/topics/home-and-living/home/","https://dictionary.cambridge.org/topics/buildings/people-who-live-or-settle-somewhere/"]

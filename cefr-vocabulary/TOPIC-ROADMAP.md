@@ -79,3 +79,9 @@ This is the canonical topic list for the CEFR Visual Vocabulary Lab. The curricu
 - Existing foundation: Music, Travel, Work, Technology, Environment, Health, Society, Science, Education, Communication.
 - Batch 1: Personality & Character, Emotions & Reactions, Family & Relationships, Home & Housing, Food & Cooking, Money & Personal Finance.
 - Later batches should contain 6–8 topics and preserve the same 50-sense, five-scene, bilingual learning specification.
+
+## Latest continuation checkpoint — 2026-09-07
+
+- Friendship & Social Life: committed and pushed in 0dbbf55.
+- Life Stages & Change: completed locally with 50 illustrated words, 5 overviews, 150 bilingual examples and 12 idiom examples. No icon placeholders in this topic.
+- Next in predefined order: Appearance & Fashion, then Household & Everyday Tasks, Eating Out & Nutrition, and Shopping & Consumer Choices.

@@ -113,6 +113,11 @@ window.CEFR_TOPICS = [
     taxonomyReferences:["https://dictionary.cambridge.org/us/topics/time/stages-of-life/","https://dictionary.cambridge.org/us/topics/changing-and-not-changing/change-and-changes/"]
   },
   {
+    id:"appearance",title:"Appearance & Fashion",titleZh:"外貌与时尚",level:"B2",category:"Personal life",icon:"🧥",accent:"#337a78",accent2:"#b87151",
+    description:"Describe features, hairstyles, clothing fit, fabrics and style choices with precise language.",
+    taxonomyReferences:["https://dictionary.cambridge.org/us/topics/clothes/fashion/","https://dictionary.cambridge.org/us/topics/personal-care/hair/","https://dictionary.cambridge.org/topics/personal-care/personal-hygiene-and-appearance-general-words/"]
+  },
+  {
     id:"home",title:"Home & Housing",titleZh:"住房与居住",level:"B2",category:"Home and living",icon:"⌂",accent:"#357b72",accent2:"#78ad75",
     description:"Talk about accommodation, renting, neighbourhoods, household features and housing decisions.",
     taxonomyReferences:["https://dictionary.cambridge.org/topics/home-and-living/home/","https://dictionary.cambridge.org/topics/buildings/people-who-live-or-settle-somewhere/"]

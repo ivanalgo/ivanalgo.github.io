@@ -55,6 +55,10 @@ main{width:min(1520px,100%)}
 .visual-word-image{display:block;width:100%;aspect-ratio:4/3;overflow:hidden;border:0;padding:0;background:#edf4f2;cursor:pointer}
 .visual-word-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s}
 .visual-word-card:hover .visual-word-image img{transform:scale(1.025)}
+/* Keep diagnostic features (hair ends, collars and hems) visible in the appearance pack. */
+.visual-word-image[data-word^="appearance-"]{background:#f6f1e9}
+.visual-word-image[data-word^="appearance-"] img{object-fit:contain}
+.visual-word-card:hover .visual-word-image[data-word^="appearance-"] img{transform:none}
 .visual-word-copy{display:grid;grid-template-columns:25px minmax(0,1fr);align-items:start;gap:9px;min-height:94px;padding:11px}
 .visual-word-copy>.audio-button{margin-top:1px}
 .visual-word-open{display:grid;min-width:0;gap:1px;border:0;padding:0;text-align:left;background:transparent;cursor:pointer}

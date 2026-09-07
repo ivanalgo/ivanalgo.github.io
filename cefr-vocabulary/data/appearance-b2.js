@@ -73,10 +73,11 @@
   const vocabulary=[],scenes=[];
   groups.forEach(([id,title,titleZh,description,rows])=>{
     const ids=rows.map(row=>'appearance-'+slug(row.split('|')[0]));
+    const reference=topic.taxonomyReferences[id==='hair-grooming'?1:id==='physical-features'?2:0]||topic.taxonomyReferences[0];
     rows.forEach((row,i)=>{
       const [display,partOfSpeech,definition,definitionZh,c,e]=row.split('|');
       const [collocations,collocationsZh]=splitPairs(c),[examples,examplesZh]=splitPairs(e);
-      vocabulary.push({id:ids[i],display,partOfSpeech,ipa:'',sense:{definition,definitionZh,cefr:'B2',cefrEvidence:{status:'inferred',reference:topic.taxonomyReferences[0]}},collocations,collocationsZh,examples,examplesZh,relatedWords:[ids[(i+1)%ids.length],ids[(i+2)%ids.length]],topic:{category:topic.category,subtopic:title},scenes:[id],tags:['appearance',id,titleZh]});
+      vocabulary.push({id:ids[i],display,partOfSpeech,ipa:'',sense:{definition,definitionZh,cefr:'B2',cefrEvidence:{status:'inferred',reference}},collocations,collocationsZh,examples,examplesZh,relatedWords:[ids[(i+1)%ids.length],ids[(i+2)%ids.length]],topic:{category:topic.category,subtopic:title},scenes:[id],tags:['appearance',id,titleZh]});
     });
     scenes.push({id,title,titleZh,subtopic:title,description,image:`assets/images/appearance/${id}-v2.webp`,accent:topic.accent,accent2:topic.accent2,labels:ids.map((id,i)=>({id,x:10+(i%5)*19,y:20+Math.floor(i/5)*45})),visualCards:ids.map((wordId,i)=>({id:wordId,image:`assets/images/appearance/${id}-cards/${slug(rows[i].split('|')[0])}.webp`,alt:`${rows[i].split('|')[0]} · ${rows[i].split('|')[3]}`}))});
   });

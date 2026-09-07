@@ -17,6 +17,7 @@ require("../data/health-b2-expanded.js");
 require("../data/remaining-b2-topics.js");
 require("../data/batch-1-b2.js");
 require("../data/life-stages-b2-copy.js");
+require("../data/appearance-b2.js");
 
 const packs={music:{topic:CEFR_TOPICS.find(item=>item.id==="music"),vocabulary:CEFR_VOCABULARY,scenes:CEFR_SCENES,idioms:CEFR_LEARNING_NOTES.idioms},...CEFR_ADDITIONAL_TOPIC_PACKS};
 const errors=[];

@@ -83,5 +83,19 @@ This is the canonical topic list for the CEFR Visual Vocabulary Lab. The curricu
 ## Latest continuation checkpoint — 2026-09-07
 
 - Friendship & Social Life: committed and pushed in 0dbbf55.
-- Life Stages & Change: completed locally with 50 illustrated words, 5 overviews, 150 bilingual examples and 12 idiom examples. No icon placeholders in this topic.
+- Life Stages & Change: completed and pushed in b0b1459 with 50 illustrated words, 5 overviews, 150 bilingual examples and 12 idiom examples. No icon placeholders in this topic.
 - Next in predefined order: Appearance & Fashion, then Household & Everyday Tasks, Eating Out & Nutrition, and Shopping & Consumer Choices.
+
+### Content-quality backlog found during continuation
+
+The 18-topic structural check passes and the loaded topics have no generated icon placeholders. However, the seven packs below still use 50 generic template definitions each in batch-1-b2.js and require an editorial pass over definitions, collocations, examples and idioms. Image completion must not be confused with editorial completion:
+
+- Personality & Character
+- Emotions & Reactions
+- Family & Relationships
+- Friendship & Social Life
+- Home & Housing
+- Food & Cooking
+- Money & Personal Finance
+
+Life Stages & Change has a dedicated original-copy override. Appearance & Fashion is being built with original copy rather than those templates.

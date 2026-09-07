@@ -1,0 +1,66 @@
+{
+  "topic": "appearance",
+  "style": "Use case: scientific-educational. Asset: one English vocabulary illustration. Polished contemporary editorial illustration, bright natural light, clear realistic detail, warm cream with teal and terracotta accents. Show the requested visible feature unmistakably. Adults only. Neutral, respectful representation, no beauty ranking, no logos, letters, text, watermark, or generic icon. Square composition for a word card; wide composition for an overview.",
+  "scenes": [
+    {"id":"physical-features","title":"Physical Features","titleZh":"外貌特征","overview":"A warm portrait studio with several diverse adults, clearly showing freckles, dimples, facial features, different heights and builds, respectful everyday clothing. Wide editorial scene.","cards":[
+      ["appearance","An adult looking at their overall appearance in a full-length mirror, face hair and complete outfit visible."],
+      ["build","Three fully clothed adults standing naturally side by side, different body builds, equal positive neutral presentation."],
+      ["complexion","Close-up portrait with natural visible skin texture and even soft lighting, no cosmetics, neutral background."],
+      ["facial features","Close frontal portrait with clearly defined eyes eyebrows nose lips and jaw, no labels."],
+      ["resemblance","An adult daughter and her middle-aged mother side by side, clearly similar eyes nose and smile but visibly different ages."],
+      ["distinctive","An adult with a very distinctive white streak through otherwise dark short hair, simple portrait."],
+      ["freckles","Close-up of an adult face with clearly visible natural small brown freckles across nose and cheeks."],
+      ["wrinkles","Dignified smiling elderly adult with natural visible wrinkles at the corners of eyes and across forehead."],
+      ["dimples","Smiling adult with two clearly visible cheek dimples, close portrait."],
+      ["posture","Side view of an adult sitting upright at a desk, relaxed shoulders and straight back, full upper body visible."]
+    ]},
+    {"id":"hair-grooming","title":"Hair & Grooming","titleZh":"发型与仪容","overview":"Bright contemporary hair salon with adults choosing hairstyles, a stylist trimming hair, visible curls, shoulder-length hair and a neatly trimmed beard. Wide editorial scene.","cards":[
+      ["curly","Portrait of an adult with clearly defined natural tight curly hair, uncluttered background."],
+      ["wavy","Portrait of an adult with flowing S-shaped wavy hair, loose waves not tight curls."],
+      ["straight","Portrait of an adult with smooth straight shoulder-length hair, hair falls in straight lines."],
+      ["shoulder-length","Adult shown from head to upper chest with hair ends resting exactly at the shoulders."],
+      ["fringe","Adult portrait with a clearly visible straight fringe across the forehead above the eyebrows."],
+      ["ponytail","Three-quarter back view of an adult tying long hair into a single ponytail at the back of the head."],
+      ["beard","Adult with a full well-defined natural beard covering chin jaw and cheeks, close portrait."],
+      ["clean-shaven","Close portrait of an adult man with a clearly smooth clean-shaven chin and cheeks, no beard or stubble."],
+      ["trim","A hairdresser carefully cutting only a little length from the ends of an adult client's hair."],
+      ["well-groomed","Adult with neatly brushed hair, tidy beard and clean pressed clothing adjusting their collar before leaving home."]
+    ]},
+    {"id":"clothes-fit","title":"Clothes & Fit","titleZh":"服装与合身度","overview":"Bright fitting room and tailoring studio, adults try jackets and outfits while a tailor checks a hem. A blazer and fitted and loose garments visible. Wide editorial scene.","cards":[
+      ["outfit","A coordinated complete outfit laid neatly on a bed: shirt trousers jacket and shoes, all visible."],
+      ["garment","A tailor holding up one finished jacket on a hanger, clearly one item of clothing."],
+      ["blazer","An adult wearing a navy blazer with lapels, simple T-shirt underneath, waist-up fashion illustration."],
+      ["waistcoat","Adult wearing a buttoned sleeveless waistcoat over a white long-sleeved shirt, no jacket obscuring it."],
+      ["sleeve","Close view of a shirt sleeve from shoulder to cuff, adult arm extended so construction is visible."],
+      ["collar","Close view of a crisp folded shirt collar around an adult's neck, face outside crop."],
+      ["hem","Close-up of a tailor folding and pinning the bottom hem of a skirt on a dress form."],
+      ["loose-fitting","Adult wearing loose-fitting wide trousers and a relaxed overshirt, clear space and folds around body."],
+      ["tight-fitting","Adult wearing a modest opaque tight-fitting athletic long-sleeved top, close fit clear, neutral everyday stance."],
+      ["tailored","A tailor checking the shoulder fit of a precisely tailored suit jacket on an adult customer."]
+    ]},
+    {"id":"fabrics-patterns","title":"Fabrics & Patterns","titleZh":"面料与图案","overview":"A textile studio table with tactile fabric samples: denim, linen, wool knit, silk, stripes, checks and floral print, a designer handling the samples. Wide scene.","cards":[
+      ["fabric","Hands examining a large piece of woven fabric on a sewing table, weave texture clear."],
+      ["cotton","A soft cotton T-shirt beside a small branch of cotton bolls, natural fibre texture clear."],
+      ["linen","Close-up of a pale linen shirt with characteristic visible coarse weave and gentle natural creases."],
+      ["wool","A thick wool knitted jumper beside a ball of wool yarn, soft fuzzy fibre texture visible."],
+      ["silk","A silk scarf draped in smooth glossy flowing folds, light catches the lustrous fabric."],
+      ["denim","Close-up of blue denim jeans showing diagonal twill, pocket, brass rivets and orange stitching."],
+      ["striped","A shirt with clear alternating navy and cream horizontal stripes, no other patterns."],
+      ["checked","A shirt with a clear regular red and navy checked square pattern, no other patterns."],
+      ["floral","A dress on a hanger with a clear botanical floral print of flowers and leaves."],
+      ["plain","A completely plain solid teal T-shirt on a hanger, no print, motif or pattern."]
+    ]},
+    {"id":"style-choices","title":"Style & Choices","titleZh":"风格与选择","overview":"Adults in a friendly clothing exchange studio considering casual, formal and vintage outfits, accessories and repairable second-hand clothing. Wide scene.","cards":[
+      ["casual","Adult wearing relaxed jeans trainers and a simple T-shirt in a sunny neighbourhood cafe."],
+      ["formal","Adult wearing a formal dark suit with tie and polished shoes at an elegant evening reception."],
+      ["elegant","Adult in an understated well-cut flowing evening outfit, restrained accessories, calm graceful posture."],
+      ["fashionable","Contemporary street-style adult wearing a thoughtfully coordinated modern outfit, clean editorial look."],
+      ["vintage","Adult browsing authentic mid-twentieth-century style coats and dresses at a vintage clothing shop."],
+      ["accessory","A simple outfit on a dress form with a belt scarf and handbag displayed prominently beside it."],
+      ["dress code","Two fully clothed colleagues preparing for a formal event by changing from trainers and casual jackets into smart jackets and shoes."],
+      ["dress up","Adult fastening a special occasion jacket in front of a mirror, everyday clothes folded nearby."],
+      ["match","Hands pairing a teal scarf and teal shoes next to a cream outfit, obvious coordinated matching colours."],
+      ["sustainable fashion","Adult repairing a well-loved jacket at a sewing table beside neatly arranged second-hand clothes for reuse."]
+    ]}
+  ]
+}

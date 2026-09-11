@@ -85,7 +85,8 @@ This is the canonical topic list for the CEFR Visual Vocabulary Lab. The curricu
 - Friendship & Social Life: committed and pushed in 0dbbf55.
 - Life Stages & Change: completed and pushed in b0b1459 with 50 illustrated words, 5 overviews, 150 bilingual examples and 12 idiom examples. No icon placeholders in this topic.
 - Appearance & Fashion: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage; all 55 WebP images validated and visually inspected.
-- Next in predefined order: Household & Everyday Tasks, Eating Out & Nutrition, and Shopping & Consumer Choices.
+- Household & Everyday Tasks: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. Images use 768px word cards and 1200px overviews (approximately 3.4 MiB total).
+- Next in predefined order: Eating Out & Nutrition, then Shopping & Consumer Choices.
 
 ### Content-quality backlog found during continuation
 

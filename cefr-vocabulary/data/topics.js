@@ -1,5 +1,10 @@
 window.CEFR_TOPICS = [
   {
+    id:"household",title:"Household & Everyday Tasks",titleZh:"家务与日常事务",level:"B2",category:"Home and living",icon:"🧺",accent:"#397765",accent2:"#6392aa",
+    description:"Describe cleaning, laundry, kitchen tasks, storage and household upkeep with practical everyday expressions.",
+    taxonomyReferences:["https://dictionary.cambridge.org/us/topics/clean-dirty-and-cleaning/cleaning-and-tidying-places-and-things/"]
+  },
+  {
     id:"music",title:"Music",titleZh:"音乐",level:"B2",category:"Arts and media",icon:"♫",accent:"#2f63d8",accent2:"#159c91",
     description:"Discuss performance, emotion, creation, evaluation and music's place in society.",
     taxonomyReferences:[

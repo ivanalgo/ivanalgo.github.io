@@ -1,0 +1,66 @@
+{
+  "topic":"household",
+  "style":"Use case: scientific-educational. Asset: an English vocabulary learning illustration. Contemporary editorial illustration with realistic material details, bright natural light, warm cream, sage and muted blue accents. Show a specific action or object unmistakably, not a generic household icon. Adults share domestic work across genders. Clear focal point, anatomically plausible hands and tools. No text, logos, lettering or watermark. Word cards: landscape 4:3 with all action-defining details inside the central area. Overview: wide landscape scene.",
+  "scenes":[
+    {"id":"cleaning-surfaces","title":"Cleaning & Surfaces","titleZh":"清洁与表面","overview":"Two adult flatmates cleaning a bright living room: one vacuuming a rug and one wiping a table. A broom, dustpan and mop stored at the side. Wide believable domestic scene, no montage.","cards":[
+      ["wipe","Close view of a hand sliding a damp folded cloth across a kitchen table, gathering a small visible coffee spill. Gentle flat wiping action, no brush."],
+      ["scrub","Close view of a gloved adult hand pressing a stiff bristle brush against dirty bathroom grout, lifting stubborn dirt with visible suds. Vigorous targeted scrubbing, no cloth."],
+      ["sweep","Adult using a long-handled broom to gather dry crumbs into a small pile on a tiled floor, broom bristles touching floor."],
+      ["mop","Adult moving a wet flat mop across a kitchen tile floor, damp cleaned trail visible and a bucket beside them. No broom."],
+      ["vacuum","Adult using a vacuum cleaner floor head over a rug with a few crumbs, hose attached to canister visible. Entire tool action clear."],
+      ["dust","Hand using a soft dry cloth to lift visible grey dust from a wooden shelf, leaving a clean streak. No water or suds."],
+      ["polish","Hands buffing a wooden tabletop with a soft cloth until the wood reflects the window softly, dull and glossy portions visibly distinct. No sanding tools."],
+      ["stain","Close view of a dry dark coffee stain soaked into a cream upholstery cushion, irregular brown ring and fabric fibres visible. No fresh liquid pool."],
+      ["grime","Close view of a neglected kitchen extractor hood edge coated with built-up sticky grey-brown grease and dirt, clearly accumulated grime, not a single spill."],
+      ["spotless","A freshly cleaned bathroom sink and chrome tap, entirely free of dust spots stains and clutter, natural bright reflections, no cartoon sparkles."]
+    ]},
+    {"id":"laundry-care","title":"Laundry & Care","titleZh":"洗衣与衣物护理","overview":"Bright utility room with an adult sorting a laundry basket while another folds clean towels; washing machine and drying rack visible. Wide coherent scene.","cards":[
+      ["laundry","A fabric basket full of worn shirts socks and towels beside an open washing machine, clearly clothes awaiting washing."],
+      ["detergent","Close view of a hand pouring liquid laundry detergent from a plain unbranded bottle into a measuring cap beside a washing machine drawer. No other chemicals."],
+      ["soak","A stained cotton shirt fully resting in a basin of still soapy water, hands gently submerging the fabric. No running tap."],
+      ["rinse","Hands holding a soapy small cloth under a stream of clean tap water, soap bubbles washing away toward the drain. Water contact clearly visible."],
+      ["wring out","Two hands twisting opposite ends of a wet cloth above a basin, visible water squeezing out of the middle. Hands and twisted fabric clearly readable."],
+      ["hang out","Adult pinning a freshly washed shirt onto an outdoor clothesline using clothes pegs, laundry basket nearby. Full action visible."],
+      ["tumble-dry","A tumble dryer with clean towels visible through its circular glass door, a person selecting a drying control, no water and no detergent."],
+      ["iron","Close view of an adult guiding a clothes iron across a wrinkled cotton shirt on an ironing board, fabric visibly smooth behind it. Cable away from hot soleplate."],
+      ["fold","Two hands folding a dry towel into a neat rectangle on a table, other folded towels stacked beside it."],
+      ["crease","Macro view of a cotton shirt with a sharp unwanted fold line across the front, side light makes the crease clear, no decorative pleats."]
+    ]},
+    {"id":"kitchen-tasks","title":"Kitchen Tasks","titleZh":"厨房家务","overview":"Two adults finishing kitchen chores after a meal, one placing plates in the dishwasher and another clearing the table; organised cupboards and recycling containers in the background.","cards":[
+      ["wash up","An adult washing a used dinner plate with a sponge in a kitchen sink containing soapy water, a few dirty dishes wait beside it."],
+      ["load","Hands placing a dirty plate upright into a dishwasher rack with several other dirty plates. Action clearly into the machine, not taking out."],
+      ["unload","Hands lifting a clean plate from an open dishwasher towards a neat stack of clean plates on the worktop. Clear outward action."],
+      ["drain","A tilted colander containing freshly rinsed vegetables over a sink, water dripping through its small holes. No boiling pot or steam."],
+      ["leftovers","Small portions of cooked rice and vegetables remaining after a meal being transferred from serving dishes into storage containers. Modest amounts, not fresh meal preparation."],
+      ["airtight","Close-up of a food storage box with a visible rubber sealing gasket and four side clips fastened firmly around its lid, dry cereal inside."],
+      ["defrost","An unplugged empty freezer with its door open, melting ice on the interior wall and a tray and towels collecting drips. No knives, heaters or electrical repair."],
+      ["wipe down","Adult methodically wiping the whole kitchen worktop with a broad cloth after a meal, crumbs being gathered, no focused stubborn stain."],
+      ["clear the table","Adult lifting used plates and empty glasses from a dining table after a meal toward a tray, cleared space obvious."],
+      ["take out the rubbish","Adult carrying a tied household rubbish bag out of the back door towards a large outdoor bin, no scattered litter."]
+    ]},
+    {"id":"tidying-storage","title":"Tidying & Storage","titleZh":"整理与收纳","overview":"Adult flatmates organising a living room with storage baskets, sorting books on shelves and placing unused items in a donation box. Warm realistic home scene.","cards":[
+      ["clutter","A home desk crowded with tangled cables scattered papers empty mugs and miscellaneous small objects, little usable surface left."],
+      ["declutter","An adult removing unused objects from an overcrowded shelf into a donation box; a section of the shelf is now clear. No rubbish heap."],
+      ["sort out","Adult separating a mixed pile of household items into distinct groups of cables stationery and batteries on a table."],
+      ["put away","Adult placing a board game back into its proper shelf space, other games neatly stored and clear floor beneath."],
+      ["stack","Hands placing one storage box squarely on top of two others to form a stable vertical stack, all box bases aligned."],
+      ["storage","Open household cupboard with built-in shelves baskets and boxes holding blankets and supplies, clear usable storage space."],
+      ["label","Close view of a hand attaching a blank adhesive paper label to the front of an opaque storage box. No lettering visible."],
+      ["drawer divider","Top-down view inside a desk drawer with physical divider compartments separating pens cables and small stationery, boundaries unmistakable."],
+      ["donate","Adult handing a box of clean usable household items to another adult at a community collection table, friendly exchange with other donation boxes visible."],
+      ["recycle","Adult placing an empty clean metal drinks can into a recycling container holding other cans; nearby separate container with flattened cardboard, no text or logos."]
+    ]},
+    {"id":"upkeep-routines","title":"Upkeep & Routines","titleZh":"日常维护与分工","overview":"Household weekend upkeep: an adult repairing a loose cabinet handle while another checks a household task chart at a table with shopping supplies. No legible writing, bright coherent domestic scene.","cards":[
+      ["chore","Two adults sharing everyday household chores in one room, one folds laundry while the other tidies shelves, simple realistic activity."],
+      ["rota","Two adults pointing at a weekly household task grid on a fridge, coloured rows alternate between their portrait magnets and small illustrated cleaning tasks. No words or numbers."],
+      ["errand","Adult returning home carrying a parcel and a small bag of groceries, keys in hand by the front door, mundane practical trip not holiday travel."],
+      ["maintenance","Adult inspecting and tightening a loose cabinet hinge with a screwdriver, keeping existing furniture in working order, not constructing new furniture."],
+      ["leak","Clear droplets escaping from the joint of a pipe beneath a kitchen sink into a catching bucket, water source and wet joint clearly visible."],
+      ["tighten","Close-up of a hand turning a screwdriver on a loose screw attaching a cupboard handle, other hand steadies the handle, no electrical components."],
+      ["replace","Hands removing a worn felt pad from a chair leg and positioning a new intact felt pad beside it, old versus new clearly different."],
+      ["mend","Close-up hands sewing a small tear in a cloth shopping bag with needle and thread, repaired stitches visible, careful natural grip."],
+      ["restock","Adult adding new toilet paper rolls to a nearly empty household supply shelf, remaining space and new supply package clearly visible."],
+      ["run out of","Adult tipping an empty washing powder box over an empty measuring cup, looking at the empty container, only a tiny last dusting falls. No text or branding."]
+    ]}
+  ]
+}

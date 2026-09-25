@@ -1,5 +1,10 @@
 window.CEFR_TOPICS = [
   {
+    id:"shopping",title:"Shopping & Consumer Choices",titleZh:"购物与消费选择",level:"B2",category:"Shopping and services",icon:"🛍️",accent:"#a64f49",accent2:"#337f78",
+    description:"Compare products, handle payment and returns, shop online and make informed consumer choices.",
+    taxonomyReferences:["https://dictionary.cambridge.org/us/topics/business/buying-and-selling/","https://dictionary.cambridge.org/dictionary/english/click-and-collect","https://dictionary.cambridge.org/dictionary/english/warranty"]
+  },
+  {
     id:"eating-out",title:"Eating Out & Nutrition",titleZh:"外出就餐与营养",level:"B2",category:"Food and drink",icon:"🍽️",accent:"#aa5b39",accent2:"#547759",
     description:"Book a table, order confidently, explain dietary requirements and discuss food labels and eating habits.",
     taxonomyReferences:["https://dictionary.cambridge.org/dictionary/english/a-la-carte-menu","https://dictionary.cambridge.org/dictionary/english/nutrient","https://dictionary.cambridge.org/dictionary/english/nutrition"]

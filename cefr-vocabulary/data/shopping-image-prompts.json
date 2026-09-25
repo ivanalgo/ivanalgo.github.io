@@ -1,0 +1,66 @@
+{
+  "topic": "shopping",
+  "style": "Use case: scientific-educational. Asset: English vocabulary learning photo-illustration. Bright contemporary editorial photography, natural daylight, warm cream, terracotta, sage and muted blue palette, diverse adults, realistic shops, products, screens, receipts and hands. One unmistakable shopping concept per word card, centrally framed in landscape 4:3. Use generic unbranded goods. No logos, watermark or decorative slogans. Only include short exact text requested by the prompt. Keep payment and consumer-rights scenes calm, practical and non-judgmental.",
+  "scenes": [
+    {"id":"browsing-comparing","title":"Browsing & Comparing","titleZh":"浏览与比较","overview":"Wide modern department store: shoppers browse shelves, compare two small appliances and ask an assistant about available models. Clear connected scene, not a collage.","cards":[
+      ["browse","Shopper slowly looks along a well-organised shelf of unbranded lamps without holding a chosen item; relaxed exploratory body language. Small caption BROWSE."],
+      ["display","Retail worker arranges three unbranded ceramic lamps on a prominent illuminated store table for customers to see. Small caption DISPLAY."],
+      ["range","A single store shelf shows the same unbranded reusable bottle in five sizes and colours, clearly a selection of related products. Small caption RANGE."],
+      ["in stock","Shop assistant checks a tablet and then points to several matching boxed kettles available on the storeroom shelf. Tablet reads IN STOCK."],
+      ["out of stock","Empty shelf space with a clear OUT OF STOCK card where one product should be; shopper checks the space, nearby different products remain available."],
+      ["compare","Shopper holds two generic headphones side by side while reading two simple feature cards; a thoughtful comparison, no brand logos. Small caption COMPARE."],
+      ["feature","Close product demonstration: a sales assistant points to a laptop's folding touchscreen as the distinctive feature; small card reads TOUCHSCREEN FEATURE."],
+      ["specification","Shopper studies a clean technical specification card beside an unbranded laptop; short readable rows: 16 GB RAM, 512 GB, 1.3 kg. Heading SPECIFICATIONS."],
+      ["value for money","Shopper compares a moderately priced sturdy backpack with its useful compartments and long warranty card, pleased by overall quality. Small caption VALUE FOR MONEY."],
+      ["budget","Shopper checks a handwritten shopping plan with BUDGET £80 while choosing between two generic shoes with price tags; calculator beside list."]
+    ]},
+    {"id":"prices-payment","title":"Prices & Payment","titleZh":"价格与付款","overview":"Wide shop checkout area: sale shelf, shoppers paying by card and cash, cashier issuing receipt and change. Warm orderly retail scene.","cards":[
+      ["price tag","Close-up of a shopper turning a hanging price tag on a plain jacket; tag clearly reads £45, no brand."],
+      ["discount","Two identical generic bags, original tag £60 crossed out and new tag £45 with clear 25% OFF card; focus on reduction."],
+      ["reduced","A supermarket worker applies a REDUCED £2 sticker to one food package near closing time; original £4 visible."],
+      ["bargain","Happy shopper finds a sturdy floor lamp on a clearance table marked £20, previously £70; small caption BARGAIN."],
+      ["afford","Shopper checks wallet and phone balance before choosing the lower-priced of two practical coats; calm decision, small caption CAN AFFORD."],
+      ["overpriced","Shopper looks surprised at a very high £95 tag on a simple plain cotton T-shirt while a similar £20 shirt hangs beside it. Small caption OVERPRICED."],
+      ["checkout","Customer places a basket of goods on a staffed checkout counter while cashier scans an item; clear shop exit area. Small caption CHECKOUT."],
+      ["contactless","Close-up of a bank card held just above a generic payment terminal displaying a contactless wave symbol and £18.50; no card logo."],
+      ["receipt","Cashier hands a long itemised paper receipt to a customer after payment; heading RECEIPT and simple amounts only."],
+      ["change","Cashier counts coins and a small banknote back into a customer's open hand after a cash purchase; receipt beside till. Small caption CHANGE." ]
+    ]},
+    {"id":"trying-returns","title":"Trying, Returns & Protection","titleZh":"试用、退换与保障","overview":"Wide clothing and electronics shop service area: fitting rooms, a shopper trying a jacket, and a calm returns desk handling a faulty appliance with receipt and warranty.","cards":[
+      ["fitting room","Clothing shopper enters a private fitting-room cubicle carrying two garments; clear fitting-room mirror and curtain, small sign FITTING ROOM."],
+      ["fit","Shopper checks how a jacket sits around shoulders and sleeves in a mirror; tailor-like assistant checks sleeve length. Small caption GOOD FIT."],
+      ["suit","Two shirts fit equally well, but shopper smiles at the blue colour while friend indicates it complements them; small caption IT SUITS YOU."],
+      ["size","Shopper compares two identical shoes marked SIZE 39 and SIZE 40, selecting the comfortable one. Clear size labels."],
+      ["try on","Shopper puts on a plain coat in front of a store mirror while their own coat hangs nearby. Small caption TRY ON."],
+      ["exchange","At a returns desk, customer hands back a blue sweater and receives the same sweater in a different size; arrows indicate swap, small caption EXCHANGE."],
+      ["return","Customer brings an unused boxed lamp with receipt back to a shop counter; staff accepts it. Small caption RETURN."],
+      ["refund","Cashier returns £35 to a customer's bank card after accepting a returned product and receipt; terminal reads REFUND £35."],
+      ["faulty","A new desk lamp flickers and fails while another identical lamp works; customer shows the faulty item at service desk. Small caption FAULTY."],
+      ["warranty","Customer keeps a dated purchase receipt together with a card reading 2-YEAR WARRANTY beside a generic coffee machine." ]
+    ]},
+    {"id":"online-delivery","title":"Online Shopping & Delivery","titleZh":"网购与配送","overview":"Wide home-and-warehouse sequence in one coherent workspace: shopper orders on laptop, warehouse packs the order, courier scans parcel and customer collects another package at a store counter.","cards":[
+      ["online retailer","Laptop shows a clean generic online shop with product grid, search and basket; shopper browses at home. Heading ONLINE SHOP, no real brand."],
+      ["product listing","Close laptop screen showing one generic backpack with title, price £48, colour choices and bullet features. Heading PRODUCT LISTING."],
+      ["customer review","Shopper reads a balanced review panel with four stars, product photo and short exact text: Comfortable, but runs small. Heading CUSTOMER REVIEW."],
+      ["shopping basket","Generic online shop screen with three chosen items and basket icon showing 3; panel heading SHOPPING BASKET, no checkout yet."],
+      ["place an order","Shopper presses a clear PLACE ORDER button on laptop after checking delivery address and total £62; no real brand."],
+      ["delivery","Courier hands a labelled cardboard parcel to a resident at their front door; both check the house number, small caption DELIVERY."],
+      ["shipping fee","Online checkout screen clearly separates Items £40, Shipping £5, Total £45; shopper points at Shipping £5. Heading SHIPPING FEE."],
+      ["tracking number","Customer checks parcel journey on phone with short code TRK-4821 and progress from Warehouse to Out for delivery. Heading TRACKING NUMBER."],
+      ["dispatch","Warehouse worker scans a sealed labelled parcel as it moves onto an outgoing conveyor; screen reads DISPATCHED."],
+      ["click and collect","Customer shows an order code on phone and receives a parcel at a shop collection counter. Sign CLICK & COLLECT." ]
+    ]},
+    {"id":"consumer-choices","title":"Consumer Choices","titleZh":"消费选择","overview":"Wide community shopping street: repairable goods, second-hand shop, refill store and consumer advice desk. Adults compare quality and environmental information without moralising.","cards":[
+      ["brand","Shelf presents three similar unbranded products with distinct generic packaging identities; shopper recognises one repeated abstract circle mark. Small caption BRAND, no real logos."],
+      ["ethical","Shopper checks a generic coffee package displaying small FAIR PAY and SAFE WORK card beside a photo of workers; educational consumer choice, no certification logos."],
+      ["sustainable","Refill shop customer fills a reusable bottle from a bulk dispenser while holding the same durable container; small caption REUSE & REFILL."],
+      ["second-hand","Customer examines a clean pre-owned jacket in a welcoming second-hand shop; tag reads PRE-OWNED £18, garments varied and well cared for."],
+      ["durable","Two backpacks after use: one sturdy reinforced bag remains intact while a flimsy comparison bag has a torn strap; focus on long-lasting construction, caption DURABLE."],
+      ["impulse buy","At checkout, shopper reaches toward an unplanned bright gadget from a small counter display while shopping list shows only SOAP and BREAD; pause before buying, caption IMPULSE BUY."],
+      ["misleading","Online product photo shows a large storage box, but delivered item beside a ruler is tiny; shopper compares image and reality, caption MISLEADING."],
+      ["consumer rights","Consumer advice worker points to a simple leaflet headed YOUR CONSUMER RIGHTS while helping a shopper with receipt and faulty kettle."],
+      ["complaint","Customer calmly explains a problem with a damaged delivery to a service adviser who records details; small caption MAKE A COMPLAINT."],
+      ["guarantee","A generic sturdy suitcase sits beside a clear promise card reading MONEY-BACK GUARANTEE: 30 DAYS; shopper reads conditions, no logo." ]
+    ]}
+  ]
+}

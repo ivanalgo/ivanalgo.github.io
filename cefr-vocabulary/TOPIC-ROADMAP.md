@@ -80,18 +80,19 @@ This is the canonical topic list for the CEFR Visual Vocabulary Lab. The curricu
 - Batch 1: Personality & Character, Emotions & Reactions, Family & Relationships, Home & Housing, Food & Cooking, Money & Personal Finance.
 - Later batches should contain 6–8 topics and preserve the same 50-sense, five-scene, bilingual learning specification.
 
-## Latest continuation checkpoint — 2026-09-07
+## Latest continuation checkpoint — 2026-09-25
 
 - Friendship & Social Life: committed and pushed in 0dbbf55.
 - Life Stages & Change: completed and pushed in b0b1459 with 50 illustrated words, 5 overviews, 150 bilingual examples and 12 idiom examples. No icon placeholders in this topic.
 - Appearance & Fashion: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage; all 55 WebP images validated and visually inspected.
 - Household & Everyday Tasks: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. Images use 768px word cards and 1200px overviews (approximately 3.4 MiB total).
 - Eating Out & Nutrition: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. Images use 768px word cards and 1200px overviews (approximately 3.7 MiB total).
-- Next in predefined order: Shopping & Consumer Choices.
+- Shopping & Consumer Choices: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. All 55 images were visually checked and use 768px word cards and 1200px overviews (approximately 2.9 MiB total).
+- Next in predefined order: Money & Personal Finance editorial upgrade.
 
 ### Content-quality backlog found during continuation
 
-The 21-topic structural check passes and the loaded topics have no generated icon placeholders. However, the seven packs below still use 50 generic template definitions each in batch-1-b2.js and require an editorial pass over definitions, collocations, examples and idioms. Image completion must not be confused with editorial completion:
+The 22-topic structural check is the current target and the loaded topics have no generated icon placeholders. However, the seven packs below still use 50 generic template definitions each in batch-1-b2.js and require an editorial pass over definitions, collocations, examples and idioms. Image completion must not be confused with editorial completion:
 
 - Personality & Character
 - Emotions & Reactions

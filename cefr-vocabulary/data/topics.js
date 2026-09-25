@@ -1,5 +1,10 @@
 window.CEFR_TOPICS = [
   {
+    id:"eating-out",title:"Eating Out & Nutrition",titleZh:"外出就餐与营养",level:"B2",category:"Food and drink",icon:"🍽️",accent:"#aa5b39",accent2:"#547759",
+    description:"Book a table, order confidently, explain dietary requirements and discuss food labels and eating habits.",
+    taxonomyReferences:["https://dictionary.cambridge.org/dictionary/english/a-la-carte-menu","https://dictionary.cambridge.org/dictionary/english/nutrient","https://dictionary.cambridge.org/dictionary/english/nutrition"]
+  },
+  {
     id:"household",title:"Household & Everyday Tasks",titleZh:"家务与日常事务",level:"B2",category:"Home and living",icon:"🧺",accent:"#397765",accent2:"#6392aa",
     description:"Describe cleaning, laundry, kitchen tasks, storage and household upkeep with practical everyday expressions.",
     taxonomyReferences:["https://dictionary.cambridge.org/us/topics/clean-dirty-and-cleaning/cleaning-and-tidying-places-and-things/"]

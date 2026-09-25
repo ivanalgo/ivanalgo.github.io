@@ -86,11 +86,12 @@ This is the canonical topic list for the CEFR Visual Vocabulary Lab. The curricu
 - Life Stages & Change: completed and pushed in b0b1459 with 50 illustrated words, 5 overviews, 150 bilingual examples and 12 idiom examples. No icon placeholders in this topic.
 - Appearance & Fashion: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage; all 55 WebP images validated and visually inspected.
 - Household & Everyday Tasks: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. Images use 768px word cards and 1200px overviews (approximately 3.4 MiB total).
-- Next in predefined order: Eating Out & Nutrition, then Shopping & Consumer Choices.
+- Eating Out & Nutrition: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. Images use 768px word cards and 1200px overviews (approximately 3.7 MiB total).
+- Next in predefined order: Shopping & Consumer Choices.
 
 ### Content-quality backlog found during continuation
 
-The 19-topic structural check passes and the loaded topics have no generated icon placeholders. However, the seven packs below still use 50 generic template definitions each in batch-1-b2.js and require an editorial pass over definitions, collocations, examples and idioms. Image completion must not be confused with editorial completion:
+The 21-topic structural check passes and the loaded topics have no generated icon placeholders. However, the seven packs below still use 50 generic template definitions each in batch-1-b2.js and require an editorial pass over definitions, collocations, examples and idioms. Image completion must not be confused with editorial completion:
 
 - Personality & Character
 - Emotions & Reactions

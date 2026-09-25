@@ -1,0 +1,3 @@
+# Keep original imagegen PNGs locally; publish the visually checked WebP derivatives.
+*.png
+**/*.png

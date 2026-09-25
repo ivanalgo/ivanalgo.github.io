@@ -1,0 +1,66 @@
+{
+  "topic": "eating-out",
+  "style": "Use case: scientific-educational. Asset: English vocabulary learning illustration. Bright contemporary editorial illustration with realistic food textures, warm cream, terracotta and sage colours, natural light, diverse adults and anatomically plausible hands. One clear specific subject or action, not a generic icon. Landscape 4:3 word card with action-defining details centrally framed. No logos, watermark or text except exact short text explicitly requested. Nutrition scenes teach vocabulary, not medical advice or body ideals.",
+  "scenes": [
+    {"id":"booking-ordering","title":"Booking & Ordering","titleZh":"订位与点餐","overview":"Wide restaurant entrance opening into a dining room: host checking a booking book, a waiting couple, seated diners choosing from menus and a waiter taking an order. Coherent spatial scene, not a collage.","cards":[
+      ["reservation","At a restaurant reception a host locates a highlighted appointment in a booking book as a couple arrives. Small card reading RESERVED beside a set table; no other readable text."],
+      ["walk-in","A spontaneous visitor with coat and shopping bag at a restaurant door asks a welcoming host about an empty table; a booking ledger is closed at the desk."],
+      ["fully booked","Restaurant host apologetically gestures toward a completely occupied dining room; a waiting couple at reception; small sign FULLY BOOKED."],
+      ["set menu","Restaurant tabletop: one compact menu reading SET MENU £25 beside a starter soup, main dish and dessert arranged as a three-course package; no other text."],
+      ["à la carte","Close view of a diner pointing at a menu with three separate food drawings each with its own price £8, £16, £7. A single chosen main dish on table, not a meal package."],
+      ["speciality","Restaurant chef proudly presents a distinctive signature seafood paella in a wide pan to two delighted diners. Focus on the signature dish."],
+      ["recommend","Waiter warmly points to a particular dish on an illustrated menu while diners listen and consider the suggestion."],
+      ["order","Seated diner points at a dish on the menu while waiter writes the choice into a small notepad, clear interaction."],
+      ["starter","Close tabletop view of a small elegant bowl of soup and bread served before the meal, a larger empty dinner plate beyond; focus on the small first course."],
+      ["main course","A substantial central plate of grilled fish, potatoes and vegetables in a restaurant place setting; used small starter bowl being cleared at the side."]
+    ]},
+    {"id":"restaurant-service","title":"Restaurant Service","titleZh":"餐厅服务","overview":"Wide lively restaurant service scene: waiter delivers plates, another refills water, diners settle a bill and pack leftovers at different tables. Warm polished dining room.","cards":[
+      ["side dish","Close-up of a small separate bowl of green beans beside a larger plated roast meal, unmistakably a separately served accompaniment."],
+      ["refill","Waiter pours fresh drinking water from a clear jug into a nearly empty glass at a diner’s table; visible stream and rising water."],
+      ["bill","Restaurant diner examines an itemised paper bill in an open bill folder beside used plates. Paper heading BILL and separate numerical amounts only."],
+      ["service charge","Close-up of restaurant bill showing Food £40, Service £4, Total £44; a finger points at Service £4. Accurate legible short text only."],
+      ["tip","Diner leaves a few extra coins beside a closed paid bill folder while smiling in thanks at waiter; focus on the extra coins."],
+      ["split the bill","Two friends each present their own bank card toward a waiter holding a bill folder; equal portions of payment visually indicated by two separate card readers or receipts, no text."],
+      ["complimentary","Waiter offers a small dessert to pleasantly surprised diners with an open-palm gift gesture, small tent card reading ON THE HOUSE."],
+      ["takeaway","Customer receives a neatly closed paper food bag and lidded meal container across a restaurant pickup counter, ready to leave."],
+      ["complaint","Calm diner points out a chipped plate to attentive restaurant manager who listens seriously; no shouting, focus on politely reporting a problem."],
+      ["refund","Restaurant cashier returns banknotes to customer across counter with an untouched incorrect takeaway order and receipt nearby."]
+    ]},
+    {"id":"dietary-preferences","title":"Dietary Preferences","titleZh":"饮食偏好与要求","overview":"Wide restaurant kitchen and counter where staff discuss ingredient lists with diners and prepare clearly separated plant-based dishes and alternative sauces. No medical claims.","cards":[
+      ["dietary requirement","Restaurant guest points at a written request card while a waiter carefully records it and chef checks ingredient containers; card reads DIETARY REQUIREMENTS only."],
+      ["vegetarian","Inviting plate of vegetable tart with visible egg and cheese, side salad, no meat or fish; ingredients eggs, cheese and vegetables shown nearby."],
+      ["vegan","Inviting bowl of chickpeas, roasted vegetables and tofu with plant ingredients beside it; no meat, fish, dairy, eggs or honey."],
+      ["allergy","Restaurant guest shows a card reading PEANUT ALLERGY to a concerned attentive waiter; a separate peanut bowl remains well away, no one eating peanuts, no depiction of emergency."],
+      ["ingredient","Chef sets out distinct measured ingredients for one salad: tomatoes, cucumber, chickpeas, olive oil and herbs around an empty mixing bowl."],
+      ["gluten-free","Sealed restaurant meal container bearing a simple GLUTEN-FREE label beside a rice-and-vegetable dish; not bread labelled by appearance alone."],
+      ["dairy-free","Cafe worker pours oat drink from carton reading OAT into coffee, beside small DAIRY-FREE order card, no milk products."],
+      ["substitute","Server swaps the potato side bowl on a diner’s plate for a bowl of rice; both bowls clearly visible mid-exchange."],
+      ["on the side","Restaurant salad with dressing in a separate little jug beside it, spoon ready; salad itself not coated, close view."],
+      ["mild","Two curry bowls, one with a small single chilli symbol and one with three chilli symbols; diner chooses the single-chilli bowl. Main focus on the gentler curry, no words."]
+    ]},
+    {"id":"nutrition-balance","title":"Nutrition & Balance","titleZh":"营养与搭配","overview":"Wide cooking-class worktop with a varied meal, bowls of beans, wholegrain bread, vegetables and fruit, and an adult comparing food packaging nutrition panels. Educational, no prescriptive portion chart.","cards":[
+      ["balanced diet","A day’s varied meals shown naturally on a dining worktop: oats and fruit, bean-and-vegetable lunch, fish and rice dinner, water. No scales, diet pills or ideal-body imagery."],
+      ["nutrient","Educational food still life: three real bowls containing lentils, orange slices and milk on a bright table. Small separate paper teaching cards read Protein beside lentils, Vitamin C beside oranges, Calcium beside milk. Small heading NUTRIENTS. These are examples of nutrients within foods, not exhaustive lists. No magnifying glass, no particles, no microbes, no pills, no chemical structures. Photographic food textures, neatly composed and readable at small size."],
+      ["protein","A varied display of protein-containing foods: lentils, tofu, eggs and fish arranged in separate bowls on a bright kitchen counter, small caption PROTEIN."],
+      ["carbohydrate","A clear display of rice, bread, potatoes and oats on a kitchen worktop, small caption CARBOHYDRATES. Realistic food textures."],
+      ["fibre","Wholegrain bread sliced open beside beans, apple with peel and broccoli, close tactile textures, small caption FIBRE."],
+      ["wholegrain","Macro food illustration showing sliced wholegrain bread and whole wheat kernels with outer bran visibly intact alongside rolled oats; small caption WHOLEGRAIN."],
+      ["portion","Serving spoon places a chosen amount of casserole from a large shared baking dish onto one person’s plate; clear individual amount versus whole dish."],
+      ["serving","Food package with nutrition panel headed PER SERVING and Serving size 40 g; one measured cereal bowl next to it. Exact short text, no other health information."],
+      ["intake","Adult records foods and drinks consumed through a day in a diary with small meal sketches, used drinking glasses and plates nearby; small diary heading DAILY INTAKE, no calorie targets."],
+      ["nutritional information","Hands turn a food carton to inspect its rectangular nutrition panel, a few simple rows headed Energy, Fat, Carbohydrate, Protein; focus on reading the panel, no health claims."]
+    ]},
+    {"id":"eating-habits","title":"Eating Habits","titleZh":"饮食习惯","overview":"Wide shared kitchen at lunchtime: adults prepare lunch boxes, one enjoys a meal at table, another pours water, varied everyday food on worktops, welcoming atmosphere.","cards":[
+      ["appetite","Adult eagerly sits down to a steaming meal, smiling with anticipation and fork poised, no overeating or body-weight imagery."],
+      ["craving","Adult glances longingly at a chocolate pastry in a bakery window, clear focused desire for that one specific food, no shame."],
+      ["satisfying","Adult looks comfortably content after a substantial bowl of soup and bread, spoon resting in bowl, calm satisfied expression."],
+      ["skip a meal","Busy worker at desk continues typing while an untouched packed lunch remains closed beside them and wall clock shows late afternoon; no glorification."],
+      ["snack","Adult takes a small apple and a handful of crackers from a small container during a short desk break; not a full meal."],
+      ["cut down on","Adult pours a smaller amount of sugar into tea; previous fuller spoon shown resting beside sugar bowl, focus on reducing quantity without eliminating it."],
+      ["in moderation","Small slice of chocolate cake being savoured with tea while remaining cake is put away in a box, positive relaxed ordinary eating, no scales."],
+      ["meal prep","Adult fills several reusable lunch containers with cooked rice, vegetables and beans for later days, clear batch preparation on kitchen counter."],
+      ["eat out","Two friends enjoying plated dinner in a clearly public restaurant with waiter and neighbouring tables in background, no home kitchen."],
+      ["home-cooked","Adult brings a freshly cooked casserole from a domestic stove to a family table in a recognisable home kitchen, oven glove and personal decor."]
+    ]}
+  ]
+}

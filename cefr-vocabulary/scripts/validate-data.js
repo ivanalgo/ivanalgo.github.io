@@ -16,6 +16,7 @@ require("../data/environment-b2-expanded.js");
 require("../data/health-b2-expanded.js");
 require("../data/remaining-b2-topics.js");
 require("../data/batch-1-b2.js");
+require("../data/money-b2-copy.js");
 require("../data/life-stages-b2-copy.js");
 require("../data/appearance-b2.js");
 require("../data/household-b2.js");

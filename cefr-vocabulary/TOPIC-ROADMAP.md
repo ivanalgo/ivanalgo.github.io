@@ -88,11 +88,12 @@ This is the canonical topic list for the CEFR Visual Vocabulary Lab. The curricu
 - Household & Everyday Tasks: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. Images use 768px word cards and 1200px overviews (approximately 3.4 MiB total).
 - Eating Out & Nutrition: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. Images use 768px word cards and 1200px overviews (approximately 3.7 MiB total).
 - Shopping & Consumer Choices: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. All 55 images were visually checked and use 768px word cards and 1200px overviews (approximately 2.9 MiB total).
-- Next in predefined order: Money & Personal Finance editorial upgrade.
+- Money & Personal Finance: completed with 50 illustrated words, 5 overviews, 150 bilingual collocations, 150 bilingual examples and 12 idiom examples. Registered on the homepage. All 55 images were visually checked and use 768px word cards and 1200px overviews (approximately 3.0 MiB total).
+- Next editorial upgrade: Personality & Character.
 
 ### Content-quality backlog found during continuation
 
-The 22-topic structural check is the current target and the loaded topics have no generated icon placeholders. However, the seven packs below still use 50 generic template definitions each in batch-1-b2.js and require an editorial pass over definitions, collocations, examples and idioms. Image completion must not be confused with editorial completion:
+The 22-topic structural check is the current target and the loaded topics have no generated icon placeholders. However, the six packs below still use 50 generic template definitions each in batch-1-b2.js and require an editorial pass over definitions, collocations, examples and idioms. Image completion must not be confused with editorial completion:
 
 - Personality & Character
 - Emotions & Reactions
@@ -100,6 +101,5 @@ The 22-topic structural check is the current target and the loaded topics have n
 - Friendship & Social Life
 - Home & Housing
 - Food & Cooking
-- Money & Personal Finance
 
-Life Stages & Change and Appearance & Fashion have dedicated original-copy overrides rather than those templates.
+Life Stages & Change, Appearance & Fashion, Shopping & Consumer Choices, and Money & Personal Finance have dedicated original-copy overrides rather than those templates.

@@ -233,8 +233,8 @@ function renderProbabilities(view) {
 }
 
 function renderDualHead(view) {
-  const isQkt=/QKᵀ raw/i.test(view.name);
-  return `<div class="dual-head-grid ${isQkt?'qkt-head-grid':''}">${view.heads.map((head, h) => `<section class="head-panel" data-head="${h}">${isQkt?`<div class="qkt-input-ports" aria-label="Head ${h+1} 的 Q 与 K 转置输入"><span class="qkt-port qkt-port-q" data-qkt-port="q">Q${h+1}</span><span class="qkt-op">×</span><span class="qkt-port qkt-port-k" data-qkt-port="k">K${h+1}ᵀ</span></div>`:''}<div class="head-label"><span>HEAD ${h + 1}</span><b>${escapeHtml(view.name)}</b></div>${renderMatrix(head)}</section>`).join("")}</div>`;
+  const isQkt=/QKᵀ raw/i.test(view.name), isContext=/Attention × V/i.test(view.name);
+  return `<div class="dual-head-grid ${isQkt?'qkt-head-grid':''} ${isContext?'context-head-grid':''}">${view.heads.map((head, h) => `<section class="head-panel" data-head="${h}">${isQkt?`<div class="qkt-input-ports" aria-label="Head ${h+1} 的 Q 与 K 转置输入"><span class="qkt-port qkt-port-q" data-qkt-port="q">Q${h+1}</span><span class="qkt-op">×</span><span class="qkt-port qkt-port-k" data-qkt-port="k">K${h+1}ᵀ</span></div>`:''}${isContext?`<div class="context-input-ports" aria-label="Head ${h+1} 的注意力权重与 V 输入"><span class="context-port" data-context-port="a">A${h+1}</span><span class="qkt-op">×</span><span class="context-port" data-context-port="v">V${h+1}</span></div>`:''}<div class="head-label"><span>HEAD ${h + 1}</span><b>${escapeHtml(view.name)}</b></div>${renderMatrix(head)}</section>`).join("")}</div>`;
 }
 
 function viewHtml(view) {
@@ -325,8 +325,22 @@ function drawDependencyGraph(){
     }else if(stepId==="ln1"||stepId==="ln2"){
       if(views.length>=3){ connect(views[0],views[2],"μ"); connect(views[1],views[2],"σ²"); }
       if(views.length>=4) connect(views[2],views[3],"γ, β");
-    }else if(stepId==="attention"||stepId==="project"||stepId==="mlp"){
-      views.forEach((node,j)=>{ if(j>0) connect(views[j-1],node,stepId==="attention"?["scale","mask","softmax","× V"][j-1]:"中间结果","internal-path"); });
+    }else if(stepId==="attention"){
+      const operationLabels=["÷ √d_head","+ causal mask","row-wise Softmax","attention weights × V"];
+      views.forEach((node,j)=>{
+        if(j===0) return;
+        const previous=views[j-1],fromPanels=[...previous.querySelectorAll('.head-panel')],toPanels=[...node.querySelectorAll('.head-panel')];
+        fromPanels.forEach((fromPanel,head)=>{
+          const toPanel=toPanels[head];
+          if(!toPanel) return;
+          const targetPort=j===4?toPanel.querySelector('[data-context-port="a"]'):null;
+          const a=rawBox(fromPanel),b=targetPort?rawBox(targetPort):rawBox(toPanel),startX=a.cx,startY=a.bottom+2,endX=b.cx,endY=(targetPort?b.top:b.top)-7,laneY=startY+Math.max(34,(endY-startY)/2);
+          addPath(roundedOrthogonal(startX,startY,endX,endY,laneY,12,44),"internal-path attention-stage-path");
+          addLabel((startX+endX)/2,laneY-14,`Head ${head+1}: ${operationLabels[j-1]}`,"data-label");
+        });
+      });
+    }else if(stepId==="project"||stepId==="mlp"){
+      views.forEach((node,j)=>{ if(j>0) connect(views[j-1],node,"中间结果","internal-path"); });
     }
     if(i===0) return;
     const prevNodes=nodes[i-1],source=prevNodes[prevNodes.length-1],dep=DEPENDENCIES[stepId]||{};
@@ -359,6 +373,18 @@ function drawDependencyGraph(){
           addLabel((a.cx+endX)/2,laneY-14,label,"data-label");
         });
       });
+      if(views.length>=5){
+        const contextPanels=[...views[4].querySelectorAll('.head-panel')],vNodes=[prevNodes[8],prevNodes[11]];
+        contextPanels.forEach((panel,head)=>{
+          const vPort=panel.querySelector('[data-context-port="v"]'),sourceNode=vNodes[head];
+          if(!vPort||!sourceNode) return;
+          const a=box(sourceNode,"source"),b=rawBox(vPort),panelBox=rawBox(panel),x1=a.cx,y1=a.bottom+2,x2=b.cx,y2=b.top-8,laneX=head===0?panelBox.left-92:panelBox.right+92;
+          const exitY=y1+34,entryY=y2-52,r=12;
+          const d=`M ${x1} ${y1} L ${x1} ${exitY-r} Q ${x1} ${exitY} ${x1+(laneX>x1?12:-12)} ${exitY} L ${laneX} ${exitY} L ${laneX} ${entryY-r} Q ${laneX} ${entryY} ${laneX+(x2>laneX?12:-12)} ${entryY} L ${x2} ${entryY} L ${x2} ${y2}`;
+          addPath(d,"value-bypass-path");
+          addLabel(laneX,(exitY+entryY)/2,`V${head+1}: value vectors`,"data-label");
+        });
+      }
     }else if(dep.merge){
       const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-34;
       addPath(roundedOrthogonal(a.cx,a.bottom+2,mergeX-18,mergeY,a.bottom+28),"main-path");

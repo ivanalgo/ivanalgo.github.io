@@ -233,7 +233,8 @@ function renderProbabilities(view) {
 }
 
 function renderDualHead(view) {
-  return `<div class="dual-head-grid">${view.heads.map((head, h) => `<section class="head-panel" data-head="${h}"><div class="head-label"><span>HEAD ${h + 1}</span><b>${escapeHtml(view.name)}</b></div>${renderMatrix(head)}</section>`).join("")}</div>`;
+  const isQkt=/QKᵀ raw/i.test(view.name);
+  return `<div class="dual-head-grid ${isQkt?'qkt-head-grid':''}">${view.heads.map((head, h) => `<section class="head-panel" data-head="${h}">${isQkt?`<div class="qkt-input-ports" aria-label="Head ${h+1} 的 Q 与 K 转置输入"><span class="qkt-port qkt-port-q" data-qkt-port="q">Q${h+1}</span><span class="qkt-op">×</span><span class="qkt-port qkt-port-k" data-qkt-port="k">K${h+1}ᵀ</span></div>`:''}<div class="head-label"><span>HEAD ${h + 1}</span><b>${escapeHtml(view.name)}</b></div>${renderMatrix(head)}</section>`).join("")}</div>`;
 }
 
 function viewHtml(view) {
@@ -289,10 +290,13 @@ function drawDependencyGraph(){
   const nodes=steps.map(step=>[...step.querySelectorAll('.view-block')].sort((a,b)=>Number(a.dataset.viewIndex)-Number(b.dataset.viewIndex)));
   const addPath=(d,cls="")=>svg.appendChild(svgNode("path",{d,class:`data-path ${cls}`.trim(),"marker-end":"url(#dataArrow)"}));
   const addLabel=(x,y,text,cls="data-label")=>{const width=Math.max(70,Math.min(210,text.length*6.2+16));svg.appendChild(svgNode("rect",{x:x-width/2,y:y-10,width,height:20,rx:10,class:`${cls}-bg`}));svg.appendChild(svgNode("text",{x,y:y+3,class:cls,"text-anchor":"middle"},text));};
-  const roundedOrthogonal=(x1,y1,x2,y2,laneY,r=12)=>{
-    const dir=x2>=x1?1:-1, safeR=Math.min(r,Math.abs(x2-x1)/2,Math.abs(laneY-y1),Math.abs(y2-laneY));
+  const roundedOrthogonal=(x1,y1,x2,y2,laneY,r=12,minTail=40)=>{
+    const dir=x2>=x1?1:-1;
+    const maxLane=Math.max(y1+18,y2-minTail-r);
+    const adjustedLane=Math.min(laneY,maxLane);
+    const safeR=Math.min(r,Math.abs(x2-x1)/2,Math.max(0,Math.abs(adjustedLane-y1)),Math.max(0,Math.abs(y2-adjustedLane)));
     if(Math.abs(x2-x1)<4) return `M ${x1} ${y1} L ${x2} ${y2}`;
-    return `M ${x1} ${y1} L ${x1} ${laneY-safeR} Q ${x1} ${laneY} ${x1+dir*safeR} ${laneY} L ${x2-dir*safeR} ${laneY} Q ${x2} ${laneY} ${x2} ${laneY+safeR} L ${x2} ${y2}`;
+    return `M ${x1} ${y1} L ${x1} ${adjustedLane-safeR} Q ${x1} ${adjustedLane} ${x1+dir*safeR} ${adjustedLane} L ${x2-dir*safeR} ${adjustedLane} Q ${x2} ${adjustedLane} ${x2} ${adjustedLane+safeR} L ${x2} ${y2}`;
   };
   const connect=(source,target,label,cls="",laneShift=0)=>{
     const a=box(source,"source"),b=box(target,"target"),startX=a.cx,startY=a.bottom+2,endX=b.cx,endY=b.top-7;
@@ -302,7 +306,7 @@ function drawDependencyGraph(){
   };
   const connectViaRight=(source,target,label,laneX,cls="")=>{
     const a=box(source,"source"),b=box(target,"target"),x1=a.cx,y1=a.bottom+2,x2=b.cx,y2=b.top-7;
-    const exitY=y1+24,entryY=y2-24,r=12;
+    const exitY=y1+30,entryY=Math.min(y2-48,exitY+Math.max(48,(y2-exitY)/2)),r=12;
     const d=`M ${x1} ${y1} L ${x1} ${exitY-r} Q ${x1} ${exitY} ${x1+r} ${exitY} L ${laneX-r} ${exitY} Q ${laneX} ${exitY} ${laneX} ${exitY+r} L ${laneX} ${entryY-r} Q ${laneX} ${entryY} ${laneX-r} ${entryY} L ${x2+r} ${entryY} Q ${x2} ${entryY} ${x2} ${entryY+r} L ${x2} ${y2}`;
     addPath(d,cls);
     if(label) addLabel(laneX-8,(exitY+entryY)/2,label,cls.includes('skip')?'skip-label':'data-label');
@@ -334,7 +338,7 @@ function drawDependencyGraph(){
         for(let j=0;j<outputCount;j++){
           const output=views[6+j],weight=views[j],label=["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],head=j<3?0:1;
           const outputBox=box(output,"target"), laneX=headLaneXs[head]+(j%3-1)*10;
-          const trunkStartY=sourceBox.bottom+22, entryY=outputBox.top-24;
+          const trunkStartY=sourceBox.bottom+28, entryY=outputBox.top-52;
           const d=`M ${sourceBox.cx} ${sourceBox.bottom+2} L ${sourceBox.cx} ${trunkStartY-12} Q ${sourceBox.cx} ${trunkStartY} ${sourceBox.cx+(laneX>sourceBox.cx?12:-12)} ${trunkStartY} L ${laneX} ${trunkStartY} L ${laneX} ${entryY-12} Q ${laneX} ${entryY} ${laneX+(outputBox.cx>laneX?12:-12)} ${entryY} L ${outputBox.cx} ${entryY} L ${outputBox.cx} ${outputBox.top-7}`;
           addPath(d,"head-input-path");
           addLabel(laneX,(trunkStartY+entryY)/2,`LN₁→${label}`,"data-label");
@@ -343,10 +347,17 @@ function drawDependencyGraph(){
       }
     }
     else if(stepId==="attention" && prevNodes.length>=12){
-      const target=views[0], targetBox=box(target,"target"), gapLaneX=targetBox.cx;
-      prevNodes.slice(6,12).forEach((node,j)=>{
-        const n=box(node,"source"), head=j<3?0:1, laneX=gapLaneX+(head?-34:34)+(j%3-1)*9;
-        connectViaRight(node,target,["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],laneX,"attention-input-path");
+      const target=views[0], panels=[...target.querySelectorAll('.head-panel')];
+      const pairs=[{q:prevNodes[6],k:prevNodes[7]},{q:prevNodes[9],k:prevNodes[10]}];
+      panels.forEach((panel,head)=>{
+        const qPort=panel.querySelector('[data-qkt-port="q"]'),kPort=panel.querySelector('[data-qkt-port="k"]');
+        if(!qPort||!kPort) return;
+        [[pairs[head].q,qPort,`Q${head+1}`,-16],[pairs[head].k,kPort,`K${head+1}ᵀ`,16]].forEach(([sourceNode,port,label,shift])=>{
+          const a=box(sourceNode,"source"),b=rawBox(port),endX=b.cx,endY=b.top-8;
+          const laneY=a.bottom+44+shift;
+          addPath(roundedOrthogonal(a.cx,a.bottom+2,endX,endY,laneY,12,44),"attention-input-path qkt-input-path");
+          addLabel((a.cx+endX)/2,laneY-14,label,"data-label");
+        });
       });
     }else if(dep.merge){
       const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-34;

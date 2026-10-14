@@ -329,18 +329,25 @@ function drawDependencyGraph(){
     if(stepId==="qkv"){
       const outputCount=Math.max(0,views.length-6);
       if(outputCount>0){
-        const sourceBox=box(source,"source"), visibleBoxes=views.map(n=>box(n,"source"));
-        const busX=Math.min(page.scrollWidth-24,Math.max(...visibleBoxes.map(b=>b.right))+46);
+        const sourceBox=box(source,"source"), matrixArea=step.querySelector('.matrix-gallery'), areaBox=rawBox(matrixArea), centerLaneX=areaBox.cx;
+        const headLaneXs=[centerLaneX-28,centerLaneX+28];
         for(let j=0;j<outputCount;j++){
-          const output=views[6+j],weight=views[j],label=["Q₁","K₁","V₁","Q₂","K₂","V₂"][j];
-          connectViaRight(source,output,`LN₁ → ${label}`,busX+j*8,"main-bus-path");
-          connect(weight,output,["Wq₁+bq₁","Wk₁+bk₁","Wv₁+bv₁","Wq₂+bq₂","Wk₂+bk₂","Wv₂+bv₂"][j],"parameter-path",j%3*10);
+          const output=views[6+j],weight=views[j],label=["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],head=j<3?0:1;
+          const outputBox=box(output,"target"), laneX=headLaneXs[head]+(j%3-1)*10;
+          const trunkStartY=sourceBox.bottom+22, entryY=outputBox.top-24;
+          const d=`M ${sourceBox.cx} ${sourceBox.bottom+2} L ${sourceBox.cx} ${trunkStartY-12} Q ${sourceBox.cx} ${trunkStartY} ${sourceBox.cx+(laneX>sourceBox.cx?12:-12)} ${trunkStartY} L ${laneX} ${trunkStartY} L ${laneX} ${entryY-12} Q ${laneX} ${entryY} ${laneX+(outputBox.cx>laneX?12:-12)} ${entryY} L ${outputBox.cx} ${entryY} L ${outputBox.cx} ${outputBox.top-7}`;
+          addPath(d,"head-input-path");
+          addLabel(laneX,(trunkStartY+entryY)/2,`LN₁→${label}`,"data-label");
+          connect(weight,output,["Wq₁+bq₁","Wk₁+bk₁","Wv₁+bv₁","Wq₂+bq₂","Wk₂+bk₂","Wv₂+bv₂"][j],"parameter-path",(j%3-1)*12);
         }
       }
     }
     else if(stepId==="attention" && prevNodes.length>=12){
-      const target=views[0], allRight=prevNodes.slice(6,12).map(n=>box(n,"source").right), baseLane=Math.min(page.scrollWidth-20,Math.max(...allRight)+42);
-      prevNodes.slice(6,12).forEach((node,j)=>connectViaRight(node,target,["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],baseLane+j*9,"attention-input-path"));
+      const target=views[0], targetBox=box(target,"target"), gapLaneX=targetBox.cx;
+      prevNodes.slice(6,12).forEach((node,j)=>{
+        const n=box(node,"source"), head=j<3?0:1, laneX=gapLaneX+(head?-34:34)+(j%3-1)*9;
+        connectViaRight(node,target,["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],laneX,"attention-input-path");
+      });
     }else if(dep.merge){
       const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-34;
       addPath(roundedOrthogonal(a.cx,a.bottom+2,mergeX-18,mergeY,a.bottom+28),"main-path");

@@ -289,11 +289,23 @@ function drawDependencyGraph(){
   const nodes=steps.map(step=>[...step.querySelectorAll('.view-block')]);
   const addPath=(d,cls="")=>svg.appendChild(svgNode("path",{d,class:`data-path ${cls}`.trim(),"marker-end":"url(#dataArrow)"}));
   const addLabel=(x,y,text,cls="data-label")=>{const width=Math.max(70,Math.min(210,text.length*6.2+16));svg.appendChild(svgNode("rect",{x:x-width/2,y:y-10,width,height:20,rx:10,class:`${cls}-bg`}));svg.appendChild(svgNode("text",{x,y:y+3,class:cls,"text-anchor":"middle"},text));};
-  const curve=(x1,y1,x2,y2,bend=.5)=>{const dy=Math.max(34,Math.abs(y2-y1)*bend);return `M ${x1} ${y1} C ${x1} ${y1+dy}, ${x2} ${y2-dy}, ${x2} ${y2}`;};
-  const connect=(source,target,label,cls="data-path")=>{
+  const roundedOrthogonal=(x1,y1,x2,y2,laneY,r=12)=>{
+    const dir=x2>=x1?1:-1, safeR=Math.min(r,Math.abs(x2-x1)/2,Math.abs(laneY-y1),Math.abs(y2-laneY));
+    if(Math.abs(x2-x1)<4) return `M ${x1} ${y1} L ${x2} ${y2}`;
+    return `M ${x1} ${y1} L ${x1} ${laneY-safeR} Q ${x1} ${laneY} ${x1+dir*safeR} ${laneY} L ${x2-dir*safeR} ${laneY} Q ${x2} ${laneY} ${x2} ${laneY+safeR} L ${x2} ${y2}`;
+  };
+  const connect=(source,target,label,cls="",laneShift=0)=>{
     const a=box(source,"source"),b=box(target,"target"),startX=a.cx,startY=a.bottom+2,endX=b.cx,endY=b.top-7;
-    addPath(curve(startX,startY,endX,endY),cls);
-    if(label) addLabel((startX+endX)/2,(startY+endY)/2,label,cls.includes('skip')?'skip-label':'data-label');
+    const laneY=startY+Math.max(30,(endY-startY)/2)+laneShift;
+    addPath(roundedOrthogonal(startX,startY,endX,endY,laneY),cls);
+    if(label) addLabel((startX+endX)/2,laneY-14,label,cls.includes('skip')?'skip-label':'data-label');
+  };
+  const connectViaRight=(source,target,label,laneX,cls="")=>{
+    const a=box(source,"source"),b=box(target,"target"),x1=a.cx,y1=a.bottom+2,x2=b.cx,y2=b.top-7;
+    const exitY=y1+24,entryY=y2-24,r=12;
+    const d=`M ${x1} ${y1} L ${x1} ${exitY-r} Q ${x1} ${exitY} ${x1+r} ${exitY} L ${laneX-r} ${exitY} Q ${laneX} ${exitY} ${laneX} ${exitY+r} L ${laneX} ${entryY-r} Q ${laneX} ${entryY} ${laneX-r} ${entryY} L ${x2+r} ${entryY} Q ${x2} ${entryY} ${x2} ${entryY+r} L ${x2} ${y2}`;
+    addPath(d,cls);
+    if(label) addLabel(laneX-8,(exitY+entryY)/2,label,cls.includes('skip')?'skip-label':'data-label');
   };
   steps.forEach((step,i)=>{
     const stepId=step.dataset.stepId,views=nodes[i];
@@ -301,9 +313,10 @@ function drawDependencyGraph(){
       const token=step.querySelector('.embedding-token'),position=step.querySelector('.embedding-position'),result=step.querySelector('.embedding-result'),plus=step.querySelector('.embedding-plus');
       if(token&&position&&result&&plus){
         const t=rawBox(token),p=rawBox(position),r=rawBox(result),m=rawBox(plus);
-        addPath(curve(t.cx,t.bottom+2,m.cx-8,m.top+4,.38),"data-path internal-path");
-        addPath(curve(p.cx,p.bottom+2,m.cx+8,m.top+4,.38),"data-path internal-path");
-        addPath(curve(m.cx,m.bottom-2,r.cx,r.top-7,.32),"data-path internal-path");
+        const topLane=Math.max(t.bottom,p.bottom)+30;
+        addPath(roundedOrthogonal(t.cx,t.bottom+2,m.cx-8,m.top+4,topLane),"internal-path");
+        addPath(roundedOrthogonal(p.cx,p.bottom+2,m.cx+8,m.top+4,topLane+14),"internal-path");
+        addPath(roundedOrthogonal(m.cx,m.bottom-2,r.cx,r.top-7,m.bottom+18),"internal-path");
       }
     }else if(stepId==="ln1"||stepId==="ln2"){
       if(views.length>=3){ connect(views[0],views[2],"μ"); connect(views[1],views[2],"σ²"); }
@@ -314,31 +327,33 @@ function drawDependencyGraph(){
     if(i===0) return;
     const prevNodes=nodes[i-1],source=prevNodes[prevNodes.length-1],dep=DEPENDENCIES[stepId]||{};
     if(stepId==="qkv"){
-      const weightCount=Math.min(6,views.length);
       const outputCount=Math.max(0,views.length-6);
-      for(let j=0;j<outputCount;j++){
-        const output=views[6+j],weight=views[j],label=["Q₁","K₁","V₁","Q₂","K₂","V₂"][j];
-        connect(source,output,`LN₁ → ${label}`);
-        connect(weight,output,`${["Wq₁+bq₁","Wk₁+bk₁","Wv₁+bv₁","Wq₂+bq₂","Wk₂+bk₂","Wv₂+bv₂"][j]}`,"parameter-path");
+      if(outputCount>0){
+        const sourceBox=box(source,"source"), visibleBoxes=views.map(n=>box(n,"source"));
+        const busX=Math.min(page.scrollWidth-24,Math.max(...visibleBoxes.map(b=>b.right))+46);
+        for(let j=0;j<outputCount;j++){
+          const output=views[6+j],weight=views[j],label=["Q₁","K₁","V₁","Q₂","K₂","V₂"][j];
+          connectViaRight(source,output,`LN₁ → ${label}`,busX+j*8,"main-bus-path");
+          connect(weight,output,["Wq₁+bq₁","Wk₁+bk₁","Wv₁+bv₁","Wq₂+bq₂","Wk₂+bk₂","Wv₂+bv₂"][j],"parameter-path",j%3*10);
+        }
       }
     }
     else if(stepId==="attention" && prevNodes.length>=12){
-      const target=views[0]; prevNodes.slice(6,12).forEach((node,j)=>connect(node,target,["Q₁","K₁","V₁","Q₂","K₂","V₂"][j]));
+      const target=views[0], allRight=prevNodes.slice(6,12).map(n=>box(n,"source").right), baseLane=Math.min(page.scrollWidth-20,Math.max(...allRight)+42);
+      prevNodes.slice(6,12).forEach((node,j)=>connectViaRight(node,target,["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],baseLane+j*9,"attention-input-path"));
     }else if(dep.merge){
-      const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-30;
-      addPath(curve(a.cx,a.bottom+2,mergeX-18,mergeY,.42),"data-path main-path");
+      const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-34;
+      addPath(roundedOrthogonal(a.cx,a.bottom+2,mergeX-18,mergeY,a.bottom+28),"main-path");
       const sourceIndex=state.steps.findIndex(x=>x.id===dep.skipFrom);
       if(sourceIndex>=0 && sourceIndex<i){
         const skipNode=nodes[sourceIndex][nodes[sourceIndex].length-1],s=box(skipNode,"source");
         const allRight=nodes.slice(sourceIndex,i+1).flat().map(n=>box(n,"source").right);
-        const laneX=Math.min(page.scrollWidth-12,Math.max(...allRight)+34);
-        const skipCurve=`M ${s.right+2} ${s.bottom-16} C ${laneX} ${s.bottom-16}, ${laneX} ${mergeY}, ${mergeX+18} ${mergeY}`;
-        addPath(skipCurve,"data-path skip-path");
-        addLabel(laneX-10,(s.bottom+mergeY)/2,dep.inputs[0],"skip-label");
+        const laneX=Math.min(page.scrollWidth-18,Math.max(...allRight)+48);
+        connectViaRight(skipNode,target,dep.inputs[0],laneX,"skip-path");
       }
       svg.appendChild(svgNode("circle",{cx:mergeX,cy:mergeY,r:17,class:"merge-node"}));
       svg.appendChild(svgNode("text",{x:mergeX,y:mergeY+7,class:"merge-plus","text-anchor":"middle"},"+"));
-      addPath(curve(mergeX,mergeY+17,mergeX,b.top-7,.35),"data-path merge-out");
+      addPath(roundedOrthogonal(mergeX,mergeY+17,mergeX,b.top-7,mergeY+22),"merge-out");
       addLabel((a.cx+mergeX)/2,mergeY-14,dep.inputs[1],"data-label");
     }else connect(source,views[0],dep.inputs?.join(" + ")||"data");
   });

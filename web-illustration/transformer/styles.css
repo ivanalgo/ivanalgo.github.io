@@ -286,7 +286,7 @@ main { max-width: 3000px; padding-inline: clamp(14px, 1.5vw, 36px); }
 .qkt-head-grid .head-panel { position: relative; padding-top: 62px; }
 .qkt-input-ports { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; z-index: 7; }
 .qkt-port { display: grid; place-items: center; min-width: 62px; height: 30px; padding: 0 10px; border: 2px solid var(--green-2); border-radius: 16px; background: #fffefa; color: var(--green); font: 10px var(--mono); }
-.qkt-op { color: var(--orange); font: 24px var(--serif); }
+.qkt-op { display: grid; place-items: center; width: 36px; height: 36px; border: 2px solid var(--orange); border-radius: 50%; background: #fffefa; color: var(--orange); font: 22px var(--serif); }
 .context-head-grid .head-panel { position: relative; padding-top: 62px; }
 .context-input-ports { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; z-index: 7; }
 .context-port { display: grid; place-items: center; min-width: 62px; height: 30px; padding: 0 10px; border: 2px solid var(--green-2); border-radius: 16px; background: #fffefa; color: var(--green); font: 10px var(--mono); }
@@ -310,6 +310,14 @@ main { max-width: 3000px; padding-inline: clamp(14px, 1.5vw, 36px); }
 .multiply-symbol { fill: var(--orange); font: 24px var(--serif); }
 .multiply-output-path { stroke: var(--green-2); stroke-width: 2.8; }
 .multiply-input-path { stroke-width: 2.5; }
+.linear-multiply-block .view-block-body { display: flex; flex-direction: column; align-items: center; gap: 76px; }
+.linear-multiply-operator { position: relative; z-index: 6; display: grid; justify-items: center; min-width: 440px; padding: 16px 20px 14px; border: 1px solid #b9c9c0; background: #f8faf1; box-shadow: 0 7px 22px rgba(29,52,41,.045); }
+.linear-multiply-row { display: grid; grid-template-columns: 150px 42px 150px; align-items: center; gap: 16px; }
+.linear-multiply-row > span { display: grid; place-items: center; min-height: 42px; border: 1px solid #aebfb5; border-radius: 22px; background: #fffefa; color: var(--green); font: 10px var(--mono); text-align: center; }
+.linear-multiply-circle { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid var(--orange); border-radius: 50%; background: #fffefa; color: var(--orange); font: 24px var(--serif); }
+.linear-multiply-operator > small { margin-top: 10px; color: var(--orange); font: 10px var(--mono); }
+.linear-data-path { stroke: var(--green-2); stroke-width: 2.6; }
+.linear-weight-path { stroke: var(--blue); stroke-dasharray: 7 5; }
 .calc-step[data-step-id="embed"] .canvas-step { padding-bottom: 110px; }
 .calc-step[data-step-id="embed"] .embedding-plus { transform: translateY(22px); }
 .calc-step[data-step-id="embed"] .embedding-result { margin-top: 34px; }

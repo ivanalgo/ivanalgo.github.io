@@ -340,7 +340,20 @@ function drawDependencyGraph(){
         });
       });
     }else if(stepId==="project"||stepId==="mlp"){
-      views.forEach((node,j)=>{ if(j>0) connect(views[j-1],node,"中间结果","internal-path"); });
+      views.forEach((node,j)=>{
+        if(j===0) return;
+        const operator=node.querySelector('[data-linear-multiply]');
+        if(operator){
+          const previous=views[j-1],dataPort=operator.querySelector('[data-linear-port="data"]'),weightPort=operator.querySelector('[data-linear-port="weight"]'),matrix=node.querySelector('.matrix-wrap');
+          const a=box(previous,"source"),d=rawBox(dataPort),w=rawBox(weightPort),op=rawBox(operator),m=rawBox(matrix),laneY=a.bottom+42;
+          addPath(roundedOrthogonal(a.cx,a.bottom+2,d.cx,d.top-7,laneY,12,36),"linear-data-path");
+          addLabel((a.cx+d.cx)/2,laneY-14,"data matrix","data-label");
+          const weightLaneY=w.top-36;
+          addPath(roundedOrthogonal(w.cx+160,weightLaneY,w.cx,w.top-7,weightLaneY,12,28),"parameter-path linear-weight-path");
+          addLabel(w.cx+78,weightLaneY-14,"model weight","data-label");
+          addPath(`M ${op.cx} ${op.bottom+2} L ${op.cx} ${m.top-7}`,"multiply-output-path");
+        }else connect(views[j-1],node,"中间结果","internal-path");
+      });
     }
     if(i===0) return;
     const prevNodes=nodes[i-1],source=prevNodes[prevNodes.length-1],dep=DEPENDENCIES[stepId]||{};
@@ -401,6 +414,15 @@ function drawDependencyGraph(){
         addPath(roundedOrthogonal(op.cx,op.bottom+2,matrix.cx,matrix.top-7,op.bottom+28,12,40),"concat-output-path");
         addLabel(op.cx,op.bottom+18,"Concat → [T×4]","data-label");
       }
+    }else if((stepId==="mlp"||stepId==="logits") && views[0]?.querySelector('[data-linear-multiply]')){
+      const target=views[0],operator=target.querySelector('[data-linear-multiply]'),dataPort=operator.querySelector('[data-linear-port="data"]'),weightPort=operator.querySelector('[data-linear-port="weight"]'),matrix=target.querySelector('.matrix-wrap');
+      const a=box(source,"source"),d=rawBox(dataPort),w=rawBox(weightPort),op=rawBox(operator),m=rawBox(matrix),laneY=a.bottom+46;
+      addPath(roundedOrthogonal(a.cx,a.bottom+2,d.cx,d.top-7,laneY,12,40),"linear-data-path");
+      addLabel((a.cx+d.cx)/2,laneY-14,stepId==="mlp"?"LN₂ output":"Y_last","data-label");
+      const weightLaneY=w.top-36;
+      addPath(roundedOrthogonal(w.cx+160,weightLaneY,w.cx,w.top-7,weightLaneY,12,28),"parameter-path linear-weight-path");
+      addLabel(w.cx+78,weightLaneY-14,stepId==="mlp"?"W₁":"W_vocab","data-label");
+      addPath(`M ${op.cx} ${op.bottom+2} L ${op.cx} ${m.top-7}`,"multiply-output-path");
     }else if(dep.merge){
       const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-78;
       addPath(roundedOrthogonal(a.cx,a.bottom+2,mergeX-18,mergeY,a.bottom+28),"main-path");
@@ -424,7 +446,10 @@ function drawDependencyGraph(){
 function renderViewBlock(view,index,stepId) {
   const modifier=view.type==="dual-head"?" dual-head-block":"";
   const concatNode=stepId==="project"&&index===0?`<div class="concat-operator" data-concat-operator><div class="concat-inputs"><span data-concat-port="head1">Head 1 Context<br><small>[T×2]</small></span><span data-concat-port="head2">Head 2 Context<br><small>[T×2]</small></span></div><b>Concat(axis = feature)</b><small>[T×2] + [T×2] → [T×4]</small></div>`:"";
-  return `<section class="view-block${modifier} ${concatNode?'concat-target-block':''}" data-view-index="${index}" data-node="${escapeHtml(stepId)}:${index}"><div class="view-block-body">${concatNode}${viewHtml(view)}</div></section>`;
+  const linearSpecs={"project:1":["Concat [T×4]","Wₒ [4×4]","+ bₒ"],"mlp:0":["LN₂ [T×4]","W₁ [4×8]","+ b₁"],"mlp:2":["GELU [T×8]","W₂ [8×4]","+ b₂"],"logits:0":["Y_last [1×4]","W_vocab [4×8]","+ b_vocab"]};
+  const spec=linearSpecs[`${stepId}:${index}`];
+  const linearNode=spec?`<div class="linear-multiply-operator" data-linear-multiply><div class="linear-multiply-row"><span data-linear-port="data">${spec[0]}</span><b class="linear-multiply-circle">×</b><span data-linear-port="weight">${spec[1]}</span></div><small>${spec[2]}</small></div>`:"";
+  return `<section class="view-block${modifier} ${concatNode?'concat-target-block':''} ${linearNode?'linear-multiply-block':''}" data-view-index="${index}" data-node="${escapeHtml(stepId)}:${index}"><div class="view-block-body">${concatNode}${linearNode}${viewHtml(view)}</div></section>`;
 }
 
 function initialValueNote(view) {

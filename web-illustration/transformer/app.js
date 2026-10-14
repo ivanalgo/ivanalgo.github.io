@@ -289,7 +289,15 @@ function drawDependencyGraph(){
   const box=(node,role)=>rawBox(anchorElement(node,role));
   const nodes=steps.map(step=>[...step.querySelectorAll('.view-block')].sort((a,b)=>Number(a.dataset.viewIndex)-Number(b.dataset.viewIndex)));
   const addPath=(d,cls="")=>svg.appendChild(svgNode("path",{d,class:`data-path ${cls}`.trim(),"marker-end":"url(#dataArrow)"}));
-  const addLabel=(x,y,text,cls="data-label")=>{const width=Math.max(70,Math.min(210,text.length*6.2+16));svg.appendChild(svgNode("rect",{x:x-width/2,y:y-10,width,height:20,rx:10,class:`${cls}-bg`}));svg.appendChild(svgNode("text",{x,y:y+3,class:cls,"text-anchor":"middle"},text));};
+  const addGuide=(d,cls="label-leader")=>svg.appendChild(svgNode("path",{d,class:cls}));
+  const addLabel=(anchorX,y,text,cls="data-label",preferredSide=null)=>{
+    const width=Math.max(70,Math.min(210,text.length*6.2+16));
+    const side=preferredSide||(anchorX>page.scrollWidth*.72?"left":"right"),dir=side==="left"?-1:1,gap=18;
+    const x=anchorX+dir*(gap+width/2),edgeX=x-dir*width/2;
+    addGuide(`M ${anchorX} ${y} L ${edgeX-dir*4} ${y}`,cls.includes('skip')?"skip-label-leader":"label-leader");
+    svg.appendChild(svgNode("rect",{x:x-width/2,y:y-10,width,height:20,rx:10,class:`${cls}-bg`}));
+    svg.appendChild(svgNode("text",{x,y:y+3,class:cls,"text-anchor":"middle"},text));
+  };
   const roundedOrthogonal=(x1,y1,x2,y2,laneY,r=12,minTail=40)=>{
     const dir=x2>=x1?1:-1;
     const maxLane=Math.max(y1+18,y2-minTail-r);
@@ -299,17 +307,22 @@ function drawDependencyGraph(){
     return `M ${x1} ${y1} L ${x1} ${adjustedLane-safeR} Q ${x1} ${adjustedLane} ${x1+dir*safeR} ${adjustedLane} L ${x2-dir*safeR} ${adjustedLane} Q ${x2} ${adjustedLane} ${x2} ${adjustedLane+safeR} L ${x2} ${y2}`;
   };
   const connect=(source,target,label,cls="",laneShift=0)=>{
-    const a=box(source,"source"),b=box(target,"target"),startX=a.cx,startY=a.bottom+2,endX=b.cx,endY=b.top-7;
+    const a=box(source,"source"),b=box(target,"target"),startY=a.bottom+2,endY=b.top-7;
+    const aligned=Math.abs(a.cx-b.cx)<=18,axisX=aligned?(a.cx+b.cx)/2:null,startX=aligned?axisX:a.cx,endX=aligned?axisX:b.cx;
     const laneY=startY+Math.max(30,(endY-startY)/2)+laneShift;
-    addPath(roundedOrthogonal(startX,startY,endX,endY,laneY),cls);
-    if(label) addLabel((startX+endX)/2,laneY-14,label,cls.includes('skip')?'skip-label':'data-label');
+    addPath(aligned?`M ${axisX} ${startY} L ${axisX} ${endY}`:roundedOrthogonal(startX,startY,endX,endY,laneY),cls);
+    if(label){
+      const labelY=aligned?(startY+endY)/2:laneY-14;
+      const anchorX=aligned?axisX:(startX+endX)/2;
+      addLabel(anchorX,labelY,label,cls.includes('skip')?'skip-label':'data-label');
+    }
   };
   const connectViaRight=(source,target,label,laneX,cls="")=>{
     const a=box(source,"source"),b=box(target,"target"),x1=a.cx,y1=a.bottom+2,x2=b.cx,y2=b.top-7;
     const exitY=y1+30,entryY=Math.min(y2-48,exitY+Math.max(48,(y2-exitY)/2)),r=12;
     const d=`M ${x1} ${y1} L ${x1} ${exitY-r} Q ${x1} ${exitY} ${x1+r} ${exitY} L ${laneX-r} ${exitY} Q ${laneX} ${exitY} ${laneX} ${exitY+r} L ${laneX} ${entryY-r} Q ${laneX} ${entryY} ${laneX-r} ${entryY} L ${x2+r} ${entryY} Q ${x2} ${entryY} ${x2} ${entryY+r} L ${x2} ${y2}`;
     addPath(d,cls);
-    if(label) addLabel(laneX-8,(exitY+entryY)/2,label,cls.includes('skip')?'skip-label':'data-label');
+    if(label) addLabel(laneX,(exitY+entryY)/2,label,cls.includes('skip')?'skip-label':'data-label',"left");
   };
   steps.forEach((step,i)=>{
     const stepId=step.dataset.stepId,views=nodes[i];
@@ -432,7 +445,7 @@ function drawDependencyGraph(){
         const laneX=canvasBox.right-46,exitY=s.bottom+34,entryY=mergeY,r=12,endX=mergeX+18;
         const d=`M ${s.cx} ${s.bottom+2} L ${s.cx} ${exitY-r} Q ${s.cx} ${exitY} ${s.cx+r} ${exitY} L ${laneX-r} ${exitY} Q ${laneX} ${exitY} ${laneX} ${exitY+r} L ${laneX} ${entryY-r} Q ${laneX} ${entryY} ${laneX-r} ${entryY} L ${endX} ${entryY}`;
         addPath(d,"skip-path residual-right-lane");
-        addLabel(laneX-12,(exitY+entryY)/2,dep.inputs[0],"skip-label");
+        addLabel(laneX,(exitY+entryY)/2,dep.inputs[0],"skip-label","left");
       }
       svg.appendChild(svgNode("circle",{cx:mergeX,cy:mergeY,r:17,class:"merge-node"}));
       svg.appendChild(svgNode("text",{x:mergeX,y:mergeY+7,class:"merge-plus","text-anchor":"middle"},"+"));

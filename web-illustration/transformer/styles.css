@@ -146,6 +146,8 @@ kbd { color: var(--lime); font-size: 15px; }
 .skip-path { stroke: var(--orange); stroke-width: 2.4; }
 .data-label-bg { fill: #fffef9; stroke: #bfcac3; stroke-width: 1; }
 .data-label { fill: #245d47; font: 9px var(--mono); }
+.label-leader { fill: none; stroke: #93a59b; stroke-width: 1.2; stroke-linecap: round; stroke-dasharray: 3 3; }
+.skip-label-leader { fill: none; stroke: var(--orange); stroke-width: 1.2; stroke-linecap: round; stroke-dasharray: 3 3; }
 .skip-label-bg { fill: #fff4ed; stroke: #f07845; stroke-width: 1; }
 .skip-label { fill: #a84b25; font: 9px var(--mono); }
 .merge-node { fill: #fffef9; stroke: var(--orange); stroke-width: 2.4; }

@@ -258,7 +258,12 @@ main { max-width: 3000px; padding-inline: clamp(14px, 1.5vw, 36px); }
 .canvas-step-label em { margin-left: auto; color: var(--muted); font: 9px var(--mono); font-style: normal; }
 .matrix-gallery { display: grid; grid-template-columns: repeat(3,minmax(390px,1fr)); gap: 92px 56px; align-items: start; }
 .matrix-gallery.views-2,.matrix-gallery.views-4 { grid-template-columns: repeat(2,minmax(520px,1fr)); }
-.matrix-gallery.single { grid-template-columns: minmax(620px,860px); justify-content: center; }
+.matrix-gallery.single { grid-template-columns: minmax(620px,860px); justify-content: center; justify-items: center; }
+.matrix-gallery.single .node-unit { width: max-content; max-width: 100%; justify-self: center; }
+.matrix-gallery.single .view-block-body,.matrix-gallery.single .matrix-wrap,.matrix-gallery.single .prob-bars { margin-inline: auto; }
+.calc-step[data-step-id="project"] .node-unit,.calc-step[data-step-id="mlp"] .node-unit { width: max-content; max-width: 100%; justify-self: center; }
+.calc-step[data-step-id="project"] .view-block-body,.calc-step[data-step-id="mlp"] .view-block-body { margin-inline: auto; }
+.calc-step[data-step-id="project"] .matrix-wrap,.calc-step[data-step-id="mlp"] .matrix-wrap { margin-inline: auto; }
 .node-unit { min-width: 0; align-self: start; }
 .node-unit.dual-node { grid-column: 1 / -1; }
 .source-badge { position: relative; z-index: 6; width: max-content; max-width: 100%; margin: 9px auto 0; display: flex; align-items: flex-start; gap: 7px; padding: 6px 10px; border: 1px solid #cbd4ce; border-radius: 12px; background: rgba(255,254,249,.97); color: #54635b; font: 9px/1.45 var(--mono); }

@@ -385,6 +385,18 @@ function drawDependencyGraph(){
           addLabel(laneX,(exitY+entryY)/2,`V${head+1}: value vectors`,"data-label");
         });
       }
+    }else if(stepId==="project" && prevNodes.length){
+      const target=views[0],operator=target.querySelector('[data-concat-operator]'),targetMatrix=target.querySelector('.matrix-wrap'),sourcePanels=[...source.querySelectorAll('.head-panel')];
+      if(operator&&targetMatrix&&sourcePanels.length>=2){
+        ['head1','head2'].forEach((portName,head)=>{
+          const port=operator.querySelector(`[data-concat-port="${portName}"]`),a=rawBox(sourcePanels[head]),b=rawBox(port),laneY=a.bottom+48+head*16;
+          addPath(roundedOrthogonal(a.cx,a.bottom+2,b.cx,b.top-8,laneY,12,44),"concat-input-path");
+          addLabel((a.cx+b.cx)/2,laneY-14,`Head ${head+1} Context [T×2]`,"data-label");
+        });
+        const op=rawBox(operator),matrix=rawBox(targetMatrix);
+        addPath(roundedOrthogonal(op.cx,op.bottom+2,matrix.cx,matrix.top-7,op.bottom+28,12,40),"concat-output-path");
+        addLabel(op.cx,op.bottom+18,"Concat → [T×4]","data-label");
+      }
     }else if(dep.merge){
       const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-34;
       addPath(roundedOrthogonal(a.cx,a.bottom+2,mergeX-18,mergeY,a.bottom+28),"main-path");
@@ -406,7 +418,8 @@ function drawDependencyGraph(){
 
 function renderViewBlock(view,index,stepId) {
   const modifier=view.type==="dual-head"?" dual-head-block":"";
-  return `<section class="view-block${modifier}" data-view-index="${index}" data-node="${escapeHtml(stepId)}:${index}"><div class="view-block-body">${viewHtml(view)}</div></section>`;
+  const concatNode=stepId==="project"&&index===0?`<div class="concat-operator" data-concat-operator><div class="concat-inputs"><span data-concat-port="head1">Head 1 Context<br><small>[T×2]</small></span><span data-concat-port="head2">Head 2 Context<br><small>[T×2]</small></span></div><b>Concat(axis = feature)</b><small>[T×2] + [T×2] → [T×4]</small></div>`:"";
+  return `<section class="view-block${modifier} ${concatNode?'concat-target-block':''}" data-view-index="${index}" data-node="${escapeHtml(stepId)}:${index}"><div class="view-block-body">${concatNode}${viewHtml(view)}</div></section>`;
 }
 
 function initialValueNote(view) {

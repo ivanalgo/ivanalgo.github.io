@@ -319,6 +319,14 @@ main { max-width: 3000px; padding-inline: clamp(14px, 1.5vw, 36px); }
 .linear-multiply-circle { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid var(--orange); border-radius: 50%; background: #fffefa; color: var(--orange); font: 24px var(--serif); }
 .linear-multiply-operator > small { margin-top: 10px; color: var(--orange); font: 10px var(--mono); }
 .linear-data-path { stroke: var(--green-2); stroke-width: 2.6; }
+.linear-multiply-operator.with-weight-matrix { min-width: 1040px; }
+.linear-multiply-operator.with-weight-matrix .linear-multiply-row { grid-template-columns: 170px 46px minmax(680px,1fr); gap: 24px; }
+.inline-weight-matrix { position: relative; z-index: 7; padding: 12px; border: 1px solid #aebfb5; background: #fffefa; }
+.inline-weight-matrix .matrix-wrap { border: 0 !important; box-shadow: none !important; padding: 0 !important; background: transparent !important; }
+.inline-weight-matrix .matrix { font-size: 9px; }
+.inline-weight-matrix .matrix td { min-width: 52px; height: 34px; padding: 4px; cursor: default; }
+.inline-weight-matrix .matrix th { padding: 4px 6px; }
+.inline-weight-matrix .matrix td:hover { transform: none; outline: none; }
 .linear-weight-path { stroke: var(--blue); stroke-dasharray: 7 5; }
 .calc-step[data-step-id="embed"] .canvas-step { padding-bottom: 110px; }
 .calc-step[data-step-id="embed"] .embedding-plus { transform: translateY(22px); }

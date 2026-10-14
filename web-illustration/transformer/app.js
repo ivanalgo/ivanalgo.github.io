@@ -348,15 +348,19 @@ function drawDependencyGraph(){
       const outputCount=Math.max(0,views.length-6);
       if(outputCount>0){
         const sourceBox=box(source,"source"), matrixArea=step.querySelector('.matrix-gallery'), areaBox=rawBox(matrixArea), centerLaneX=areaBox.cx;
-        const headLaneXs=[centerLaneX-28,centerLaneX+28];
+        const headLaneXs=[centerLaneX-38,centerLaneX+38], levelOffsets=[106,82,58];
         for(let j=0;j<outputCount;j++){
-          const output=views[6+j],weight=views[j],label=["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],head=j<3?0:1;
-          const outputBox=box(output,"target"), laneX=headLaneXs[head]+(j%3-1)*10;
-          const trunkStartY=sourceBox.bottom+28, entryY=outputBox.top-52;
-          const d=`M ${sourceBox.cx} ${sourceBox.bottom+2} L ${sourceBox.cx} ${trunkStartY-12} Q ${sourceBox.cx} ${trunkStartY} ${sourceBox.cx+(laneX>sourceBox.cx?12:-12)} ${trunkStartY} L ${laneX} ${trunkStartY} L ${laneX} ${entryY-12} Q ${laneX} ${entryY} ${laneX+(outputBox.cx>laneX?12:-12)} ${entryY} L ${outputBox.cx} ${entryY} L ${outputBox.cx} ${outputBox.top-7}`;
-          addPath(d,"head-input-path");
-          addLabel(laneX,(trunkStartY+entryY)/2,`LN₁→${label}`,"data-label");
-          connect(weight,output,["Wq₁+bq₁","Wk₁+bk₁","Wv₁+bv₁","Wq₂+bq₂","Wk₂+bk₂","Wv₂+bv₂"][j],"parameter-path",(j%3-1)*12);
+          const output=views[6+j],weight=views[j],label=["Q₁","K₁","V₁","Q₂","K₂","V₂"][j],head=j<3?0:1,column=j%3;
+          const outputBox=box(output,"target"),weightBox=box(weight,"source"),mergeX=outputBox.cx,mergeY=outputBox.top-levelOffsets[column],laneX=headLaneXs[head]+(column-1)*12;
+          const trunkStartY=sourceBox.bottom+28,approachX=mergeX+(head===0?18:-18);
+          const inputPath=`M ${sourceBox.cx} ${sourceBox.bottom+2} L ${sourceBox.cx} ${trunkStartY-12} Q ${sourceBox.cx} ${trunkStartY} ${sourceBox.cx+(laneX>sourceBox.cx?12:-12)} ${trunkStartY} L ${laneX} ${trunkStartY} L ${laneX} ${mergeY-12} Q ${laneX} ${mergeY} ${laneX+(mergeX>laneX?12:-12)} ${mergeY} L ${approachX} ${mergeY}`;
+          addPath(inputPath,"head-input-path multiply-input-path");
+          addLabel(laneX,(trunkStartY+mergeY)/2,`LN₁→${label}`,"data-label");
+          addPath(roundedOrthogonal(weightBox.cx,weightBox.bottom+2,mergeX,mergeY-18,weightBox.bottom+30+(column-1)*10,12,36),"parameter-path multiply-input-path");
+          addLabel((weightBox.cx+mergeX)/2,mergeY-34,["Wq₁+bq₁","Wk₁+bk₁","Wv₁+bv₁","Wq₂+bq₂","Wk₂+bk₂","Wv₂+bv₂"][j],"data-label");
+          svg.appendChild(svgNode("circle",{cx:mergeX,cy:mergeY,r:18,class:"multiply-node"}));
+          svg.appendChild(svgNode("text",{x:mergeX,y:mergeY+7,class:"multiply-symbol","text-anchor":"middle"},"×"));
+          addPath(`M ${mergeX} ${mergeY+18} L ${mergeX} ${outputBox.top-7}`,"multiply-output-path");
         }
       }
     }
@@ -378,7 +382,7 @@ function drawDependencyGraph(){
         contextPanels.forEach((panel,head)=>{
           const vPort=panel.querySelector('[data-context-port="v"]'),sourceNode=vNodes[head];
           if(!vPort||!sourceNode) return;
-          const a=box(sourceNode,"source"),b=rawBox(vPort),panelBox=rawBox(panel),x1=a.cx,y1=a.bottom+2,x2=b.cx,y2=b.top-8,laneX=head===0?panelBox.left-92:panelBox.right+92;
+          const a=box(sourceNode,"source"),b=rawBox(vPort),x1=a.cx,y1=a.bottom+2,x2=b.cx,y2=b.top-8,attentionArea=rawBox(step.querySelector('.matrix-gallery')),centerX=attentionArea.cx,laneX=head===0?centerX-44:centerX+44;
           const exitY=y1+34,entryY=y2-52,r=12;
           const d=`M ${x1} ${y1} L ${x1} ${exitY-r} Q ${x1} ${exitY} ${x1+(laneX>x1?12:-12)} ${exitY} L ${laneX} ${exitY} L ${laneX} ${entryY-r} Q ${laneX} ${entryY} ${laneX+(x2>laneX?12:-12)} ${entryY} L ${x2} ${entryY} L ${x2} ${y2}`;
           addPath(d,"value-bypass-path");
@@ -398,7 +402,7 @@ function drawDependencyGraph(){
         addLabel(op.cx,op.bottom+18,"Concat → [T×4]","data-label");
       }
     }else if(dep.merge){
-      const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-34;
+      const target=views[0],main=source,a=box(main,"source"),b=box(target,"target"),mergeX=b.cx,mergeY=b.top-78;
       addPath(roundedOrthogonal(a.cx,a.bottom+2,mergeX-18,mergeY,a.bottom+28),"main-path");
       const sourceIndex=state.steps.findIndex(x=>x.id===dep.skipFrom);
       if(sourceIndex>=0 && sourceIndex<i){

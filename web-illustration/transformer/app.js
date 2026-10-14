@@ -286,7 +286,7 @@ function drawDependencyGraph(){
     return node.querySelector('.matrix-wrap,.prob-bars,.embedding-equation')||node;
   };
   const box=(node,role)=>rawBox(anchorElement(node,role));
-  const nodes=steps.map(step=>[...step.querySelectorAll('.view-block')]);
+  const nodes=steps.map(step=>[...step.querySelectorAll('.view-block')].sort((a,b)=>Number(a.dataset.viewIndex)-Number(b.dataset.viewIndex)));
   const addPath=(d,cls="")=>svg.appendChild(svgNode("path",{d,class:`data-path ${cls}`.trim(),"marker-end":"url(#dataArrow)"}));
   const addLabel=(x,y,text,cls="data-label")=>{const width=Math.max(70,Math.min(210,text.length*6.2+16));svg.appendChild(svgNode("rect",{x:x-width/2,y:y-10,width,height:20,rx:10,class:`${cls}-bg`}));svg.appendChild(svgNode("text",{x,y:y+3,class:cls,"text-anchor":"middle"},text));};
   const roundedOrthogonal=(x1,y1,x2,y2,laneY,r=12)=>{
@@ -420,6 +420,19 @@ function visibleCounts(){
   return counts;
 }
 
+function renderNodeUnit(view,i,stepId){
+  return `<div class="node-unit ${view.type==='dual-head'?'dual-node':''}" data-unit-index="${i}">${renderViewBlock(view,i,stepId)}<div class="source-badge" data-source-for="${i}"><b>来源</b><span>${escapeHtml(sourceFor(stepId,i,view))}</span></div></div>`;
+}
+
+function renderMatrixGallery(step,visibleViews){
+  if(step.id!=="qkv") return `<div class="matrix-gallery views-${visibleViews.length} ${visibleViews.length===1?"single":""}">${visibleViews.map((view,i)=>renderNodeUnit(view,i,step.id)).join("")}</div>`;
+  const group=(head,label,indexes)=>{
+    const items=indexes.filter(i=>i<visibleViews.length).map(i=>renderNodeUnit(visibleViews[i],i,step.id)).join("");
+    return `<section class="head-group head-${head}" data-head-group="${head}"><header class="head-group-title"><span>HEAD ${head}</span><b>${label}</b></header><div class="head-group-grid">${items||'<p class="head-group-empty">等待生成该 Head 的矩阵</p>'}</div></section>`;
+  };
+  return `<div class="matrix-gallery qkv-head-layout">${group(1,"Query / Key / Value projections",[0,1,2,6,7,8])}<div class="head-center-lane" aria-hidden="true"><span>shared LN₁ input</span></div>${group(2,"Query / Key / Value projections",[3,4,5,9,10,11])}</div>`;
+}
+
 function renderStepCard(stepIndex,visibleCount) {
   const step = state.steps[stepIndex];
   const visibleViews=step.views.slice(0,visibleCount);
@@ -436,7 +449,7 @@ function renderStepCard(stepIndex,visibleCount) {
     </aside>
     <section class="canvas-step" aria-label="${escapeHtml(step.title)} 计算矩阵">
       <div class="canvas-step-label"><span>STEP ${String(stepIndex+1).padStart(2,"0")}</span><b>${escapeHtml(step.title)}</b><em>${visibleViews.length} / ${step.views.length} 个节点</em></div>
-      <div class="matrix-gallery views-${visibleViews.length} ${visibleViews.length===1?"single":""}">${visibleViews.map((view,i)=>`<div class="node-unit ${view.type==='dual-head'?'dual-node':''}" data-unit-index="${i}">${renderViewBlock(view,i,step.id)}<div class="source-badge" data-source-for="${i}"><b>来源</b><span>${escapeHtml(sourceFor(step.id,i,view))}</span></div></div>`).join("")}</div>
+      ${renderMatrixGallery(step,visibleViews)}
     </section>
   </article>`;
 }

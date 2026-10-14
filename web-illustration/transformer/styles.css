@@ -267,21 +267,19 @@ main { max-width: 3000px; padding-inline: clamp(14px, 1.5vw, 36px); }
 .calc-step[data-step-id="ln1"] .node-unit:nth-child(3),.calc-step[data-step-id="ln2"] .node-unit:nth-child(3),.calc-step[data-step-id="ln1"] .node-unit:nth-child(4),.calc-step[data-step-id="ln2"] .node-unit:nth-child(4) { grid-column: 1 / -1; justify-self: center; width: min(620px,100%); }
 .calc-step[data-step-id="project"] .matrix-gallery,.calc-step[data-step-id="mlp"] .matrix-gallery { grid-template-columns: minmax(520px,680px); justify-content: center; row-gap: 112px; }
 .calc-step[data-step-id="attention"] .matrix-gallery { grid-template-columns: minmax(900px,1100px); justify-content: center; row-gap: 118px; }
-.calc-step[data-step-id="qkv"] .matrix-gallery { grid-template-columns: repeat(6,minmax(300px,340px)); justify-content: center; gap: 130px 34px; position: relative; }
-.calc-step[data-step-id="qkv"] .matrix-gallery::after { content: ""; position: absolute; top: -20px; bottom: -20px; left: 50%; border-left: 1px dashed rgba(45,128,98,.24); pointer-events: none; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(1) { grid-column: 1; grid-row: 1; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(2) { grid-column: 2; grid-row: 1; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(3) { grid-column: 3; grid-row: 1; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(4) { grid-column: 4; grid-row: 1; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(5) { grid-column: 5; grid-row: 1; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(6) { grid-column: 6; grid-row: 1; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(7) { grid-column: 1; grid-row: 2; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(8) { grid-column: 2; grid-row: 2; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(9) { grid-column: 3; grid-row: 2; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(10) { grid-column: 4; grid-row: 2; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(11) { grid-column: 5; grid-row: 2; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(12) { grid-column: 6; grid-row: 2; }
-.calc-step[data-step-id="qkv"] .node-unit:nth-child(n+7) { margin-top: 0; }
+.calc-step[data-step-id="qkv"] .qkv-head-layout { display: grid; grid-template-columns: minmax(920px,1fr) 120px minmax(920px,1fr); gap: 34px; justify-content: stretch; align-items: stretch; }
+.head-group { position: relative; z-index: 2; border: 2px solid rgba(45,128,98,.34); background: rgba(249,250,240,.62); padding: 70px 26px 34px; min-width: 0; }
+.head-group-title { position: absolute; top: 0; left: 0; right: 0; min-height: 48px; display: flex; align-items: center; gap: 14px; padding: 0 20px; background: var(--green); color: #fff; }
+.head-group-title span { color: var(--lime); font: 700 12px var(--mono); letter-spacing: .08em; }
+.head-group-title b { font: 17px var(--serif); font-weight: 500; }
+.head-group-grid { display: grid; grid-template-columns: repeat(3,minmax(270px,1fr)); grid-template-rows: auto auto; column-gap: 24px; row-gap: 126px; align-items: start; }
+.head-group .node-unit:nth-child(-n+3) { grid-row: 1; }
+.head-group .node-unit:nth-child(n+4) { grid-row: 2; }
+.head-group-empty { grid-column: 1 / -1; margin: 80px 0; text-align: center; color: var(--muted); font: 11px var(--mono); }
+.head-center-lane { position: relative; min-height: 100%; border-left: 1px dashed rgba(45,128,98,.32); border-right: 1px dashed rgba(45,128,98,.32); background: rgba(45,128,98,.025); }
+.head-center-lane span { position: sticky; top: 90px; display: block; width: max-content; margin: 12px auto; transform: rotate(90deg) translateX(100%); transform-origin: center; color: var(--green-2); font: 9px var(--mono); letter-spacing: .06em; }
+.calc-step[data-step-id="qkv"] .source-badge { font-size: 8px; }
+.calc-step[data-step-id="qkv"] .node-unit { margin: 0; }
 .parameter-path { stroke: var(--blue); stroke-dasharray: 7 5; }
 .calc-step[data-step-id="embed"] .canvas-step { padding-bottom: 110px; }
 .calc-step[data-step-id="embed"] .embedding-plus { transform: translateY(22px); }

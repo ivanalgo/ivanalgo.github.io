@@ -402,10 +402,11 @@ function drawDependencyGraph(){
       addPath(roundedOrthogonal(a.cx,a.bottom+2,mergeX-18,mergeY,a.bottom+28),"main-path");
       const sourceIndex=state.steps.findIndex(x=>x.id===dep.skipFrom);
       if(sourceIndex>=0 && sourceIndex<i){
-        const skipNode=nodes[sourceIndex][nodes[sourceIndex].length-1],s=box(skipNode,"source");
-        const allRight=nodes.slice(sourceIndex,i+1).flat().map(n=>box(n,"source").right);
-        const laneX=Math.min(page.scrollWidth-18,Math.max(...allRight)+48);
-        connectViaRight(skipNode,target,dep.inputs[0],laneX,"skip-path");
+        const skipNode=nodes[sourceIndex][nodes[sourceIndex].length-1],s=box(skipNode,"source"),canvas=step.querySelector('.canvas-step'),canvasBox=rawBox(canvas);
+        const laneX=canvasBox.right-46,exitY=s.bottom+34,entryY=mergeY,r=12,endX=mergeX+18;
+        const d=`M ${s.cx} ${s.bottom+2} L ${s.cx} ${exitY-r} Q ${s.cx} ${exitY} ${s.cx+r} ${exitY} L ${laneX-r} ${exitY} Q ${laneX} ${exitY} ${laneX} ${exitY+r} L ${laneX} ${entryY-r} Q ${laneX} ${entryY} ${laneX-r} ${entryY} L ${endX} ${entryY}`;
+        addPath(d,"skip-path residual-right-lane");
+        addLabel(laneX-12,(exitY+entryY)/2,dep.inputs[0],"skip-label");
       }
       svg.appendChild(svgNode("circle",{cx:mergeX,cy:mergeY,r:17,class:"merge-node"}));
       svg.appendChild(svgNode("text",{x:mergeX,y:mergeY+7,class:"merge-plus","text-anchor":"middle"},"+"));

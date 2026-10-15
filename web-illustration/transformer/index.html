@@ -1,123 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="在一个页面内逐步生成并检查微型 Transformer 的完整前向传播。" />
-  <title>Transformer Trace Lab · 单页完整计算</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317251f'/%3E%3Cpath d='M14 17h36M32 17v32M21 49h22' stroke='%23cfe564' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="./styles.css?v=33" />
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Transformer Trace Lab · 完整计算图</title><link rel="stylesheet" href="styles.css?v=3"></head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="返回页面顶部">
-      <span class="brand-mark">T</span>
-      <span><b>TRACE LAB</b><small>单页逐数值 Transformer</small></span>
-    </a>
-    <div class="top-actions">
-      <button id="tourBtn" class="ghost-btn">使用说明</button>
-      <button id="exportBtn" class="primary-btn">导出计算 JSON</button>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy-wrap">
-        <p class="section-kicker">完整前向传播，不切页</p>
-        <h1>让每一步计算，<br><span>沿着页面生长。</span></h1>
-        <p class="hero-copy">左侧是按步骤分段的计算说明，右侧是一张连续的宽幅矩阵画布。箭头从具体上游矩阵端口连接到下游矩阵，分支、双头和残差旁路都在同一数据流中展示。</p>
-      </div>
-      <div class="model-card" aria-label="演示模型配置">
-        <div class="model-card-head"><span>教学模型</span><span class="live-dot">确定性计算</span></div>
-        <div class="model-stats">
-          <div><b>1</b><span>Block</span></div>
-          <div><b>2</b><span>Heads</span></div>
-          <div><b>4</b><span>d<sub>model</sub></span></div>
-          <div><b>8</b><span>d<sub>ff</sub></span></div>
-        </div>
-        <p>计算顺序与 GPT-2 decoder block 对齐；维度缩小，只为让每个数值都能完整展开。</p>
-      </div>
-    </section>
-
-    <section class="control-panel" aria-label="模型输入和参数">
-      <label class="prompt-field">
-        <span>输入文本</span>
-        <input id="promptInput" value="数据 可视化 帮助 理解" maxlength="80" autocomplete="off" />
-      </label>
-      <label>
-        <span>Temperature <output id="tempValue">1.0</output></span>
-        <input id="tempInput" type="range" min="0.2" max="2" step="0.1" value="1" />
-      </label>
-      <label>
-        <span>Top-k <output id="topKValue">4</output></span>
-        <input id="topKInput" type="range" min="1" max="8" step="1" value="4" />
-      </label>
-      <label>
-        <span>小数位</span>
-        <select id="precisionInput">
-          <option value="2">2 位</option>
-          <option value="3" selected>3 位</option>
-          <option value="4">4 位</option>
-          <option value="6">6 位</option>
-        </select>
-      </label>
-      <button id="runBtn" class="run-btn"><span>重新计算</span><kbd>↵</kbd></button>
-    </section>
-
-    <section class="trace-shell" aria-label="完整计算过程">
-      <div class="trace-toolbar">
-        <div>
-          <span class="toolbar-label">生成进度</span>
-          <div class="progress-copy"><strong id="progressText">1 / —</strong><span id="progressName">Tokenization</span></div>
-        </div>
-        <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
-        <div class="play-controls">
-          <button id="resetBtn" class="secondary-btn">回到第一步</button>
-          <button id="autoBtn" class="secondary-btn">自动生成</button>
-          <button id="nextBtn" class="next-btn">计算下一步</button>
-        </div>
-      </div>
-
-      <nav id="stepMap" class="step-map" aria-label="计算步骤导航"></nav>
-
-      <div class="page-heading">
-        <div><span>Calculation notebook</span><h2>一页写完全部计算</h2></div>
-        <p>向下阅读就是前向传播方向。每次生成只追加一个真实计算结果；点击任意矩阵单元格查看该数值的来源。</p>
-      </div>
-
-      <div id="calculationPage" class="calculation-page" aria-live="polite"></div>
-
-      <div id="continueDock" class="continue-dock">
-        <div>
-          <span id="nextStepLabel">下一步</span>
-          <strong id="nextStepName">Token + Position Embedding</strong>
-        </div>
-        <button id="dockNextBtn" class="next-btn">继续计算</button>
-      </div>
-
-      <div id="completeState" class="complete-state" hidden>
-        <span>— / —</span>
-        <h2>完整前向传播已经写入这一页</h2>
-        <p>现在可以从上到下复核每个张量，也可以导出 JSON 做二次验证。</p>
-        <button id="backTopBtn" class="secondary-btn">回到计算开头</button>
-      </div>
-    </section>
-  </main>
-
-  <dialog id="tourDialog">
-    <button id="closeTour" class="dialog-close" aria-label="关闭">×</button>
-    <p class="section-kicker">使用方式</p>
-    <h2>像看推导笔记一样使用</h2>
-    <ol>
-      <li><b>修改输入并重新计算。</b>页面先写入 Tokenization。</li>
-      <li><b>点击“计算下一步”。</b>下一项计算会追加在页面底部，之前的步骤保持不变。</li>
-      <li><b>自动生成可随时暂停。</b>每次只推进一步，页面同步滚动到新结果。</li>
-      <li><b>点击矩阵数值。</b>当前步骤右侧会显示坐标、输入项和展开式。</li>
-      <li><b>点击顶部步骤地图。</b>可快速跳回已经生成的任意计算。</li>
-    </ol>
-    <p class="dialog-note">这是固定参数的教学模型，不使用 GPT-2 预训练权重。它展示的是同构的真实计算过程，而不是语言模型输出质量。</p>
-  </dialog>
-
-  <script src="./app.js?v=33"></script>
-</body>
-</html>
+<header class="topbar"><a class="brand" href="#">T <span>TRACE LAB <small>每个输入、参数与结果，都能追溯</small></span></a><div class="header-actions"><button id="helpBtn">使用说明</button><button id="exportBtn">导出完整 JSON</button></div></header>
+<section class="controls" aria-label="模型输入和设置">
+  <label class="prompt-label">输入文本<input id="promptInput" value="数据 可视化 帮助 理解" maxlength="160" autocomplete="off"></label>
+  <label>Temperature <output id="tempValue">1.0</output><input id="tempInput" type="range" min="0.2" max="2" step="0.1" value="1"></label>
+  <label>Top-k <output id="topKValue">4</output><input id="topKInput" type="range" min="1" max="8" value="4"></label>
+  <label>小数位<select id="precisionInput"><option>2</option><option selected>3</option><option>4</option><option>6</option></select></label>
+  <button id="runBtn" class="primary">重新计算 ↵</button>
+  <p id="inputPreview" class="input-preview"></p><span id="dirtyNotice" role="status" hidden>设置已修改 · 点击重新计算更新结果</span>
+</section>
+<section class="playbar" aria-label="计算图控制">
+  <div class="progress"><strong id="progressText"></strong><span id="progressName"></span></div>
+  <button id="resetBtn">回到第一步</button><button id="nextBtn" class="primary">计算下一步 →</button><button id="autoBtn">自动生成</button><button id="allBtn">展开全部</button>
+  <label class="follow"><input id="followInput" type="checkbox" checked>跟随新结果</label>
+  <div class="zoom-tools"><button id="zoomOut" aria-label="缩小画布">−</button><output id="zoomText">100%</output><button id="zoomIn" aria-label="放大画布">+</button><button id="fitBtn">适合当前步骤</button><button id="latestBtn">定位最新</button></div>
+</section>
+<main class="workbench">
+  <aside class="sidebar">
+    <div class="inspector-heading"><span>计算检查器</span><button id="clearBtn" aria-label="清除选中">×</button></div>
+    <div id="inspector" aria-live="polite"></div>
+    <div class="step-heading">步骤小地图 <small>点击定位已生成的层</small></div><nav id="stepMap" aria-label="计算步骤导航"></nav>
+    <details class="model-note"><summary>模型与颜色说明</summary><p>1 Block · 2 Heads · d_model=4 · d_ff=8。主干顺序参考 GPT-2，词向量、sin/cos 位置编码与独立输出词表作教学简化。固定生成参数，未进行训练。</p><p>绿色为正值，橙色为负值，灰色为 −∞。热度按各矩阵自身最大绝对值归一化，不用于跨矩阵比较大小。</p></details>
+  </aside>
+  <section id="viewport" class="viewport" aria-label="宽幅计算画布" tabindex="0"><div id="scaledSurface"><div id="graphCanvas" class="graph-canvas"><svg id="edges" aria-label="计算依赖连线"></svg><div id="stages"></div></div></div></section>
+</main>
+<dialog id="helpDialog"><button id="closeHelp" class="dialog-close" aria-label="关闭说明">×</button><h2>沿着计算图核对每个数值</h2><p>每次下一步只增加一个张量或参数，已经生成的卡片和选中推导会保留。可展开全部或自动生成。</p><p>点击矩阵单元格，左侧检查器展开计算，同时高亮参与运算的输入行、权重列或 bias 项。参数卡片解释行、列和用途，不再为每个结果重复列出“来源”。</p><p>使用缩放与步骤小地图导航。画布可用滚动条/触控板移动；按住空格再拖拽可平移。矩阵按钮支持 Tab 聚焦和 Enter 查看。</p><p>显示值经过四舍五入，实际计算使用完整精度。导出 JSON 含所有参数、规则、结果与显式依赖；−∞ 编码为字符串 “-Infinity”。</p></dialog>
+<script src="model.js?v=3"></script><script src="app.js?v=3"></script>
+</body></html>
